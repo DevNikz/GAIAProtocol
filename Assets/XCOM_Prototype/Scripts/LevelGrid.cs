@@ -12,21 +12,30 @@ public class LevelGrid : MonoBehaviour {
 
     private GridXZ<GridPosition> grid;
 
+    [SerializeField, Range(1, 30)] public int gridx = 15;
+    [SerializeField, Range(1, 30)] public int gridy = 15;
 
-    private void Awake() {
+
+    private void Awake()
+    {
         Instance = this;
 
-        grid = new GridXZ<GridPosition>(30, 30, 2f, Vector3.zero, (GridXZ<GridPosition> g, int x, int y) => new GridPosition(g, x, y));
+        //x and y value need to be the same with level pathfinding
+        grid = new GridXZ<GridPosition>(gridx, gridy, 4f, Vector3.zero, (GridXZ<GridPosition> g, int x, int y) => new GridPosition(g, x, y));
 
         // Setup level obstacles
         LevelGrid.Instance.GetWidthHeight(out int width, out int height);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
                 Vector3 worldPosition = LevelGrid.Instance.GetWorldPosition(x, y);
 
-                if (Physics.Raycast(worldPosition + Vector3.down * 5f, Vector3.up, out RaycastHit raycastHit, 10f, pathfindingObstaclesLayerMask)) {
+                if (Physics.Raycast(worldPosition + Vector3.down * 5f, Vector3.up, out RaycastHit raycastHit, 10f, pathfindingObstaclesLayerMask))
+                {
                     // Something at this position, cover?
-                    if (raycastHit.collider.TryGetComponent(out CoverObject coverObject)) {
+                    if (raycastHit.collider.TryGetComponent(out CoverObject coverObject))
+                    {
                         grid.GetGridObject(x, y).SetCoverType(coverObject.GetCoverType());
                     }
                 }

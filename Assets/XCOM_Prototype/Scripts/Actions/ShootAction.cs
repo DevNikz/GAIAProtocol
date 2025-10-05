@@ -62,6 +62,7 @@ public class ShootAction : BaseAction {
                 }
                 break;
             case State.Shooting: // Shoot target
+                Debug.Log("Pew");
                 state = State.Cooloff;
                 stateTimer = .5f;
                 break;

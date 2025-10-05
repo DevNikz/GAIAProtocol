@@ -44,7 +44,7 @@ public class GridXZ<TGridObject> {
             }
         }
 
-        bool showDebug = false;
+        bool showDebug = true;
         if (showDebug) {
             bool drawAtCorner = false;
 

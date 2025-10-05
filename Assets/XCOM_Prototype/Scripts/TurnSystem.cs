@@ -8,11 +8,11 @@ public class TurnSystem : MonoBehaviour {
     public static TurnSystem Instance { get; private set; }
 
 
-    public event EventHandler OnTurnChanged;
+    [SerializeField] public event EventHandler OnTurnChanged;
 
 
     private int turnNumber;
-    private bool isPlayerTurn;
+    [SerializeField] private bool isPlayerTurn;
 
 
     private void Awake() {

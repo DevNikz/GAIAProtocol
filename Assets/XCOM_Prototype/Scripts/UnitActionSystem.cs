@@ -24,8 +24,8 @@ public class UnitActionSystem : MonoBehaviour {
 
     [SerializeField] private Unit startingSelectedUnit;
 
-    private Unit selectedUnit;
-    private IUnitAction selectedUnitAction;
+    [SerializeField] private Unit selectedUnit;
+    [SerializeField] private IUnitAction selectedUnitAction;
     private bool isBusy; // Is it busy with the last action?
 
     private void Awake() {
@@ -52,7 +52,7 @@ public class UnitActionSystem : MonoBehaviour {
 
         // Activate Action with Mouse
         if (Input.GetMouseButtonDown(0) && !UtilsClass.IsPointerOverUI()) {
-            Vector3 worldPosition = UtilsClass.GetMouseWorldPosition();
+            Vector3 worldPosition = Mouse3D.GetMouseWorldPosition();
             Vector2Int gridPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
 
             if (LevelGrid.Instance.IsValidGridPosition(gridPosition)) {

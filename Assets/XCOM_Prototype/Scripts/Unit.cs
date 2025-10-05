@@ -19,30 +19,35 @@ public class Unit : MonoBehaviour {
 
     [SerializeField] private Transform pfUnitRagdoll;
     [SerializeField] private Transform avatarRoot;
-    [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
+    //[SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Material friendlyMaterial;
     [SerializeField] private Material enemyMaterial;
     [SerializeField] private bool isEnemy;
+    [SerializeField, Range(1, 200)] private int activateAIRange = 100;
 
 
-    private IUnitAction[] unitActionArray; // All Unit Actions attached to this Unit
-    private IUnitAction activeUnitAction; // Currently active action
+    [SerializeField] private IUnitAction[] unitActionArray; // All Unit Actions attached to this Unit
+    [SerializeField] private IUnitAction activeUnitAction; // Currently active action
     private Vector2Int gridPosition; // Grid Position where this Unit is on
     private int actionPoints;
-    private HealthSystem healthSystem;
+    [SerializeField] private HealthSystem healthSystem;
     private CoverType coverType;
 
-    private void Awake() {
+    private void Awake()
+    {
         healthSystem = new HealthSystem(100);
         healthSystem.OnDead += HealthSystem_OnDead;
 
         unitActionArray = GetComponents<IUnitAction>();
 
-        foreach (IUnitAction unitAction in unitActionArray) {
+        foreach (IUnitAction unitAction in unitActionArray)
+        {
             unitAction.Setup(this);
         }
 
-        skinnedMeshRenderer.material = isEnemy ? enemyMaterial : friendlyMaterial;
+        meshRenderer.material = isEnemy ? enemyMaterial : friendlyMaterial;
+        //skinnedMeshRenderer.material = isEnemy ? enemyMaterial : friendlyMaterial;
     }
 
     private void Start() {
@@ -50,7 +55,7 @@ public class Unit : MonoBehaviour {
         LevelGrid.Instance.SetUnitAtGridPosition(gridPosition, this);
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
 
-        UpdateCoverType();
+        //UpdateCoverType();
 
         actionPoints = ACTION_POINTS_DEFAULT;
         OnActionPointsChanged?.Invoke(this, actionPoints);
@@ -63,7 +68,7 @@ public class Unit : MonoBehaviour {
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
 
         Transform unitRagdoll = Instantiate(pfUnitRagdoll, transform.position, transform.rotation);
-        unitRagdoll.GetComponent<UnitRagdoll>().Setup(avatarRoot, skinnedMeshRenderer.material, transform.position);
+        //unitRagdoll.GetComponent<UnitRagdoll>().Setup(avatarRoot, skinnedMeshRenderer.material, transform.position);
 
         OnUnitDead?.Invoke(this, EventArgs.Empty);
 
@@ -87,14 +92,14 @@ public class Unit : MonoBehaviour {
 
             OnUnitMovedGridPosition?.Invoke(this, EventArgs.Empty);
 
-            UpdateCoverType();
+            //UpdateCoverType();
         }
     }
 
-    private void UpdateCoverType() {
-        coverType = LevelGrid.Instance.GetUnitCoverType(GetPosition());
-        OnCoverTypeChanged?.Invoke(this, EventArgs.Empty);
-    }
+    // private void UpdateCoverType() {
+    //     coverType = LevelGrid.Instance.GetUnitCoverType(GetPosition());
+    //     OnCoverTypeChanged?.Invoke(this, EventArgs.Empty);
+    // }
 
     public CoverType GetCoverType() {
         return coverType;
@@ -146,7 +151,7 @@ public class Unit : MonoBehaviour {
 
     public bool IsEnemyAIActive() {
         foreach (Unit playerUnit in UnitManager.Instance.GetFriendlyUnitList()) {
-            int activateAIRange = 20;
+            
             if (GetGridDistance(playerUnit.GetGridPosition()) < activateAIRange) {
                 // There's a Player Unit within the Active range, activate AI
                 return true;

@@ -19,7 +19,8 @@ public class LevelPathfinding : MonoBehaviour {
 
     private void Start() {
         // Setup Pathfinding
-        pathfinding = new Pathfinding(30, 30);
+        // x and y values in levelgrid.cs
+        pathfinding = new Pathfinding(LevelGrid.Instance.gridx, LevelGrid.Instance.gridy);
 
         // Setup level obstacles
         LevelGrid.Instance.GetWidthHeight(out int width, out int height);

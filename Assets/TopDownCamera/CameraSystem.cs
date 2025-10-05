@@ -15,6 +15,9 @@ public class CameraSystem : MonoBehaviour {
     [SerializeField] private float followOffsetMax = 50f;
     [SerializeField] private float followOffsetMinY = 10f;
     [SerializeField] private float followOffsetMaxY = 50f;
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float rotateSpeed = 15f;
+    [SerializeField] private float dragPanSpeed = 1f;
 
     private bool dragPanMoveActive;
     private Vector2 lastMousePosition;
@@ -55,7 +58,7 @@ public class CameraSystem : MonoBehaviour {
 
         Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x;
 
-        float moveSpeed = 50f;
+        //float moveSpeed = 50f;
         transform.position += moveDir * moveSpeed * Time.deltaTime;
     }
 
@@ -97,7 +100,6 @@ public class CameraSystem : MonoBehaviour {
         if (dragPanMoveActive) {
             Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
 
-            float dragPanSpeed = 1f;
             inputDir.x = mouseMovementDelta.x * dragPanSpeed;
             inputDir.z = mouseMovementDelta.y * dragPanSpeed;
 
@@ -115,7 +117,7 @@ public class CameraSystem : MonoBehaviour {
         if (Input.GetKey(KeyCode.Q)) rotateDir = +1f;
         if (Input.GetKey(KeyCode.E)) rotateDir = -1f;
 
-        float rotateSpeed = 100f;
+        //float rotateSpeed = 100f;
         transform.eulerAngles += new Vector3(0, rotateDir * rotateSpeed * Time.deltaTime, 0);
     }
 

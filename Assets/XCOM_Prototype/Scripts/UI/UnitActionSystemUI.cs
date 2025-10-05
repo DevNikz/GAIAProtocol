@@ -17,34 +17,40 @@ public class UnitActionSystemUI : MonoBehaviour {
     private IUnitAction grenadeAction;
     private IUnitAction overwatchAction;
 
-    private void Awake() {
+    private void Awake()
+    {
         busyVisualGameObject = transform.Find("BusyVisual").gameObject;
         enemyTurnVisualGameObject = transform.Find("EnemyTurnVisual").gameObject;
         actionPointsText = transform.Find("ActionPointsText").GetComponent<TextMeshProUGUI>();
 
         actionButtonDic = new Dictionary<ActionType, Transform> {
             {  ActionType.Move, transform.Find("MoveActionBtn") },
-            {  ActionType.Spin, transform.Find("SpinActionBtn") },
+            //{  ActionType.Spin, transform.Find("SpinActionBtn") },
             {  ActionType.Shoot, transform.Find("ShootActionBtn") },
-            {  ActionType.Grenade, transform.Find("GrenadeActionBtn") },
-            {  ActionType.Overwatch, transform.Find("OverwatchActionBtn") },
+            //{  ActionType.Grenade, transform.Find("GrenadeActionBtn") },
+            //{  ActionType.Overwatch, transform.Find("OverwatchActionBtn") },
         };
 
-        transform.Find("MoveActionBtn").GetComponent<Button>().onClick.AddListener(() => {
+        transform.Find("MoveActionBtn").GetComponent<Button>().onClick.AddListener(() =>
+        {
             UnitActionSystem.Instance.SetSelectedAction(moveAction);
         });
-        transform.Find("SpinActionBtn").GetComponent<Button>().onClick.AddListener(() => {
-            UnitActionSystem.Instance.SetSelectedAction(spinAction);
-        });
-        transform.Find("ShootActionBtn").GetComponent<Button>().onClick.AddListener(() => {
+        // transform.Find("SpinActionBtn").GetComponent<Button>().onClick.AddListener(() =>
+        // {
+        //     UnitActionSystem.Instance.SetSelectedAction(spinAction);
+        // });
+        transform.Find("ShootActionBtn").GetComponent<Button>().onClick.AddListener(() =>
+        {
             UnitActionSystem.Instance.SetSelectedAction(shootAction);
         });
-        transform.Find("GrenadeActionBtn").GetComponent<Button>().onClick.AddListener(() => {
-            UnitActionSystem.Instance.SetSelectedAction(grenadeAction);
-        });
-        transform.Find("OverwatchActionBtn").GetComponent<Button>().onClick.AddListener(() => {
-            UnitActionSystem.Instance.SetSelectedAction(overwatchAction);
-        });
+        // transform.Find("GrenadeActionBtn").GetComponent<Button>().onClick.AddListener(() =>
+        // {
+        //     UnitActionSystem.Instance.SetSelectedAction(grenadeAction);
+        // });
+        // transform.Find("OverwatchActionBtn").GetComponent<Button>().onClick.AddListener(() =>
+        // {
+        //     UnitActionSystem.Instance.SetSelectedAction(overwatchAction);
+        // });
 
     }
 
@@ -82,10 +88,10 @@ public class UnitActionSystemUI : MonoBehaviour {
         IUnitAction selectedUnitAction = UnitActionSystem.Instance.GetSelectedUnitAction();
 
         moveAction = selectedUnit.GetAction<MoveAction>();
-        spinAction = selectedUnit.GetAction<SpinAction>();
+        //spinAction = selectedUnit.GetAction<SpinAction>();
         shootAction = selectedUnit.GetAction<ShootAction>();
-        grenadeAction = selectedUnit.GetAction<GrenadeAction>();
-        overwatchAction = selectedUnit.GetAction<OverwatchAction>();
+        //grenadeAction = selectedUnit.GetAction<GrenadeAction>();
+        //overwatchAction = selectedUnit.GetAction<OverwatchAction>();
 
         // Deselect all
         foreach (ActionType actionType in actionButtonDic.Keys) {

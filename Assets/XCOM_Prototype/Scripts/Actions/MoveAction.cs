@@ -10,7 +10,7 @@ public class MoveAction : BaseAction {
     public override ActionType GetActionType() => ActionType.Move;
 
 
-    private int maxMoveDistance = 4;
+    [SerializeField] private int maxMoveDistance = 4;
     private List<Vector3> pathPositionList;
     private int currentPositionIndex;
 
@@ -130,8 +130,8 @@ public class MoveAction : BaseAction {
     }
 
     public class EnemyAIAction {
-        public Vector2Int actionGridPosition;
-        public int actionValue;
+        [SerializeField] public Vector2Int actionGridPosition;
+        [SerializeField] public int actionValue;
     }
 
 }
