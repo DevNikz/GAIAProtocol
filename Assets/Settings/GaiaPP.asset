@@ -1970,6 +1970,7 @@ MonoBehaviour:
   - {fileID: -5611310132065571919}
   - {fileID: 7810560766748943094}
   - {fileID: -2091753870600962235}
+  - {fileID: 7783402439545578134}
 --- !u!114 &484025569978284784
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2656,6 +2657,25 @@ MonoBehaviour:
   screenFadeDistance:
     m_OverrideState: 1
     m_Value: 0.1
+--- !u!114 &7783402439545578134
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621c3e3229f293f438b0e73b9d41cfdd, type: 3}
+  m_Name: Colorblindness
+  m_EditorClassIdentifier: Assembly-CSharp::Colorblindness
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  Type:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &7810560766748943094
 MonoBehaviour:
   m_ObjectHideFlags: 3
