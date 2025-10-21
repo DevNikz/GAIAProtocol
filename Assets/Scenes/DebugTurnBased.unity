@@ -9660,6 +9660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MechaUnit1
       objectReference: {fileID: 0}
+    - target: {fileID: 7601346721002605772, guid: 3e7b456a3cc17604a93de86ea727b9a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7601346721002605773, guid: 3e7b456a3cc17604a93de86ea727b9a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14
@@ -11420,17 +11424,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7617965278196757564, guid: c96973933a83c7a49915681965a03a83, type: 3}
   m_PrefabInstance: {fileID: 1320127104}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1320681481 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7601346721002605746, guid: 3e7b456a3cc17604a93de86ea727b9a9, type: 3}
-  m_PrefabInstance: {fileID: 997890037}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a51a89a7d61b7aa4dbbbb0c4ace41f0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1356629543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16692,7 +16685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c6806294a30af4eb774ad903a9357d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedUnit: {fileID: 1320681481}
+  selectedUnit: {fileID: 2144701055}
   unitLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -17232,6 +17225,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7601346721002605773, guid: 69b98c41becc4ae4099f1eba6797785b, type: 3}
   m_PrefabInstance: {fileID: 7601346720434061810}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2144701055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7601346721002605746, guid: 69b98c41becc4ae4099f1eba6797785b, type: 3}
+  m_PrefabInstance: {fileID: 7601346720434061810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51a89a7d61b7aa4dbbbb0c4ace41f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &737783087108485160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18774,7 +18778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7601346721002605772, guid: 69b98c41becc4ae4099f1eba6797785b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7601346721002605773, guid: 69b98c41becc4ae4099f1eba6797785b, type: 3}
       propertyPath: m_RootOrder
