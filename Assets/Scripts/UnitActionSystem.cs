@@ -66,24 +66,27 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        if (InputManager.Instance.IsMouseButtonDownThisFrame())
+        if (selectedUnit != null)
         {
-            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
-
-            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition))
+            if (InputManager.Instance.IsMouseButtonDownThisFrame())
             {
-                return;
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
+
+                if (!selectedAction.IsValidActionGridPosition(mouseGridPosition))
+                {
+                    return;
+                }
+
+                if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
+                {
+                    return;
+                }
+
+                SetBusy();
+                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+
+                OnActionStarted?.Invoke(this, EventArgs.Empty);
             }
-
-            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
-            {
-                return;
-            }
-
-            SetBusy();
-            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-
-            OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -111,6 +114,7 @@ public class UnitActionSystem : MonoBehaviour
             {
                 if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
+                    Debug.Log(unit.name);
                     if (unit == selectedUnit)
                     {
                         // Unit is already selected
@@ -134,15 +138,17 @@ public class UnitActionSystem : MonoBehaviour
 
     private void SetSelectedUnit(Unit unit)
     {
-        selectedUnit = unit;
-
-        SetSelectedAction(unit.GetAction<MoveAction>());
-
-        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+        if (unit != null)
+        {
+            selectedUnit = unit;
+            SetSelectedAction(unit.GetAction<MoveAction>());
+            OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void SetSelectedAction(BaseAction baseAction)
     {
+        //Debug.Log(baseAction);
         selectedAction = baseAction;
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);

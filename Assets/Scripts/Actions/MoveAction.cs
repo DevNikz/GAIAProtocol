@@ -51,7 +51,9 @@ public class MoveAction : BaseAction
                 isChangingFloors = false;
                 transform.position = targetPosition;
             }
-        } else
+        }
+
+        else
         {
             // Regular move logic
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
@@ -161,6 +163,7 @@ public class MoveAction : BaseAction
                     }
 
                     validGridPositionList.Add(testGridPosition);
+                    Debug.Log($"Pos: {testGridPosition}");
                 }
             }
         }

@@ -106,7 +106,7 @@ MonoBehaviour:
   master:
     m_OverrideState: 1
     m_Value:
-      <length>k__BackingField: 4
+      <length>k__BackingField: 3
       m_Loop: 0
       m_ZeroValue: 0
       m_Range: 1
@@ -116,26 +116,17 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 1
+          inSlope: 0
           outSlope: 1
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.16809116
-          value: 0.109090924
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 0.6096866
-          value: 0.8848485
-          inSlope: 1.0948918
-          outSlope: 1.0948918
+          time: 0.10381356
+          value: 0.111111104
+          inSlope: 2.0254405
+          outSlope: 2.0254405
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -144,7 +135,7 @@ MonoBehaviour:
           time: 1
           value: 1
           inSlope: 1
-          outSlope: 1
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -461,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d877ec3e844f2ca46830012e8e79319b, type: 3}
   m_Name: PhysicallyBasedSky
   m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Runtime::UnityEngine.Rendering.HighDefinition.PhysicallyBasedSky
-  active: 1
+  active: 0
   rotation:
     m_OverrideState: 1
     m_Value: 0
@@ -616,7 +607,6 @@ MonoBehaviour:
   - {fileID: -5752856773373993625}
   - {fileID: 1627030657738412163}
   - {fileID: -5537985408403629481}
-  - {fileID: 7649374980175847528}
   - {fileID: -22976247250232447}
 --- !u!114 &1627030657738412163
 MonoBehaviour:
@@ -797,7 +787,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.38
+    m_Value: 0.25
   contrast:
     m_OverrideState: 1
     m_Value: 15
@@ -809,7 +799,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 15
 --- !u!114 &7574804929716258004
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -891,25 +881,6 @@ MonoBehaviour:
   m_DenoiserRadius:
     m_OverrideState: 1
     m_Value: 1
---- !u!114 &7649374980175847528
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51a78e223a2e504bb88a059b55229ea, type: 3}
-  m_Name: WhiteBalance
-  m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Runtime::UnityEngine.Rendering.HighDefinition.WhiteBalance
-  active: 1
-  temperature:
-    m_OverrideState: 1
-    m_Value: -42
-  tint:
-    m_OverrideState: 1
-    m_Value: -10
 --- !u!114 &8321364347369368101
 MonoBehaviour:
   m_ObjectHideFlags: 3

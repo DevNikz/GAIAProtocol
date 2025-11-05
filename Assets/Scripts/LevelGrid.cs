@@ -140,10 +140,22 @@ public class LevelGrid : MonoBehaviour
         return gridObject.GetInteractable();
     }
 
+    public GameObject GetObjectAtGridPosition(GridPosition gridPosition)
+    {
+        GridObject gridObject = GetGridSystem(gridPosition.floor).GetGridObject(gridPosition);
+        return gridObject.GetIngameObject();
+    }
+
     public void SetInteractableAtGridPosition(GridPosition gridPosition, IInteractable interactable)
     {
         GridObject gridObject = GetGridSystem(gridPosition.floor).GetGridObject(gridPosition);
         gridObject.SetInteractable(interactable);
+    }
+
+    public void SetIngameObjectAtGridPosition(GridPosition gridPosition, GameObject obj)
+    {
+        GridObject gridObject = GetGridSystem(gridPosition.floor).GetGridObject(gridPosition);
+        gridObject.SetIngameObject(obj);
     }
 
     public void ClearInteractableAtGridPosition(GridPosition gridPosition)
@@ -152,5 +164,9 @@ public class LevelGrid : MonoBehaviour
         gridObject.ClearInteractable();
     }
 
-
+    public void ClearIngameObjectAtGridPosition(GridPosition gridPosition)
+    {
+        GridObject gridObject = GetGridSystem(gridPosition.floor).GetGridObject(gridPosition);
+        gridObject.ClearIngameObject();
+    }
 }

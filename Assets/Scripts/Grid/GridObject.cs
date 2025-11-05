@@ -9,6 +9,7 @@ public class GridObject
     private GridPosition gridPosition;
     private List<Unit> unitList;
     private IInteractable interactable;
+    private GameObject objectIngame;
 
     public GridObject(GridSystem<GridObject> gridSystem, GridPosition gridPosition)
     {
@@ -64,14 +65,29 @@ public class GridObject
         return interactable;
     }
 
+    public GameObject GetIngameObject()
+    {
+        return objectIngame;
+    }
+
     public void SetInteractable(IInteractable interactable)
     {
         this.interactable = interactable;
     }
 
+    public void SetIngameObject(GameObject obj)
+    {
+        this.objectIngame = obj;
+    }
+
     public void ClearInteractable()
     {
         this.interactable = null;
+    }
+
+    public void ClearIngameObject()
+    {
+        this.objectIngame = null;
     }
 
 }

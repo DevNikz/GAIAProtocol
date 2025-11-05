@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractAction : BaseAction
 {
-
+    [SerializeField] private int actionpointcost;
     private int maxInteractDistance = 1;
+    [SerializeReference] private GameObject objective;
+    private int actionPointCost;
 
 
     private void Update()
@@ -67,10 +70,16 @@ public class InteractAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(gridPosition);
+        objective = LevelGrid.Instance.GetObjectAtGridPosition(gridPosition);
 
         interactable.Interact(OnInteractComplete);
 
         ActionStart(onActionComplete);
+
+        Debug.Log(objective.tag);
+
+        if (objective.GetComponent<ObjectiveInteract>() != null) SetActionPointsCost(GetComponent<Unit>().actionPoints);
+        else SetActionPointsCost(1);        
     }
 
     private void OnInteractComplete()
@@ -78,4 +87,10 @@ public class InteractAction : BaseAction
         ActionComplete();
     }
 
+    public void SetActionPointsCost(int value)
+    {
+        actionPointCost = value;
+    }
+
+    public override int GetActionPointsCost() { return actionPointCost; }
 }
