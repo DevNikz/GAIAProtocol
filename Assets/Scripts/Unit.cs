@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private const int ACTION_POINTS_MAX = 9;
+    private const int ACTION_POINTS_MAX = 4;
 
 
     public static event EventHandler OnAnyActionPointsChanged;
@@ -83,6 +83,7 @@ public class Unit : MonoBehaviour
     {
         if (CanSpendActionPointsToTakeAction(baseAction))
         {
+            Debug.Log(baseAction.GetActionPointsCost());
             SpendActionPoints(baseAction.GetActionPointsCost());
             return true;
         } else
