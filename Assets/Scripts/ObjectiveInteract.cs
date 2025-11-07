@@ -13,6 +13,8 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
     public float percentage = 0.0f;
     private float timer;
 
+    [SerializeReference] private bool hasBeenInteracted;
+
     private void Start()
     {
         //TerminalPuzzleUI.Instance.OnPuzzleComplete += ObjectiveInteract_OnPuzzleComplete;
@@ -21,12 +23,20 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
         LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
         Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
+
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
-    
+
     private void ObjectiveInteract_OnPuzzleComplete(object sender, EventArgs e)
     {
         onInteractionComplete();
         TerminalPuzzleUI.Instance.HidePuzzleUI();
+    }
+    
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) 
+    {
+        hasBeenInteracted = false;
+        LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
     }
 
     private void Update()
@@ -40,11 +50,11 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
                 if (timer <= 0f)
                 {
                     hasInteracted = false;
-
-                    //LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
+                    hasBeenInteracted = true;
 
                     //Do terminal thingy here
                     //TerminalPuzzleUI.Instance.ShowPuzzleUI();
+                    LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                     onInteractionComplete();
                 }
             }
@@ -65,10 +75,18 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
 
     public void Interact(Action onInteractionComplete)
     {
-        this.onInteractionComplete = onInteractionComplete;
-        isActive = true;
-        hasInteracted = true;
-        percentage += interactPercentageAdd;
-        timer = 0.5f;
+        if (!hasBeenInteracted)
+        {
+            this.onInteractionComplete = onInteractionComplete;
+            isActive = true;
+            hasInteracted = true;
+            percentage += interactPercentageAdd;
+            timer = 0.5f;
+        }
+        else
+        {
+            onInteractionComplete();
+            return;
+        }
     }
 }

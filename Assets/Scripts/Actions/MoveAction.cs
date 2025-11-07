@@ -18,6 +18,7 @@ public class MoveAction : BaseAction
 
 
     [SerializeField] private int maxMoveDistance = 4;
+    [SerializeField, Range(0.1f, 10f)] private float moveSpeed = 5f;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -61,7 +62,6 @@ public class MoveAction : BaseAction
             float rotateSpeed = 10f;
             transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
 
-            float moveSpeed = 4f;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
 

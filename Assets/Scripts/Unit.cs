@@ -83,7 +83,6 @@ public class Unit : MonoBehaviour
     {
         if (CanSpendActionPointsToTakeAction(baseAction))
         {
-            Debug.Log(baseAction.GetActionPointsCost());
             SpendActionPoints(baseAction.GetActionPointsCost());
             return true;
         } else

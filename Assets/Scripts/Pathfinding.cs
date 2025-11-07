@@ -90,11 +90,14 @@ public class Pathfinding : MonoBehaviour
 
 
         pathfindingLinkList = new List<PathfindingLink>();
-        foreach (Transform pathfindingLinkTransform in pathfindingLinkContainer)
+        if (pathfindingLinkContainer != null)
         {
-            if (pathfindingLinkTransform.TryGetComponent(out PathfindingLinkMonoBehaviour pathfindingLinkMonoBehaviour))
+            foreach (Transform pathfindingLinkTransform in pathfindingLinkContainer)
             {
-                pathfindingLinkList.Add(pathfindingLinkMonoBehaviour.GetPathfindingLink());
+                if (pathfindingLinkTransform.TryGetComponent(out PathfindingLinkMonoBehaviour pathfindingLinkMonoBehaviour))
+                {
+                    pathfindingLinkList.Add(pathfindingLinkMonoBehaviour.GetPathfindingLink());
+                }
             }
         }
     }
