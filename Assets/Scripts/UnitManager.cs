@@ -9,9 +9,9 @@ public class UnitManager : MonoBehaviour
     public static UnitManager Instance { get; private set; }
 
 
-    private List<Unit> unitList;
-    private List<Unit> friendlyUnitList;
-    private List<Unit> enemyUnitList;
+    public List<Unit> unitList = new List<Unit>();
+    public List<Unit> friendlyUnitList;
+    public List<Unit> enemyUnitList;
 
 
     private void Awake()
@@ -40,6 +40,7 @@ public class UnitManager : MonoBehaviour
         Unit unit = sender as Unit;
 
         unitList.Add(unit);
+        ObjectTransManager.Instance.AddUnit(unit.transform);
 
         if (unit.IsEnemy())
         {
