@@ -13,13 +13,12 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one InputManager! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
+        else Destroy(gameObject);
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
@@ -112,5 +111,14 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
-
+    public bool GetDebugButton()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        //return playerInputActions.Player.Toggle
+        return playerInputActions.Player.ToggleDebug.ReadValue<bool>();
+#else
+        return Input.GetKey(KeyCode.BackQuote);
+#endif
+        //return Input.GetKey(KeyCode.BackQuote);
+    }
 }

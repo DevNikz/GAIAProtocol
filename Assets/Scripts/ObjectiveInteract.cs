@@ -27,6 +27,11 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
+    void OnDisable()
+    {
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+    }
+
     private void ObjectiveInteract_OnPuzzleComplete(object sender, EventArgs e)
     {
         onInteractionComplete();

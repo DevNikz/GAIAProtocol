@@ -11,23 +11,15 @@ public class ObjectSpawnerManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Destroy(gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
-
-        // for (int i = 0; i < transform.childCount; i++)
-        // {
-        //     Transform childT = transform.GetChild(i);
-        //     GameObject childObj = childT.gameObject;
-        //     objectSpawnPoints.Add(childObj);
-        // }
-        // SpawnRandomObjects();
-
+        else Destroy(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
+    
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         for (int i = 0; i < transform.childCount; i++)

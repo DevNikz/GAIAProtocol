@@ -26,14 +26,12 @@ public class Pathfinding : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one Pathfinding! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            //DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
-
+        else Destroy(gameObject);
     }
 
     public void Setup(int width, int height, float cellSize, int floorAmount)

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class UnitActionSystemUI : MonoBehaviour
 {
@@ -11,16 +13,25 @@ public class UnitActionSystemUI : MonoBehaviour
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainerTransform;
     [SerializeField] private TextMeshProUGUI actionPointsText;
-
+    [SerializeField] private int numChild;
     private List<ActionButtonUI> actionButtonUIList;
 
     private void Awake()
     {
         actionButtonUIList = new List<ActionButtonUI>();
+        numChild = actionButtonContainerTransform.childCount;
     }
 
-    private void Start()
+    void OnEnable()
     {
+        SetupUAS_UI();
+    }
+
+    void SetupUAS_UI()
+    {
+        //Debug.Log($"{transform.GetChild(0).name}");
+        //actionButtonContainerTransform = transform.GetChild(1);
+
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
@@ -31,20 +42,34 @@ public class UnitActionSystemUI : MonoBehaviour
         CreateUnitActionButtons();
         UpdateSelectedVisual();
     }
-
+    
+    void OnDisable()
+    {
+        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;  
+        UnitActionSystem.Instance.OnActionStarted -= UnitActionSystem_OnActionStarted;
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+        Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;
+    }
 
     private void CreateUnitActionButtons()
     {
-        foreach (Transform buttonTransform in actionButtonContainerTransform)
-        {
-            Destroy(buttonTransform.gameObject);
-        }
+        //Debug.Log($"Is Null? {actionButtonContainerTransform == null}");
+        //Debug.Log($"has children? {actionButtonContainerTransform.childCount}");
 
+        if (numChild > 0)
+        {
+            foreach (Transform buttonTransform in actionButtonContainerTransform)
+            {
+                Destroy(buttonTransform.gameObject);
+            }
+        }
         actionButtonUIList.Clear();
 
         if(UnitActionSystem.Instance.GetSelectedUnit() != null)
         {
             Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+            Debug.Log(selectedUnit.name);
 
             foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
             {
@@ -59,9 +84,27 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
-        CreateUnitActionButtons();
-        UpdateSelectedVisual();
-        UpdateActionPoints();
+        if (UnitActionSystem.Instance.GetSelectedUnit() != null)
+        {
+            CreateUnitActionButtons();
+            UpdateSelectedVisual();
+            UpdateActionPoints();
+        }
+        else
+        {
+            DestroyUnitActionButtons();
+            UpdateSelectedVisual();
+            UpdateActionPoints();
+        }
+    }
+    
+    private void DestroyUnitActionButtons()
+    {
+        foreach (Transform buttonTransform in actionButtonContainerTransform)
+        {
+            Destroy(buttonTransform.gameObject);
+        }
+        actionButtonUIList.Clear();
     }
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)

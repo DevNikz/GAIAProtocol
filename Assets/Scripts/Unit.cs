@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Unit : MonoBehaviour
 {
@@ -11,8 +12,6 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
-
-
     [SerializeField] private bool isEnemy;
 
 
@@ -25,6 +24,8 @@ public class Unit : MonoBehaviour
     {
         healthSystem = GetComponent<HealthSystem>();
         baseActionArray = GetComponents<BaseAction>();
+
+        //SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -33,10 +34,15 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
-
         healthSystem.OnDead += HealthSystem_OnDead;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    void OnDisable()
+    {
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+        healthSystem.OnDead -= HealthSystem_OnDead;
     }
 
     private void Update()

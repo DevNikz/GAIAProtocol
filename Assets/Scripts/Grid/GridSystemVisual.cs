@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -34,16 +35,17 @@ public class GridSystemVisual : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one GridSystemVisual! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
+        else Destroy(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         gridSystemVisualSingleArray = new GridSystemVisualSingle[
             LevelGrid.Instance.GetWidth(),
@@ -67,6 +69,7 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
+        UnitActionSystem.Instance.OnDeselectedUnitChanged += UnitActionSystem_OnDeselectedUnitChanged;
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
         //LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
@@ -74,6 +77,13 @@ public class GridSystemVisual : MonoBehaviour
         UpdateGridVisual();
     }
 
+    void OnDisable()
+    {
+        UnitActionSystem.Instance.OnDeselectedUnitChanged -= UnitActionSystem_OnDeselectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OnBusyChanged -= UnitActionSystem_OnBusyChanged;
+    }
+    
     public void HideAllGridPosition()
     {
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
@@ -187,6 +197,15 @@ public class GridSystemVisual : MonoBehaviour
 
             ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
         }
+        else
+        {
+            HideAllGridPosition();
+        }
+    }
+
+    private void UnitActionSystem_OnDeselectedUnitChanged(object sender, EventArgs e)
+    {
+        UpdateGridVisual();
     }
 
     private void UnitActionSystem_OnBusyChanged(object sender, bool e)

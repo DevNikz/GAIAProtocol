@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UnitActionSystem : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler<bool>  OnBusyChanged;
     public event EventHandler OnActionStarted;
-
+    public event EventHandler OnDeselectedUnitChanged;
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
@@ -25,20 +27,21 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one UnitActionSystem! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
+        else Destroy(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SetSelectedUnit(selectedUnit);
     }
-
+    
     private void Update()
     {
         if (isBusy)
@@ -114,10 +117,13 @@ public class UnitActionSystem : MonoBehaviour
             {
                 if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
-                    Debug.Log(unit.name);
+                    //Debug.Log(unit.name);
                     if (unit == selectedUnit)
                     {
                         // Unit is already selected
+
+                        //Deselect
+                        DeselectUnit();
                         return false;
                     }
 
@@ -143,6 +149,16 @@ public class UnitActionSystem : MonoBehaviour
             selectedUnit = unit;
             SetSelectedAction(unit.GetAction<MoveAction>());
             OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private void DeselectUnit()
+    {
+        if (selectedUnit != null)
+        {
+            selectedUnit = null;
+            OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+            OnDeselectedUnitChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 

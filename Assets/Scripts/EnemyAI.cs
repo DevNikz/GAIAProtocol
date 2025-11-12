@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -24,6 +22,11 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+    }
+
+    void OnDisable()
+    {
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
     private void Update()

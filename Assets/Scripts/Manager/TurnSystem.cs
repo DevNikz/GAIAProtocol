@@ -18,13 +18,20 @@ public class TurnSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        // if (Instance != null)
+        // {
+        //     Debug.LogError("There's more than one TurnSystem! " + transform + " - " + Instance);
+        //     Destroy(gameObject);
+        //     return;
+        // }
+        // Instance = this;
+        
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one TurnSystem! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
+        else Destroy(gameObject);
     }
 
 

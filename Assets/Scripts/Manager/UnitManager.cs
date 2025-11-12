@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UnitManager : MonoBehaviour
 {
@@ -16,23 +16,31 @@ public class UnitManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one UnitManager! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
+        else Destroy(gameObject);
 
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
-    }
 
-    private void Start()
-    {
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+    }
+
+    void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        unitList.Clear();
+        friendlyUnitList.Clear();
+        enemyUnitList.Clear();
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)

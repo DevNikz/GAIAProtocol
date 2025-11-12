@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelGrid : MonoBehaviour
 {
@@ -27,19 +29,22 @@ public class LevelGrid : MonoBehaviour
     
     private List<GridSystem<GridObject>> gridSystemList;
 
-
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There's more than one LevelGrid! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        Instance = this;
+        else Destroy(gameObject);
 
+        //Will Change this later
+        SetupPathGrid();
+    }
+
+    void SetupPathGrid()
+    {
         gridSystemList = new List<GridSystem<GridObject>>();
-
         for (int floor = 0; floor < floorAmount; floor++)
         {
             GridSystem<GridObject> gridSystem = new GridSystem<GridObject>(width, height, cellSize, floor, FLOOR_HEIGHT,
@@ -50,11 +55,29 @@ public class LevelGrid : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
         Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnDisable()
+    {
+        Debug.Log("Pathfinding unloaded.");
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch(scene.buildIndex)
+        {
+            case 1:
+                gridSystemList.Clear();
+                SetupPathGrid();
+                Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
+                break;
+        }
+    }
 
     private GridSystem<GridObject> GetGridSystem(int floor)
     {
