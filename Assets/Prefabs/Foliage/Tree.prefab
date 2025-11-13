@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13ecdd3848d52034fa17405e59658413, type: 3}
       propertyPath: m_Name
-      value: tree (1)
+      value: Tree
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13ecdd3848d52034fa17405e59658413, type: 3}
       propertyPath: m_Layer
@@ -112,5 +112,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: -0.32, y: 1.4109718, z: 0.39}
+  m_Size: {x: 0.32, y: 1.4109718, z: 0.39}
   m_Center: {x: 0.0048480034, y: 0.7054859, z: 0}

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,8 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     [SerializeField] private GameObject _loaderCanvas; //UI Loading
+    //[SerializeField] private GameObject _screenTransition;
+    [SerializeField] private Animator transitionAnim;
     [SerializeField] private Image _progressBar;
     private float _target;
 
@@ -20,31 +23,28 @@ public class LevelManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public async void LoadScene(string sceneName)
+    public void LoadLevel(string sceneName)
     {
-        _target = 0;
-        _progressBar.fillAmount = 0;
-
-        var scene = SceneManager.LoadSceneAsync(sceneName);
-        scene.allowSceneActivation = false;
-
-        _loaderCanvas.SetActive(true);
-
-        do
-        {
-            await Task.Delay(100);
-            _target = scene.progress;
-        } while (scene.progress < 0.9f);
-
-        await Task.Delay(2000);
-
-        scene.allowSceneActivation = true;
-        _loaderCanvas.SetActive(false);
+        StartCoroutine(LoadAsync(sceneName));
     }
 
-    void Update()
+    IEnumerator LoadAsync(string sceneName)
     {
-        _progressBar.fillAmount = Mathf.MoveTowards(_progressBar.fillAmount, _target, 3 * Time.deltaTime);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        _loaderCanvas.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            _target = Mathf.Clamp01(operation.progress / .9f);
+            yield return null;
+        }
+
+        _loaderCanvas.SetActive(false);
+    }
+    
+    void LateUpdate()
+    {
+        _progressBar.fillAmount = Mathf.MoveTowards(_progressBar.fillAmount, _target, 10 * Time.deltaTime);
     }
 }
  
