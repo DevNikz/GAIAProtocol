@@ -34,6 +34,15 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
+    public Vector3 GetMouseScreenPositionV3()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        return Mouse.current.position.ReadValue();
+#else
+        return Input.mousePosition;
+#endif
+    }
+
     public bool IsMouseButtonDownThisFrame()
     {
 #if USE_NEW_INPUT_SYSTEM

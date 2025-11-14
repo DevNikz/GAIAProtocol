@@ -157,6 +157,18 @@ public class GridSystemVisual : MonoBehaviour
         }
     }
 
+    public void HoverGridMaterial(GridPosition gridPosition)
+    {
+        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
+                Show(GetGridVisualTypeMaterial(GridVisualType.Blue));
+    }
+
+    public void DeselectGridMaterial(GridPosition gridPosition)
+    {
+        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
+                Show(GetGridVisualTypeMaterial(GridVisualType.White));
+    }
+
     private void UpdateGridVisual()
     {
         HideAllGridPosition();

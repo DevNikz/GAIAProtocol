@@ -38,7 +38,7 @@ public class UnitActionSystemUI : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
 
-        UpdateActionPoints();
+        //UpdateActionPoints();
         CreateUnitActionButtons();
         UpdateSelectedVisual();
     }
@@ -88,13 +88,13 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             CreateUnitActionButtons();
             UpdateSelectedVisual();
-            UpdateActionPoints();
+            //UpdateActionPoints();
         }
         else
         {
             DestroyUnitActionButtons();
             UpdateSelectedVisual();
-            UpdateActionPoints();
+            //UpdateActionPoints();
         }
     }
     
@@ -114,7 +114,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UnitActionSystem_OnActionStarted(object sender, EventArgs e)
     {
-        UpdateActionPoints();
+        //UpdateActionPoints();
     }
 
     private void UpdateSelectedVisual()
@@ -137,12 +137,12 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        UpdateActionPoints();
+        //UpdateActionPoints();
     }
 
     private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e)
     {
-        UpdateActionPoints();
+        //UpdateActionPoints();
     }
     
 }

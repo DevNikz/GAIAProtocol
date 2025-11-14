@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,9 +21,15 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
+    private Camera cam;
+    [SerializeField] private GridPosition selectedGrid, nullGrid;
+    private GridObject grid;
 
-    private BaseAction selectedAction;
+    public BaseAction selectedAction;
     private bool isBusy;
+
+    //UI Stuffs
+    [SerializeField] public List<Sprite> actionIconList; // 0 - Move | 1 - Interact
 
 
     private void Awake()
@@ -33,6 +40,8 @@ public class UnitActionSystem : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+
+        cam = Camera.main;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -64,6 +73,9 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
+        
+        //Debug.DrawRay(cam.transform.position, mousePos - cam.transform.position, Color.blue);
+
         HandleSelectedAction();
     }
 
@@ -71,6 +83,8 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (selectedUnit != null)
         {
+            if(!IsPointerOverUIObject()) HoverGrid();
+            //Click
             if (InputManager.Instance.IsMouseButtonDownThisFrame())
             {
                 GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
@@ -91,6 +105,46 @@ public class UnitActionSystem : MonoBehaviour
                 OnActionStarted?.Invoke(this, EventArgs.Empty);
             }
         }
+    }
+
+    void HoverGrid()
+    {
+        GridPosition gridPos = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
+
+        if (!selectedAction.IsValidActionGridPosition(gridPos))
+        {
+            return;
+        }
+        else {
+            if(gridPos.isSelect != true)
+            {
+                //Debug.Log($"Grid: {gridPos}");
+
+                if(selectedGrid != nullGrid) {
+                    if(selectedGrid == gridPos) return;
+                    //Debug.Log("Not Null Grid");
+                    selectedGrid.isSelect = false;
+                    GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
+                    selectedGrid = nullGrid;
+                    return;
+                }
+
+                selectedGrid = gridPos;
+                //Debug.Log($"Selected Grid: {selectedGrid}");
+                
+                selectedGrid.isSelect = true;
+                GridSystemVisual.Instance.HoverGridMaterial(selectedGrid);
+            }
+        }
+    }
+
+    private bool IsPointerOverUIObject() {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+    
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
 

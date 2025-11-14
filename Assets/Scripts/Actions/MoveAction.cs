@@ -14,7 +14,9 @@ public class MoveAction : BaseAction
         public GridPosition unitGridPosition;
         public GridPosition targetGridPosition;
     }
-
+    private List<Vector3> pathL;
+    [SerializeField] private LineRenderer Path;
+    [SerializeField] private float heightOffset;
 
 
     [SerializeField] private int maxMoveDistance = 4;
@@ -30,8 +32,10 @@ public class MoveAction : BaseAction
     {
         if (!isActive)
         {
+            Path.transform.gameObject.SetActive(false);
             return;
         }
+        else Path.transform.gameObject.SetActive(true);
 
         Vector3 targetPosition = positionList[currentPositionIndex];
 
@@ -63,6 +67,7 @@ public class MoveAction : BaseAction
             transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
 
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            //Debug.Log($"{pathL}");
         }
 
         float stoppingDistance = .1f;
@@ -93,6 +98,12 @@ public class MoveAction : BaseAction
                 }
             }
         }
+
+        Path.positionCount = pathL.Count;
+        for(int i = 0; i < pathL.Count; i++)
+        {
+            Path.SetPosition(i, pathL[i] + Vector3.up * heightOffset);
+        }
     }
 
 
@@ -107,6 +118,11 @@ public class MoveAction : BaseAction
         {
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
         }
+
+        //Debug.Log($"{positionList.Count}");
+        pathL = new List<Vector3>();
+        pathL.Clear();
+        pathL = positionList;
 
         OnStartMoving?.Invoke(this, EventArgs.Empty);
 

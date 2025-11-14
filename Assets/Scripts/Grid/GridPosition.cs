@@ -1,6 +1,3 @@
-
-
-
 using System;
 
 public struct GridPosition : IEquatable<GridPosition>
@@ -8,12 +5,14 @@ public struct GridPosition : IEquatable<GridPosition>
     public int x;
     public int z;
     public int floor;
+    public bool isSelect;
 
     public GridPosition(int x, int z, int floor)
     {
         this.x = x;
         this.z = z;
         this.floor = floor;
+        this.isSelect = false;
     }
 
     public override bool Equals(object obj)
@@ -21,7 +20,8 @@ public struct GridPosition : IEquatable<GridPosition>
         return obj is GridPosition position &&
                x == position.x &&
                z == position.z &&
-               floor == position.floor;
+               floor == position.floor &&
+               isSelect == position.isSelect;
     }
 
     public bool Equals(GridPosition other)

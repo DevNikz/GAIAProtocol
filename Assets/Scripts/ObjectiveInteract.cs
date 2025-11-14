@@ -8,7 +8,6 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
 
     private GridPosition gridPosition;
     private Action onInteractionComplete;
-    private bool isActive;
     private bool hasInteracted;
     public float percentage = 0.0f;
     private float timer;
@@ -69,7 +68,6 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
             timer -= Time.deltaTime;
             if (timer <= 0f)
             {
-                isActive = false;
                 hasInteracted = false;
                 LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                 LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
@@ -83,7 +81,6 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         if (!hasBeenInteracted)
         {
             this.onInteractionComplete = onInteractionComplete;
-            isActive = true;
             hasInteracted = true;
             percentage += interactPercentageAdd;
             timer = 0.5f;
