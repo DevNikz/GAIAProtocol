@@ -47,6 +47,16 @@ public class GridSystemVisual : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        switch(scene.buildIndex)
+        {
+            case 1:
+                DoSomething();
+                break;
+        }
+    }
+
+    void DoSomething()
+    {
         gridSystemVisualSingleArray = new GridSystemVisualSingle[
             LevelGrid.Instance.GetWidth(),
             LevelGrid.Instance.GetHeight(),

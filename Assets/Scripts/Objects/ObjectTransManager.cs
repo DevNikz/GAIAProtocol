@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Attach to Camera
 public class ObjectTransManager : MonoBehaviour
@@ -29,8 +30,16 @@ public class ObjectTransManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            DoUpdate();
+        }
+    }
+
+    void DoUpdate()
+    {
         if (Units.Count != 0) ManageBlockingView();
-        else Debug.Log("Units not found");
+        //else Debug.Log("Units not found");
 
         foreach (var obstruction in ObjectToHide)
         {

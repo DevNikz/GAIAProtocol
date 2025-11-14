@@ -39,7 +39,7 @@ public class LevelGrid : MonoBehaviour
         else Destroy(gameObject);
 
         //Will Change this later
-        SetupPathGrid();
+        //SetupPathGrid();
     }
 
     void SetupPathGrid()
@@ -57,7 +57,7 @@ public class LevelGrid : MonoBehaviour
 
     void Start()
     {
-        Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
+        //Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

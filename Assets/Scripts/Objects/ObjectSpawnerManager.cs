@@ -22,6 +22,16 @@ public class ObjectSpawnerManager : MonoBehaviour
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        switch(scene.buildIndex)
+        {
+            case 1:
+                Spawn();
+                break;
+        }
+    }
+
+    void Spawn()
+    {
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform childT = transform.GetChild(i);
