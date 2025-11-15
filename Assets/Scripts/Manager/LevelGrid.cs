@@ -39,7 +39,8 @@ public class LevelGrid : MonoBehaviour
         else Destroy(gameObject);
 
         //Will Change this later
-        //SetupPathGrid();
+        SetupPathGrid();
+        //gridSystemList = new List<GridSystem<GridObject>>();
     }
 
     void SetupPathGrid()
@@ -72,6 +73,7 @@ public class LevelGrid : MonoBehaviour
         switch(scene.buildIndex)
         {
             case 1:
+                Debug.Log("Forest 1 load grid.");
                 gridSystemList.Clear();
                 SetupPathGrid();
                 Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);

@@ -50,6 +50,7 @@ public class GridSystemVisual : MonoBehaviour
         switch(scene.buildIndex)
         {
             case 1:
+                Debug.Log("Setup Grid Visual");
                 DoSomething();
                 break;
         }

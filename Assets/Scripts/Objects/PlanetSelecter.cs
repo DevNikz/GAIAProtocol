@@ -70,6 +70,12 @@ public class PlanetSelecter : MonoBehaviour
                 missionHeader.text = "Operation\nActivate The Facility";
                 missionDesc.text = "Activate Gaia Infrastructure to establish communications to HQ.";
                 button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+
+                //Add objective details later on
+
+                //Set objectives first
+                ObjectiveManager.Instance.ClearObjectives();
+                ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
                 break;
             case 1:
                 canvas.SetActive(true);

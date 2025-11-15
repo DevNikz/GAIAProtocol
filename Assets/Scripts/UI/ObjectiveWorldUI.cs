@@ -8,6 +8,7 @@ public class ObjectiveWorldUI : MonoBehaviour
     [SerializeField] private Image progressBarImage;
     [SerializeField] private GameObject UI;
     [SerializeField, Range(0.5f, 10f)] private float fillSpeed = 1f;
+    [SerializeField] private int objectiveIndex;
 
     private void Update()
     {
@@ -22,6 +23,7 @@ public class ObjectiveWorldUI : MonoBehaviour
         if (progressBarImage.fillAmount >= 0.9)
         {
             //UI.SetActive(false);
+            if(ObjectiveManager.Instance.CheckIndex(objectiveIndex)) ObjectiveManager.Instance.SetComplete(objectiveIndex);
             StartCoroutine(delayDisableUI());
         }
         else UI.SetActive(true);
