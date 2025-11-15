@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class PlanetSelecter : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class PlanetSelecter : MonoBehaviour
 
     [SerializeField] private int currentIndex = 0;
 
+    //Mission Select UI
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private Image missionImage;
+    [SerializeField] private TextMeshProUGUI missionHeader;
+    [SerializeField] private TextMeshProUGUI missionDesc;
+    [SerializeField] private GameObject button;
+    [SerializeField] private List<Sprite> levelIcons;
+
     void Awake() {
         cam = Camera.main.transform;
     }
@@ -20,6 +29,7 @@ public class PlanetSelecter : MonoBehaviour
     {
         HandleInput();
         RotatePlanet();
+        CheckUI();
     }
 
     void HandleInput()
@@ -48,6 +58,29 @@ public class PlanetSelecter : MonoBehaviour
         Vector3 targetForward = (cam.position - transform.position).normalized;
         Quaternion lookRot = Quaternion.FromToRotation(dir, targetForward) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * rotateSpeed);
+    }
+
+    void CheckUI()
+    {
+        switch(currentIndex)
+        {
+            case 0:
+                canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Operation\nActivate The Facility";
+                missionDesc.text = "Activate Gaia Infrastructure to establish communications to HQ.";
+                button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                break;
+            case 1:
+                canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Operation\nGather Waste Piles";
+                missionDesc.text = "Gather the waste piles to the dumping site.";
+                break;
+            default:
+                canvas.SetActive(false);
+                break;
+        }
     }
 
     void ClearColor()

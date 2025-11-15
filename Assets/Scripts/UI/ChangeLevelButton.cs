@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class ChangeLevelButton : MonoBehaviour
 {
-    public void ChangeLevel(string sceneName)
+
+    public string sceneName;
+    public void ChangeLevel()
     {
         LevelManager.Instance.LoadLevel(sceneName);
     }
