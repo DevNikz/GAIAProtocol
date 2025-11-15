@@ -77,11 +77,29 @@ public class PlanetSelecter : MonoBehaviour
                 ObjectiveManager.Instance.ClearObjectives();
                 ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
                 break;
+            // case 1:
+            //     canvas.SetActive(true);
+            //     missionImage.sprite = levelIcons[currentIndex];
+            //     missionHeader.text = "Operation\nGather Waste Piles";
+            //     //missionDesc.text = "Gather the waste piles to the dumping site.";
+            //     missionDesc.text = "Classified Data.";
+            //     button.GetComponent<ChangeLevelButton>().enabled = false;
+            //     break;
             case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nGather Waste Piles";
-                missionDesc.text = "Gather the waste piles to the dumping site.";
+                missionHeader.text = "Locked Operation";
+                //missionDesc.text = "Gather the waste piles to the dumping site.";
+                missionDesc.text = "Classified Data.";
+                button.GetComponent<ChangeLevelButton>().enabled = false;
                 break;
             default:
                 canvas.SetActive(false);
