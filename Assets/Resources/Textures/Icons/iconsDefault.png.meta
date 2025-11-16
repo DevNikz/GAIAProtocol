@@ -342,6 +342,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: iconsDefault_10
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 776
+        width: 40
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9768a61742a3d4d4582e88cc8e8406ea
+      internalID: 1146266368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDefault_11
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 770
+        width: 61
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4db37a60f8094d43be84eab1f19116b
+      internalID: 1621990292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -358,6 +402,8 @@ TextureImporter:
     nameFileIdTable:
       iconsDefault_0: 1081327724
       iconsDefault_1: 449076144
+      iconsDefault_10: 1146266368
+      iconsDefault_11: 1621990292
       iconsDefault_2: 208212
       iconsDefault_3: 2097246200
       iconsDefault_4: -46032785

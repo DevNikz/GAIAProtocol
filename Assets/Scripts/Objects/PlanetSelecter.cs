@@ -14,6 +14,7 @@ public class PlanetSelecter : MonoBehaviour
     [SerializeField] private int currentIndex = 0;
 
     //Mission Select UI
+    [Header("Mission Select")]
     [SerializeField] private GameObject canvas;
     [SerializeField] private Image missionImage;
     [SerializeField] private TextMeshProUGUI missionHeader;
@@ -21,30 +22,50 @@ public class PlanetSelecter : MonoBehaviour
     [SerializeField] private GameObject button;
     [SerializeField] private List<Sprite> levelIcons;
 
+    [Header("Objectives")]
+    [SerializeField] private List<GameObject> stateIcons;
+    [SerializeField] private GameObject stateContainer;
+    [SerializeField] private GameObject nullState;
+
+    [Header("Rewards")]
+    [SerializeField] private List<GameObject> rewardList;
+    [SerializeField] private GameObject rewardContainer;
+    [SerializeField] private GameObject nullReward;
+    private bool hasAddedChildren;
+
     void Awake() {
         cam = Camera.main.transform;
+        hasAddedChildren = false;
     }
 
     void Update()
     {
         HandleInput();
         RotatePlanet();
-        CheckUI();
+        if(!hasAddedChildren) CheckUI();
     }
 
     void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W)) {
             currentIndex = (currentIndex + 1) % areas.Count;
+            hasAddedChildren = false;
+        }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S)) {
             currentIndex = (currentIndex - 1 + areas.Count) % areas.Count;
+            hasAddedChildren = false;
+        }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)) {
             currentIndex = (currentIndex - 1 + areas.Count) % areas.Count;
+            hasAddedChildren = false;
+        }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D)) {
             currentIndex = (currentIndex + 1) % areas.Count;
+            hasAddedChildren = false;
+        }
     }
 
     void RotatePlanet()
@@ -59,7 +80,6 @@ public class PlanetSelecter : MonoBehaviour
         Quaternion lookRot = Quaternion.FromToRotation(dir, targetForward) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * rotateSpeed);
     }
-
     void CheckUI()
     {
         switch(currentIndex)
@@ -72,6 +92,12 @@ public class PlanetSelecter : MonoBehaviour
                 button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
 
                 //Add objective details later on
+                nullState.SetActive(false);
+                AddChildren(stateIcons[0], stateContainer);
+
+                nullReward.SetActive(false);
+                AddChildren(rewardList[0], rewardContainer);
+                hasAddedChildren = true;
 
                 //Set objectives first
                 ObjectiveManager.Instance.ClearObjectives();
@@ -100,11 +126,32 @@ public class PlanetSelecter : MonoBehaviour
                 //missionDesc.text = "Gather the waste piles to the dumping site.";
                 missionDesc.text = "Classified Data.";
                 button.GetComponent<ChangeLevelButton>().enabled = false;
+
+                //State
+                DestroyChildren(stateContainer);
+                nullState.SetActive(true);
+
+                //Reward
+                DestroyChildren(rewardContainer);
+                nullReward.SetActive(true);
                 break;
             default:
                 canvas.SetActive(false);
                 break;
         }
+    }
+
+    void DestroyChildren(GameObject parentObject)
+    {
+        for (int i = parentObject.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(parentObject.transform.GetChild(i).gameObject);
+        }
+    }
+
+    void AddChildren(GameObject inst, GameObject parentObj)
+    {
+        GameObject obj = Instantiate(inst, parentObj.transform);
     }
 
     void ClearColor()
