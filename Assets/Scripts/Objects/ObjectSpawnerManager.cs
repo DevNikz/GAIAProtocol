@@ -53,7 +53,9 @@ public class ObjectSpawnerManager : MonoBehaviour
             //Params
             //float randomScale = Random.Range(3.5f, 4f);
             //obj.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+
             obj.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            obj.isStatic = true;
 
             int layerNum = LayerMask.NameToLayer("Obstacles");
             obj.layer = layerNum;
