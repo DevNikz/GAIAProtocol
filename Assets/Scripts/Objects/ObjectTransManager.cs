@@ -59,7 +59,7 @@ public class ObjectTransManager : MonoBehaviour
             RaycastHit[] hits = Physics.RaycastAll(mainCam.transform.position, (Units[i].transform.position - mainCam.transform.position).normalized, Vector3.Distance(mainCam.transform.position, Units[i].transform.position), layerMask);
             if (hits.Length > 0)
             {
-                Debug.Log("Obstructions Detected");
+                //Debug.Log("Obstructions Detected");
                 // Repaint all the previous obstructions. Because some of the stuff might be not blocking anymore
                 foreach (var obstruction in ObjectToHide)
                 {

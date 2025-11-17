@@ -23,11 +23,6 @@ public class UnitActionSystemUI : MonoBehaviour
         SetupUAS_UI();
     }
 
-    void Start()
-    {
-        
-    }
-
     void SetupUAS_UI()
     {
         //Debug.Log($"{transform.GetChild(0).name}");
@@ -116,7 +111,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UnitActionSystem_OnActionStarted(object sender, EventArgs e)
     {
-        //UpdateActionPoints();
+        UpdateActionPoints();
     }
 
     private void UpdateSelectedVisual()
@@ -131,15 +126,47 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         if (UnitActionSystem.Instance.GetSelectedUnit() != null)
         {
-            Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-            actionPointsText.text = "Action Points: " + selectedUnit.GetActionPoints();
+            if (UnitActionSystem.Instance.GetSelectedUnit().actionPoints != 0) {
+                foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
+                {
+                    if(actionButtonUI.GetActionName() == "Interact")
+                    {
+                        actionButtonUI.ChangeActionPointText();
+                    }
+                }
+            }
+
+            else
+            {
+                DestroyUnitActionButtons();
+                UpdateSelectedVisual();
+            }
         }
-        else actionPointsText.text = "";
+
+        // if (UnitActionSystem.Instance.GetSelectedUnit() != null)
+        // {
+        //     Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        //     actionPointsText.text = "Action Points: " + selectedUnit.GetActionPoints();
+        // }
+        // else actionPointsText.text = "";
     }
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         //UpdateActionPoints();
+        numChild = actionButtonContainerTransform.childCount;
+        if (UnitActionSystem.Instance.GetSelectedUnit() != null)
+        {
+            CreateUnitActionButtons();
+            UpdateSelectedVisual();
+            //UpdateActionPoints();
+        }
+        else
+        {
+            DestroyUnitActionButtons();
+            UpdateSelectedVisual();
+            //UpdateActionPoints();
+        }
     }
 
     private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e)

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class ActionButtonUI : MonoBehaviour
 {
@@ -49,4 +48,15 @@ public class ActionButtonUI : MonoBehaviour
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
         actionName.gameObject.SetActive(selectedBaseAction == baseAction);
     }
+
+    public void ChangeActionPointText()
+    {
+        //BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
+        actionCounter.text =  UnitActionSystem.Instance.GetSelectedUnit().actionPoints.ToString();
+    }
+
+    public string GetActionName()
+    {
+        return baseAction.GetActionName();
+    } 
 }

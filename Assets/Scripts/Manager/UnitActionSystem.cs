@@ -50,6 +50,17 @@ public class UnitActionSystem : MonoBehaviour
     {
         SetSelectedUnit(selectedUnit);
     }
+
+    private void Start()
+    {
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+    }
+
+    void OnDisable()
+    {
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+    }
+
     
     private void Update()
     {
@@ -57,7 +68,6 @@ public class UnitActionSystem : MonoBehaviour
         {
             return;
         }
-
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
             return;
@@ -67,12 +77,10 @@ public class UnitActionSystem : MonoBehaviour
         {
             return;
         }
-
         if (TryHandleUnitSelection())
         {
             return;
         }
-
         
         //Debug.DrawRay(cam.transform.position, mousePos - cam.transform.position, Color.blue);
 
@@ -103,6 +111,11 @@ public class UnitActionSystem : MonoBehaviour
                 selectedAction.TakeAction(mouseGridPosition, ClearBusy);
 
                 OnActionStarted?.Invoke(this, EventArgs.Empty);
+
+                if(selectedUnit.actionPoints == 0) {
+                    DeselectUnit();
+                    SetSelectedAction(null);
+                }
             }
         }
     }
@@ -175,7 +188,6 @@ public class UnitActionSystem : MonoBehaviour
                     if (unit == selectedUnit)
                     {
                         // Unit is already selected
-
                         //Deselect
                         DeselectUnit();
                         return false;
@@ -187,6 +199,12 @@ public class UnitActionSystem : MonoBehaviour
                         return false;
                     }
 
+                    if (unit.actionPoints == 0)
+                    {
+                        DeselectUnit();
+                        return false;
+                    }
+
                     SetSelectedUnit(unit);
                     return true;
                 }
@@ -194,6 +212,15 @@ public class UnitActionSystem : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if (!TurnSystem.Instance.IsPlayerTurn())
+        {
+            DeselectUnit();
+            SetSelectedAction(null);
+        }
     }
 
     private void SetSelectedUnit(Unit unit)

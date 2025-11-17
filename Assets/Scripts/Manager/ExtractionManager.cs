@@ -26,15 +26,22 @@ public class ExtractionManager : MonoBehaviour
                 ClearArea();
                 break;
             case 1:
-                ClearArea();
-                SetExtractionArea();
+                AddExtractionArea();
                 break;
         }
     }
 
-    void OnDisable()
+    void Update()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        CheckObjective();
+    }
+
+    void CheckObjective()
+    {
+        if(ObjectiveManager.Instance.GetObjectiveDone())
+        {
+            SetExtraction();
+        }
     }
 
     void ClearArea()
@@ -42,8 +49,21 @@ public class ExtractionManager : MonoBehaviour
         extractionArea = null;
     }
 
-    void SetExtractionArea()
+    void AddExtractionArea()
     {
+        if(extractionArea != null) ClearArea();
         extractionArea = GameObject.FindGameObjectWithTag("Extract");
+        extractionArea.GetComponent<MeshRenderer>().enabled = false;
+        extractionArea.GetComponent<BoxCollider>().enabled = false;
+        //extractionArea.GetComponent<ExtractionArea>().enabled = false;
+        //extractionArea.SetActive(false);
+        Debug.Log($"{extractionArea.name}");
+    }
+
+    void SetExtraction()
+    {
+        extractionArea.GetComponent<MeshRenderer>().enabled = true;
+        extractionArea.GetComponent<BoxCollider>().enabled = true;
+        //extractionArea.GetComponent<ExtractionArea>().enabled = true;
     }
 }

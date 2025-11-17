@@ -78,17 +78,21 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
 
     public void Interact(Action onInteractionComplete)
     {
-        if (!hasBeenInteracted)
-        {
-            this.onInteractionComplete = onInteractionComplete;
-            hasInteracted = true;
-            percentage += interactPercentageAdd;
-            timer = 0.5f;
-        }
-        else
-        {
-            onInteractionComplete();
-            return;
-        }
+        this.onInteractionComplete = onInteractionComplete;
+        hasInteracted = true;
+        percentage += interactPercentageAdd;
+        timer = 0.5f;
+        // if (!hasBeenInteracted)
+        // {
+        //     this.onInteractionComplete = onInteractionComplete;
+        //     hasInteracted = true;
+        //     percentage += interactPercentageAdd;
+        //     timer = 0.5f;
+        // }
+        // else
+        // {
+        //     onInteractionComplete();
+        //     return;
+        // }
     }
 }
