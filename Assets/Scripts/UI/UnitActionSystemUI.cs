@@ -20,11 +20,12 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         actionButtonUIList = new List<ActionButtonUI>();
         numChild = actionButtonContainerTransform.childCount;
+        SetupUAS_UI();
     }
 
-    void OnEnable()
+    void Start()
     {
-        SetupUAS_UI();
+        
     }
 
     void SetupUAS_UI()
@@ -84,6 +85,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
+        numChild = actionButtonContainerTransform.childCount;
         if (UnitActionSystem.Instance.GetSelectedUnit() != null)
         {
             CreateUnitActionButtons();

@@ -297,7 +297,6 @@ GameObject:
   - component: {fileID: 6514390305960476413}
   - component: {fileID: 4417989117626486555}
   - component: {fileID: 987155980500312127}
-  - component: {fileID: 3797506916306105498}
   - component: {fileID: 8787558059908448909}
   - component: {fileID: 1461974105881946307}
   - component: {fileID: 8580878554579476817}
@@ -381,21 +380,6 @@ MonoBehaviour:
   heightOffset: 0.2
   maxMoveDistance: 4
   moveSpeed: 5
---- !u!114 &3797506916306105498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3170356346069476731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4c39c031c5375a46ae599db0d5b38fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &8787558059908448909
 MonoBehaviour:
   m_ObjectHideFlags: 0

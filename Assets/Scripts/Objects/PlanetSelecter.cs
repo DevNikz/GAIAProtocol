@@ -9,8 +9,10 @@ public class PlanetSelecter : MonoBehaviour
     public List<Transform> areas;
     [Range(0.1f, 10f)] public float rotateSpeed = 5f;
     public Transform cam;
-    public List<Material> colorPoints; // 0 - Deselected | 1 - Selected
 
+    [Header("Areas")]
+    public List<Material> colorPoints; // 0 - Deselected | 1 - Selected
+    public List<Material> colorArea; // 0 - Locked | 1 - Unlocked;
     [SerializeField] private int currentIndex = 0;
 
     //Mission Select UI
@@ -36,6 +38,28 @@ public class PlanetSelecter : MonoBehaviour
     void Awake() {
         cam = Camera.main.transform;
         hasAddedChildren = false;
+    }
+
+    void Start()
+    {
+        ClearAreas();
+        SetupAreas(1);
+    }
+
+    void ClearAreas()
+    {
+        for(int i = 0; i < areas.Count; i++)
+        {
+            areas[i].GetComponent<MeshRenderer>().material = colorArea[0];
+        } 
+    }
+
+    void SetupAreas(int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            areas[i].GetComponent<MeshRenderer>().material = colorArea[1];
+        }
     }
 
     void Update()

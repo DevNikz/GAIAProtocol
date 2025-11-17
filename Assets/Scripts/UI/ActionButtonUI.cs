@@ -33,6 +33,9 @@ public class ActionButtonUI : MonoBehaviour
             case "Sword":
                 actionIcon.sprite = UnitActionSystem.Instance.actionIconList[2];
                 break;
+            case "Shoot":
+                actionIcon.sprite = UnitActionSystem.Instance.actionIconList[3];
+                break;
         }
         
         button.onClick.AddListener(() => {
