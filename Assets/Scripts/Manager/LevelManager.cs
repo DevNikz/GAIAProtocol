@@ -28,9 +28,28 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LoadAsync(sceneName));
     }
 
+    public void LoadLevelIndex(int sceneIndex)
+    {
+        StartCoroutine(LoadAsyncIndex(sceneIndex));
+    }
+
     IEnumerator LoadAsync(string sceneName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        _loaderCanvas.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            _target = Mathf.Clamp01(operation.progress / .9f);
+            yield return null;
+        }
+
+        _loaderCanvas.SetActive(false);
+    }
+
+    IEnumerator LoadAsyncIndex(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         _loaderCanvas.SetActive(true);
 
         while (!operation.isDone)

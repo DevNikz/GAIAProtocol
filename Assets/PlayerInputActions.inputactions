@@ -41,15 +41,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ToggleDebug",
-                    "type": "Button",
-                    "id": "a0a8fb29-d327-400c-8096-d1a6f8f1e3a7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -160,17 +151,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ceb3af4a-36ae-48d1-9f5e-8df7933fee5f",
-                    "path": "<Keyboard>/backquote",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleDebug",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

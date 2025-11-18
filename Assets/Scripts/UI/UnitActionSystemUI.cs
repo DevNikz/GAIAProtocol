@@ -65,7 +65,7 @@ public class UnitActionSystemUI : MonoBehaviour
         if(UnitActionSystem.Instance.GetSelectedUnit() != null)
         {
             Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-            Debug.Log(selectedUnit.name);
+            //Debug.Log(selectedUnit.name);
 
             foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
             {

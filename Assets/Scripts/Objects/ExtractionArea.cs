@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,29 +8,45 @@ public class ExtractionArea : MonoBehaviour
     [SerializeField] private int unitCount;
     void OnTriggerEnter(Collider other)
     {
-        Unit tempUnit = other.GetComponent<Unit>();
-        Debug.Log($"{tempUnit.name}");
-        if(!tempUnit.IsEnemy())
+        if(other.GetComponent<Unit>() != null)
         {
-            unitCount++;
-            //unitList.Add(tempUnit);
+            Unit tempUnit = other.GetComponent<Unit>();
+            Debug.Log($"{tempUnit.name} has entered extraction");
+            if(!tempUnit.IsEnemy())
+            {
+                unitCount++;
+            }
         }
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerStay()
     {
         if(unitCount == UnitManager.Instance.friendlyUnitList.Count)
         {
             LevelManager.Instance.LoadLevel("HUB");
+            //StartCoroutine(StartExtraction());
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        Unit tempUnit = other.GetComponent<Unit>();
-        if(!tempUnit.IsEnemy())
+        if(other.GetComponent<Unit>() != null)
         {
-            unitCount--;
+            Unit tempUnit = other.GetComponent<Unit>();
+            Debug.Log($"{tempUnit.name} has left extraction");
+            if(!tempUnit.IsEnemy())
+            {
+                unitCount--;
+            }
         }
+    }
+
+    IEnumerator StartExtraction()
+    {
+        Debug.Log("Initiating Extraction...");
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("Extracted...");
+        LevelManager.Instance.LoadLevel("HUB");
     }
 }

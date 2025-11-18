@@ -8,6 +8,7 @@ public class ObjectSpawnerManager : MonoBehaviour
 
     [SerializeReference] private List<GameObject> objectList;
     [SerializeReference] private List<GameObject> objectSpawnPoints;
+    private bool hasSpawnedObjects;
 
     void Awake()
     {
@@ -17,6 +18,10 @@ public class ObjectSpawnerManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+    }
+
+    void OnEnable()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
@@ -25,34 +30,51 @@ public class ObjectSpawnerManager : MonoBehaviour
         switch(scene.buildIndex)
         {
             case 1:
-                Spawn();
+                if(!hasSpawnedObjects) 
+                {
+                    ClearSpawnPoints();
+                    SetSpawnPoints();
+                    SpawnRandomObjects();
+                    break;
+                }
+                else break;
+            default:
+                ClearSpawnPoints();
                 break;
         }
     }
 
-    void Spawn()
+    void OnDisable()
     {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform childT = transform.GetChild(i);
-            GameObject childObj = childT.gameObject;
-            objectSpawnPoints.Add(childObj);
-        }
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        hasSpawnedObjects = false;
+    }
 
-        SpawnRandomObjects();
+    void SetSpawnPoints()
+    {
+        foreach (Transform child in transform.GetComponentsInChildren<Transform>()) {
+            if(child.name != this.name)
+            {
+                //Debug.Log($"Added {child.name}");
+                objectSpawnPoints.Add(child.gameObject);
+            } 
+        }
+    }
+
+    void ClearSpawnPoints()
+    {
+        objectSpawnPoints = new List<GameObject>();
+        if(objectSpawnPoints.Count > 0) objectSpawnPoints.Clear();
     }
     
     void SpawnRandomObjects()
     {
-        for (int i = 0; i < objectSpawnPoints.Count; i++)
+        foreach (GameObject points in objectSpawnPoints)
         {
             int objIndex = Random.Range(0, objectList.Count);
-            // int spawnPoint = Random.Range(0, objectSpawnPoints.Count - 1);
-            GameObject obj = Instantiate(objectList[objIndex], objectSpawnPoints[i].transform.position, Quaternion.identity);
+            //Debug.Log($"{objectList[objIndex].name} has spawned in {points.name}");
 
-            //Params
-            //float randomScale = Random.Range(3.5f, 4f);
-            //obj.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+            GameObject obj = Instantiate(objectList[objIndex], points.transform.position, Quaternion.identity);
 
             obj.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             obj.isStatic = true;
@@ -60,5 +82,7 @@ public class ObjectSpawnerManager : MonoBehaviour
             int layerNum = LayerMask.NameToLayer("Obstacles");
             obj.layer = layerNum;
         }
+
+        hasSpawnedObjects = true;
     }
 }

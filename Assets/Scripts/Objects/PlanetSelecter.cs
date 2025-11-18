@@ -113,7 +113,9 @@ public class PlanetSelecter : MonoBehaviour
                 missionImage.sprite = levelIcons[currentIndex];
                 missionHeader.text = "Operation\nActivate The Facility";
                 missionDesc.text = "Activate Gaia Infrastructure to establish communications to HQ.";
-                button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+
+                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                button.GetComponent<ChangeLevelButton>().sceneIndex = 1;
 
                 //Add objective details later on
                 nullState.SetActive(false);

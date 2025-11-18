@@ -24,7 +24,10 @@ public class CurrencyManager : MonoBehaviour
         else Destroy(gameObject);
 
         researchPoints = 0;
+    }
 
+    void OnEnable()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

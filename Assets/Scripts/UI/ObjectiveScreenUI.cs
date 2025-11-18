@@ -13,10 +13,15 @@ public class ObjectiveScreenUI : MonoBehaviour
     [SerializeField] private GameObject UICanvas;
 
     [SerializeField] private int objectiveNum;
-
-    void Awake()
+    
+    void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

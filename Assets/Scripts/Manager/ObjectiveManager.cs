@@ -42,6 +42,7 @@ public class ObjectiveManager : MonoBehaviour
             else
             {
                 areObjectivesDone = true;
+                ExtractionManager.Instance.SetExtraction();
                 return;
             }
         }

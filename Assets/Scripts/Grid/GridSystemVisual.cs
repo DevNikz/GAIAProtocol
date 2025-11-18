@@ -32,6 +32,8 @@ public class GridSystemVisual : MonoBehaviour
 
     private GridSystemVisualSingle[,,] gridSystemVisualSingleArray;
 
+    private bool hasCreatedVisuals;
+
 
     private void Awake()
     {
@@ -41,8 +43,21 @@ public class GridSystemVisual : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+    }
 
+    void OnEnable()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        hasCreatedVisuals = false;
+
+        UnitActionSystem.Instance.OnDeselectedUnitChanged -= UnitActionSystem_OnDeselectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OnBusyChanged -= UnitActionSystem_OnBusyChanged;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -50,8 +65,11 @@ public class GridSystemVisual : MonoBehaviour
         switch(scene.buildIndex)
         {
             case 1:
-                Debug.Log("Setup Grid Visual");
-                DoSomething();
+                if(!hasCreatedVisuals) 
+                {
+                    Debug.Log("Setup Grid Visual");
+                    DoSomething();
+                }
                 break;
         }
     }
@@ -85,14 +103,9 @@ public class GridSystemVisual : MonoBehaviour
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
         //LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
 
-        UpdateGridVisual();
-    }
+        hasCreatedVisuals = true;
 
-    void OnDisable()
-    {
-        UnitActionSystem.Instance.OnDeselectedUnitChanged -= UnitActionSystem_OnDeselectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
-        UnitActionSystem.Instance.OnBusyChanged -= UnitActionSystem_OnBusyChanged;
+        UpdateGridVisual();
     }
     
     public void HideAllGridPosition()

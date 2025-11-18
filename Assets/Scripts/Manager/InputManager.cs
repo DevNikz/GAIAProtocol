@@ -24,7 +24,6 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.Enable();
     }
 
-
     public Vector2 GetMouseScreenPosition()
     {
 #if USE_NEW_INPUT_SYSTEM
@@ -120,14 +119,12 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
-    public bool GetDebugButton()
-    {
-#if USE_NEW_INPUT_SYSTEM
-        //return playerInputActions.Player.Toggle
-        return playerInputActions.Player.ToggleDebug.ReadValue<bool>();
-#else
-        return Input.GetKey(KeyCode.BackQuote);
-#endif
-        //return Input.GetKey(KeyCode.BackQuote);
-    }
+//     public bool GetDebugButton()
+//     {
+// #if USE_NEW_INPUT_SYSTEM
+//         return playerInputActions.Player.ToggleDebug.ReadValue<bool>();
+// #else
+//         return Input.GetKey(KeyCode.BackQuote);
+// #endif
+//     }
 }
