@@ -49,6 +49,18 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
+    public bool CheckCompleteBool()
+    {
+        for(int i = 0; i < objectivesList.Count; i++)
+        {
+            if(objectivesList[i].isDone != true)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void AddObjective(ObjectiveObject obj)
     {
         objectivesList.Add(obj);

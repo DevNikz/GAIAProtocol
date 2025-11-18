@@ -32,20 +32,16 @@ public class HUDMarkerManager : MonoBehaviour
 
     public void ClearMarkers()
     {
-        // for (int i = 0; i < MarkerRoot.transform.childCount; i++)
-        // {
-        //     if(MarkerRoot.name != MarkerRoot.transform.GetChild(i).name) Destroy(MarkerRoot.transform.GetChild(i));
-        // }
         for (int i = MarkerRoot.childCount - 1; i >= 0; i--)
         {
             if(MarkerRoot.name != MarkerRoot.GetChild(i).name) Destroy(MarkerRoot.GetChild(i).gameObject);
         }
     }
 
-    public void AddMarker(HUDMarkerInWorldTarget target, Sprite image)
+    public void AddMarker(HUDMarkerInWorldTarget target, Sprite image, bool isObjective, int index = 0)
     {
         var newMarker = Instantiate(MarkerPrefab, Vector3.zero, Quaternion.identity, MarkerRoot);
 
-        newMarker.GetComponent<HUDMarkerTargetUI>().Bind(target, image);
+        newMarker.GetComponent<HUDMarkerTargetUI>().Bind(target, image, isObjective, index);
     }
 }

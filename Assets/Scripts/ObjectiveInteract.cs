@@ -45,7 +45,7 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         {
             hasBeenInteracted = false;
             if(!objectiveComplete) LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-            Debug.Log("Set Interactable at Grid Pos");
+            //Debug.Log("Set Interactable at Grid Pos");
         }
     }
 

@@ -2,10 +2,20 @@ using UnityEngine;
 
 public class HUDMarkerInWorldTarget : MonoBehaviour
 {
-    [SerializeField] Sprite HUDSprite;
+    [SerializeField] private Sprite HUDSprite;
+    [SerializeField] private ObjectiveWorldUI worldUI;
+    [SerializeField] private bool isObjective;
 
     void Start()
     {
-        HUDMarkerManager.Instance.AddMarker(this, HUDSprite);
+        if(isObjective)
+        {
+            HUDMarkerManager.Instance.AddMarker(this, HUDSprite, isObjective, worldUI.GetObjectiveIndex());
+        }
+        else
+        {
+            HUDMarkerManager.Instance.AddMarker(this, HUDSprite, isObjective);
+        }
+        //HUDMarkerManager.Instance.AddMarker(this, HUDSprite, isObjective, worldUI.GetObjectiveIndex());
     }
 }

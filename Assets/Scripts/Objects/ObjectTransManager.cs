@@ -151,4 +151,9 @@ public class ObjectTransManager : MonoBehaviour
     {
         Units.Add(unit);
     }
+
+    public Camera GetMainCamera()
+    {
+        return mainCam;
+    }
 }

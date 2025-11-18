@@ -34,4 +34,9 @@ public class ObjectiveWorldUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         UI.SetActive(false);
     }
+
+    public int GetObjectiveIndex()
+    {
+        return objectiveIndex;
+    }
 }
