@@ -45,23 +45,21 @@ public class PlanetSelecter : MonoBehaviour
     void Start()
     {
         ClearAreas();
-        SetupAreas(1);
+        SetupArea(0);
+        SetupArea(1);
     }
 
     void ClearAreas()
     {
         for(int i = 0; i < areas.Count; i++)
         {
-            areas[i].GetComponent<MeshRenderer>().material = colorArea[0];
+            areas[i].parent.GetComponent<MeshRenderer>().material = colorArea[0];
         } 
     }
 
-    void SetupAreas(int count)
+    void SetupArea(int index)
     {
-        for(int i = 0; i < count; i++)
-        {
-            areas[i].GetComponent<MeshRenderer>().material = colorArea[1];
-        }
+        areas[index].parent.GetComponent<MeshRenderer>().material = colorArea[1];
     }
 
     void Update()

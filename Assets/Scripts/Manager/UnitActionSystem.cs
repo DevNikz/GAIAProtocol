@@ -110,14 +110,11 @@ public class UnitActionSystem : MonoBehaviour
 
                 SetBusy();
                 selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-                //Debug.Log($"Previously Selected Grid: {selectedGrid} | {selectedGrid.isSelect}");
 
                 OnActionStarted?.Invoke(this, EventArgs.Empty);
 
                 selectedGrid.isSelect = false;
                 GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
-                
-                //Debug.Log($"Now Selected Grid: {selectedGrid} | {selectedGrid.isSelect}");
                 selectedGrid = nullGrid;
 
                 if(selectedUnit.actionPoints == 0) {
@@ -133,7 +130,9 @@ public class UnitActionSystem : MonoBehaviour
 
     bool TryHovering()
     {
-        if(IsPointerOverUIObject() || selectedAction == null || selectedAction.GetActionName() == "Interact")
+        if(IsPointerOverUIObject() || selectedAction == null || 
+            selectedAction.GetActionName() == "Interact" || selectedAction.GetActionName() == "Shoot" ||
+            selectedAction.GetActionName() == "Sword")
         {
             isHovering = false;
             return false;

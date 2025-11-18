@@ -22,9 +22,9 @@ public class UnitRagdollSpawner : MonoBehaviour
 
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
-        Transform ragdollTransform = Instantiate(ragdollPrefab, transform.position, transform.rotation);
-        UnitRagdoll unitRagdoll = ragdollTransform.GetComponent<UnitRagdoll>();
-        unitRagdoll.Setup(originalRootBone);
+        // Transform ragdollTransform = Instantiate(ragdollPrefab, transform.position, transform.rotation);
+        // UnitRagdoll unitRagdoll = ragdollTransform.GetComponent<UnitRagdoll>();
+        // unitRagdoll.Setup(originalRootBone);
     }
 
 

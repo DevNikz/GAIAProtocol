@@ -5285,7 +5285,7 @@ GameObject:
   - component: {fileID: 1609866655}
   - component: {fileID: 1609866654}
   m_Layer: 0
-  m_Name: ActionVirtualCamera
+  m_Name: '[Debug]ActionVirtualCamera'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7562,10 +7562,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5808171083719088137, guid: 5cc288bd45d25d848a58596017d9e8f3, type: 3}
-      propertyPath: actionCameraGameObject
-      value: 
-      objectReference: {fileID: 1609866651}
     - target: {fileID: 8123329436043439945, guid: 5cc288bd45d25d848a58596017d9e8f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

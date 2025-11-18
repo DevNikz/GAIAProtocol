@@ -69,14 +69,17 @@ public class ObjectSpawnerManager : MonoBehaviour
     
     void SpawnRandomObjects()
     {
-        foreach (GameObject points in objectSpawnPoints)
+        //foreach (GameObject points in objectSpawnPoints)
+        for(int i = 0; i < objectSpawnPoints.Count; i++)
         {
             int objIndex = Random.Range(0, objectList.Count);
             //Debug.Log($"{objectList[objIndex].name} has spawned in {points.name}");
 
-            GameObject obj = Instantiate(objectList[objIndex], points.transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(objectList[objIndex], objectSpawnPoints[i].transform);
 
+            obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            obj.transform.localScale = new Vector3(2,2,2);
             obj.isStatic = true;
 
             int layerNum = LayerMask.NameToLayer("Obstacles");

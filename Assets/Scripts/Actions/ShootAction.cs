@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +31,8 @@ public class ShootAction : BaseAction
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
+    [SerializeField, Range(0, 100)] private int minDamage;
+    [SerializeField, Range(1, 100)] private int maxDamage;
 
 
     private void Update()
@@ -102,7 +103,7 @@ public class ShootAction : BaseAction
             shootingUnit = unit
         });
         
-        targetUnit.Damage(40);
+        targetUnit.Damage(UnityEngine.Random.Range(minDamage, maxDamage));
     }
 
 

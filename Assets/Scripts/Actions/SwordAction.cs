@@ -23,6 +23,9 @@ public class SwordAction : BaseAction
     private float stateTimer;
     private Unit targetUnit;
 
+    [SerializeField, Range(0, 100)] private int minDamage;
+    [SerializeField, Range(1, 100)] private int maxDamage;
+
 
     private void Update()
     {
@@ -59,7 +62,7 @@ public class SwordAction : BaseAction
                 state = State.SwingingSwordAfterHit;
                 float afterHitStateTime = 0.5f;
                 stateTimer = afterHitStateTime;
-                targetUnit.Damage(100);
+                targetUnit.Damage(UnityEngine.Random.Range(minDamage, maxDamage));
                 OnAnySwordHit?.Invoke(this, EventArgs.Empty);
                 break;
             case State.SwingingSwordAfterHit:
@@ -76,18 +79,28 @@ public class SwordAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
+            //actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f),
             actionValue = 200,
         };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
+        GridPosition unitGridPosition = unit.GetGridPosition();
+        return GetValidActionGridPositionList(unitGridPosition);
+    }
+
+    //public override List<GridPosition> GetValidActionGridPositionList()
+    public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition)
+    {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        //GridPosition unitGridPosition = unit.GetGridPosition();
 
         for (int x = -maxSwordDistance; x <= maxSwordDistance; x++)
         {
@@ -108,12 +121,14 @@ public class SwordAction : BaseAction
                 }
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                //Check if Current enemy is enemy
 
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'
                     continue;
                 }
+                if(targetUnit != null) Debug.Log($"Target: {targetUnit.name}");
 
                 validGridPositionList.Add(testGridPosition);
             }
@@ -140,4 +155,8 @@ public class SwordAction : BaseAction
         return maxSwordDistance;
     }
 
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        return GetValidActionGridPositionList(gridPosition).Count;
+    }
 }
