@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class ChangeLevelButton : MonoBehaviour
 {
-
-    public string sceneName;
+    public SoundController soundController;
     public int sceneIndex;
-    public void ChangeLevel()
-    {
-        LevelManager.Instance.LoadLevel(sceneName);
-    }
 
     public void ChangeLevelIndex()
     {
+        soundController.PlaySound(1);
         LevelManager.Instance.LoadLevelIndex(sceneIndex);
     }
 }
