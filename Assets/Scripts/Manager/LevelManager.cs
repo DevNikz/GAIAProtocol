@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Image _progressBar;
     private float _target;
 
+    [SerializeField] private int currentLevel;
+
     void Awake()
     {
         if (Instance == null)
@@ -64,6 +66,16 @@ public class LevelManager : MonoBehaviour
     void LateUpdate()
     {
         _progressBar.fillAmount = Mathf.MoveTowards(_progressBar.fillAmount, _target, 10 * Time.deltaTime);
+    }
+
+    public void SetCurrentLevel(int value) 
+    {
+        currentLevel = value;
+    }
+
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
     }
 }
  

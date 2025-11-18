@@ -23,6 +23,8 @@ public class PlanetSelecter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI missionDesc;
     [SerializeField] private GameObject button;
     [SerializeField] private List<Sprite> levelIcons;
+    [SerializeField] private GameObject levelComplete;
+    [SerializeField] private GameObject nullButton;
 
     [Header("Objectives")]
     [SerializeField] private List<GameObject> stateIcons;
@@ -115,29 +117,75 @@ public class PlanetSelecter : MonoBehaviour
                 missionDesc.text = "Activate Gaia Infrastructure to establish communications to HQ.";
 
                 //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                button.GetComponent<ChangeLevelButton>().sceneIndex = 1;
+                nullButton.SetActive(false);
+                if(WorldManager.Instance.GetWorldComplete(currentIndex))
+                {
+                    levelComplete.SetActive(true);
+                    button.SetActive(false);
+                }  
+                else {
+                    levelComplete.SetActive(false);
+                    button.SetActive(true);
+                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
+                }
 
                 //Add objective details later on
                 nullState.SetActive(false);
-                AddChildren(stateIcons[0], stateContainer);
+                DestroyChildren(stateContainer);
+                AddChildren(stateIcons[currentIndex], stateContainer);
 
                 nullReward.SetActive(false);
-                AddChildren(rewardList[0], rewardContainer);
+                DestroyChildren(rewardContainer);
+                AddChildren(rewardList[currentIndex], rewardContainer);
                 hasAddedChildren = true;
 
                 //Set objectives first
                 ObjectiveManager.Instance.ClearObjectives();
                 ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
+
+                //Set Level
+                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                //Set Max Prompted Points on Completion
+                CurrencyManager.Instance.SetPromptedPoints(1);
                 break;
-            // case 1:
-            //     canvas.SetActive(true);
-            //     missionImage.sprite = levelIcons[currentIndex];
-            //     missionHeader.text = "Operation\nGather Waste Piles";
-            //     //missionDesc.text = "Gather the waste piles to the dumping site.";
-            //     missionDesc.text = "Classified Data.";
-            //     button.GetComponent<ChangeLevelButton>().enabled = false;
-            //     break;
             case 1:
+                canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Operation\nStop the leakage";
+                missionDesc.text = "Repair the factory's pipeline to stop the leakage.";
+
+                nullButton.SetActive(false);
+                if(WorldManager.Instance.GetWorldComplete(currentIndex))
+                {
+                    levelComplete.SetActive(true);
+                    button.SetActive(false);
+                }  
+                else {
+                    levelComplete.SetActive(false);
+                    button.SetActive(true);
+                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
+                }
+
+                //Add objective details later on
+                nullState.SetActive(false);
+                DestroyChildren(stateContainer);
+                AddChildren(stateIcons[0], stateContainer);
+
+                nullReward.SetActive(false);
+                DestroyChildren(rewardContainer);
+                AddChildren(rewardList[0], rewardContainer);
+                hasAddedChildren = true;
+                //Set objectives first
+                ObjectiveManager.Instance.ClearObjectives();
+                ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
+
+                //Set Level
+                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                //Set Max Prompted Points on Completion
+                CurrencyManager.Instance.SetPromptedPoints(1);
+                break;
             case 2:
             case 3:
             case 4:
@@ -149,9 +197,11 @@ public class PlanetSelecter : MonoBehaviour
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
                 missionHeader.text = "Locked Operation";
-                //missionDesc.text = "Gather the waste piles to the dumping site.";
                 missionDesc.text = "Classified Data.";
-                button.GetComponent<ChangeLevelButton>().enabled = false;
+
+                levelComplete.SetActive(false);
+                button.SetActive(false);
+                nullButton.SetActive(true);
 
                 //State
                 DestroyChildren(stateContainer);
@@ -171,7 +221,7 @@ public class PlanetSelecter : MonoBehaviour
     {
         for (int i = parentObject.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(parentObject.transform.GetChild(i).gameObject);
+            if(parentObject.name != parentObject.transform.GetChild(i).name) Destroy(parentObject.transform.GetChild(i).gameObject);
         }
     }
 

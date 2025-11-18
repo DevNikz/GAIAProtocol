@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -124,30 +125,39 @@ public class UnitActionSystem : MonoBehaviour
     {
         GridPosition gridPos = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
 
-        if (!selectedAction.IsValidActionGridPosition(gridPos))
-        {
-            return;
-        }
-        else {
-            if(gridPos.isSelect != true)
+        if(selectedAction.GetActionName() == "Move") {
+            if (!selectedAction.IsValidActionGridPosition(gridPos))
             {
-                //Debug.Log($"Grid: {gridPos}");
-
-                if(selectedGrid != nullGrid) {
-                    if(selectedGrid == gridPos) return;
-                    //Debug.Log("Not Null Grid");
-                    selectedGrid.isSelect = false;
-                    GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
-                    selectedGrid = nullGrid;
-                    return;
-                }
-
-                selectedGrid = gridPos;
-                //Debug.Log($"Selected Grid: {selectedGrid}");
-                
-                selectedGrid.isSelect = true;
-                GridSystemVisual.Instance.HoverGridMaterial(selectedGrid);
+                return;
             }
+            else {
+                if(gridPos.isSelect != true)
+                {
+                    //Debug.Log($"Grid: {gridPos}");
+
+                    if(selectedGrid != nullGrid) {
+                        if(selectedGrid == gridPos) return;
+                        //Debug.Log("Not Null Grid");
+                        selectedGrid.isSelect = false;
+                        GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
+                        selectedGrid = nullGrid;
+                        return;
+                    }
+
+                    selectedGrid = gridPos;
+                    //Debug.Log($"Selected Grid: {selectedGrid}");
+                    
+                    selectedGrid.isSelect = true;
+                    GridSystemVisual.Instance.HoverGridMaterial(selectedGrid);
+                }
+            }
+        }
+        else
+        {
+            selectedGrid.isSelect = false;
+            GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
+            selectedGrid = nullGrid;
+            return;
         }
     }
 

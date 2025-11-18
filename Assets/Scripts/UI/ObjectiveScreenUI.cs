@@ -52,6 +52,13 @@ public class ObjectiveScreenUI : MonoBehaviour
         }
     }
 
+    void ClearObjectives()
+    {
+        objectiveNum = 0;
+        objectiveList = new List<ObjUI>();
+        if(objectiveList.Count > 0) objectiveList.Clear();
+    }
+
     public void SetToggleUI(int index)
     {
         objectiveList[index].SetBool(true);

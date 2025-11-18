@@ -23,8 +23,13 @@ public class ExtractionArea : MonoBehaviour
     {
         if(unitCount == UnitManager.Instance.friendlyUnitList.Count)
         {
-            LevelManager.Instance.LoadLevel("HUB");
+            ExtractionManager.Instance.SetButtonVisible(true);
+            //LevelManager.Instance.LoadLevel("HUB");
             //StartCoroutine(StartExtraction());
+        }
+        else
+        {
+            ExtractionManager.Instance.SetButtonVisible(false);
         }
     }
 
@@ -39,14 +44,5 @@ public class ExtractionArea : MonoBehaviour
                 unitCount--;
             }
         }
-    }
-
-    IEnumerator StartExtraction()
-    {
-        Debug.Log("Initiating Extraction...");
-        yield return new WaitForSeconds(2f);
-
-        Debug.Log("Extracted...");
-        LevelManager.Instance.LoadLevel("HUB");
     }
 }

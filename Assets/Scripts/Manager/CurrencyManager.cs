@@ -9,6 +9,7 @@ public class CurrencyManager : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField, Min(0)] private int researchPoints;
+    [SerializeField, Min(0)] private int promptedPoints;
 
     [Header("UI")]
     [SerializeField] private GameObject canvas;
@@ -62,5 +63,15 @@ public class CurrencyManager : MonoBehaviour
     public void SetResearchPoints(int value)
     {
         researchPoints = value;
+    }
+
+    public int GetPromptedPoints()
+    {
+        return promptedPoints;
+    }
+
+    public void SetPromptedPoints(int value)
+    {
+        promptedPoints = value;
     }
 }

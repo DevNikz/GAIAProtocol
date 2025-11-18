@@ -1,12 +1,18 @@
 using System.Collections;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ExtractionManager : MonoBehaviour
 {
     public static ExtractionManager Instance { get; private set; }
     [SerializeField] private GameObject extractionArea;
     [SerializeField] private int currentSceneIndex;
+    [SerializeField] private int currentLevelIndex;
+
+    [Header("UI")]
+    [SerializeField] private GameObject extractButton;
 
     void Awake()
     {
@@ -16,6 +22,13 @@ public class ExtractionManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+
+        extractButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+            WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+            LevelManager.Instance.LoadLevelIndex(extractButton.GetComponent<ChangeLevelButton>().sceneIndex);
+        });
     }
 
     void OnEnable()
@@ -35,6 +48,7 @@ public class ExtractionManager : MonoBehaviour
         {
             case 0:
                 ClearArea();
+                SetButtonVisible(false);
                 break;
             case 1:
                 AddExtractionArea();
@@ -51,18 +65,19 @@ public class ExtractionManager : MonoBehaviour
     {
         if(extractionArea != null) ClearArea();
         extractionArea = GameObject.FindGameObjectWithTag("Extract");
-        //extractionArea.GetComponent<MeshRenderer>().enabled = false;
 
         extractionArea.GetComponent<BoxCollider>().enabled = false;
         extractionArea.transform.Find("Mesh").GetComponent<MeshRenderer>().enabled = false;
-        //extractionArea.GetComponent<ExtractionArea>().enabled = false;
-        //extractionArea.SetActive(false);
-        //Debug.Log($"{extractionArea.name}");
     }
 
     public void SetExtraction()
     {
         extractionArea.GetComponent<BoxCollider>().enabled = true;
         extractionArea.transform.Find("Mesh").GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    public void SetButtonVisible(bool value)
+    {
+        extractButton.SetActive(value);
     }
 }

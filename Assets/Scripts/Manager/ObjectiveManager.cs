@@ -26,6 +26,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public void ClearObjectives() 
     {
+        if(objectivesList != null) objectivesList.Clear();
         objectivesList = new List<ObjectiveObject>();
         if(objectivesList != null) objectivesList.Clear();
     }
