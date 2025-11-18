@@ -18,4 +18,9 @@ public class GridSystemVisualSingle : MonoBehaviour
     {
         meshRenderer.enabled = false;
     }
+
+    public bool CheckMaterial(Material refMat)
+    {
+       return meshRenderer.material = refMat; 
+    }  
 }

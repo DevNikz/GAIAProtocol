@@ -11,6 +11,8 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
     private bool hasInteracted;
     public float percentage = 0.0f;
     private float timer;
+    private bool objectiveComplete;
+    [SerializeField] private bool disableInteract;
 
     [SerializeReference] private bool hasBeenInteracted;
 
@@ -31,19 +33,36 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
-    private void ObjectiveInteract_OnPuzzleComplete(object sender, EventArgs e)
-    {
-        onInteractionComplete();
-        TerminalPuzzleUI.Instance.HidePuzzleUI();
-    }
+    // private void ObjectiveInteract_OnPuzzleComplete(object sender, EventArgs e)
+    // {
+    //     onInteractionComplete();
+    //     TerminalPuzzleUI.Instance.HidePuzzleUI();
+    // }
     
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e) 
     {
-        hasBeenInteracted = false;
-        LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+        if(!TurnSystem.Instance.IsPlayerTurn())
+        {
+            hasBeenInteracted = false;
+            if(!objectiveComplete) LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+            Debug.Log("Set Interactable at Grid Pos");
+        }
     }
 
     private void Update()
+    {
+        if(!objectiveComplete) UpdateObjective();
+        else
+        {
+            if(!disableInteract) {
+                LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
+                LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+                disableInteract = true;
+            }
+        }
+    }
+
+    void UpdateObjective()
     {
         if (percentage < 1.0f)
         {
@@ -71,6 +90,7 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
                 hasInteracted = false;
                 LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                 LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+                objectiveComplete = true;
                 onInteractionComplete();
             }
         }
@@ -82,17 +102,5 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         hasInteracted = true;
         percentage += interactPercentageAdd;
         timer = 0.5f;
-        // if (!hasBeenInteracted)
-        // {
-        //     this.onInteractionComplete = onInteractionComplete;
-        //     hasInteracted = true;
-        //     percentage += interactPercentageAdd;
-        //     timer = 0.5f;
-        // }
-        // else
-        // {
-        //     onInteractionComplete();
-        //     return;
-        // }
     }
 }

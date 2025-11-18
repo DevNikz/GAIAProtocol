@@ -10653,6 +10653,7 @@ GameObject:
   - component: {fileID: 976204422}
   - component: {fileID: 976204423}
   - component: {fileID: 976204424}
+  - component: {fileID: 976204425}
   m_Layer: 0
   m_Name: Objective
   m_TagString: Objective
@@ -10712,8 +10713,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5576ce943d4044fafbd64422fcceed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveInteract
-  interactPercentageAdd: 1
+  interactPercentageAdd: 0.25
   percentage: 0
+  disableInteract: 0
   hasBeenInteracted: 0
 --- !u!114 &976204424
 MonoBehaviour:
@@ -10731,6 +10733,19 @@ MonoBehaviour:
   UI: {fileID: 559379930}
   fillSpeed: 2
   objectiveIndex: 0
+--- !u!114 &976204425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976204420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca291b39d7af91f4ca1f5e8463f968fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerInWorldTarget
+  HUDSprite: {fileID: 1146266368, guid: b84ea27da2c3eb14faa8ef5bf15492ab, type: 3}
 --- !u!1 &978140911
 GameObject:
   m_ObjectHideFlags: 0
@@ -10777,8 +10792,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   _loaderCanvas: {fileID: 691308219}
-  transitionAnim: {fileID: 1860627071}
   _progressBar: {fileID: 926987872}
+  currentLevel: 0
 --- !u!1 &982767463
 GameObject:
   m_ObjectHideFlags: 0
@@ -22526,6 +22541,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2f3edfcfc9cfefa4d896c176a3607ed2, type: 3}
   - {fileID: 21300000, guid: 5bb1d9d6611b332449071da04320e985, type: 3}
   - {fileID: 21300000, guid: d88ab22d315eb3e47b02b3e25467aaae, type: 3}
+  isHovering: 0
 --- !u!4 &2085200216
 Transform:
   m_ObjectHideFlags: 0

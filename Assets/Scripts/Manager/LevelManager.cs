@@ -8,8 +8,6 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     [SerializeField] private GameObject _loaderCanvas; //UI Loading
-    //[SerializeField] private GameObject _screenTransition;
-    [SerializeField] private Animator transitionAnim;
     [SerializeField] private Image _progressBar;
     private float _target;
 

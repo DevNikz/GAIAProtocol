@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -30,7 +26,9 @@ public class UnitActionSystem : MonoBehaviour
     private bool isBusy;
 
     //UI Stuffs
+    [Header("UI")]
     [SerializeField] public List<Sprite> actionIconList; // 0 - Move | 1 - Interact
+    [SerializeField] public bool isHovering;
 
 
     private void Awake()
@@ -92,9 +90,11 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (selectedUnit != null)
         {
-            if(!IsPointerOverUIObject()) HoverGrid();
+            //Hovering
+            if(TryHovering()) HoverGrid();
+
             //Click
-            if (InputManager.Instance.IsMouseButtonDownThisFrame())
+            if(InputManager.Instance.IsMouseButtonDownThisFrame())
             {
                 GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
 
@@ -110,14 +110,38 @@ public class UnitActionSystem : MonoBehaviour
 
                 SetBusy();
                 selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+                //Debug.Log($"Previously Selected Grid: {selectedGrid} | {selectedGrid.isSelect}");
 
                 OnActionStarted?.Invoke(this, EventArgs.Empty);
+
+                selectedGrid.isSelect = false;
+                GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
+                
+                //Debug.Log($"Now Selected Grid: {selectedGrid} | {selectedGrid.isSelect}");
+                selectedGrid = nullGrid;
 
                 if(selectedUnit.actionPoints == 0) {
                     DeselectUnit();
                     SetSelectedAction(null);
+                    isHovering = false;
+                    selectedGrid.isSelect = false;
+                    selectedGrid = nullGrid;
                 }
             }
+        }
+    }
+
+    bool TryHovering()
+    {
+        if(IsPointerOverUIObject() || selectedAction == null || selectedAction.GetActionName() == "Interact")
+        {
+            isHovering = false;
+            return false;
+        }
+        else
+        {
+            isHovering = true;
+            return true;
         }
     }
 
@@ -125,39 +149,38 @@ public class UnitActionSystem : MonoBehaviour
     {
         GridPosition gridPos = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
 
-        if(selectedAction.GetActionName() == "Move") {
-            if (!selectedAction.IsValidActionGridPosition(gridPos))
-            {
-                return;
+        if (!selectedAction.IsValidActionGridPosition(gridPos))
+        {
+            if(selectedGrid != nullGrid) {
+                selectedGrid.isSelect = false;
+                GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
+                selectedGrid = nullGrid;
             }
-            else {
-                if(gridPos.isSelect != true)
-                {
-                    //Debug.Log($"Grid: {gridPos}");
-
-                    if(selectedGrid != nullGrid) {
-                        if(selectedGrid == gridPos) return;
-                        //Debug.Log("Not Null Grid");
+            return;
+        }
+        else {
+            //Debug.Log($"Hovering over Grid: {gridPos}");
+            if(gridPos.isSelect != true)
+            {
+                if(selectedGrid != nullGrid) {
+                    if(selectedGrid != gridPos) {
+                        //Debug.Log($"Previously Selected Grid: {selectedGrid}");
                         selectedGrid.isSelect = false;
                         GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
                         selectedGrid = nullGrid;
-                        return;
+                        //return;
                     }
-
-                    selectedGrid = gridPos;
-                    //Debug.Log($"Selected Grid: {selectedGrid}");
-                    
-                    selectedGrid.isSelect = true;
-                    GridSystemVisual.Instance.HoverGridMaterial(selectedGrid);
+                    else
+                    {
+                        //Debug.Log($"Currently Selected Grid: {selectedGrid}");
+                        GridSystemVisual.Instance.HoverGridMaterial(selectedGrid);
+                    }
                 }
+
+                selectedGrid = gridPos;
+                selectedGrid.isSelect = true;
+                GridSystemVisual.Instance.HoverGridMaterial(selectedGrid);
             }
-        }
-        else
-        {
-            selectedGrid.isSelect = false;
-            GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
-            selectedGrid = nullGrid;
-            return;
         }
     }
 
@@ -200,6 +223,10 @@ public class UnitActionSystem : MonoBehaviour
                         // Unit is already selected
                         //Deselect
                         DeselectUnit();
+                        SetSelectedAction(null);
+                        isHovering = false;
+                        selectedGrid.isSelect = false;
+                        selectedGrid = nullGrid;
                         return false;
                     }
 
@@ -212,6 +239,10 @@ public class UnitActionSystem : MonoBehaviour
                     if (unit.actionPoints == 0)
                     {
                         DeselectUnit();
+                        SetSelectedAction(null);
+                        isHovering = false;
+                        selectedGrid.isSelect = false;
+                        selectedGrid = nullGrid;
                         return false;
                     }
 
@@ -230,6 +261,9 @@ public class UnitActionSystem : MonoBehaviour
         {
             DeselectUnit();
             SetSelectedAction(null);
+            selectedGrid.isSelect = false;
+            GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
+            selectedGrid = nullGrid;
         }
     }
 

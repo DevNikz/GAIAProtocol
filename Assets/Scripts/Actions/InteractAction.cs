@@ -80,12 +80,6 @@ public class InteractAction : BaseAction
     }
 
     public override int GetActionPointsCost() {
-        // GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
-        // objective = LevelGrid.Instance.GetObjectAtGridPosition(mouseGridPosition);
-
-        // if (objective.CompareTag("Objective")) return GetComponent<Unit>().actionPoints;
-        // else return 1;
-
         return GetComponent<Unit>().actionPoints;
     }
 }

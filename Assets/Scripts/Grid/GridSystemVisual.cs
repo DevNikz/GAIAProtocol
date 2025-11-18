@@ -193,6 +193,12 @@ public class GridSystemVisual : MonoBehaviour
                 Show(GetGridVisualTypeMaterial(GridVisualType.White));
     }
 
+    public bool CheckGridMaterial(GridPosition gridPosition)
+    {
+        return gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
+            CheckMaterial(GetGridVisualTypeMaterial(GridVisualType.White));
+    }
+
     private void UpdateGridVisual()
     {
         HideAllGridPosition();
@@ -206,12 +212,13 @@ public class GridSystemVisual : MonoBehaviour
 
             switch (selectedAction)
             {
-                default:
                 case MoveAction moveAction:
                     gridVisualType = GridVisualType.White;
+                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                     break;
                 case SpinAction spinAction:
                     gridVisualType = GridVisualType.Blue;
+                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                     break;
                 case ShootAction shootAction:
                     gridVisualType = GridVisualType.Red;
@@ -220,6 +227,7 @@ public class GridSystemVisual : MonoBehaviour
                     break;
                 case GrenadeAction grenadeAction:
                     gridVisualType = GridVisualType.Yellow;
+                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                     break;
                 case SwordAction swordAction:
                     gridVisualType = GridVisualType.Red;
@@ -228,10 +236,11 @@ public class GridSystemVisual : MonoBehaviour
                     break;
                 case InteractAction interactAction:
                     gridVisualType = GridVisualType.Blue;
+                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                     break;
             }
 
-            ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+            
         }
         else
         {
@@ -265,6 +274,7 @@ public class GridSystemVisual : MonoBehaviour
         {
             if (gridVisualTypeMaterial.gridVisualType == gridVisualType)
             {
+                //Debug.Log(gridVisualTypeMaterial.material);
                 return gridVisualTypeMaterial.material;
             }
         }
