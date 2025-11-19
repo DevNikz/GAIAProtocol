@@ -27,15 +27,15 @@ public class CurrencyManager : MonoBehaviour
         researchPoints = 0;
     }
 
-    void OnEnable()
+    void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    // void OnDisable()
+    // {
+    //     SceneManager.sceneLoaded -= OnSceneLoaded;
+    // }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

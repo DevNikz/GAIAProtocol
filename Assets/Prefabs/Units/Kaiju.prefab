@@ -612,7 +612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  actionPoints: 2
+  actionPoints: 4
+  setCustomAP: 2
 --- !u!65 &3883194414219738599
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -648,8 +649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: {fileID: 6163011659346219270}
   heightOffset: 0.2
-  maxMoveDistance: 6
-  moveSpeed: 4
+  maxMoveDistance: 4
+  moveSpeed: 5
 --- !u!114 &6058385777678608437
 MonoBehaviour:
   m_ObjectHideFlags: 0

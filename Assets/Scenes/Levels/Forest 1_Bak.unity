@@ -5082,6 +5082,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicFloorPosition: 0
   ignoreRendererList: []
+--- !u!1001 &554048108
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4958808949610419391, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_Name
+      value: Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833271231955576717, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315747347676527511, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7259f09c8a9e1741830a2d25251363d, type: 3}
 --- !u!1 &559379930
 GameObject:
   m_ObjectHideFlags: 0
@@ -17896,7 +17957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ae08ffa249e5d468d3f68bf04a5ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChangeLevelButton
-  sceneName: 
+  soundController: {fileID: 0}
   sceneIndex: 0
 --- !u!4 &1596279391 stripped
 Transform:
@@ -19626,7 +19687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9103697228277929836, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24464,7 +24525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3170356346069476731, guid: 90b83aaf80327bf48957b56b16cf49d3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4156529236695048562, guid: 90b83aaf80327bf48957b56b16cf49d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24680,3 +24741,4 @@ SceneRoots:
   - {fileID: 2085200216}
   - {fileID: 866955914}
   - {fileID: 1330040455}
+  - {fileID: 554048108}

@@ -29,6 +29,7 @@ public class UnitActionSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] public List<Sprite> actionIconList; // 0 - Move | 1 - Interact
     [SerializeField] public bool isHovering;
+    [SerializeField] public SoundController soundController;
 
 
     private void Awake()
@@ -221,6 +222,7 @@ public class UnitActionSystem : MonoBehaviour
                     {
                         // Unit is already selected
                         //Deselect
+                        soundController.PlaySound(3);
                         DeselectUnit();
                         SetSelectedAction(null);
                         isHovering = false;
@@ -237,6 +239,7 @@ public class UnitActionSystem : MonoBehaviour
 
                     if (unit.actionPoints == 0)
                     {
+                        soundController.PlaySound(3);
                         DeselectUnit();
                         SetSelectedAction(null);
                         isHovering = false;
@@ -245,6 +248,7 @@ public class UnitActionSystem : MonoBehaviour
                         return false;
                     }
 
+                    soundController.PlaySound(2);
                     SetSelectedUnit(unit);
                     return true;
                 }

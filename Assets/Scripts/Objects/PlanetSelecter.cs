@@ -49,7 +49,6 @@ public class PlanetSelecter : MonoBehaviour
     {
         ClearAreas();
         SetupArea(0);
-        SetupArea(1);
     }
 
     void ClearAreas()
@@ -154,6 +153,7 @@ public class PlanetSelecter : MonoBehaviour
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(1);
                 break;
+            /*
             case 1:
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
@@ -191,6 +191,8 @@ public class PlanetSelecter : MonoBehaviour
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(1);
                 break;
+            */
+            case 1:
             case 2:
             case 3:
             case 4:

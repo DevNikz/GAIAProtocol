@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1860085930479865427
+--- !u!1 &4958808949610419391
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,87 +8,77 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1623945117910618533}
-  - component: {fileID: 1500798371278273077}
-  - component: {fileID: 4639008032717826789}
-  - component: {fileID: 532697621992708409}
+  - component: {fileID: 7315747347676527511}
+  - component: {fileID: 688034770682983704}
+  - component: {fileID: 5833271231955576717}
+  - component: {fileID: 7011707294733920870}
   m_Layer: 0
-  m_Name: UnitActionSystem
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1623945117910618533
+--- !u!4 &7315747347676527511
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860085930479865427}
+  m_GameObject: {fileID: 4958808949610419391}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1500798371278273077
+--- !u!114 &688034770682983704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860085930479865427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4c6806294a30af4eb774ad903a9357d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedUnit: {fileID: 0}
-  unitLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  selectedAction: {fileID: 0}
-  actionIconList:
-  - {fileID: 21300000, guid: 2f3edfcfc9cfefa4d896c176a3607ed2, type: 3}
-  - {fileID: 21300000, guid: 5bb1d9d6611b332449071da04320e985, type: 3}
-  - {fileID: 21300000, guid: d88ab22d315eb3e47b02b3e25467aaae, type: 3}
-  - {fileID: 21300000, guid: af6d0a271340a2444b2b15b260db2b3c, type: 3}
-  isHovering: 0
-  soundController: {fileID: 4639008032717826789}
---- !u!114 &4639008032717826789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860085930479865427}
+  m_GameObject: {fileID: 4958808949610419391}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73f8b797d470d1b42ac147145f1f39a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundController
-  sound: 1
+  sound: 0
   volume: 0.2
-  source: {fileID: 532697621992708409}
---- !u!82 &532697621992708409
+  source: {fileID: 7011707294733920870}
+--- !u!114 &5833271231955576717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958808949610419391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c388ec82d378e4fb871af72cdc8d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicPlayer
+  soundController: {fileID: 688034770682983704}
+  index: 0
+--- !u!82 &7011707294733920870
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860085930479865427}
+  m_GameObject: {fileID: 4958808949610419391}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6031684892449364194, guid: 223c2f2bc58f5d34f9db8ef262e48c1c, type: 2}
+  OutputAudioMixerGroup: {fileID: 4077819387258717742, guid: 223c2f2bc58f5d34f9db8ef262e48c1c, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

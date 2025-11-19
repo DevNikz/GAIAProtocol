@@ -19,17 +19,22 @@ public class Unit : MonoBehaviour
     private HealthSystem healthSystem;
     private BaseAction[] baseActionArray;
     public int actionPoints = ACTION_POINTS_MAX;
+    [SerializeField] public int setCustomAP;
 
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         baseActionArray = GetComponents<BaseAction>();
 
+        if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
+        else actionPoints = setCustomAP;
+
         //SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
     {
+
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
@@ -125,7 +130,8 @@ public class Unit : MonoBehaviour
         if ((IsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) ||
             (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
         {
-            actionPoints = ACTION_POINTS_MAX;
+            if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
+            else actionPoints = setCustomAP;
 
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }

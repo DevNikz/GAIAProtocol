@@ -9,6 +9,7 @@ public class InteractAction : BaseAction
     [SerializeField] private int actionpointcost;
     private int maxInteractDistance = 1;
     [SerializeReference] private GameObject objective;
+    [SerializeField] private SoundController soundController;
 
     private void Update()
     {
@@ -67,8 +68,8 @@ public class InteractAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(gridPosition);   
-
+        IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(gridPosition);
+        
         interactable.Interact(OnInteractComplete);
 
         ActionStart(onActionComplete);

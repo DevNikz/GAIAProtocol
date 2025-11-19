@@ -15,6 +15,7 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
     [SerializeField] private bool disableInteract;
 
     [SerializeReference] private bool hasBeenInteracted;
+    [SerializeField] private SoundController soundController;
 
     private void Start()
     {
@@ -33,19 +34,12 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
-    // private void ObjectiveInteract_OnPuzzleComplete(object sender, EventArgs e)
-    // {
-    //     onInteractionComplete();
-    //     TerminalPuzzleUI.Instance.HidePuzzleUI();
-    // }
-    
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e) 
     {
         if(!TurnSystem.Instance.IsPlayerTurn())
         {
             hasBeenInteracted = false;
             if(!objectiveComplete) LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-            //Debug.Log("Set Interactable at Grid Pos");
         }
     }
 
@@ -55,6 +49,7 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         else
         {
             if(!disableInteract) {
+                soundController.PlaySound(5);
                 LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                 LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
                 disableInteract = true;
@@ -98,6 +93,11 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
 
     public void Interact(Action onInteractionComplete)
     {
+        if(soundController != null)
+        {
+            soundController.PlaySound(4);
+        }   
+
         this.onInteractionComplete = onInteractionComplete;
         hasInteracted = true;
         percentage += interactPercentageAdd;

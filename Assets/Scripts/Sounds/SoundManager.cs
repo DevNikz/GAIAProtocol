@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -9,6 +10,7 @@ public struct SoundList
     [Range(0, 1)] public float volume;
     public AudioMixerGroup mixer;
     public AudioClip[] sounds;
+    
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -17,6 +19,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private SoundsSO SO;
     private static SoundManager Instance;
     private AudioSource audioSource;
+    public List<AudioSource> audioSourcesTemp;
 
     void Awake()
     {
@@ -41,6 +44,9 @@ public class SoundManager : MonoBehaviour
             source.outputAudioMixerGroup = soundList.mixer;
             source.clip = clip;
             source.volume = volume * soundList.volume;
+
+            Instance.audioSourcesTemp.Add(source);
+
             source.Play();
         }
         else
@@ -48,5 +54,15 @@ public class SoundManager : MonoBehaviour
             Instance.audioSource.outputAudioMixerGroup = soundList.mixer;
             Instance.audioSource.PlayOneShot(clip, volume * soundList.volume);
         }
+    }
+
+    public static void StopAllSounds()
+    {
+        for(int i = 0; i < Instance.audioSourcesTemp.Count; i++)
+        {
+            Instance.audioSourcesTemp[i].Stop();
+        }
+        Instance.audioSourcesTemp.Clear();
+
     }
 }

@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevelIndex(int sceneIndex)
     {
+        //SoundManager.StopAllSounds();
         StartCoroutine(LoadAsyncIndex(sceneIndex));
     }
 

@@ -9,6 +9,7 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] public int numObjectives;
     private ObjectiveScreenUI objectiveScreenUI;
     private bool areObjectivesDone;
+    [SerializeField] private SoundController soundController;
 
     void Awake()
     {

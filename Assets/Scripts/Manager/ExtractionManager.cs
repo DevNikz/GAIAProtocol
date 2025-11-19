@@ -11,6 +11,7 @@ public class ExtractionManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject extractButton;
+    [SerializeField] private SoundController soundController;
 
     void Awake()
     {
@@ -26,18 +27,20 @@ public class ExtractionManager : MonoBehaviour
             CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
             WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
             LevelManager.Instance.LoadLevelIndex(extractButton.GetComponent<ChangeLevelButton>().sceneIndex);
+            soundController.PlaySound(6);
+            SetButtonVisible(false);
         });
     }
 
-    void OnEnable()
+    void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    // void OnDisable()
+    // {
+    //     SceneManager.sceneLoaded -= OnSceneLoaded;
+    // }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

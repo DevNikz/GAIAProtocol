@@ -29,6 +29,10 @@ public class ObjectSpawnerManager : MonoBehaviour
     {
         switch(scene.buildIndex)
         {
+            default:
+            case 0:
+                ClearObjects();
+                break;
             case 1:
                 if(!hasSpawnedObjects) 
                 {
@@ -37,9 +41,6 @@ public class ObjectSpawnerManager : MonoBehaviour
                     SpawnRandomObjects();
                     break;
                 }
-                else break;
-            default:
-                ClearSpawnPoints();
                 break;
         }
     }
@@ -59,6 +60,18 @@ public class ObjectSpawnerManager : MonoBehaviour
                 objectSpawnPoints.Add(child.gameObject);
             } 
         }
+    }
+
+    void ClearObjects()
+    {
+        for(int i = 0; i < objectSpawnPoints.Count; i++)
+        {
+            foreach (Transform objectsSpawned in objectSpawnPoints[i].transform)
+            {
+                Destroy(objectsSpawned.gameObject);
+            }
+        }
+        ClearSpawnPoints();
     }
 
     void ClearSpawnPoints()
