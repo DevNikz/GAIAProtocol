@@ -45,4 +45,9 @@ public class TurnSystem : MonoBehaviour
         return isPlayerTurn;
     }
     
+    public void ResetSys()
+    {
+        turnNumber = 1;
+        isPlayerTurn = true;
+    }
 }

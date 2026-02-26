@@ -10,6 +10,9 @@ public class ObjectSpawnerManager : MonoBehaviour
     [SerializeReference] private List<GameObject> objectSpawnPoints;
     private bool hasSpawnedObjects;
 
+    public bool HasSpawnedObjects() { return hasSpawnedObjects; }
+    public void SetHasSpawned(bool value) { hasSpawnedObjects = value; } 
+
     void Awake()
     {
         if (Instance == null)
@@ -36,6 +39,7 @@ public class ObjectSpawnerManager : MonoBehaviour
             case 1:
                 if(!hasSpawnedObjects) 
                 {
+                    ClearObjects();
                     ClearSpawnPoints();
                     SetSpawnPoints();
                     SpawnRandomObjects();

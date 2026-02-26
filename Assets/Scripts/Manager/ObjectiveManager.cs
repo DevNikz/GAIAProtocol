@@ -8,7 +8,7 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] public List<ObjectiveObject> objectivesList;
     [SerializeField] public int numObjectives;
     private ObjectiveScreenUI objectiveScreenUI;
-    private bool areObjectivesDone;
+    [SerializeField] private bool areObjectivesDone;
     [SerializeField] private SoundController soundController;
 
     void Awake()
@@ -23,6 +23,11 @@ public class ObjectiveManager : MonoBehaviour
         objectiveScreenUI = GetComponent<ObjectiveScreenUI>();
 
         //GameObject obj = GameObject.FindGameObjectWithTag("Default");
+    }
+
+    public void ResetSys()
+    {
+        areObjectivesDone = false;
     }
 
     public void ClearObjectives() 

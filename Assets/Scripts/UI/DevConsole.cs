@@ -28,6 +28,9 @@ public class DevConsole : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             GridSystemVisual.Instance.SetVisuals(false);
+            TurnSystem.Instance.ResetSys();
+            ObjectiveManager.Instance.ResetSys();
+            ObjectSpawnerManager.Instance.SetHasSpawned(false);
         });
 
         commandList = new List<object>
