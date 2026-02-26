@@ -48,7 +48,9 @@ public class PlanetSelecter : MonoBehaviour
     void Start()
     {
         ClearAreas();
-        SetupArea(0);
+        SetupCorruptedArea(0);
+        SetupCorruptedArea(1);
+        SetupCorruptedArea(2);
     }
 
     void ClearAreas()
@@ -59,10 +61,12 @@ public class PlanetSelecter : MonoBehaviour
         } 
     }
 
-    void SetupArea(int index)
+    void SetupClearedArea(int index)
     {
         areas[index].parent.GetComponent<MeshRenderer>().material = colorArea[1];
     }
+
+    void SetupCorruptedArea(int index) { areas[index].parent.GetComponent<MeshRenderer>().material = colorArea[2]; }
 
     void Update()
     {
@@ -96,6 +100,8 @@ public class PlanetSelecter : MonoBehaviour
             hasAddedChildren = false;
             soundController.PlaySound(0);
         }
+
+        CorruptionManager.Instance.SetAreaIndex(currentIndex);
     }
 
     void RotatePlanet()
@@ -117,8 +123,8 @@ public class PlanetSelecter : MonoBehaviour
             case 0:
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nActivate The Facility";
-                missionDesc.text = "Activate Gaia Infrastructure to establish communications to HQ.";
+                missionHeader.text = "Operation\nActivate The Satellite Array";
+                missionDesc.text = "Activate the array to establish communications to HQ.";
 
                 //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
                 nullButton.SetActive(false);
@@ -126,6 +132,7 @@ public class PlanetSelecter : MonoBehaviour
                 {
                     levelComplete.SetActive(true);
                     button.SetActive(false);
+                    SetupClearedArea(0);
                 }  
                 else {
                     levelComplete.SetActive(false);
@@ -153,18 +160,19 @@ public class PlanetSelecter : MonoBehaviour
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(1);
                 break;
-            /*
             case 1:
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nStop the leakage";
-                missionDesc.text = "Repair the factory's pipeline to stop the leakage.";
+                missionHeader.text = "Operation\nShutdown The Facility";
+                missionDesc.text = "Shut down The Former's facility to prevent the corruption from spreading out.";
 
+                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
                 nullButton.SetActive(false);
                 if(WorldManager.Instance.GetWorldComplete(currentIndex))
                 {
                     levelComplete.SetActive(true);
                     button.SetActive(false);
+                    SetupClearedArea(1);
                 }  
                 else {
                     levelComplete.SetActive(false);
@@ -175,12 +183,13 @@ public class PlanetSelecter : MonoBehaviour
                 //Add objective details later on
                 nullState.SetActive(false);
                 DestroyChildren(stateContainer);
-                AddChildren(stateIcons[0], stateContainer);
+                AddChildren(stateIcons[currentIndex], stateContainer);
 
                 nullReward.SetActive(false);
                 DestroyChildren(rewardContainer);
-                AddChildren(rewardList[0], rewardContainer);
+                AddChildren(rewardList[currentIndex], rewardContainer);
                 hasAddedChildren = true;
+
                 //Set objectives first
                 ObjectiveManager.Instance.ClearObjectives();
                 ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
@@ -191,16 +200,50 @@ public class PlanetSelecter : MonoBehaviour
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(1);
                 break;
-            */
-            case 1:
             case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
+            canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Operation\nChelonia";
+                missionDesc.text = "Subdue The Chelonia.";
+
+                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                nullButton.SetActive(false);
+                if(WorldManager.Instance.GetWorldComplete(currentIndex))
+                {
+                    levelComplete.SetActive(true);
+                    button.SetActive(false);
+                    SetupClearedArea(1);
+                }  
+                else {
+                    levelComplete.SetActive(false);
+                    button.SetActive(true);
+                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
+                }
+
+                //Add objective details later on
+                nullState.SetActive(false);
+                DestroyChildren(stateContainer);
+                AddChildren(stateIcons[currentIndex], stateContainer);
+
+                nullReward.SetActive(false);
+                DestroyChildren(rewardContainer);
+                AddChildren(rewardList[currentIndex], rewardContainer);
+                hasAddedChildren = true;
+
+                //Set objectives first
+                ObjectiveManager.Instance.ClearObjectives();
+                ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
+
+                //Set Level
+                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                //Set Max Prompted Points on Completion
+                CurrencyManager.Instance.SetPromptedPoints(1);
+                break;
+
+            /*
+            //Locked
+            case 2:
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
                 missionHeader.text = "Locked Operation";
@@ -218,6 +261,7 @@ public class PlanetSelecter : MonoBehaviour
                 DestroyChildren(rewardContainer);
                 nullReward.SetActive(true);
                 break;
+            */
             default:
                 canvas.SetActive(false);
                 break;
