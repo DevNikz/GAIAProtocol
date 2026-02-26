@@ -127,6 +127,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleDebug"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cb5daf3-3a12-4c7e-ac85-1a65345c2872"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8fd4e14-0762-49de-8775-77cf1426be96"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -239,6 +257,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb38f329-509f-40f0-9c81-e875603bdabd"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDebug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c642262-3e96-4140-8109-3a68e6308a28"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -251,6 +291,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_CameraRotate = m_Player.FindAction("CameraRotate", throwIfNotFound: true);
         m_Player_CameraZoom = m_Player.FindAction("CameraZoom", throwIfNotFound: true);
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
+        m_Player_ToggleDebug = m_Player.FindAction("ToggleDebug", throwIfNotFound: true);
+        m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -335,6 +377,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CameraRotate;
     private readonly InputAction m_Player_CameraZoom;
     private readonly InputAction m_Player_Click;
+    private readonly InputAction m_Player_ToggleDebug;
+    private readonly InputAction m_Player_Return;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -362,6 +406,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Click".
         /// </summary>
         public InputAction @Click => m_Wrapper.m_Player_Click;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleDebug".
+        /// </summary>
+        public InputAction @ToggleDebug => m_Wrapper.m_Player_ToggleDebug;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Return".
+        /// </summary>
+        public InputAction @Return => m_Wrapper.m_Player_Return;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -400,6 +452,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
+            @ToggleDebug.started += instance.OnToggleDebug;
+            @ToggleDebug.performed += instance.OnToggleDebug;
+            @ToggleDebug.canceled += instance.OnToggleDebug;
+            @Return.started += instance.OnReturn;
+            @Return.performed += instance.OnReturn;
+            @Return.canceled += instance.OnReturn;
         }
 
         /// <summary>
@@ -423,6 +481,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
+            @ToggleDebug.started -= instance.OnToggleDebug;
+            @ToggleDebug.performed -= instance.OnToggleDebug;
+            @ToggleDebug.canceled -= instance.OnToggleDebug;
+            @Return.started -= instance.OnReturn;
+            @Return.performed -= instance.OnReturn;
+            @Return.canceled -= instance.OnReturn;
         }
 
         /// <summary>
@@ -491,5 +555,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleDebug" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleDebug(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Return" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReturn(InputAction.CallbackContext context);
     }
 }

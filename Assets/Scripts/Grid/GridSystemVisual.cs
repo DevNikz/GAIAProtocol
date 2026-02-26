@@ -33,6 +33,10 @@ public class GridSystemVisual : MonoBehaviour
     private GridSystemVisualSingle[,,] gridSystemVisualSingleArray;
 
     private bool hasCreatedVisuals;
+    public void SetVisuals(bool value)
+    {
+        hasCreatedVisuals = value;
+    }
 
 
     private void Awake()

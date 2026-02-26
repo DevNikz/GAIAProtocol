@@ -689,7 +689,7 @@ MonoBehaviour:
     m_Value: 2
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.5
   radius:
     m_OverrideState: 1
     m_Value: 2
@@ -729,23 +729,23 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 40
   m_BilateralUpsample:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   m_DirectionCount:
     m_OverrideState: 1
     m_Value: 2
   m_RayLength:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 3
   m_SampleCount:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   m_Denoise:
     m_OverrideState: 1
     m_Value: 1
   m_DenoiserRadius:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.5
 --- !u!114 &8321364347369368101
 MonoBehaviour:
   m_ObjectHideFlags: 3

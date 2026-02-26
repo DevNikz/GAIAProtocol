@@ -1,6 +1,7 @@
 #define USE_NEW_INPUT_SYSTEM
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,10 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get; private set; }
 
     private PlayerInputActions playerInputActions;
+
+    [SerializeField] bool isPlayerInputDisabled;
+    public bool IsPlayerInputDisabled() { return isPlayerInputDisabled; }
+    public void SetPlayerInput(bool value) { isPlayerInputDisabled = value; }
 
     private void Awake()
     {
@@ -53,6 +58,7 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetCameraMoveVector()
     {
+        if(isPlayerInputDisabled) return Vector2.zero;
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraMovement.ReadValue<Vector2>();
 #else
@@ -81,6 +87,7 @@ public class InputManager : MonoBehaviour
 
     public float GetCameraRotateAmount()
     {
+        if(isPlayerInputDisabled) return 0;
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraRotate.ReadValue<float>();
 #else
@@ -119,12 +126,21 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
-//     public bool GetDebugButton()
-//     {
-// #if USE_NEW_INPUT_SYSTEM
-//         return playerInputActions.Player.ToggleDebug.ReadValue<bool>();
-// #else
-//         return Input.GetKey(KeyCode.BackQuote);
-// #endif
-//     }
+    public bool GetDebugButton()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        return playerInputActions.Player.ToggleDebug.WasPressedThisFrame();
+#else
+        return Input.GetKey(KeyCode.BackQuote);
+#endif
+     }
+
+    public bool GetReturnButton()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        return playerInputActions.Player.Return.WasPressedThisFrame();
+#else
+        return Input.GetKey(KeyCode.return);
+#endif
+     }
 }
