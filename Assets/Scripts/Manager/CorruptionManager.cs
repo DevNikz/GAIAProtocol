@@ -52,6 +52,8 @@ public class CorruptionManager : MonoBehaviour
     {
         bar.SetFloat("_Fill", corruptionList[selectedAreaIndex]);
     }
-
+    
+    public void DisableCanvas() { canvas.SetActive(false); }
+    public void EnableCanvas() { canvas.SetActive(true); }
 
 }

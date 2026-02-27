@@ -74,4 +74,7 @@ public class CurrencyManager : MonoBehaviour
     {
         promptedPoints = value;
     }
+
+    public void DisableCanvas() { canvas.SetActive(false); }
+    public void EnableCanvas() { canvas.SetActive(true); }
 }

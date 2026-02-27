@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get; private set; }
 
     [SerializeField] private CinemachineVirtualCameraBase cinemachineVirtualCamera;
+    public CinemachineVirtualCameraBase GetCam() { return cinemachineVirtualCamera; }
     private CinemachineFollow cinemachineFollow;
     private Vector3 targetFollowOffset;
 

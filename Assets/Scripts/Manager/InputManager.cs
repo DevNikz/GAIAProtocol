@@ -56,6 +56,15 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
+    public bool IsMouseHeldDown()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        return playerInputActions.Player.Hold.WasPerformedThisFrame();
+#else
+        return Input.GetMouseButtonDown(0);
+#endif
+    }
+
     public Vector2 GetCameraMoveVector()
     {
         if(isPlayerInputDisabled) return Vector2.zero;
@@ -98,6 +107,49 @@ public class InputManager : MonoBehaviour
             rotateAmount = +1f;
         }
         if (Input.GetKey(KeyCode.E))
+        {
+            rotateAmount = -1f;
+        }
+
+        return rotateAmount;
+#endif
+    }
+
+    public float GetRotateY()
+    {
+        if(isPlayerInputDisabled) return 0;
+#if USE_NEW_INPUT_SYSTEM
+        return playerInputActions.Player.RotateY.ReadValue<float>();
+#else
+        float rotateAmount = 0f;
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            rotateAmount = +1f;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            rotateAmount = -1f;
+        }
+
+        return rotateAmount;
+#endif
+    }
+
+    public float GetMouseRotateAmount()
+    {
+        if(isPlayerInputDisabled) return 0;
+        #if USE_NEW_INPUT_SYSTEM
+        Debug.Log(playerInputActions.Player.MouseRotate.ReadValue<float>());
+        return playerInputActions.Player.MouseRotate.ReadValue<float>();
+#else
+        float rotateAmount = 0f;
+
+        if (Input.GetAxis("MouseX"))
+        {
+            rotateAmount = +1f;
+        }
+        if (-Input.GetAxis("MouseX"))
         {
             rotateAmount = -1f;
         }

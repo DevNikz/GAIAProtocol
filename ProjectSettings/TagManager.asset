@@ -8,6 +8,9 @@ TagManager:
   - Objective
   - ScreenTransition
   - Extract
+  - MissionSelecter
+  - Armory
+  - VirtualCam
   layers:
   - Default
   - TransparentFX

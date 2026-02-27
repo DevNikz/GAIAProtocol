@@ -145,6 +145,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseRotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""e6f57587-8011-4d7f-9a0c-e93e33b160ef"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotateY"",
+                    ""type"": ""Button"",
+                    ""id"": ""5073df03-7bd6-4636-aa2a-c73603e0a40c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hold"",
+                    ""type"": ""Button"",
+                    ""id"": ""6923f713-1587-4898-b982-7e7fbbd94273"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -279,6 +306,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Return"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40ac6d32-bc0d-45d3-8b1c-9a03c9fe8c3e"",
+                    ""path"": ""<Mouse>/position/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseRotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""74970975-5dea-42fb-9863-bad3450daf3c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateY"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""87c169fc-c964-48ed-a191-1dd366860677"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""3f579764-deec-48c0-a884-f9b30182cd3b"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36315a15-b53b-4158-a44d-25af73d243d4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -293,6 +375,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         m_Player_ToggleDebug = m_Player.FindAction("ToggleDebug", throwIfNotFound: true);
         m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
+        m_Player_MouseRotate = m_Player.FindAction("MouseRotate", throwIfNotFound: true);
+        m_Player_RotateY = m_Player.FindAction("RotateY", throwIfNotFound: true);
+        m_Player_Hold = m_Player.FindAction("Hold", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -379,6 +464,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Click;
     private readonly InputAction m_Player_ToggleDebug;
     private readonly InputAction m_Player_Return;
+    private readonly InputAction m_Player_MouseRotate;
+    private readonly InputAction m_Player_RotateY;
+    private readonly InputAction m_Player_Hold;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -414,6 +502,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Return".
         /// </summary>
         public InputAction @Return => m_Wrapper.m_Player_Return;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MouseRotate".
+        /// </summary>
+        public InputAction @MouseRotate => m_Wrapper.m_Player_MouseRotate;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/RotateY".
+        /// </summary>
+        public InputAction @RotateY => m_Wrapper.m_Player_RotateY;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Hold".
+        /// </summary>
+        public InputAction @Hold => m_Wrapper.m_Player_Hold;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -458,6 +558,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Return.started += instance.OnReturn;
             @Return.performed += instance.OnReturn;
             @Return.canceled += instance.OnReturn;
+            @MouseRotate.started += instance.OnMouseRotate;
+            @MouseRotate.performed += instance.OnMouseRotate;
+            @MouseRotate.canceled += instance.OnMouseRotate;
+            @RotateY.started += instance.OnRotateY;
+            @RotateY.performed += instance.OnRotateY;
+            @RotateY.canceled += instance.OnRotateY;
+            @Hold.started += instance.OnHold;
+            @Hold.performed += instance.OnHold;
+            @Hold.canceled += instance.OnHold;
         }
 
         /// <summary>
@@ -487,6 +596,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Return.started -= instance.OnReturn;
             @Return.performed -= instance.OnReturn;
             @Return.canceled -= instance.OnReturn;
+            @MouseRotate.started -= instance.OnMouseRotate;
+            @MouseRotate.performed -= instance.OnMouseRotate;
+            @MouseRotate.canceled -= instance.OnMouseRotate;
+            @RotateY.started -= instance.OnRotateY;
+            @RotateY.performed -= instance.OnRotateY;
+            @RotateY.canceled -= instance.OnRotateY;
+            @Hold.started -= instance.OnHold;
+            @Hold.performed -= instance.OnHold;
+            @Hold.canceled -= instance.OnHold;
         }
 
         /// <summary>
@@ -569,5 +687,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReturn(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MouseRotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMouseRotate(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotateY" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateY(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Hold" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHold(InputAction.CallbackContext context);
     }
 }
