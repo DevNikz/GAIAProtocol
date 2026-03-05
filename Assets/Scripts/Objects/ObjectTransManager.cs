@@ -152,6 +152,11 @@ public class ObjectTransManager : MonoBehaviour
         Units.Add(unit);
     }
 
+    public void RemoveUnit(Transform unit)
+    {
+        Units.Remove(unit);
+    }
+
     public Camera GetMainCamera()
     {
         return mainCam;

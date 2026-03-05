@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ObjectiveScreenUI : MonoBehaviour
 {
     [SerializeField] private GameObject objectiveChecklistRef;
-    [SerializeField] private GameObject objectiveContainer;
+    [SerializeField] private Transform container;
     [SerializeField] private List<ObjUI> objectiveList;
 
     [SerializeField] private GameObject UICanvas;
@@ -26,6 +26,7 @@ public class ObjectiveScreenUI : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        ClearObjectives();
         switch(scene.buildIndex)
         {
             case 1:
@@ -44,7 +45,7 @@ public class ObjectiveScreenUI : MonoBehaviour
 
         for(int i = 0; i < objectiveNum; i++)
         {
-            GameObject obj = Instantiate(objectiveChecklistRef, objectiveContainer.transform);
+            GameObject obj = Instantiate(objectiveChecklistRef, container);
 
             obj.GetComponent<ObjUI>().SetUI(ObjectiveManager.Instance.objectivesList[i].description);
 

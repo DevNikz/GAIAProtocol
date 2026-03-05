@@ -199,6 +199,7 @@ public class PlanetSelecter : MonoBehaviour
 
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(1);
+
                 break;
             case 2:
             canvas.SetActive(true);

@@ -10,6 +10,8 @@ public class HUBTransitioner : MonoBehaviour
     CinemachineRotationComposer rot;
     [SerializeField] GameObject missionSelect;
     [SerializeField] GameObject armory;
+    [SerializeField] GameObject mechSelect;
+    [SerializeField] GameObject toArmory;
 
     Camera cam;
 
@@ -17,15 +19,61 @@ public class HUBTransitioner : MonoBehaviour
     {
         cam = Camera.main;
         missionSelect = GameObject.FindGameObjectWithTag("MissionSelecter");
+
         if(GameObject.FindGameObjectWithTag("Armory") != null) {
             armory = GameObject.FindGameObjectWithTag("Armory");
             armory.transform.Find("Content").gameObject.SetActive(false);
         }
+
+        if(GameObject.FindGameObjectWithTag("MechSelect") != null)
+        {
+            mechSelect = GameObject.FindGameObjectWithTag("MechSelect");
+            mechSelect.transform.Find("MainUI").gameObject.SetActive(false);
+        }
+
+        if(GameObject.FindGameObjectWithTag("ToArmory") != null)
+        {
+            toArmory = GameObject.FindGameObjectWithTag("ToArmory");
+        }
+
         if(GameObject.FindGameObjectWithTag("VirtualCam") != null) {
             virtualCam = FindAnyObjectByType<CinemachineVirtualCameraBase>();
             pos = virtualCam.GetComponent<CinemachineOrbitalFollow>();
             rot = virtualCam.GetComponent<CinemachineRotationComposer>();
         }
+    }
+
+    public void ToMechSelect()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(MechSelect());
+        FadeScreenManager.Instance.FadeOut();
+    }
+
+    IEnumerator MechSelect()
+    {
+        yield return new WaitForSeconds(0.75f);
+
+        //Disable Mission Select Scene
+        missionSelect.SetActive(false);
+        toArmory.SetActive(false);
+        CorruptionManager.Instance.DisableCanvas();
+        CurrencyManager.Instance.DisableCanvas();
+
+        mechSelect.transform.Find("MainUI").gameObject.SetActive(true);
+
+        //Camera
+        virtualCam.LookAt = armory.transform.Find("Target");
+        virtualCam.Follow = armory.transform.Find("Target");
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public void Return()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(MissionSelect());
+        FadeScreenManager.Instance.FadeOut();
     }
 
     public void ToArmory()
@@ -41,6 +89,7 @@ public class HUBTransitioner : MonoBehaviour
 
         //Disable Mission Select Scene
         missionSelect.SetActive(false);
+        toArmory.SetActive(false);
         CorruptionManager.Instance.DisableCanvas();
         CurrencyManager.Instance.DisableCanvas();
 
@@ -68,11 +117,13 @@ public class HUBTransitioner : MonoBehaviour
 
         //Disable Mission Select Scene
         missionSelect.SetActive(true);
+        toArmory.SetActive(true);
         CorruptionManager.Instance.EnableCanvas();
         CurrencyManager.Instance.EnableCanvas();
 
         //Enable Armory
         armory.transform.Find("Content").gameObject.SetActive(false);
+        mechSelect.transform.Find("MainUI").gameObject.SetActive(false);
 
         //Cam Settings
         virtualCam.LookAt = missionSelect.transform.Find("Planet");
@@ -94,5 +145,21 @@ public class HUBTransitioner : MonoBehaviour
         StartCoroutine(MissionSelect());
         FadeScreenManager.Instance.FadeOut();
 
+    }
+
+    public void ToLevel()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(Level());
+        FadeScreenManager.Instance.FadeOut();
+    }
+
+    IEnumerator Level()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        LevelManager.Instance.LoadLevelIndex(LevelManager.Instance.GetCurrentLevel());
+
+        yield return new WaitForSeconds(0.5f);
     }
 }

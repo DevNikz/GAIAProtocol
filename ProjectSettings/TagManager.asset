@@ -11,6 +11,9 @@ TagManager:
   - MissionSelecter
   - Armory
   - VirtualCam
+  - MechSelect
+  - UnitUI
+  - ToArmory
   layers:
   - Default
   - TransparentFX

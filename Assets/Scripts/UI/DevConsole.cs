@@ -11,6 +11,7 @@ public class DevConsole : MonoBehaviour
     string input;
 
     public static DevCommand RESTART;
+    public static DevCommand RESTART_HUB;
     public List<object> commandList;
 
     [SerializeField] int fontSize = 32;
@@ -31,6 +32,11 @@ public class DevConsole : MonoBehaviour
             TurnSystem.Instance.ResetSys();
             ObjectiveManager.Instance.ResetSys();
             ObjectSpawnerManager.Instance.SetHasSpawned(false);
+        });
+
+        RESTART_HUB = new DevCommand("restartHUB", "Restart HUB", "restartHUB", () =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         });
 
         commandList = new List<object>

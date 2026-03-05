@@ -13,6 +13,10 @@ public class UnitManager : MonoBehaviour
     public List<Unit> friendlyUnitList;
     public List<Unit> enemyUnitList;
 
+    public List<Transform> ReferenceUnitList; // workers = 0-3 | ranger = 4-6
+
+    public void SetReferenceList(List<Transform> units) { ReferenceUnitList = units; }
+
 
     private void Awake()
     {
@@ -47,6 +51,43 @@ public class UnitManager : MonoBehaviour
         unitList.Clear();
         friendlyUnitList.Clear();
         enemyUnitList.Clear();
+
+        switch(scene.buildIndex)
+        {
+            case 1:
+                SpawnUnit();
+            break;
+        }
+    }
+
+    void SpawnUnit()
+    {
+        int count = MechManager.Instance.GetUnitsToBeDeployed();
+        List<FriendlyUnitType> types = MechManager.Instance.GetFriendlyUnits();
+        for(int i = 0; i < count; i++)
+        {
+            if(types[i] == FriendlyUnitType.WORKER)
+            {
+                ReferenceUnitList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                ReferenceUnitList[i+3].gameObject.SetActive(true);
+            }
+            Debug.Log(i);
+        }
+        // int numWorker = MechManager.Instance.GetWorkerUnits();
+        // int numRanger = MechManager.Instance.GetRangerUnits();
+
+        // for(int i = 0; i < numWorker; i++)
+        // {
+        //     ReferenceUnitList[i].gameObject.SetActive(true);
+        // }
+
+        // for(int i = 0; i < numRanger; i++)
+        // {
+        //     ReferenceUnitList[i+4].gameObject.SetActive(true);
+        // }
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
@@ -78,6 +119,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Remove(unit);
+            ObjectTransManager.Instance.RemoveUnit(unit.transform);
         }
     }
 
@@ -96,4 +138,5 @@ public class UnitManager : MonoBehaviour
         return enemyUnitList;
     }
 
+    public void ClearRefList() { ReferenceUnitList.Clear(); }
 }

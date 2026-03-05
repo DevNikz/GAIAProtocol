@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class SoundController : MonoBehaviour
 {
     [SerializeField] private SoundType sound;
