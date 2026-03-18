@@ -20,6 +20,7 @@ public class MechSelecter : MonoBehaviour
     [SerializeField] GameObject upgradesParentRanger;
     [SerializeField] GameObject workerModel;
     [SerializeField] GameObject rangerModel;
+    [SerializeField] ParticleSystem levelUpParticle;
     Transform cam;
     [SerializeField] float speed;
 
@@ -30,6 +31,7 @@ public class MechSelecter : MonoBehaviour
     {
         cam = Camera.main.transform;
         target = transform.Find("Content/Garage/Mech");
+        levelUpParticle = transform.Find("Content/Garage/LevelUp").GetComponent<ParticleSystem>();
         currentUnit = FriendlyUnitType.WORKER;
     }
 
@@ -97,6 +99,7 @@ public class MechSelecter : MonoBehaviour
         if(CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
+            levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
             CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
             MechManager.Instance.UpgradeWorker(WorkerTier.TIER2);
@@ -112,6 +115,7 @@ public class MechSelecter : MonoBehaviour
         if(CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
+            levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
             CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
             MechManager.Instance.UpgradeWorker(WorkerTier.TIER3);
@@ -127,6 +131,7 @@ public class MechSelecter : MonoBehaviour
         if(CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
+            levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
             CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
             MechManager.Instance.UpgradeRanger(RangerTier.TIER2);
@@ -142,6 +147,7 @@ public class MechSelecter : MonoBehaviour
         if(CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
+            levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
             CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
             MechManager.Instance.UpgradeRanger(RangerTier.TIER3);

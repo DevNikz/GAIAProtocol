@@ -22,6 +22,15 @@ public class UnitWorldUI : MonoBehaviour
         UpdateHealthBar();
     }
 
+    void OnEnable()
+    {
+        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+        healthSystem.OnDamaged += HealthSystem_OnDamaged;
+
+        UpdateActionPointsText();
+        UpdateHealthBar();
+    }
+
     void OnDisable()
     {
         Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;

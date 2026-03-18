@@ -15,7 +15,6 @@ public class TurnSystem : MonoBehaviour
     private int turnNumber = 1;
     [SerializeField] private bool isPlayerTurn = true;
 
-
     private void Awake()
     {
         if (Instance == null)

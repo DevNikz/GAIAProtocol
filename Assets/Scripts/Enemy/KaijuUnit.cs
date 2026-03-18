@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using PrimeTween;
 using UnityEngine;
 
 public class KaijuUnit : MonoBehaviour
@@ -22,6 +24,15 @@ public class KaijuUnit : MonoBehaviour
     public bool IsAwake() { return isAwake; }
     public void SetAwake(bool value) { isAwake = value;}
 
+    [SerializeField] bool hasAnimatedWake;
+    public bool HasAnimatedWake() { return hasAnimatedWake; }
+    public void SetAnimatedWake(bool value) { hasAnimatedWake = value; }
+
+    [SerializeField] ParticleSystem ground;
+    [SerializeField] Transform mesh;
+    [SerializeField] TweenSettings<float> yPos;
+    GameObject ui;
+
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 10f;
     [SerializeField] private float losCheckInterval = 0.2f;   // seconds between raycasts
@@ -33,9 +44,18 @@ public class KaijuUnit : MonoBehaviour
     private Unit currentTarget;
     private float losTimer;
 
+    private Vector3 origPosMesh = new Vector3(0, -0.15f, 0.2f);
+    private Vector3 groundPosMesh = new Vector3(0, -2.15f, 0.2f);
+
     private void Awake()
     {
         ownerUnit = GetComponent<Unit>();
+        ground = transform.Find("Ground").GetComponent<ParticleSystem>();
+        mesh = transform.Find("turtlekaiju");
+        ui = transform.Find("UnitWorldUI").gameObject;
+        
+        ui.SetActive(false);
+        mesh.localPosition = groundPosMesh;
     }
 
     private void Update()
@@ -49,6 +69,24 @@ public class KaijuUnit : MonoBehaviour
         CheckDetection();
     }
 
+    public void InitAnimateAwake()
+    {
+        StartCoroutine(AnimateAwake());
+    }
+
+    IEnumerator AnimateAwake()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        ground.Play();
+        Tween.LocalPositionY(mesh, yPos);
+
+        yield return new WaitForSeconds(6f);
+
+        hasAnimatedWake = true;
+        ui.SetActive(true);
+    }
+
     private void CheckDetection()
     {
         Unit closestVisibleEnemy = FindClosestVisiblePlayerUnit();
@@ -59,7 +97,9 @@ public class KaijuUnit : MonoBehaviour
             {
                 // Just spotted a player unit
                 isPlayerDetected = true;
-                if(isAwake == false) isAwake = true;
+                if(isAwake == false) {
+                    isAwake = true;
+                }
                 currentTarget = closestVisibleEnemy;
                 OnPlayerDetected?.Invoke(this, new OnPlayerDetectedEventArgs { detectedUnit = currentTarget });
             }

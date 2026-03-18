@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyAI_Old : MonoBehaviour
@@ -43,7 +46,6 @@ public class EnemyAI_Old : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0f)
                 {
-                    //Do Kaiju First
                     if(CheckKaijuState() && TryTakeKaijuAction(SetStateTakingTurn))
                     {   
                         Debug.Log("Kaiju Action");
@@ -76,13 +78,39 @@ public class EnemyAI_Old : MonoBehaviour
     {
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
-            state = State.TakingTurn;
-            timer = 2f;
+            StartCoroutine(InitWake());
+            // DoKaijuWake();
+            // state = State.TakingTurn;
+            // timer = 2f;
+        }
+    }
+
+    IEnumerator InitWake()
+    {
+        Debug.Log($"animate kaiju");
+        DoKaijuWake();
+
+        yield return new WaitForSeconds(6f);
+
+        Debug.Log($"Set Turn");
+        state = State.TakingTurn;
+        timer = 2f;
+        yield return null;
+    }
+
+    void DoKaijuWake()
+    {
+        foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
+        {
+            if(!enemyUnit.GetComponent<KaijuUnit>().HasAnimatedWake()) {
+                enemyUnit.GetComponent<KaijuUnit>().InitAnimateAwake();
+            }
         }
     }
 
     bool TryTakeKaijuAction(Action onEnemyAIActionComplete)
     {
+        //Do actions
         foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
         {
             if(TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete)) return true;
@@ -99,25 +127,14 @@ public class EnemyAI_Old : MonoBehaviour
         return false;
     }
 
-    // private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
-    // {
-    //     foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
-    //     {
-    //         if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
-    //         {
-    //             return true;
-    //         }
-    //     }
-
-    //     return false;
-    // }
-
     bool CheckKaijuState()
     {
         for(int i = 0; i < UnitManager.Instance.GetKaijuList().Count; i++)
         {
             //at least one is awake
-            if(UnitManager.Instance.GetKaijuList()[i].GetComponent<KaijuUnit>().IsAwake()) return true;
+            if(UnitManager.Instance.GetKaijuList()[i].GetComponent<KaijuUnit>().IsAwake()) {
+                return true;
+            }
         }
         return false;
     }
