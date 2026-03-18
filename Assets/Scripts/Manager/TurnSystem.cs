@@ -13,7 +13,7 @@ public class TurnSystem : MonoBehaviour
 
 
     private int turnNumber = 1;
-    private bool isPlayerTurn = true;
+    [SerializeField] private bool isPlayerTurn = true;
 
 
     private void Awake()
@@ -31,8 +31,14 @@ public class TurnSystem : MonoBehaviour
     {
         turnNumber++;
         isPlayerTurn = !isPlayerTurn;
+        Debug.Log($"Is Player's Turn: {isPlayerTurn}");
 
         OnTurnChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void NextEnemyTurn()
+    {
+        
     }
 
     public int GetTurnNumber()

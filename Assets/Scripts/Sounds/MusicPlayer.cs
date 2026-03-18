@@ -6,6 +6,6 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] private int index;
     void Start()
     {
-        soundController.PlaySound(index);
+        //oundController.PlaySound(index);
     }
 }

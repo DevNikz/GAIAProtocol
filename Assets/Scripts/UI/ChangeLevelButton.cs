@@ -7,12 +7,12 @@ public class ChangeLevelButton : MonoBehaviour
 
     public void ChangeLevelIndex()
     {
-        soundController.PlaySound(1);
+        //soundController.PlaySound(1);
         LevelManager.Instance.LoadLevelIndex(sceneIndex);
     }
 
     public void PlaySound()
     {
-        soundController.PlaySound(1);
+        //soundController.PlaySound(1);
     }
 }

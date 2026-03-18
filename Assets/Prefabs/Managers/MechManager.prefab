@@ -47,3 +47,10 @@ MonoBehaviour:
   unitsToBeDeployed: 0
   workerUnits: 0
   rangerUnits: 0
+  friendlyUnits: 
+  workerTier: 0
+  tierWorkers: []
+  currentTierWorkerObject: {fileID: 0}
+  rangerTier: 0
+  tierRangers: []
+  currentTierRangerObject: {fileID: 0}

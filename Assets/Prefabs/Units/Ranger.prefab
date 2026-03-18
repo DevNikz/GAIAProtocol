@@ -65,7 +65,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &3429818911084510251
 TrailRenderer:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -111,6 +111,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
@@ -178,7 +179,6 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.01
-  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
@@ -271,6 +271,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2858435842839299711
 MonoBehaviour:
@@ -302,6 +303,7 @@ GameObject:
   - component: {fileID: 8580878554579476817}
   - component: {fileID: 8486415639542846074}
   - component: {fileID: 7435114623192971937}
+  - component: {fileID: 1583144576278365662}
   m_Layer: 8
   m_Name: Ranger
   m_TagString: Untagged
@@ -343,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   actionPoints: 4
+  setCustomAP: 0
 --- !u!65 &4417989117626486555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -456,6 +459,20 @@ MonoBehaviour:
     m_Bits: 640
   minDamage: 5
   maxDamage: 20
+  hasPlasmaRifle: 0
+--- !u!114 &1583144576278365662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170356346069476731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b881b33cad9caac43b6fcd45ad96fd7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RangerMech
+  rangerTier: {fileID: 0}
 --- !u!1 &4053680884573868726
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +576,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -663,7 +681,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &7715636268507708983
 LineRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -709,6 +727,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Positions:
   - {x: 12, y: 0.2, z: 2}
   - {x: 12, y: 0.2, z: 2}
@@ -767,7 +786,6 @@ LineRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MaskInteraction: 0
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1

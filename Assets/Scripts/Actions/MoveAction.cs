@@ -20,6 +20,8 @@ public class MoveAction : BaseAction
 
 
     [SerializeField] private int maxMoveDistance = 4;
+    public void SetMoveDist(int value) { maxMoveDistance = value; }
+
     [SerializeField, Range(0.1f, 10f)] private float moveSpeed = 5f;
 
     private List<Vector3> positionList;
@@ -193,6 +195,7 @@ public class MoveAction : BaseAction
         return "Move";
     }
 
+    /*
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         //int targetCountAtGridPosition = unit.GetAction<SwordAction>().GetValidActionGridPositionList().Count;
@@ -218,5 +221,45 @@ public class MoveAction : BaseAction
             actionValue = targetCountAtGridPosition * 10,
         };
     }
+    */
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        // Prefer SwordAction if present, then ShootAction, then fall back to a
+        // neutral value so the AI can still move even without a combat action.
+        int targetCountAtGridPosition = 0;
+
+        SwordAction swordAction = unit.GetAction<SwordAction>();
+        if (swordAction != null)
+        {
+            targetCountAtGridPosition = swordAction.GetTargetCountAtPosition(gridPosition);
+        }
+        else
+        {
+            ShootAction shootAction = unit.GetAction<ShootAction>();
+            if (shootAction != null)
+            {
+                targetCountAtGridPosition = shootAction.GetTargetCountAtPosition(gridPosition);
+            }
+            else
+            {
+                // No attack action — assign a small constant so the enemy will
+                // still move (toward the player via patrol) rather than score 0.
+                targetCountAtGridPosition = 1;
+            }
+        }
+
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = targetCountAtGridPosition * 10,
+        };
+    }
     
+
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        // This lets other actions (and the AI) query MoveAction symmetrically.
+        return GetValidActionGridPositionList().Count;
+    }
 }

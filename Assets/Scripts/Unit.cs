@@ -19,15 +19,42 @@ public class Unit : MonoBehaviour
     private HealthSystem healthSystem;
     private BaseAction[] baseActionArray;
     public int actionPoints = ACTION_POINTS_MAX;
-    [SerializeField] public int setCustomAP;
+
+    int customHP;
+    [SerializeField] int customAP;
+    bool hasRegenHP;
+    bool hasCorruptionResist;
+
+    //Set Here
+    public void SetHP(int hp) { customHP = hp; }
+    public void SetAP(int ap) { customAP = ap; }
+    public void HasRegenHealth(bool value) { hasRegenHP = value; } 
+    public void HasCorruptionResist(bool value) { hasCorruptionResist = value; }
+
+    //Set to Components
+    public void InitHP(int hp) { healthSystem.InitHP(hp); }
+    public void InitAP(int ap) { actionPoints = ap; }
+    public void HasRegenHealthToSys(bool value) { healthSystem.InitRegenHealth(value); } 
+    public void HasCorruptionResistToSys(bool value) { healthSystem.InitCorruptionResist(value); }
 
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         baseActionArray = GetComponents<BaseAction>();
 
-        if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
-        else actionPoints = setCustomAP;
+        //hp
+        if(customHP != 0) InitHP(customHP);
+        
+        //Ap
+        if(customAP == 0) actionPoints = ACTION_POINTS_MAX; 
+        else InitAP(customAP);
+
+        //bools
+        HasRegenHealthToSys(hasRegenHP);
+        HasCorruptionResistToSys(hasCorruptionResist);
+
+        // if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
+        // else actionPoints = setCustomAP;
 
         //SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -129,8 +156,10 @@ public class Unit : MonoBehaviour
         if ((IsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) ||
             (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
         {
-            if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
-            else actionPoints = setCustomAP;
+            if(customAP == 0) actionPoints = ACTION_POINTS_MAX; 
+            else InitAP(customAP);
+            // if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
+            // else actionPoints = setCustomAP;
 
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }

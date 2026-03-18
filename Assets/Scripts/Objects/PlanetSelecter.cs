@@ -37,8 +37,6 @@ public class PlanetSelecter : MonoBehaviour
     [SerializeField] private GameObject nullReward;
     private bool hasAddedChildren;
 
-    [Header("Sounds")]
-    [SerializeField] private SoundController soundController;
 
     void Awake() {
         cam = Camera.main.transform;
@@ -80,25 +78,29 @@ public class PlanetSelecter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W)) {
             currentIndex = (currentIndex + 1) % areas.Count;
             hasAddedChildren = false;
-            soundController.PlaySound(0);
+            SoundManager.Instance.PlaySFX("Select Planet");
+            //soundController.PlaySound(0);
         }
 
         if (Input.GetKeyDown(KeyCode.S)) {
             currentIndex = (currentIndex - 1 + areas.Count) % areas.Count;
             hasAddedChildren = false;
-            soundController.PlaySound(0);
+            SoundManager.Instance.PlaySFX("Select Planet");
+            //soundController.PlaySound(0);
         }
 
         if (Input.GetKeyDown(KeyCode.A)) {
             currentIndex = (currentIndex - 1 + areas.Count) % areas.Count;
             hasAddedChildren = false;
-            soundController.PlaySound(0);
+            SoundManager.Instance.PlaySFX("Select Planet");
+            //soundController.PlaySound(0);
         }
 
         if (Input.GetKeyDown(KeyCode.D)) {
             currentIndex = (currentIndex + 1) % areas.Count;
             hasAddedChildren = false;
-            soundController.PlaySound(0);
+            SoundManager.Instance.PlaySFX("Select Planet");
+            //soundController.PlaySound(0);
         }
 
         CorruptionManager.Instance.SetAreaIndex(currentIndex);

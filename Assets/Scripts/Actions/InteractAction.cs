@@ -9,7 +9,8 @@ public class InteractAction : BaseAction
     [SerializeField] private int actionpointcost;
     private int maxInteractDistance = 1;
     [SerializeReference] private GameObject objective;
-    [SerializeField] private SoundController soundController;
+    [SerializeField] float percentageAdd = 0f;
+    public void SetInteractEfficiency(float value) { percentageAdd = value; }
 
     private void Update()
     {
@@ -70,7 +71,7 @@ public class InteractAction : BaseAction
     {
         IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(gridPosition);
         
-        interactable.Interact(OnInteractComplete);
+        interactable.Interact(OnInteractComplete, percentageAdd);
 
         ActionStart(onActionComplete);
     }

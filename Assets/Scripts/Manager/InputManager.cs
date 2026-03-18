@@ -22,11 +22,10 @@ public class InputManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            playerInputActions = new PlayerInputActions();
+            playerInputActions.Player.Enable();
         }
-        else Destroy(gameObject);
-
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
+        else Destroy(gameObject);        
     }
 
     public Vector2 GetMouseScreenPosition()
@@ -125,11 +124,11 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            rotateAmount = +1f;
+            rotateAmount = -1f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            rotateAmount = -1f;
+            rotateAmount = +1f;
         }
 
         return rotateAmount;

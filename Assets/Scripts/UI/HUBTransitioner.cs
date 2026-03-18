@@ -12,12 +12,14 @@ public class HUBTransitioner : MonoBehaviour
     [SerializeField] GameObject armory;
     [SerializeField] GameObject mechSelect;
     [SerializeField] GameObject toArmory;
+    [SerializeField] GameObject planetLight;
 
     Camera cam;
 
     void Awake()
     {
         cam = Camera.main;
+        planetLight = GameObject.FindGameObjectWithTag("PlanetLight");
         missionSelect = GameObject.FindGameObjectWithTag("MissionSelecter");
 
         if(GameObject.FindGameObjectWithTag("Armory") != null) {
@@ -41,6 +43,27 @@ public class HUBTransitioner : MonoBehaviour
             pos = virtualCam.GetComponent<CinemachineOrbitalFollow>();
             rot = virtualCam.GetComponent<CinemachineRotationComposer>();
         }
+    }
+
+    void Start()
+    {
+        Intro();
+    }
+
+
+    void Intro()
+    {
+        FadeScreenManager.Instance.FadeOut();
+        StartCoroutine(IntroScene());
+    }
+
+    IEnumerator IntroScene()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        SoundManager.Instance.PlayMusic("HUB");
+
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void ToMechSelect()
@@ -88,22 +111,23 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Disable Mission Select Scene
+        planetLight.SetActive(false);
         missionSelect.SetActive(false);
         toArmory.SetActive(false);
         CorruptionManager.Instance.DisableCanvas();
-        CurrencyManager.Instance.DisableCanvas();
+        CurrencyManager.Instance.EnableCanvas();
 
         //Enable Armory
         // armory.SetActive(true);
         armory.transform.Find("Content").gameObject.SetActive(true);
 
         //Cam Settings
-        virtualCam.LookAt = armory.transform.Find("Content/Garage/Mech/mesh");
-        virtualCam.Follow = armory.transform.Find("Content/Garage/Mech/mesh");
+        virtualCam.LookAt = armory.transform.Find("Content/Garage/Mech");
+        virtualCam.Follow = armory.transform.Find("Content/Garage/Mech");
 
-        pos.TargetOffset.y = 21;
+        pos.TargetOffset.y = 12;
         pos.TargetOffset.z = -20;
-        rot.TargetOffset.y = 15;
+        rot.TargetOffset.y = 7;
 
         //cam.
         cam.GetComponent<HDAdditionalCameraData>().clearColorMode = HDAdditionalCameraData.ClearColorMode.Color;
@@ -113,9 +137,10 @@ public class HUBTransitioner : MonoBehaviour
 
     IEnumerator MissionSelect()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         //Disable Mission Select Scene
+        planetLight.SetActive(true);
         missionSelect.SetActive(true);
         toArmory.SetActive(true);
         CorruptionManager.Instance.EnableCanvas();
@@ -158,8 +183,18 @@ public class HUBTransitioner : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        SoundManager.Instance.StopMusic();
         LevelManager.Instance.LoadLevelIndex(LevelManager.Instance.GetCurrentLevel());
-
+        
+        switch(LevelManager.Instance.GetCurrentLevel())
+        {
+            case 1:
+            case 2:
+            case 3:
+            SoundManager.Instance.PlayMusic("Forest");
+            break;
+        }
+    
         yield return new WaitForSeconds(0.5f);
     }
 }

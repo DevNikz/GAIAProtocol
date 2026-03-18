@@ -49,7 +49,8 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         else
         {
             if(!disableInteract) {
-                soundController.PlaySound(5);
+                SoundManager.Instance.PlaySFX("ObjectiveInteract");
+                //soundController.PlaySound(5);
                 LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                 LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
                 disableInteract = true;
@@ -91,16 +92,22 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(Action onInteractionComplete)
+    public void Interact(Action onInteractionComplete, float percentageAdd)
     {
         if(soundController != null)
         {
-            soundController.PlaySound(4);
+            SoundManager.Instance.PlaySFX("ObjectiveComplete");
+            //soundController.PlaySound(4);
         }   
 
         this.onInteractionComplete = onInteractionComplete;
         hasInteracted = true;
-        percentage += interactPercentageAdd;
+        percentage += percentageAdd;
         timer = 0.5f;
+    }
+
+    public void Interact(Action onInteractionComplete)
+    {
+        // throw new NotImplementedException();
     }
 }

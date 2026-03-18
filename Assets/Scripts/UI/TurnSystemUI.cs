@@ -33,11 +33,18 @@ public class TurnSystemUI : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
+    void Update()
+    {
+        enemyTurnVisualGameObject.SetActive(!TurnSystem.Instance.IsPlayerTurn());
+        endTurnBtn.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
+    }
+
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         //UpdateTurnText();
-        UpdateEnemyTurnVisual();
-        UpdateEndTurnButtonVisibility();
+        //Debug.Log($"From {sender}");
+        //UpdateEnemyTurnVisual();
+        //UpdateEndTurnButtonVisibility();
     }
 
     private void UpdateTurnText()

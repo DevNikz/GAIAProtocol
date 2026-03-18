@@ -6,6 +6,7 @@ public class MechSelectUI : MonoBehaviour
     public FriendlyUnitType type;
     public void RemoveWorkerUnit()
     {
+        SoundManager.Instance.PlaySFX("Delete");
         transform.root.GetComponent<MechDeploymentUI>().RemoveWorkerUnit();
         transform.root.GetComponent<MechDeploymentUI>().RemoveAtIndex(gameObject);
         Destroy(gameObject);
@@ -13,6 +14,7 @@ public class MechSelectUI : MonoBehaviour
 
     public void RemoveRangerUnit()
     {
+        SoundManager.Instance.PlaySFX("Delete");
         transform.root.GetComponent<MechDeploymentUI>().RemoveRangerUnit();
         transform.root.GetComponent<MechDeploymentUI>().RemoveAtIndex(gameObject);
         Destroy(gameObject);
@@ -20,6 +22,7 @@ public class MechSelectUI : MonoBehaviour
 
     public void EnableUnitSelection()
     {
+        SoundManager.Instance.PlaySFX("Select3");
         transform.root.transform.Find("MainUI/MechDeployment/Content").gameObject.SetActive(false);
         transform.root.transform.Find("MainUI/MechSelect/Content").gameObject.SetActive(true);
     }

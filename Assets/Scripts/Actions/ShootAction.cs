@@ -28,11 +28,16 @@ public class ShootAction : BaseAction
 
     private State state;
     private int maxShootDistance = 7;
+    public void SetAttackRange(int value) { maxShootDistance = value; }
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
     [SerializeField, Range(0, 100)] private int minDamage;
+    public void SetMinDmg(int value) { minDamage = value; }
     [SerializeField, Range(1, 100)] private int maxDamage;
+    public void SetMaxDmg(int value) { maxDamage = value; }
+    [SerializeField] bool hasPlasmaRifle; //SetCustomElementLater
+    public void HasPlasmaRifle(bool value) { hasPlasmaRifle = value; }
 
 
     private void Update()

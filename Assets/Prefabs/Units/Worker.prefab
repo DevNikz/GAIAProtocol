@@ -225,6 +225,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -292,7 +293,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &4307712770375993313
 LineRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -338,6 +339,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Positions:
   - {x: 12, y: 0.2, z: 2}
   - {x: 12, y: 0.2, z: 2}
@@ -396,7 +398,6 @@ LineRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MaskInteraction: 0
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
@@ -623,6 +624,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5151443227148333388
 MonoBehaviour:
@@ -671,7 +673,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &6227786737110308347
 TrailRenderer:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -717,6 +719,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
@@ -784,7 +787,6 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.01
-  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
@@ -917,13 +919,15 @@ GameObject:
   - component: {fileID: 386348246772227663}
   - component: {fileID: 1507903102451211058}
   - component: {fileID: 8466270858246204084}
+  - component: {fileID: 4982119554876346808}
+  - component: {fileID: 6169733524437943229}
   m_Layer: 8
   m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4753140998209505836
 Transform:
   m_ObjectHideFlags: 0
@@ -958,6 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   actionPoints: 4
+  setCustomAP: 0
 --- !u!65 &4374348987130178666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1053,6 +1058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionpointcost: 0
   objective: {fileID: 0}
+  percentageAdd: 0
 --- !u!114 &8466270858246204084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,6 +1074,33 @@ MonoBehaviour:
   dynamicFloorPosition: 1
   ignoreRendererList:
   - {fileID: 3984462420782354425}
+--- !u!114 &4982119554876346808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103697228277929836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c32a9f231ca335489c0dcbe50c98884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorkerMech
+  workerTier: {fileID: 0}
+--- !u!114 &6169733524437943229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103697228277929836}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497b1af98a70f0443a89915e2ec27888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordAction
+  minDamage: 0
+  maxDamage: 1
 --- !u!1001 &1774969483520013529
 PrefabInstance:
   m_ObjectHideFlags: 0

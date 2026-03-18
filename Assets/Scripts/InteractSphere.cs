@@ -67,4 +67,6 @@ public class InteractSphere : MonoBehaviour, IInteractable
         }
     }
 
+    public void Interact(Action onInteractionComplete, float percentageAdd) {}
+
 }

@@ -11,9 +11,14 @@ public class UnitManager : MonoBehaviour
 
     public List<Unit> unitList = new List<Unit>();
     public List<Unit> friendlyUnitList;
-    public List<Unit> enemyUnitList;
+    public List<Unit> kaijuEnemyList;
+    public List<Unit> smallEnemyUnitList;
+
+    public List<Unit> GetKaijuList() { return kaijuEnemyList; }
+    public List<Unit> GetSmallEnemyList() { return smallEnemyUnitList; }
 
     public List<Transform> ReferenceUnitList; // workers = 0-3 | ranger = 4-6
+    public List<Transform> ReferenceEnemyUnitList;
 
     public void SetReferenceList(List<Transform> units) { ReferenceUnitList = units; }
 
@@ -29,7 +34,8 @@ public class UnitManager : MonoBehaviour
 
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
-        enemyUnitList = new List<Unit>();
+        kaijuEnemyList = new List<Unit>();
+        smallEnemyUnitList = new List<Unit>();
 
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
@@ -50,44 +56,37 @@ public class UnitManager : MonoBehaviour
     {
         unitList.Clear();
         friendlyUnitList.Clear();
-        enemyUnitList.Clear();
+        kaijuEnemyList.Clear();
+        smallEnemyUnitList.Clear();
 
         switch(scene.buildIndex)
         {
             case 1:
-                SpawnUnit();
+                SpawnFriendlyUnits();
             break;
         }
     }
 
-    void SpawnUnit()
+    void SpawnFriendlyUnits()
     {
+        //SpawnFriendlyUnits
         int count = MechManager.Instance.GetUnitsToBeDeployed();
         List<FriendlyUnitType> types = MechManager.Instance.GetFriendlyUnits();
         for(int i = 0; i < count; i++)
         {
             if(types[i] == FriendlyUnitType.WORKER)
             {
+                ReferenceUnitList[i].GetComponent<WorkerMech>().SetCurrentTier(MechManager.Instance.GetCurrentTierWorkerObject());
+                ReferenceUnitList[i].GetComponent<WorkerMech>().SetCustomValues();
                 ReferenceUnitList[i].gameObject.SetActive(true);
             }
             else
             {
+                ReferenceUnitList[i+3].GetComponent<RangerMech>().SetCurrentTier(MechManager.Instance.GetCurrentTierRangerObject());
+                ReferenceUnitList[i+3].GetComponent<RangerMech>().SetCustomValues();
                 ReferenceUnitList[i+3].gameObject.SetActive(true);
             }
-            Debug.Log(i);
         }
-        // int numWorker = MechManager.Instance.GetWorkerUnits();
-        // int numRanger = MechManager.Instance.GetRangerUnits();
-
-        // for(int i = 0; i < numWorker; i++)
-        // {
-        //     ReferenceUnitList[i].gameObject.SetActive(true);
-        // }
-
-        // for(int i = 0; i < numRanger; i++)
-        // {
-        //     ReferenceUnitList[i+4].gameObject.SetActive(true);
-        // }
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
@@ -97,10 +96,15 @@ public class UnitManager : MonoBehaviour
         unitList.Add(unit);
         ObjectTransManager.Instance.AddUnit(unit.transform);
 
-        if (unit.IsEnemy())
+        if (unit.IsEnemy() && unit.CompareTag("Kaiju"))
         {
-            enemyUnitList.Add(unit);
-        } else
+            kaijuEnemyList.Add(unit);
+        }
+        else if(unit.IsEnemy() && !unit.CompareTag("Kaiju"))
+        {
+            smallEnemyUnitList.Add(unit);
+        }
+        else
         {
             friendlyUnitList.Add(unit);
         }
@@ -112,9 +116,13 @@ public class UnitManager : MonoBehaviour
 
         unitList.Remove(unit);
 
-        if (unit.IsEnemy())
+        if (unit.IsEnemy() && unit.CompareTag("Kaiju"))
         {
-            enemyUnitList.Remove(unit);
+            kaijuEnemyList.Remove(unit);
+        }
+        else if(unit.IsEnemy() && !unit.CompareTag("Kaiju"))
+        {
+            smallEnemyUnitList.Remove(unit);
         }
         else
         {
@@ -131,11 +139,6 @@ public class UnitManager : MonoBehaviour
     public List<Unit> GetFriendlyUnitList()
     {
         return friendlyUnitList;
-    }
-
-    public List<Unit> GetEnemyUnitList()
-    {
-        return enemyUnitList;
     }
 
     public void ClearRefList() { ReferenceUnitList.Clear(); }

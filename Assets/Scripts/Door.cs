@@ -72,6 +72,8 @@ public class Door : MonoBehaviour, IInteractable
         }
     }
 
+    public void Interact(Action onInteractionComplete, float percentageAdd) {}
+
     private void OpenDoor()
     {
         isOpen = true;

@@ -12,11 +12,25 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private int health = 100;
     private int healthMax;
+    bool regenHealth;
+    bool hasCorruptionResist;
+    public void InitCorruptionResist(bool value) { hasCorruptionResist = value; }
 
 
     private void Awake()
     {
         healthMax = health;
+    }
+
+    public void InitHP(int hp)
+    {
+        health = hp;
+        healthMax = health;
+    }
+
+    public void InitRegenHealth(bool value)
+    {
+        regenHealth = value;
     }
 
     public void Damage(int damageAmount)
