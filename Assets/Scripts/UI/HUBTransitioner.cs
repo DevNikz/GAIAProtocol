@@ -5,6 +5,8 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class HUBTransitioner : MonoBehaviour
 {
+    public static HUBTransitioner Instance;
+
     [SerializeField] CinemachineVirtualCameraBase virtualCam;
     CinemachineOrbitalFollow pos;
     CinemachineRotationComposer rot;
@@ -18,6 +20,13 @@ public class HUBTransitioner : MonoBehaviour
 
     void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+
         cam = Camera.main;
         planetLight = GameObject.FindGameObjectWithTag("PlanetLight");
         missionSelect = GameObject.FindGameObjectWithTag("MissionSelecter");
@@ -59,8 +68,12 @@ public class HUBTransitioner : MonoBehaviour
 
     IEnumerator IntroScene()
     {
-        yield return new WaitForSeconds(0.5f);
-
+        DialogueManager.Instance.ShowCanvas();
+        //Disable PlayerInput if kaya
+        yield return new WaitForSeconds(1.25f);
+        
+        DialogueManager.Instance.StartDialogue(DialogueType.TUTORIAL_HUB);
+        //play music
         SoundManager.Instance.PlayMusic("HUB");
 
         yield return new WaitForSeconds(0.5f);
@@ -104,6 +117,17 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(Armory());
         FadeScreenManager.Instance.FadeOut();
+        StartCoroutine(ArmoryText());
+    }
+
+    IEnumerator ArmoryText()
+    {
+        DialogueManager.Instance.ShowCanvas();
+        //InputManager.Instance.DisableMechRotate();
+        //Disable PlayerInput if kaya
+        yield return new WaitForSeconds(1.25f);
+        DialogueManager.Instance.StartDialogue(DialogueType.TUTORIAL_HUB);
+        yield return new WaitForSeconds(0.5f);
     }
 
     IEnumerator Armory()

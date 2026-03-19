@@ -1,7 +1,4 @@
 #define USE_NEW_INPUT_SYSTEM
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,9 +9,23 @@ public class InputManager : MonoBehaviour
 
     private PlayerInputActions playerInputActions;
 
-    [SerializeField] bool isPlayerInputDisabled;
-    public bool IsPlayerInputDisabled() { return isPlayerInputDisabled; }
-    public void SetPlayerInput(bool value) { isPlayerInputDisabled = value; }
+    [SerializeField] bool disableKeyInputs;
+    [SerializeField] bool disableMechRotate;
+    [SerializeField] bool disableDebug;
+    [SerializeField] bool disableLevelCamera;
+    public bool AreLegacyInputsDisabled() { return disableKeyInputs; }
+    public void EnableLegacyInputs() { disableKeyInputs = false; }
+    public void DisableLegacyInputs() { disableKeyInputs = true; }
+    public void SetLegacyInputs(bool value) { disableKeyInputs = value; }
+    public void EnableLevelCamera() { disableLevelCamera = false; }
+    public void DisableLevelCamera() { disableLevelCamera = true; }
+    public void SetLevelCam(bool value) { disableLevelCamera = value; }
+    public void EnableDebug() { disableDebug = false; }
+    public void DisableDebug() { disableDebug = true; } 
+    public void SetDebug(bool value) { disableDebug = value; }
+    public void EnableMechRotate() { disableMechRotate = false;}
+    public void DisableMechRotate() { disableMechRotate = true; }
+    public void SetMechRotate(bool value) { disableMechRotate = value; }
 
     private void Awake()
     {
@@ -66,7 +77,8 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetCameraMoveVector()
     {
-        if(isPlayerInputDisabled) return Vector2.zero;
+        if(disableLevelCamera) return Vector2.zero;
+
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraMovement.ReadValue<Vector2>();
 #else
@@ -95,7 +107,8 @@ public class InputManager : MonoBehaviour
 
     public float GetCameraRotateAmount()
     {
-        if(isPlayerInputDisabled) return 0;
+        if(disableLevelCamera) return 0;
+
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraRotate.ReadValue<float>();
 #else
@@ -116,7 +129,8 @@ public class InputManager : MonoBehaviour
 
     public float GetRotateY()
     {
-        if(isPlayerInputDisabled) return 0;
+        if(disableMechRotate) return 0;
+
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.RotateY.ReadValue<float>();
 #else
@@ -135,30 +149,10 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
-    public float GetMouseRotateAmount()
-    {
-        if(isPlayerInputDisabled) return 0;
-        #if USE_NEW_INPUT_SYSTEM
-        Debug.Log(playerInputActions.Player.MouseRotate.ReadValue<float>());
-        return playerInputActions.Player.MouseRotate.ReadValue<float>();
-#else
-        float rotateAmount = 0f;
-
-        if (Input.GetAxis("MouseX"))
-        {
-            rotateAmount = +1f;
-        }
-        if (-Input.GetAxis("MouseX"))
-        {
-            rotateAmount = -1f;
-        }
-
-        return rotateAmount;
-#endif
-    }
-
     public float GetCameraZoomAmount()
     {
+        if(disableLevelCamera) return 0;
+
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraZoom.ReadValue<float>();
 #else
@@ -179,6 +173,8 @@ public class InputManager : MonoBehaviour
 
     public bool GetDebugButton()
     {
+        if(disableDebug) return false;
+
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.ToggleDebug.WasPressedThisFrame();
 #else
@@ -188,6 +184,8 @@ public class InputManager : MonoBehaviour
 
     public bool GetReturnButton()
     {
+        if(disableDebug) return false;
+
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.Return.WasPressedThisFrame();
 #else

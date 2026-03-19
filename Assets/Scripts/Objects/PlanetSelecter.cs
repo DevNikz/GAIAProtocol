@@ -68,7 +68,7 @@ public class PlanetSelecter : MonoBehaviour
 
     void Update()
     {
-        if(!InputManager.Instance.IsPlayerInputDisabled()) HandleInput();
+        if(!InputManager.Instance.AreLegacyInputsDisabled()) HandleInput();
         RotatePlanet();
         if(!hasAddedChildren) CheckUI();
     }

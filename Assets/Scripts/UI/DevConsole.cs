@@ -54,7 +54,10 @@ public class DevConsole : MonoBehaviour
     void OnToggleDebug()
     {
         showConsole = !showConsole;
-        InputManager.Instance.SetPlayerInput(showConsole);
+        InputManager.Instance.SetLevelCam(showConsole);
+        InputManager.Instance.SetMechRotate(showConsole);
+        InputManager.Instance.SetLegacyInputs(showConsole);
+        //InputManager.Instance.SetPlayerInput(showConsole);
     }
 
     void OnReturn()
