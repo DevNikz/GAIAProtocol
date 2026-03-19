@@ -14,21 +14,21 @@ public class MoveAction : BaseAction
         public GridPosition unitGridPosition;
         public GridPosition targetGridPosition;
     }
-    private List<Vector3> pathL;
-    [SerializeField] private LineRenderer Path;
-    [SerializeField] private float heightOffset;
+    public List<Vector3> pathL;
+    [SerializeField] public LineRenderer Path;
+    [SerializeField] public float heightOffset;
 
 
-    [SerializeField] private int maxMoveDistance = 4;
+    [SerializeField] public int maxMoveDistance = 4;
     public void SetMoveDist(int value) { maxMoveDistance = value; }
 
-    [SerializeField, Range(0.1f, 10f)] private float moveSpeed = 5f;
+    [SerializeField, Range(0.1f, 10f)] public float moveSpeed = 5f;
 
-    private List<Vector3> positionList;
-    private int currentPositionIndex;
-    private bool isChangingFloors;
-    private float differentFloorsTeleportTimer;
-    private float differentFloorsTeleportTimerMax = .5f;
+    protected List<Vector3> positionList;
+    protected int currentPositionIndex;
+    protected bool isChangingFloors;
+    protected float differentFloorsTeleportTimer;
+    protected float differentFloorsTeleportTimerMax = .5f;
 
     private void Update()
     {
@@ -62,6 +62,7 @@ public class MoveAction : BaseAction
 
         else
         {
+            Debug.Log($"{name} is moving");
             // Regular move logic
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
@@ -194,34 +195,6 @@ public class MoveAction : BaseAction
     {
         return "Move";
     }
-
-    /*
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
-        //int targetCountAtGridPosition = unit.GetAction<SwordAction>().GetValidActionGridPositionList().Count;
-        int targetCountAtGridPosition = unit.GetAction<SwordAction>().GetTargetCountAtPosition(gridPosition);
-        Debug.Log($"Target Count: {targetCountAtGridPosition}");
-        // int targetCountAtGridPosition;
-
-        // if(GetComponent<ShootAction>() != null) 
-        // {
-        //     targetCountAtGridPosition = unit.GetAction<ShootAction>().GetTargetCountAtPosition(gridPosition);
-        // }
-
-        // else if(GetComponent<SwordAction>() != null)
-        // {
-        //     targetCountAtGridPosition = unit.GetAction<SwordAction>().GetValidActionGridPositionList().Count;
-        // }
-
-        // else targetCountAtGridPosition = 1;
-
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = targetCountAtGridPosition * 10,
-        };
-    }
-    */
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {

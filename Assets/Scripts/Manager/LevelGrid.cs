@@ -194,4 +194,21 @@ public class LevelGrid : MonoBehaviour
         GridObject gridObject = GetGridSystem(gridPosition.floor).GetGridObject(gridPosition);
         gridObject.ClearIngameObject();
     }
+
+    private Dictionary<GridPosition, ToxicPuddle> toxicPuddles = new Dictionary<GridPosition, ToxicPuddle>();
+
+    public void RegisterToxicPuddle(GridPosition gridPosition, ToxicPuddle puddle)
+    {
+        toxicPuddles[gridPosition] = puddle;
+    }
+
+    public void UnregisterToxicPuddle(GridPosition gridPosition)
+    {
+        toxicPuddles.Remove(gridPosition);
+    }
+
+    public bool HasToxicPuddle(GridPosition gridPosition)
+    {
+        return toxicPuddles.ContainsKey(gridPosition);
+    }
 }

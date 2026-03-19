@@ -11,6 +11,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform shootPointTransform;
     [SerializeField] private Transform rifleTransform;
     [SerializeField] private Transform swordTransform;
+    MoveAction moveaction;
 
 
     private void Awake()

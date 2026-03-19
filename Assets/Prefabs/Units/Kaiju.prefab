@@ -564,13 +564,13 @@ GameObject:
   - component: {fileID: 325661075475272020}
   - component: {fileID: 2360130648890174907}
   - component: {fileID: 3883194414219738599}
-  - component: {fileID: 4849634972837413175}
   - component: {fileID: 6058385777678608437}
   - component: {fileID: 1018739431666682638}
   - component: {fileID: 6834548587653162004}
   - component: {fileID: 4870790959891668145}
   - component: {fileID: 7156447450256831621}
   - component: {fileID: 3704088777705597154}
+  - component: {fileID: 3979288121251425726}
   m_Layer: 0
   m_Name: Kaiju
   m_TagString: Kaiju
@@ -637,22 +637,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1.6163541, z: 1.5}
   m_Center: {x: -0.031335443, y: 0.863177, z: -0.01836121}
---- !u!114 &4849634972837413175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979208581097700652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e77071bd79f18645abfccc43343856a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: {fileID: 6163011659346219270}
-  heightOffset: 0.2
-  maxMoveDistance: 4
-  moveSpeed: 5
 --- !u!114 &6058385777678608437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,6 +752,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   requireLineOfSight: 1
+--- !u!114 &3979288121251425726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3979208581097700652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7b9a4fb5809cb4c87a71bf5ee7cfae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KaijuMoveAction
+  pathL: []
+  Path: {fileID: 6163011659346219270}
+  heightOffset: 0.2
+  maxMoveDistance: 4
+  moveSpeed: 5
+  toxicPuddlePrefab: {fileID: 7410469331184183017, guid: 0706c940fda3aa649a48475f0d3cf43d, type: 3}
+  trailVFX: {fileID: 198000014159833656, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c, type: 3}
+  puddleDamagePerTurn: 10
+  puddleTurnsUntilExpiry: 3
+  particleHeightOffset: 0.05
 --- !u!1 &4090958322527113083
 GameObject:
   m_ObjectHideFlags: 0
