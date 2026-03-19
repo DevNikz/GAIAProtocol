@@ -769,7 +769,7 @@ MonoBehaviour:
   heightOffset: 0.2
   maxMoveDistance: 4
   moveSpeed: 5
-  toxicPuddlePrefab: {fileID: 7410469331184183017, guid: 0706c940fda3aa649a48475f0d3cf43d, type: 3}
+  toxicPuddlePrefab: {fileID: 6199360648805203728, guid: 987b1a4f0130f7141aa7767aef51511a, type: 3}
   trailVFX: {fileID: 198000014159833656, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c, type: 3}
   puddleDamagePerTurn: 10
   puddleTurnsUntilExpiry: 3

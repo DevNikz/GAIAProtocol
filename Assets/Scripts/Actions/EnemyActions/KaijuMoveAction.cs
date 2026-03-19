@@ -85,8 +85,7 @@ public class KaijuMoveAction : MoveAction
 
             Vector3 worldPos = LevelGrid.Instance.GetWorldPosition(gridPos);
             worldPos.y += particleHeightOffset;
-
-            GameObject puddleGO = Instantiate(toxicPuddlePrefab, worldPos, Quaternion.identity);
+            GameObject puddleGO = Instantiate(toxicPuddlePrefab, worldPos, Quaternion.Euler(0, UnityEngine.Random.Range(0f, 360f), 0f));
             ToxicPuddle puddle = puddleGO.GetComponent<ToxicPuddle>();
             puddle.Initialize(gridPos, puddleTurnsUntilExpiry, puddleDamagePerTurn);
 
