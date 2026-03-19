@@ -23,12 +23,14 @@ public class ExtractionManager : MonoBehaviour
 
         extractButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
-            WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-            LevelManager.Instance.LoadLevelIndex(extractButton.GetComponent<ChangeLevelButton>().sceneIndex);
             SoundManager.Instance.PlaySFX("Extract");
-            //soundController.PlaySound(6);
             SetButtonVisible(false);
+            HUBTransitioner.Instance.ExtractForest1();
+            // CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+            // WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+            // LevelManager.Instance.LoadLevelIndex(extractButton.GetComponent<ChangeLevelButton>().sceneIndex);
+            // SoundManager.Instance.PlaySFX("Extract");
+            // //soundController.PlaySound(6);
         });
     }
 
@@ -52,6 +54,8 @@ public class ExtractionManager : MonoBehaviour
                 SetButtonVisible(false);
                 break;
             case 1:
+            case 2:
+            case 3:
                 AddExtractionArea();
                 break;
         }

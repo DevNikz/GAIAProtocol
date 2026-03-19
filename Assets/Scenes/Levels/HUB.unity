@@ -35580,10 +35580,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FadeScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 378197115778460601, guid: e1b51b85488352d45811477f9869f817, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8516159769326183522, guid: e1b51b85488352d45811477f9869f817, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -35623,10 +35619,6 @@ PrefabInstance:
     - target: {fileID: 8516159769326183522, guid: e1b51b85488352d45811477f9869f817, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9078923669643450073, guid: e1b51b85488352d45811477f9869f817, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -1280
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37593,6 +37585,64 @@ MonoBehaviour:
     - character:
         name: HQ
       line: That will be all for now, <color=#ffe45c>Commander</color>! For <color=#ffe45c>GAIA</color>!
+  Forest1:
+    dialogueLines:
+    - character:
+        name: NEXUS
+      line: Your first mission is to <color=#5cffe4>Activate The Satellite Array</color>.
+        You must establish connection from that planet back to <color=#ffe45c>GAIA
+        HQ</color>.
+    - character:
+        name: NEXUS
+      line: Unfortunately, we lost contact with our <color=#ffe45c>previous scout
+        unit</color>, while you were in <color=#ffe45c>stasis</color>.
+    - character:
+        name: NEXUS
+      line: 'Intel suggests there is a <color=#ad5cff>Kaiju</color> occupying your
+        area. Your units are incapable of hurting that <color=red>Beast</color>,
+        but you can <color=#ffe45c>stagger</color> them when dealt with enough damage. '
+    - character:
+        name: NEXUS
+      line: Proceed with caution, <color=#ffe45c>Commander</color>.
+  Forest2:
+    dialogueLines:
+    - character:
+        name: NEXUS
+      line: Your second mission is to <color=#5cffe4>Shutdown The Former's Facility</color>
+        stationed in this area.
+    - character:
+        name: NEXUS
+      line: <color=red>The Former's Facility</color> is currently producing an enormous
+        amount of <color=#ad5cff>toxic waste</color>- corrupting its surroundings.
+        You must <color=#5cffe4>shut it down</color>, before the <color=#ad5cff>toxic
+        waste</color> spread across this area.
+    - character:
+        name: NEXUS
+      line: Intel suggests that the <color=red>The Former's Facility</color> is attracting
+        the <color=#ad5cff>Chelonia</color> you fought from your previous mission.
+    - character:
+        name: NEXUS
+      line: As always, proceed with caution, <color=#ffe45c>Commander</color>.
+  Forest3:
+    dialogueLines:
+    - character:
+        name: NEXUS
+      line: Your third and final mission in this planet is to <color=#5cffe4>Extract
+        The Chelonia's Samples</color>.
+    - character:
+        name: NEXUS
+      line: HQ have decided that the <color=#ad5cff>Chelonia</color> must not be
+        slain <color=#ffe45c>AT ALL COSTS</color>. Its samples will be used for researching
+        an antidote for the <color=#ad5cff>corruption</color>.
+    - character:
+        name: NEXUS
+      line: Intel suggests that our scouts have found the <color=#ad5cff>Chelonia's</color>
+        habitat. You must stagger that <color=red>Beast</color>, then extract its
+        <color=#ffe45c>samples</color> safely.
+    - character:
+        name: NEXUS
+      line: As always, proceed with caution, <color=#ffe45c>Commander</color>. For
+        GAIA!
   canvas: {fileID: 0}
   box: {fileID: 0}
   charName: {fileID: 0}
@@ -37821,34 +37871,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.size
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.data[12].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9f3c1aa8e56d960469d8d61791133167, type: 3}
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.data[12].name
-      value: Delete
-      objectReference: {fileID: 0}
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.data[13].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 04732787536a6df4cab2a76435a1018f, type: 3}
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.data[13].name
-      value: Return
-      objectReference: {fileID: 0}
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.data[12].volume
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1348397302302101597, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
-      propertyPath: sounds.Array.data[13].volume
-      value: 0.35
-      objectReference: {fileID: 0}
     - target: {fileID: 2091830459271305379, guid: 2bc23df3a1bd12e4db008188888969aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

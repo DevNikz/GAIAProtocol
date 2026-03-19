@@ -59,6 +59,27 @@ public class HUBTransitioner : MonoBehaviour
         Intro();
     }
 
+    public void ExtractForest1()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(BackToMissionSelect());
+        FadeScreenManager.Instance.FadeOut();
+    }
+
+    IEnumerator BackToMissionSelect()
+    {
+        yield return new WaitForSeconds(1f);
+
+        CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+        WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+        CorruptionManager.Instance.SetCorruptionByIndex(0, 0.52f);
+        LevelManager.Instance.LoadLevelIndex(0); //HUB
+
+        //View Rewards Result Screen Later On
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
 
     void Intro()
     {
@@ -201,6 +222,7 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(Level());
         FadeScreenManager.Instance.FadeOut();
+        StartCoroutine(LevelText());
     }
 
     IEnumerator Level()
@@ -219,6 +241,25 @@ public class HUBTransitioner : MonoBehaviour
             break;
         }
     
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator LevelText()
+    {
+        DialogueManager.Instance.ShowCanvas();
+        yield return new WaitForSeconds(1.25f);
+        switch(LevelManager.Instance.GetCurrentLevel())
+        {
+            case 1:
+                DialogueManager.Instance.StartDialogue(DialogueType.FOREST1);
+                break;
+            case 2:
+                DialogueManager.Instance.StartDialogue(DialogueType.FOREST2);
+                break;
+            case 3:
+                DialogueManager.Instance.StartDialogue(DialogueType.FOREST3);
+                break;
+        }
         yield return new WaitForSeconds(0.5f);
     }
 }

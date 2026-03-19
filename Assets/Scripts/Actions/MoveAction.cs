@@ -200,7 +200,7 @@ public class MoveAction : BaseAction
     {
         // Prefer SwordAction if present, then ShootAction, then fall back to a
         // neutral value so the AI can still move even without a combat action.
-        int targetCountAtGridPosition = 0;
+        int targetCountAtGridPosition;
 
         SwordAction swordAction = unit.GetAction<SwordAction>();
         if (swordAction != null)

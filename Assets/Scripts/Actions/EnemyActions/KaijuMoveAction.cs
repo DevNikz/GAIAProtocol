@@ -12,11 +12,11 @@ public class KaijuMoveAction : MoveAction
     [SerializeField] private float particleHeightOffset = 0.05f; // sits just above the floor
 
     private List<GridPosition> tilesVisited = new List<GridPosition>();
-    private GridPosition lastRecordedPosition;
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         // Let MoveAction build positionList first
+        Debug.Log($"Heading To: {gridPosition} |");
         base.TakeAction(gridPosition, onActionComplete);
 
         // Pull the planned path directly from positionList — no Update() needed
@@ -33,39 +33,7 @@ public class KaijuMoveAction : MoveAction
 
         OnStopMoving += HandleMovementComplete;
     }
-
-    // public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
-    // {
-    //     tilesVisited.Clear();
-    //     lastRecordedPosition = unit.GetGridPosition();
-    //     tilesVisited.Add(lastRecordedPosition);
-
-    //     if (trailVFX != null)
-    //         trailVFX.Play();
-
-    //     OnStopMoving += HandleMovementComplete;
-
-    //     Debug.Log("Kaiju Moved");
-    //     base.TakeAction(gridPosition, onActionComplete);
-    // }
-
-    // private void Update()
-    // {
-    //     if (!isActive) {
-    //         return;
-    //     }
-
-    //     // Record each new tile entered during movement
-    //     GridPosition current = LevelGrid.Instance.GetGridPosition(transform.position);
-    //     if (current != lastRecordedPosition)
-    //     {
-    //         if (!tilesVisited.Contains(current))
-    //             tilesVisited.Add(current);
-
-    //         lastRecordedPosition = current;
-    //     }
-    // }
-
+    
     private void HandleMovementComplete(object sender, EventArgs e)
     {
         OnStopMoving -= HandleMovementComplete;

@@ -30,13 +30,31 @@ public class ObjectiveScreenUI : MonoBehaviour
         switch(scene.buildIndex)
         {
             case 1:
-                UICanvas.SetActive(true);
+            case 2:
+            case 3:
+                //UICanvas.SetActive(true);
                 SetupObjectives();
                 break;
             default:
                 UICanvas.SetActive(false);
                 break;
         }
+    }
+
+    void LateUpdate()
+    {
+        switch(SceneManager.GetActiveScene().buildIndex)
+        {
+            case 1:
+            case 2:
+            case 3:
+                if(ObjectiveManager.Instance.IsInCutscene()) UICanvas.SetActive(false);
+                else UICanvas.SetActive(true);
+                break;
+            default:
+                break;
+        }
+        
     }
 
     void SetupObjectives()

@@ -9,7 +9,10 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] public int numObjectives;
     private ObjectiveScreenUI objectiveScreenUI;
     [SerializeField] private bool areObjectivesDone;
-
+    bool currentlyInCutscene;
+    public bool IsInCutscene() { return currentlyInCutscene; }
+    public void SetInCutscene(bool value) { currentlyInCutscene = value; } 
+    
     void Awake()
     {
         if (Instance == null)

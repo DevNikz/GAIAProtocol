@@ -12,6 +12,11 @@ public class ObjectiveWorldUI : MonoBehaviour
 
     private void Update()
     {
+        // if(!ObjectiveManager.Instance.GetComplete(objectiveIndex)) {
+        //     if(ObjectiveManager.Instance.IsInCutscene()) UI.SetActive(false);
+        //     else UI.SetActive(true);
+        // }
+
         UpdateProgressBar();
     }
 

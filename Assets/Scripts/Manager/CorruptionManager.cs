@@ -6,10 +6,24 @@ public class CorruptionManager : MonoBehaviour
 {
     public static CorruptionManager Instance { get; private set; }
 
+    /*
+    
+Corruption
+1 - 0.33
+2 - .52
+3 - .7
+
+    */
+
 
     [Header("Stats")]
-    [SerializeField] private List<float> corruptionList = new List<float> {0.33f, 0.33f, 0.33f};
-
+    [SerializeField] private List<float> corruptionList = new List<float> {0.33f, 0.33f}; //Planet Corruption
+    [SerializeField] private int promptedCorruptionIndex;
+    public int GetPromptedCorruptionIndex() { return promptedCorruptionIndex; }
+    public void SetPromptedCorruptionIndex(int value) { promptedCorruptionIndex = value; }
+    [SerializeField] private float promptedCorruption;
+    public float GetPromptedCorruption() { return promptedCorruption; }
+    public void SetPromptedCorruption(float value) { promptedCorruption = value; }
     [Header("UI")]
     [SerializeField] private GameObject canvas;
     [SerializeField] private Material bar;
@@ -19,6 +33,9 @@ public class CorruptionManager : MonoBehaviour
     public void SetAreaIndex(int value) { selectedAreaIndex = value; }
     public float GetCorruption() { return corruptionList[selectedAreaIndex]; }
     public void SetCorruption(float value) { corruptionList[selectedAreaIndex] = value; }
+
+    public float GetCorruptionByIndex(int index) { return corruptionList[index]; }
+    public void SetCorruptionByIndex(int index, float value) { corruptionList[index] = value; }
 
     private void Awake()
     {
@@ -43,6 +60,8 @@ public class CorruptionManager : MonoBehaviour
                 canvas.SetActive(true);
                 break;
             case 1:
+            case 2:
+            case 3:
                 canvas.SetActive(false);
                 break;
         }

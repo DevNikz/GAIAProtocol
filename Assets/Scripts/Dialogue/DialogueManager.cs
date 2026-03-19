@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public enum DialogueType
 {
     TUTORIAL_HUB,
+    FOREST1,
+    FOREST2,
+    FOREST3
 
 }
 
@@ -17,6 +20,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialgoues")]
     [SerializeField] Dialogue TutorialMenu;
+    [SerializeField] Dialogue Forest1, Forest2, Forest3;
 
     [Header("References")]
     [SerializeField] GameObject canvas;
@@ -73,6 +77,15 @@ public class DialogueManager : MonoBehaviour
         {
             case DialogueType.TUTORIAL_HUB:
                 dialogue = TutorialMenu;
+                break;
+            case DialogueType.FOREST1:
+                dialogue = Forest1;
+                break;
+            case DialogueType.FOREST2:
+                dialogue = Forest2;
+                break;
+            case DialogueType.FOREST3:
+                dialogue = Forest3;
                 break;
             default:
                 dialogue = null;

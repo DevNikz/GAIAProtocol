@@ -15,6 +15,9 @@ public class PlanetSelecter : MonoBehaviour
     public List<Material> colorArea; // 0 - Locked | 1 - Unlocked;
     [SerializeField] private int currentIndex = 0;
 
+    [Header("Planet")]
+    [SerializeField] private int currentPlanetIndex = 0;
+
     //Mission Select UI
     [Header("Mission Select")]
     [SerializeField] private GameObject canvas;
@@ -68,42 +71,50 @@ public class PlanetSelecter : MonoBehaviour
 
     void Update()
     {
-        if(!InputManager.Instance.AreLegacyInputsDisabled()) HandleInput();
+        if(!InputManager.Instance.AreLegacyInputsDisabled()) HandleAreaInput();
         RotatePlanet();
         if(!hasAddedChildren) CheckUI();
     }
 
-    void HandleInput()
+    public void SwitchPlanet()
+    {
+        if(currentPlanetIndex == 0)
+        {
+            currentPlanetIndex = 1;
+            CorruptionManager.Instance.SetAreaIndex(1);
+        }
+        else
+        {
+            currentPlanetIndex = 0;
+            CorruptionManager.Instance.SetAreaIndex(0);
+        }
+    }
+
+    void HandleAreaInput()
     {
         if (Input.GetKeyDown(KeyCode.W)) {
             currentIndex = (currentIndex + 1) % areas.Count;
             hasAddedChildren = false;
             SoundManager.Instance.PlaySFX("Select Planet");
-            //soundController.PlaySound(0);
         }
 
         if (Input.GetKeyDown(KeyCode.S)) {
             currentIndex = (currentIndex - 1 + areas.Count) % areas.Count;
             hasAddedChildren = false;
             SoundManager.Instance.PlaySFX("Select Planet");
-            //soundController.PlaySound(0);
         }
 
         if (Input.GetKeyDown(KeyCode.A)) {
             currentIndex = (currentIndex - 1 + areas.Count) % areas.Count;
             hasAddedChildren = false;
             SoundManager.Instance.PlaySFX("Select Planet");
-            //soundController.PlaySound(0);
         }
 
         if (Input.GetKeyDown(KeyCode.D)) {
             currentIndex = (currentIndex + 1) % areas.Count;
             hasAddedChildren = false;
             SoundManager.Instance.PlaySFX("Select Planet");
-            //soundController.PlaySound(0);
         }
-
-        CorruptionManager.Instance.SetAreaIndex(currentIndex);
     }
 
     void RotatePlanet()
@@ -160,7 +171,10 @@ public class PlanetSelecter : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
 
                 //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(1);
+                CurrencyManager.Instance.SetPromptedPoints(10);
+
+                CorruptionManager.Instance.SetPromptedCorruption(0.52f);
+                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
                 break;
             case 1:
                 canvas.SetActive(true);
@@ -200,7 +214,9 @@ public class PlanetSelecter : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
 
                 //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(1);
+                CurrencyManager.Instance.SetPromptedPoints(15);
+                CorruptionManager.Instance.SetPromptedCorruption(0.7f);
+                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
 
                 break;
             case 2:
@@ -241,30 +257,10 @@ public class PlanetSelecter : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
 
                 //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(1);
+                CurrencyManager.Instance.SetPromptedPoints(20);
+                CorruptionManager.Instance.SetPromptedCorruption(1f);
+                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
                 break;
-
-            /*
-            //Locked
-            case 2:
-                canvas.SetActive(true);
-                missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Locked Operation";
-                missionDesc.text = "Classified Data.";
-
-                levelComplete.SetActive(false);
-                button.SetActive(false);
-                nullButton.SetActive(true);
-
-                //State
-                DestroyChildren(stateContainer);
-                nullState.SetActive(true);
-
-                //Reward
-                DestroyChildren(rewardContainer);
-                nullReward.SetActive(true);
-                break;
-            */
             default:
                 canvas.SetActive(false);
                 break;
