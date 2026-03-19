@@ -571,6 +571,7 @@ GameObject:
   - component: {fileID: 7156447450256831621}
   - component: {fileID: 3704088777705597154}
   - component: {fileID: 3979288121251425726}
+  - component: {fileID: 5275743999073712116}
   m_Layer: 0
   m_Name: Kaiju
   m_TagString: Kaiju
@@ -614,7 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  actionPoints: 4
+  actionPoints: 2
   customAP: 0
 --- !u!65 &3883194414219738599
 BoxCollider:
@@ -693,8 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497b1af98a70f0443a89915e2ec27888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 15
-  maxDamage: 25
+  minDamage: 1
+  maxDamage: 5
 --- !u!114 &7156447450256831621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,11 +770,32 @@ MonoBehaviour:
   heightOffset: 0.2
   maxMoveDistance: 4
   moveSpeed: 5
+  patrolRadius: 3
   toxicPuddlePrefab: {fileID: 6199360648805203728, guid: 987b1a4f0130f7141aa7767aef51511a, type: 3}
   trailVFX: {fileID: 198000014159833656, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c, type: 3}
   puddleDamagePerTurn: 10
   puddleTurnsUntilExpiry: 3
   particleHeightOffset: 0.05
+  wanderRadius: 4
+  maxWanderAttempts: 20
+--- !u!114 &5275743999073712116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3979208581097700652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fbae0a18722ed498ad01565d184ce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAIDetection
+  detectionRange: 10
+  losCheckInterval: 0.5
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  requireLineOfSight: 1
 --- !u!1 &4090958322527113083
 GameObject:
   m_ObjectHideFlags: 0

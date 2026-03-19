@@ -16,6 +16,7 @@ TagManager:
   - ToArmory
   - PlanetLight
   - Kaiju
+  - Obstacles
   layers:
   - Default
   - TransparentFX
