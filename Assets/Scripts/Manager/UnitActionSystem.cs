@@ -107,6 +107,7 @@ public class UnitActionSystem : MonoBehaviour
                     return;
                 }
 
+                SoundManager.Instance.PlaySFX("Select");
                 SetBusy();
                 selectedAction.TakeAction(mouseGridPosition, ClearBusy);
 

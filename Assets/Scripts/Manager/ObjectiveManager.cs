@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectiveManager : MonoBehaviour
@@ -41,20 +42,24 @@ public class ObjectiveManager : MonoBehaviour
 
     public void CheckComplete()
     {
-        for(int i = 0; i < objectivesList.Count; i++)
-        {
-            if(objectivesList[i].isDone != true)
-            {
-                areObjectivesDone = false;
-                return;
-            }
-            else
-            {
-                areObjectivesDone = true;
-                ExtractionManager.Instance.SetExtraction();
-                return;
-            }
-        }
+        //bool hasFalse = myList.Any(item => item.IsComplete == false);
+        areObjectivesDone = objectivesList.All(item => item.isDone);
+
+
+        // for(int i = 0; i < objectivesList.Count; i++)
+        // {
+        //     if(objectivesList[i].isDone != true)
+        //     {
+        //         areObjectivesDone = false;
+        //         //return;
+        //     }
+        //     else
+        //     {
+        //         areObjectivesDone = true;
+        //         ExtractionManager.Instance.SetExtraction();
+        //         return;
+        //     }
+        // }
     }
 
     public bool CheckCompleteBool()

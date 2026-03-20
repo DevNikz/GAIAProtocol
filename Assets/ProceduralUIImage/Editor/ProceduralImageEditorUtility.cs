@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.UI.ProceduralImage;
 
@@ -21,10 +19,15 @@ namespace UnityEditor.UI {
 				Selection.activeGameObject = o;
 			}
 			else {
-				if(GameObject.FindObjectOfType<Canvas>()==null)	{
+				if(GameObject.FindAnyObjectByType<Canvas>()==null)
+				{
 					EditorApplication.ExecuteMenuItem("GameObject/UI/Canvas");
 				}
-				Canvas c = GameObject.FindObjectOfType<Canvas>();
+				// if(GameObject.FindObjectOfType<Canvas>()==null)	{
+				// 	EditorApplication.ExecuteMenuItem("GameObject/UI/Canvas");
+				// }
+				//Canvas c = GameObject.FindObjectOfType<Canvas>();
+				Canvas c = GameObject.FindAnyObjectByType<Canvas>();
 
                 //Set Texcoord shader channels for canvas
                 c.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.TexCoord2 | AdditionalCanvasShaderChannels.TexCoord3;

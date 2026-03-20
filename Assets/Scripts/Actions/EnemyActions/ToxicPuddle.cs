@@ -4,11 +4,11 @@ using UnityEngine;
 public class ToxicPuddle : MonoBehaviour
 {
     [SerializeField] private int damagePerTurn = 10;
-    [SerializeField] private int turnsUntilExpiry = 3;
+    [SerializeField] private int turnsRemaining = 3;
     [SerializeField] private GameObject vfxExpire; // optional pop effect
 
     private GridPosition gridPosition;
-    private int turnsRemaining;
+    //private int turnsRemaining;
 
     public void Initialize(GridPosition gridPosition, int turnsUntilExpiry, int damagePerTurn)
     {

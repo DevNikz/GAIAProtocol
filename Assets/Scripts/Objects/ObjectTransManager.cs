@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class ObjectTransManager : MonoBehaviour
 {
     public static ObjectTransManager Instance;
-    [SerializeReference] private Camera mainCam;
-    [SerializeReference] private List<Transform> Units;
-    [SerializeReference] private Vector3 offset;
+    [SerializeField] private Camera mainCam;
+    [SerializeField] private List<Transform> Units;
+    [SerializeField] private Vector3 offset;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private List<Transform> ObjectToHide = new List<Transform>();
     [SerializeField] private List<Transform> ObjectToShow = new List<Transform>();

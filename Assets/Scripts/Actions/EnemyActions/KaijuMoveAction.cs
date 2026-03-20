@@ -12,10 +12,6 @@ public class KaijuMoveAction : MoveAction
     [SerializeField] private float particleHeightOffset = 0.05f; // sits just above the floor
     private List<GridPosition> tilesVisited = new List<GridPosition>();
 
-    [Header("Patrol")]
-    [SerializeField] private int wanderRadius = 4;      // grid tiles to search for a random wander target
-    [SerializeField] private int maxWanderAttempts = 20; // how many random candidates to try before giving up
-    private enum PatrolState { Idle, GoToLastSeen, Wandering }
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         // Let MoveAction build positionList first

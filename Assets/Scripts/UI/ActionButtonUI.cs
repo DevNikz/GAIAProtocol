@@ -45,6 +45,7 @@ public class ActionButtonUI : MonoBehaviour
         
         button.onClick.AddListener(() => {
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
+            SoundManager.Instance.PlaySFX("Select");
         });
     }
 

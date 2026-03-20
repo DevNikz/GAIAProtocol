@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,8 +7,8 @@ public class ObjectSpawnerManager : MonoBehaviour
 {
     public static ObjectSpawnerManager Instance;
 
-    [SerializeReference] private List<GameObject> objectList;
-    [SerializeReference] private List<GameObject> objectSpawnPoints;
+    [SerializeField] private List<GameObject> objectList;
+    [SerializeField] private List<GameObject> objectSpawnPoints;
     private bool hasSpawnedObjects;
 
     public bool HasSpawnedObjects() { return hasSpawnedObjects; }
@@ -23,6 +24,7 @@ public class ObjectSpawnerManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+        hasSpawnedObjects = false;
     }
 
     void OnEnable()
@@ -36,36 +38,51 @@ public class ObjectSpawnerManager : MonoBehaviour
         {
             default:
             case 0:
+                hasSpawnedObjects = false;
                 ClearObjects();
+                ClearSpawnPoints();
                 break;
             case 1:
                 if(!hasSpawnedObjects) 
                 {
-                    ClearObjects();
-                    ClearSpawnPoints();
-                    SetSpawnPoints();
-                    SpawnRandomObjects();
+                    StartCoroutine(InitSpawner());
                     break;
                 }
                 break;
         }
     }
 
-    void OnDisable()
+    // void OnDisable()
+    // {
+    //     SceneManager.sceneLoaded -= OnSceneLoaded;
+    //     hasSpawnedObjects = false;
+    // }
+
+    IEnumerator InitSpawner()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        hasSpawnedObjects = false;
+        yield return new WaitForSeconds(0.001f);
+
+        ClearObjects();
+
+        yield return new WaitForSeconds(0.001f);
+        ClearSpawnPoints();
+
+        yield return new WaitForSeconds(0.001f);
+        SetSpawnPoints();
+
+        yield return new WaitForSeconds(0.001f);
+        SpawnRandomObjects();
     }
 
     void SetSpawnPoints()
     {
-        foreach (Transform child in transform.GetComponentsInChildren<Transform>()) {
-            if(child.name != this.name)
-            {
-                //Debug.Log($"Added {child.name}");
-                objectSpawnPoints.Add(child.gameObject);
-            } 
+        GameObject[] points = GameObject.FindGameObjectsWithTag("Spawnpoints");
+        foreach (GameObject point in points)
+        {
+            objectSpawnPoints.Add(point);
         }
+
+        Debug.Log($"Found {objectSpawnPoints.Count} spawn points");
     }
 
     void ClearObjects()
@@ -77,13 +94,13 @@ public class ObjectSpawnerManager : MonoBehaviour
                 Destroy(objectsSpawned.gameObject);
             }
         }
-        ClearSpawnPoints();
+        //ClearSpawnPoints();
     }
 
     void ClearSpawnPoints()
     {
-        objectSpawnPoints = new List<GameObject>();
-        if(objectSpawnPoints.Count > 0) objectSpawnPoints.Clear();
+        objectSpawnPoints = new List<GameObject>(); // already empty
+        if(objectSpawnPoints.Count > 0) objectSpawnPoints.Clear(); // never true
     }
     
     void SpawnRandomObjects()
@@ -92,7 +109,6 @@ public class ObjectSpawnerManager : MonoBehaviour
         for(int i = 0; i < objectSpawnPoints.Count; i++)
         {
             int objIndex = Random.Range(0, objectList.Count);
-            //Debug.Log($"{objectList[objIndex].name} has spawned in {points.name}");
 
             GameObject obj = Instantiate(objectList[objIndex], objectSpawnPoints[i].transform);
 
@@ -105,6 +121,7 @@ public class ObjectSpawnerManager : MonoBehaviour
             obj.layer = layerNum;
         }
 
+        Debug.Log("Has Spawned Objects");
         hasSpawnedObjects = true;
     }
 }

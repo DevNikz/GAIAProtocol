@@ -37,20 +37,7 @@ public class SoundManager : MonoBehaviour
         uiSource = GetComponentsInChildren<AudioSource>()[3];
         //SwitchAudio();
     }
-
-    public void CheckSceneForAmbience()
-    {
-        StopCustomMusic();
-        
-        switch(LevelManager.Instance.GetCurrentLevel())
-        {
-            // case CurrentScene.ROOM1:
-            //     customMusicList[0].Play();
-            //     customMusicList[1].Play();
-            //     break;
-        }
-    }
-
+    
     public void StopCustomMusic()
     {
         for(int i = 0; i < customMusicList.Count; i++)
