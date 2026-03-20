@@ -53,7 +53,7 @@ MonoBehaviour:
     colorBufferFormat: 48
     depthBufferFormat: 0
     supportCustomPass: 1
-    supportVariableRateShading: 1
+    supportVariableRateShading: 0
     customBufferFormat: 12
     supportedLitShaderMode: 2
     planarReflectionResolution:
@@ -76,7 +76,7 @@ MonoBehaviour:
     supportDataDrivenLensFlare: 1
     supportDitheringCrossFade: 1
     supportRuntimeAOVAPI: 0
-    supportTerrainHole: 0
+    supportTerrainHole: 1
     lightProbeSystem: 1
     oldLightProbeSystem: 1
     probeVolumeMemoryBudget: 1024
@@ -172,20 +172,20 @@ MonoBehaviour:
       advancedUpscalersByPriority: 00
       advancedUpscalerNames:
       - DLSS
-      DLSSPerfQualitySetting: 0
+      DLSSPerfQualitySetting: 1
       DLSSInjectionPoint: 0
       TAAUInjectionPoint: 0
       STPInjectionPoint: 0
       defaultInjectionPoint: 2
-      DLSSUseOptimalSettings: 1
+      DLSSUseOptimalSettings: 0
       DLSSSharpness: 0
       DLSSRenderPresetForQuality: 0
       DLSSRenderPresetForBalanced: 0
       DLSSRenderPresetForPerformance: 0
       DLSSRenderPresetForUltraPerformance: 0
       DLSSRenderPresetForDLAA: 0
-      FSR2EnableSharpness: 0
-      FSR2Sharpness: 0
+      FSR2EnableSharpness: 1
+      FSR2Sharpness: 0.5
       FSR2UseOptimalSettings: 0
       FSR2QualitySetting: 0
       FSR2InjectionPoint: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
     gpuResidentDrawerSettings:
-      mode: 1
+      mode: 0
       smallMeshScreenPercentage: 0
       enableOcclusionCullingInCameras: 1
       useDepthPrepassForOccluders: 1

@@ -6528,6 +6528,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: turtlekaiju
       objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 3a40e2b033dd37d49ab284cae36b9207, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

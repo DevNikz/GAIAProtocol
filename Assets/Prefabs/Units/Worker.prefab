@@ -927,7 +927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4753140998209505836
 Transform:
   m_ObjectHideFlags: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   actionPoints: 4
-  setCustomAP: 0
+  customAP: 0
 --- !u!65 &4374348987130178666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -996,10 +996,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e77071bd79f18645abfccc43343856a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathL: []
   Path: {fileID: 4307712770375993313}
   heightOffset: 0.2
   maxMoveDistance: 4
   moveSpeed: 5
+  patrolRadius: 3
 --- !u!114 &5221048167753182852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1172,6 +1174,10 @@ PrefabInstance:
     - target: {fileID: 827886702656978581, guid: f24ad75fc720cf14fb148b351b2dbb48, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059876706662243574, guid: f24ad75fc720cf14fb148b351b2dbb48, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

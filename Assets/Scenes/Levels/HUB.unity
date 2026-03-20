@@ -3790,7 +3790,6 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
-  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3845,14 +3844,14 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2039
+    m_Bits: 6135
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -3949,7 +3948,7 @@ MonoBehaviour:
   flipYMode: 0
   xrRendering: 1
   fullscreenPassthrough: 0
-  allowDynamicResolution: 0
+  allowDynamicResolution: 1
   customRenderingSettings: 0
   invertFaceCulling: 0
   probeLayerMask:
@@ -3958,8 +3957,8 @@ MonoBehaviour:
   hasPersistentHistory: 0
   screenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
   screenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  allowDeepLearningSuperSampling: 0
-  deepLearningSuperSamplingUseCustomQualitySettings: 1
+  allowDeepLearningSuperSampling: 1
+  deepLearningSuperSamplingUseCustomQualitySettings: 0
   deepLearningSuperSamplingQuality: 1
   deepLearningSuperSamplingUseCustomAttributes: 0
   deepLearningSuperSamplingUseOptimalSettings: 1
@@ -4043,29 +4042,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!114 &330585550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e4e3d621be384488bbc3801b579136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MakeObjectsTransparent
-  mainCam: {fileID: 330585545}
-  Units: []
-  offset: {x: 0, y: 0, z: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  ObjectToHide: []
-  ObjectToShow: []
-  transparentMaterial:
-  - {fileID: 2100000, guid: 2609084997f1dbd4f875c52fe971921b, type: 2}
-  obstructionFadingSpeed: 1.5
 --- !u!1 &341506819
 GameObject:
   m_ObjectHideFlags: 0
@@ -24851,6 +24827,71 @@ MonoBehaviour:
   m_EffectColor: {r: 0.6853863, g: 0.91827416, b: 0.9622642, a: 0.20784314}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!1001 &75922848706642715
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6306207772627760679, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_Name
+      value: ObjectTransManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306207772627760679, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625610273545356046, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6962414449082125559, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 330585545}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f5dc34abbb9a3c4188935aed90f3736, type: 3}
 --- !u!199 &84409359102166133
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -30037,6 +30078,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d6e46bf2ce8c2c9498fe442701604334, type: 2}
   - {fileID: 2100000, guid: e4b4d4d36df5ddc44aa5d5c596425742, type: 2}
   currentIndex: 0
+  currentPlanetIndex: 0
   canvas: {fileID: 1749812257}
   missionImage: {fileID: 1145275225}
   missionHeader: {fileID: 1140794747}
@@ -45556,3 +45598,4 @@ SceneRoots:
   - {fileID: 4732875086872660794}
   - {fileID: 6055472178406820002}
   - {fileID: 2655235696930269575}
+  - {fileID: 75922848706642715}

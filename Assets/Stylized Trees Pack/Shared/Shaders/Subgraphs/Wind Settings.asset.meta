@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9efe3ea647fb499499d45ef139aa5a66
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 261728
+  packageName: Stylized Trees - Pack
+  packageVersion: 2.0.0
+  assetPath: Assets/Stylized Trees Pack/Shared/Shaders/Subgraphs/Wind Settings.asset
+  uploadId: 840908

@@ -94,7 +94,7 @@ public class UnitManager : MonoBehaviour
         Unit unit = sender as Unit;
 
         unitList.Add(unit);
-        ObjectTransManager.Instance.AddUnit(unit.transform);
+        //ObjectTransManager.Instance.AddUnit(unit.transform);
 
         if (unit.IsEnemy() && unit.CompareTag("Kaiju"))
         {
@@ -127,7 +127,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Remove(unit);
-            ObjectTransManager.Instance.RemoveUnit(unit.transform);
+            //ObjectTransManager.Instance.RemoveUnit(unit.transform);
         }
     }
 

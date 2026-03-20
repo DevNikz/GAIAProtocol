@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c1ed8833df7f5b44c97bad033090907c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 261728
+  packageName: Stylized Trees - Pack
+  packageVersion: 2.0.0
+  assetPath: Assets/Stylized Trees Pack/Shared/Shaders/Surface.shader
+  uploadId: 840908

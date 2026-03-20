@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   actionPoints: 4
-  setCustomAP: 0
+  customAP: 0
 --- !u!65 &4417989117626486555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -379,10 +379,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e77071bd79f18645abfccc43343856a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathL: []
   Path: {fileID: 7715636268507708983}
   heightOffset: 0.2
   maxMoveDistance: 4
   moveSpeed: 5
+  patrolRadius: 3
 --- !u!114 &8787558059908448909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,6 +1099,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4156529236695048562}
     m_Modifications:
+    - target: {fileID: 2010453083979150366, guid: 4f969ac164d87114492bfbf478854c15, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6399595149238140075, guid: 4f969ac164d87114492bfbf478854c15, type: 3}
       propertyPath: m_Name
       value: Ranger

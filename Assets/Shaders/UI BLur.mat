@@ -231,7 +231,7 @@ Material:
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
-    - _UI_Blur: 3.35
+    - _UI_Blur: 5
     - _UVBase: 0
     - _UVDetail: 0
     - _UVEmissive: 0

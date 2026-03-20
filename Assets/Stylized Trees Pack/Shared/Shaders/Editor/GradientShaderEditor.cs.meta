@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3eaa430d1714da6419c2a1a3b9f37e58
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 261728
+  packageName: Stylized Trees - Pack
+  packageVersion: 2.0.0
+  assetPath: Assets/Stylized Trees Pack/Shared/Shaders/Editor/GradientShaderEditor.cs
+  uploadId: 840908

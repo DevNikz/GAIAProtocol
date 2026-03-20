@@ -13,6 +13,8 @@ public class ObjectSpawnerManager : MonoBehaviour
     public bool HasSpawnedObjects() { return hasSpawnedObjects; }
     public void SetHasSpawned(bool value) { hasSpawnedObjects = value; } 
 
+    [SerializeField] float objectScale = .75f;
+
     void Awake()
     {
         if (Instance == null)
@@ -96,7 +98,7 @@ public class ObjectSpawnerManager : MonoBehaviour
 
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-            obj.transform.localScale = new Vector3(2,2,2);
+            obj.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
             obj.isStatic = true;
 
             int layerNum = LayerMask.NameToLayer("Obstacles");

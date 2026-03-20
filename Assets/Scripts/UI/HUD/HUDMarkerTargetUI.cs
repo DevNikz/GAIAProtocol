@@ -27,7 +27,8 @@ public class HUDMarkerTargetUI : MonoBehaviour
     void Start()
     {
         HUDMarkerRect = (RectTransform) transform.parent;
-        cam = ObjectTransManager.Instance.GetMainCamera();
+        cam = Camera.main;
+        //cam = ObjectTransManager.Instance.GetMainCamera();
 
         if(!isObjective)
         {
