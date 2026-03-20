@@ -10,7 +10,9 @@ public enum DialogueType
     TUTORIAL_HUB,
     FOREST1,
     FOREST2,
-    FOREST3
+    FOREST3,
+    ARMORY,
+    MECH_DEPLOYMENT
 
 }
 
@@ -21,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialgoues")]
     [SerializeField] Dialogue TutorialMenu;
     [SerializeField] Dialogue Forest1, Forest2, Forest3;
+    [SerializeField] Dialogue Armory, Deployment;
 
     [Header("References")]
     [SerializeField] GameObject canvas;
@@ -86,6 +89,12 @@ public class DialogueManager : MonoBehaviour
                 break;
             case DialogueType.FOREST3:
                 dialogue = Forest3;
+                break;
+            case DialogueType.ARMORY:
+                dialogue = Armory;
+                break;
+            case DialogueType.MECH_DEPLOYMENT:
+                dialogue = Deployment;
                 break;
             default:
                 dialogue = null;

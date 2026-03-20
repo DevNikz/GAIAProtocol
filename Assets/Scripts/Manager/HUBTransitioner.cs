@@ -15,6 +15,10 @@ public class HUBTransitioner : MonoBehaviour
     [SerializeField] GameObject mechSelect;
     [SerializeField] GameObject toArmory;
     [SerializeField] GameObject planetLight;
+    [SerializeField] bool firstTimeArmory = true;
+    public void SetFirstTimeArmory(bool value) { firstTimeArmory = value; }
+    [SerializeField] bool firstTimeDeployment = true;
+    public void SetFirstTimeDeployment(bool value) { firstTimeDeployment = value; } 
 
     Camera cam;
 
@@ -57,28 +61,103 @@ public class HUBTransitioner : MonoBehaviour
     void Start()
     {
         Intro();
-    }
-
-    public void ExtractForest1()
-    {
-        FadeScreenManager.Instance.FadeIn();
-        StartCoroutine(BackToMissionSelect());
-        FadeScreenManager.Instance.FadeOut();
+        
     }
 
     IEnumerator BackToMissionSelect()
     {
+        Debug.Log("Back To Mission Select");
+        yield return new WaitForSeconds(0.5f);
+        LevelManager.Instance.LoadLevelIndex(0);
         yield return new WaitForSeconds(1f);
+        FadeScreenManager.Instance.FadeOut();
+        StartCoroutine(RewardHUD());
+    }
 
+    IEnumerator RewardHUD()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("RewardHUD: Show Canvas");
+        RewardsManager.Instance.ShowCanvas();
+
+        Debug.Log("RewardHUD: Animate Show");
+        RewardsManager.Instance.AnimateShow();
+        yield return new WaitForSeconds(5f);
+
+        Debug.Log("RewardHUD: Animate Hide");
+        RewardsManager.Instance.AnimateHide();
+    }
+
+
+    public void Dead()
+    {
+        RewardsManager.Instance.SetRewardType(RewardsType.LOSE);
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(BackToMissionSelect());
+    }
+
+    public void ExtractForest1()
+    {
+        Debug.Log("Fade In");
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(SetupRewards_Forest1());
+    }
+
+    IEnumerator SetupRewards_Forest1()
+    {
+        Debug.Log("Setup Reward");
+        yield return new WaitForSeconds(0.5f);
+
+        RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel() + 1, true);
         CorruptionManager.Instance.SetCorruptionByIndex(0, 0.52f);
-        LevelManager.Instance.LoadLevelIndex(0); //HUB
-
-        //View Rewards Result Screen Later On
-
         yield return new WaitForSeconds(0.5f);
+
+        
+        StartCoroutine(BackToMissionSelect());
     }
+
+    public void ExtractForest2()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(SetupRewards_Forest2());
+    }
+
+    IEnumerator SetupRewards_Forest2()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        RewardsManager.Instance.SetRewardType(RewardsType.WIN);
+        CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+        WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel() + 1, true);
+        CorruptionManager.Instance.SetCorruptionByIndex(0, 0.7f);
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BackToMissionSelect());
+    }
+
+    public void ExtractForest3()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(SetupRewards_Forest3());
+    }
+
+    IEnumerator SetupRewards_Forest3()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        RewardsManager.Instance.SetRewardType(RewardsType.WIN);
+        CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+        WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel() + 1, true);
+        CorruptionManager.Instance.SetCorruptionByIndex(0, 1f);
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BackToMissionSelect());
+    }
+
+    
 
 
     void Intro()
@@ -105,6 +184,7 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(MechSelect());
         FadeScreenManager.Instance.FadeOut();
+        if(firstTimeDeployment) StartCoroutine(MechSelectText());
     }
 
     IEnumerator MechSelect()
@@ -126,6 +206,15 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+    IEnumerator MechSelectText()
+    {
+        DialogueManager.Instance.ShowCanvas();
+        yield return new WaitForSeconds(1.25f);
+        DialogueManager.Instance.StartDialogue(DialogueType.MECH_DEPLOYMENT);
+        yield return new WaitForSeconds(0.5f);
+        firstTimeDeployment = false;
+    }
+
     public void Return()
     {
         FadeScreenManager.Instance.FadeIn();
@@ -138,17 +227,16 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(Armory());
         FadeScreenManager.Instance.FadeOut();
-        StartCoroutine(ArmoryText());
+        if(firstTimeArmory) StartCoroutine(ArmoryText());
     }
 
     IEnumerator ArmoryText()
     {
         DialogueManager.Instance.ShowCanvas();
-        //InputManager.Instance.DisableMechRotate();
-        //Disable PlayerInput if kaya
         yield return new WaitForSeconds(1.25f);
-        DialogueManager.Instance.StartDialogue(DialogueType.TUTORIAL_HUB);
+        DialogueManager.Instance.StartDialogue(DialogueType.ARMORY);
         yield return new WaitForSeconds(0.5f);
+        firstTimeArmory = false;
     }
 
     IEnumerator Armory()

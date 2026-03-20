@@ -11,21 +11,22 @@ public class HealthSystem : MonoBehaviour
 
 
     [SerializeField] private int health = 100;
-    private int healthMax;
-    bool regenHealth;
-    bool hasCorruptionResist;
+    [SerializeField] private int currentHealth;
+    [SerializeField] bool regenHealth;
+    [SerializeField] bool hasCorruptionResist;
     public void InitCorruptionResist(bool value) { hasCorruptionResist = value; }
+    public bool HasCorruptionResist() { return hasCorruptionResist; }
 
 
     private void Awake()
     {
-        healthMax = health;
+        currentHealth = health;
     }
 
     public void InitHP(int hp)
     {
         health = hp;
-        healthMax = health;
+        currentHealth = health;
     }
 
     public void InitRegenHealth(bool value)
@@ -35,19 +36,26 @@ public class HealthSystem : MonoBehaviour
 
     public void Damage(int damageAmount)
     {
-        health -= damageAmount;
+        currentHealth -= damageAmount;
 
-        if (health < 0)
+        if (currentHealth < 0)
         {
-            health = 0;
+            currentHealth = 0;
         }
 
         OnDamaged?.Invoke(this, EventArgs.Empty);
 
-        if (health == 0)
+        if (currentHealth == 0)
         {
             Die();
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        currentHealth += healAmount;
+
+        if(currentHealth > 100) currentHealth = 100;
     }
 
     private void Die()
@@ -57,7 +65,7 @@ public class HealthSystem : MonoBehaviour
 
     public float GetHealthNormalized()
     {
-        return (float)health / healthMax;
+        return (float)currentHealth / health;
     }
 
 }

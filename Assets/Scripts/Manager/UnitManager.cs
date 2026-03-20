@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -128,7 +129,24 @@ public class UnitManager : MonoBehaviour
         {
             friendlyUnitList.Remove(unit);
             //ObjectTransManager.Instance.RemoveUnit(unit.transform);
+            if(friendlyUnitList.Count == 0)
+            {
+                Debug.Log("No more units left");
+                InitLose();
+                //lose
+            }
         }
+    }
+
+    IEnumerator InitLose()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        //Lose Screen here
+
+        HUBTransitioner.Instance.Dead();
+
+        yield return new WaitForSeconds(0.5f);
     }
 
     public List<Unit> GetUnitList()

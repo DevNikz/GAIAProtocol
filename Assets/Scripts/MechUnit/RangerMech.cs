@@ -15,6 +15,6 @@ public class RangerMech : MonoBehaviour
         GetComponent<ShootAction>().SetMinDmg(rangerTier.minAttackDamage);
         GetComponent<ShootAction>().SetMaxDmg(rangerTier.maxAttackDamage);
         GetComponent<ShootAction>().HasPlasmaRifle(rangerTier.hasPlasmaRifle);
-        GetComponent<Unit>().HasCorruptionResist(rangerTier.hasCorruptionResist);
+        GetComponent<Unit>().SetCorruptionResist(rangerTier.hasCorruptionResist);
     }
 }

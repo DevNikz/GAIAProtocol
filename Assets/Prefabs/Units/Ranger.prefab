@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 8486415639542846074}
   - component: {fileID: 7435114623192971937}
   - component: {fileID: 1583144576278365662}
+  - component: {fileID: 2012615400943622476}
   m_Layer: 8
   m_Name: Ranger
   m_TagString: Untagged
@@ -415,6 +416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  currentHealth: 0
+  regenHealth: 0
+  hasCorruptionResist: 0
 --- !u!114 &8580878554579476817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +479,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangerMech
   rangerTier: {fileID: 0}
+--- !u!114 &2012615400943622476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170356346069476731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e98e702d920e464ca9bb65354cf8774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RepairAction
+  minRepairAmount: 15
+  maxRepairAmount: 30
 --- !u!1 &4053680884573868726
 GameObject:
   m_ObjectHideFlags: 0

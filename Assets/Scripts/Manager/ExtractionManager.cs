@@ -20,29 +20,12 @@ public class ExtractionManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
-        extractButton.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            SoundManager.Instance.PlaySFX("Extract");
-            SetButtonVisible(false);
-            HUBTransitioner.Instance.ExtractForest1();
-            // CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
-            // WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-            // LevelManager.Instance.LoadLevelIndex(extractButton.GetComponent<ChangeLevelButton>().sceneIndex);
-            // SoundManager.Instance.PlaySFX("Extract");
-            // //soundController.PlaySound(6);
-        });
     }
 
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
-    // void OnDisable()
-    // {
-    //     SceneManager.sceneLoaded -= OnSceneLoaded;
-    // }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -54,8 +37,15 @@ public class ExtractionManager : MonoBehaviour
                 SetButtonVisible(false);
                 break;
             case 1:
+                InitButton(1);
+                AddExtractionArea();
+                break;
             case 2:
+                InitButton(2);
+                AddExtractionArea();
+                break;
             case 3:
+                InitButton(3);
                 AddExtractionArea();
                 break;
         }
@@ -84,5 +74,27 @@ public class ExtractionManager : MonoBehaviour
     public void SetButtonVisible(bool value)
     {
         extractButton.SetActive(value);
+    }
+
+    //Win Condition
+    public void InitButton(int index)
+    {
+        extractButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.Instance.PlaySFX("Extract");
+            SetButtonVisible(false);
+            switch(index)
+            {
+                case 1: //Forest 1
+                    HUBTransitioner.Instance.ExtractForest1();
+                    break;
+                case 2: //Forest 1
+                    HUBTransitioner.Instance.ExtractForest2();
+                    break;
+                case 3: //Forest 1
+                    HUBTransitioner.Instance.ExtractForest3();
+                    break;
+            }
+        });
     }
 }

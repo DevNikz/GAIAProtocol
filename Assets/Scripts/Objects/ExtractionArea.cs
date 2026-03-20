@@ -24,8 +24,6 @@ public class ExtractionArea : MonoBehaviour
         if(unitCount == UnitManager.Instance.friendlyUnitList.Count)
         {
             ExtractionManager.Instance.SetButtonVisible(true);
-            //LevelManager.Instance.LoadLevel("HUB");
-            //StartCoroutine(StartExtraction());
         }
         else
         {

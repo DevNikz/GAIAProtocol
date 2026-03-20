@@ -17,6 +17,7 @@ public class PlanetSelecter : MonoBehaviour
 
     [Header("Planet")]
     [SerializeField] private int currentPlanetIndex = 0;
+    
 
     //Mission Select UI
     [Header("Mission Select")]
@@ -50,8 +51,12 @@ public class PlanetSelecter : MonoBehaviour
     {
         ClearAreas();
         SetupCorruptedArea(0);
-        SetupCorruptedArea(1);
-        SetupCorruptedArea(2);
+
+        if(WorldManager.Instance.GetUnlockStateIndex(1)) SetupCorruptedArea(1);
+        else SetupLockedArea(1);
+
+        if(WorldManager.Instance.GetUnlockStateIndex(1)) SetupCorruptedArea(2);
+        else SetupLockedArea(2);
     }
 
     void ClearAreas()
@@ -61,6 +66,12 @@ public class PlanetSelecter : MonoBehaviour
             areas[i].parent.GetComponent<MeshRenderer>().material = colorArea[0];
         } 
     }
+
+    void SetupLockedArea(int index)
+    {
+        areas[index].parent.GetComponent<MeshRenderer>().material = colorArea[0];
+    }
+
 
     void SetupClearedArea(int index)
     {
@@ -172,98 +183,202 @@ public class PlanetSelecter : MonoBehaviour
 
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(10);
-
+                RewardsManager.Instance.SetPoints(10);
                 CorruptionManager.Instance.SetPromptedCorruption(0.52f);
                 CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
                 break;
+            /*
             case 1:
+                if(WorldManager.Instance.GetUnlockStateIndex(1) == false)
+                {
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Locked Operation";
+                    missionDesc.text = "Classified Data.";
+
+                    levelComplete.SetActive(false);
+                    button.SetActive(false);
+                    nullButton.SetActive(true);
+
+                    //State
+                    DestroyChildren(stateContainer);
+                    nullState.SetActive(true);
+
+                    //Reward
+                    DestroyChildren(rewardContainer);
+                    nullReward.SetActive(true);
+                    CurrencyManager.Instance.SetPromptedPoints(0);
+                    RewardsManager.Instance.SetPoints(0);
+                    CorruptionManager.Instance.SetPromptedCorruption(0f);
+                    CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                }
+                else
+                {
+                    //Lock
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Operation\nShutdown The Facility";
+                    missionDesc.text = "Shut down The Former's facility to prevent the corruption from spreading out.";
+
+                    //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                    nullButton.SetActive(false);
+                    if(WorldManager.Instance.GetWorldComplete(currentIndex))
+                    {
+                        levelComplete.SetActive(true);
+                        button.SetActive(false);
+                        SetupClearedArea(1);
+                    }  
+                    else {
+                        levelComplete.SetActive(false);
+                        button.SetActive(true);
+                        button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
+                    }
+
+                    //Add objective details later on
+                    nullState.SetActive(false);
+                    DestroyChildren(stateContainer);
+                    AddChildren(stateIcons[currentIndex], stateContainer);
+
+                    nullReward.SetActive(false);
+                    DestroyChildren(rewardContainer);
+                    AddChildren(rewardList[currentIndex], rewardContainer);
+                    hasAddedChildren = true;
+
+                    //Set objectives first
+                    ObjectiveManager.Instance.ClearObjectives();
+                    ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
+
+                    //Set Level
+                    LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                    //Set Max Prompted Points on Completion
+                    CurrencyManager.Instance.SetPromptedPoints(15);
+                    RewardsManager.Instance.SetPoints(15);
+                    CorruptionManager.Instance.SetPromptedCorruption(0.7f);
+                    CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                }
+                
+                break;
+            */
+            case 1:
+            case 2:
+                //Lock this first
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nShutdown The Facility";
-                missionDesc.text = "Shut down The Former's facility to prevent the corruption from spreading out.";
+                missionHeader.text = "Locked Operation";
+                missionDesc.text = "Classified Data.";
 
-                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                nullButton.SetActive(false);
-                if(WorldManager.Instance.GetWorldComplete(currentIndex))
-                {
-                    levelComplete.SetActive(true);
-                    button.SetActive(false);
-                    SetupClearedArea(1);
-                }  
-                else {
-                    levelComplete.SetActive(false);
-                    button.SetActive(true);
-                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
-                }
+                levelComplete.SetActive(false);
+                button.SetActive(false);
+                nullButton.SetActive(true);
 
-                //Add objective details later on
-                nullState.SetActive(false);
+                //State
                 DestroyChildren(stateContainer);
-                AddChildren(stateIcons[currentIndex], stateContainer);
+                nullState.SetActive(true);
 
-                nullReward.SetActive(false);
+                //Reward
                 DestroyChildren(rewardContainer);
-                AddChildren(rewardList[currentIndex], rewardContainer);
-                hasAddedChildren = true;
-
-                //Set objectives first
-                ObjectiveManager.Instance.ClearObjectives();
-                ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
-
-                //Set Level
-                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
-
-                //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(15);
-                CorruptionManager.Instance.SetPromptedCorruption(0.7f);
+                nullReward.SetActive(true);
+                CurrencyManager.Instance.SetPromptedPoints(0);
+                RewardsManager.Instance.SetPoints(0);
+                CorruptionManager.Instance.SetPromptedCorruption(0f);
                 CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
-
-                break;
-            case 2:
-            canvas.SetActive(true);
-                missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nChelonia";
-                missionDesc.text = "Subdue The Chelonia.";
-
-                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                nullButton.SetActive(false);
-                if(WorldManager.Instance.GetWorldComplete(currentIndex))
+                /*
+                if(WorldManager.Instance.GetUnlockStateIndex(2) == false)
                 {
-                    levelComplete.SetActive(true);
-                    button.SetActive(false);
-                    SetupClearedArea(1);
-                }  
-                else {
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Locked Operation";
+                    missionDesc.text = "Classified Data.";
+
                     levelComplete.SetActive(false);
-                    button.SetActive(true);
-                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
+                    button.SetActive(false);
+                    nullButton.SetActive(true);
+
+                    //State
+                    DestroyChildren(stateContainer);
+                    nullState.SetActive(true);
+
+                    //Reward
+                    DestroyChildren(rewardContainer);
+                    nullReward.SetActive(true);
+                    CurrencyManager.Instance.SetPromptedPoints(0);
+                    CorruptionManager.Instance.SetPromptedCorruption(1f);
+                    CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
                 }
+                else
+                {
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Operation\nChelonia";
+                    missionDesc.text = "Subdue The Chelonia.";
 
-                //Add objective details later on
-                nullState.SetActive(false);
-                DestroyChildren(stateContainer);
-                AddChildren(stateIcons[currentIndex], stateContainer);
+                    //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                    nullButton.SetActive(false);
+                    if(WorldManager.Instance.GetWorldComplete(currentIndex))
+                    {
+                        levelComplete.SetActive(true);
+                        button.SetActive(false);
+                        SetupClearedArea(1);
+                    }  
+                    else {
+                        levelComplete.SetActive(false);
+                        button.SetActive(true);
+                        button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
+                    }
 
-                nullReward.SetActive(false);
-                DestroyChildren(rewardContainer);
-                AddChildren(rewardList[currentIndex], rewardContainer);
-                hasAddedChildren = true;
+                    //Add objective details later on
+                    nullState.SetActive(false);
+                    DestroyChildren(stateContainer);
+                    AddChildren(stateIcons[currentIndex], stateContainer);
 
-                //Set objectives first
-                ObjectiveManager.Instance.ClearObjectives();
-                ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
+                    nullReward.SetActive(false);
+                    DestroyChildren(rewardContainer);
+                    AddChildren(rewardList[currentIndex], rewardContainer);
+                    hasAddedChildren = true;
 
-                //Set Level
-                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+                    //Set objectives first
+                    ObjectiveManager.Instance.ClearObjectives();
+                    ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
 
-                //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(20);
-                CorruptionManager.Instance.SetPromptedCorruption(1f);
-                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                    //Set Level
+                    LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                    //Set Max Prompted Points on Completion
+                    CurrencyManager.Instance.SetPromptedPoints(20);
+                    CorruptionManager.Instance.SetPromptedCorruption(1f);
+                    CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                }
+                */
                 break;
             default:
                 canvas.SetActive(false);
                 break;
+
+            /*
+            //Locked
+            case 2:
+                canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Locked Operation";
+                missionDesc.text = "Classified Data.";
+
+                levelComplete.SetActive(false);
+                button.SetActive(false);
+                nullButton.SetActive(true);
+
+                //State
+                DestroyChildren(stateContainer);
+                nullState.SetActive(true);
+
+                //Reward
+                DestroyChildren(rewardContainer);
+                nullReward.SetActive(true);
+                CurrencyManager.Instance.SetPromptedPoints(20);
+                CorruptionManager.Instance.SetPromptedCorruption(1f);
+                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                break;
+            */
         }
     }
 

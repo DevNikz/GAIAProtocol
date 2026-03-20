@@ -25,6 +25,10 @@ public class SwordAction : BaseAction
 
     [SerializeField, Range(0, 100)] private int minDamage;
     [SerializeField, Range(1, 100)] private int maxDamage;
+    [SerializeField] int actionpointcost;
+
+    public void SetMinDmg(int value) { minDamage = value; }
+    public void SetMaxDmg(int value) { maxDamage = value; }
 
 
     private void Update()
@@ -158,5 +162,9 @@ public class SwordAction : BaseAction
     public int GetTargetCountAtPosition(GridPosition gridPosition)
     {
         return GetValidActionGridPositionList(gridPosition).Count;
+    }
+
+    public override int GetActionPointsCost() {
+        return actionpointcost;
     }
 }

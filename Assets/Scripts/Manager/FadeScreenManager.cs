@@ -7,6 +7,8 @@ public class FadeScreenManager : MonoBehaviour
     public static FadeScreenManager Instance { get; private set; }
     [Header("Reference")]
     [SerializeField] GameObject canvas;
+    public void HideCanvas() { canvas.SetActive(false); }
+    public void ShowCanvas() { canvas.SetActive(true); }
     [SerializeField] RectTransform image;
     
     [Header("Settings")]

@@ -36,9 +36,11 @@ public class ToxicPuddle : MonoBehaviour
 
         Unit unit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
         if (unit == null) return;
+        if (unit.GetComponent<Unit>().HasCorruptionImmune()) return;
 
         // Damage
-        unit.GetComponent<HealthSystem>().Damage(damagePerTurn);
+        if(unit.GetComponent<HealthSystem>().HasCorruptionResist()) unit.GetComponent<HealthSystem>().Damage(damagePerTurn / 2);
+        else unit.GetComponent<HealthSystem>().Damage(damagePerTurn);
 
         // Status effect
         ToxicStatusEffect status = unit.GetComponent<ToxicStatusEffect>();

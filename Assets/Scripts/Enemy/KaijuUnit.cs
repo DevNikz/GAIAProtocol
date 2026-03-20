@@ -32,6 +32,7 @@ public class KaijuUnit : MonoBehaviour
     [SerializeField] Transform mesh;
     [SerializeField] TweenSettings<float> yPos;
     GameObject ui;
+    GameObject meshXray;
 
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 10f;
@@ -53,7 +54,8 @@ public class KaijuUnit : MonoBehaviour
         ground = transform.Find("Ground").GetComponent<ParticleSystem>();
         mesh = transform.Find("turtlekaiju");
         ui = transform.Find("UnitWorldUI").gameObject;
-        
+        meshXray = transform.Find("turtlekaiju/default").gameObject;
+
         ui.SetActive(false);
         mesh.localPosition = groundPosMesh;
     }
@@ -84,6 +86,7 @@ public class KaijuUnit : MonoBehaviour
         yield return new WaitForSeconds(6f);
 
         hasAnimatedWake = true;
+        meshXray.layer = LayerMask.NameToLayer("Xray");
         ui.SetActive(true);
     }
 

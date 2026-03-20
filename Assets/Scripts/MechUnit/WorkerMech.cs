@@ -12,7 +12,8 @@ public class WorkerMech : MonoBehaviour
         GetComponent<Unit>().SetAP(workerTier.actionPoints);
         GetComponent<MoveAction>().SetMoveDist(workerTier.moveRange);
         GetComponent<InteractAction>().SetInteractEfficiency(workerTier.interactEfficiency);
-        GetComponent<SwordAction>().enabled = workerTier.hasMeleeAttack;
-        GetComponent<Unit>().HasRegenHealth(workerTier.hasRegenHealth);
+        GetComponent<Unit>().SetMeleeAction(workerTier.hasMeleeAttack);
+        //GetComponent<SwordAction>().enabled = workerTier.hasMeleeAttack;
+        GetComponent<Unit>().SetRegenHealth(workerTier.hasRegenHealth);
     }
 }

@@ -615,8 +615,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  actionPoints: 2
-  customAP: 0
+  actionPoints: 4
+  customAP: 4
 --- !u!65 &3883194414219738599
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -668,6 +668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  currentHealth: 0
+  regenHealth: 0
+  hasCorruptionResist: 0
 --- !u!114 &6834548587653162004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,8 +697,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497b1af98a70f0443a89915e2ec27888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 1
-  maxDamage: 5
+  minDamage: 5
+  maxDamage: 15
+  actionpointcost: 2
 --- !u!114 &7156447450256831621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,15 +772,15 @@ MonoBehaviour:
   pathL: []
   Path: {fileID: 6163011659346219270}
   heightOffset: 0.2
-  maxMoveDistance: 4
+  maxMoveDistance: 5
   moveSpeed: 5
-  patrolRadius: 3
+  patrolRadius: 5
   toxicPuddlePrefab: {fileID: 6199360648805203728, guid: 987b1a4f0130f7141aa7767aef51511a, type: 3}
   trailVFX: {fileID: 198000014159833656, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c, type: 3}
   puddleDamagePerTurn: 10
-  puddleTurnsUntilExpiry: 3
+  puddleTurnsUntilExpiry: 4
   particleHeightOffset: 0.05
-  wanderRadius: 4
+  wanderRadius: 10
   maxWanderAttempts: 20
 --- !u!114 &5275743999073712116
 MonoBehaviour:
@@ -6530,7 +6534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 3a40e2b033dd37d49ab284cae36b9207, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -18,30 +18,39 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private BaseAction[] baseActionArray;
-    public int actionPoints = ACTION_POINTS_MAX;
+    public int actionPoints;
 
     int customHP;
     [SerializeField] int customAP;
     bool hasRegenHP;
     bool hasCorruptionResist;
+    bool hasCorruptionImmune;
+    bool hasMeleeAction;
+    public bool HasCorruptionImmune() { return hasCorruptionImmune; }
+    public void SetCorruptionImmune(bool value) { hasCorruptionImmune = value; }
+
+    public bool HasMeleeAction() { return hasMeleeAction; }
+    public void SetMeleeAction(bool value) { hasMeleeAction = value; }
 
     //Set Here
     public void SetHP(int hp) { customHP = hp; }
     public void SetAP(int ap) { customAP = ap; }
-    public void HasRegenHealth(bool value) { hasRegenHP = value; } 
-    public void HasCorruptionResist(bool value) { hasCorruptionResist = value; }
+    public void SetRegenHealth(bool value) { hasRegenHP = value; } 
+    public void SetCorruptionResist(bool value) { hasCorruptionResist = value; }
 
     //Set to Components
     public void InitHP(int hp) { healthSystem.InitHP(hp); }
     public void InitAP(int ap) { actionPoints = ap; }
-    public void HasRegenHealthToSys(bool value) { healthSystem.InitRegenHealth(value); } 
-    public void HasCorruptionResistToSys(bool value) { healthSystem.InitCorruptionResist(value); }
+    public void SetRegenHealthToSys(bool value) { healthSystem.InitRegenHealth(value); } 
+    public void SetCorruptionResistToSys(bool value) { healthSystem.InitCorruptionResist(value); }
+
+    public bool HasRegenHealth() { return hasRegenHP; }
+    public bool HasCorruptionResist() { return hasCorruptionResist; }
 
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
-        baseActionArray = GetComponents<BaseAction>();
-
+    
         //hp
         if(customHP != 0) InitHP(customHP);
         
@@ -50,13 +59,28 @@ public class Unit : MonoBehaviour
         else InitAP(customAP);
 
         //bools
-        HasRegenHealthToSys(hasRegenHP);
-        HasCorruptionResistToSys(hasCorruptionResist);
+        SetRegenHealthToSys(hasRegenHP);
+        SetCorruptionResistToSys(hasCorruptionResist);
+
+        if(HasRegenHealth())
+        {
+            //add component here
+            gameObject.AddComponent<HealAction>();
+        }
+
+        if(HasMeleeAction())
+        {
+            gameObject.AddComponent<SwordAction>();
+            GetComponent<SwordAction>().SetMinDmg(5);
+            GetComponent<SwordAction>().SetMaxDmg(8);
+        }
 
         // if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
         // else actionPoints = setCustomAP;
 
         //SceneManager.sceneLoaded += OnSceneLoaded;
+
+        baseActionArray = GetComponents<BaseAction>();
     }
 
     private void Start()
@@ -177,10 +201,9 @@ public class Unit : MonoBehaviour
 
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
+        Debug.Log($"{name} is Dead");
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
-
         Destroy(gameObject);
-
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 

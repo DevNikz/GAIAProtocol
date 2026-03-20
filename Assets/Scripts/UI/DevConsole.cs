@@ -12,6 +12,9 @@ public class DevConsole : MonoBehaviour
 
     public static DevCommand RESTART;
     public static DevCommand RESTART_HUB;
+    public static DevCommand WIN_1;
+    public static DevCommand LOSE;
+
     public List<object> commandList;
 
     [SerializeField] int fontSize = 32;
@@ -39,9 +42,27 @@ public class DevConsole : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         });
 
+        WIN_1 = new DevCommand("win1", "win1", "win1", () =>
+        {
+            LevelManager.Instance.SetCurrentLevel(1);
+            CurrencyManager.Instance.SetPromptedPoints(10);
+            RewardsManager.Instance.SetPoints(10);
+            CorruptionManager.Instance.SetPromptedCorruption(0.52f);
+            CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+            HUBTransitioner.Instance.ExtractForest1();
+        });
+
+        LOSE = new DevCommand("lose", "lose", "lose", () =>
+        {
+            HUBTransitioner.Instance.Dead();
+        });
+
         commandList = new List<object>
         {
-            RESTART
+            RESTART,
+            RESTART_HUB,
+            WIN_1,
+            LOSE
         };
     }
 

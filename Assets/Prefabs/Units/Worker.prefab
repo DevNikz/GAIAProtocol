@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 1507903102451211058}
   - component: {fileID: 8466270858246204084}
   - component: {fileID: 4982119554876346808}
-  - component: {fileID: 6169733524437943229}
+  - component: {fileID: 609699890514716713}
   m_Layer: 8
   m_Name: Worker
   m_TagString: Untagged
@@ -1032,6 +1032,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  currentHealth: 0
+  regenHealth: 0
+  hasCorruptionResist: 0
 --- !u!114 &386348246772227663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,20 +1092,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerMech
   workerTier: {fileID: 0}
---- !u!114 &6169733524437943229
+--- !u!114 &609699890514716713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9103697228277929836}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 497b1af98a70f0443a89915e2ec27888, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e98e702d920e464ca9bb65354cf8774, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SwordAction
-  minDamage: 0
-  maxDamage: 1
+  m_EditorClassIdentifier: Assembly-CSharp::RepairAction
+  minRepairAmount: 15
+  maxRepairAmount: 30
 --- !u!1001 &1774969483520013529
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,36 +21,17 @@ public class LevelManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
-    public void LoadLevel(string sceneName)
-    {
-        StartCoroutine(LoadAsync(sceneName));
-    }
-
     public void LoadLevelIndex(int sceneIndex)
     {
         //SoundManager.StopAllSounds();
         StartCoroutine(LoadAsyncIndex(sceneIndex));
     }
 
-    IEnumerator LoadAsync(string sceneName)
-    {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-        _loaderCanvas.SetActive(true);
-
-        while (!operation.isDone)
-        {
-            _target = Mathf.Clamp01(operation.progress / .9f);
-            yield return null;
-        }
-
-        _loaderCanvas.SetActive(false);
-    }
-
     IEnumerator LoadAsyncIndex(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        _loaderCanvas.SetActive(true);
+        //FadeScreenManager.Instance.HideCanvas();
+        //_loaderCanvas.SetActive(true);
 
         while (!operation.isDone)
         {
@@ -58,7 +39,9 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
-        _loaderCanvas.SetActive(false);
+        //FadeScreenManager.Instance.ShowCanvas();
+        //_loaderCanvas.SetActive(false);
+        
     }
     
     void LateUpdate()

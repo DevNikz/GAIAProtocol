@@ -6,6 +6,11 @@ public class WorldManager : MonoBehaviour
     public static WorldManager Instance { get; private set; }
 
     public List<bool> worldAreaCompletion;
+    [SerializeField] List<bool> planetUnlockState = new List<bool> {true, false, false};
+    public bool GetUnlockStateIndex(int index) { return planetUnlockState[index]; }
+    public void SetUnlockStateIndex(int index, bool value) { planetUnlockState[index] = value; }
+    
+    
 
     void Awake()
     {
