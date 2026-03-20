@@ -115,10 +115,10 @@ public class ObjectSpawnerManager : MonoBehaviour
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             obj.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
-            obj.isStatic = true;
+            //obj.isStatic = true;
 
-            int layerNum = LayerMask.NameToLayer("Obstacles");
-            obj.layer = layerNum;
+            //int layerNum = LayerMask.NameToLayer("Obstacles");
+            //obj.layer = layerNum;
         }
 
         Debug.Log("Has Spawned Objects");
