@@ -14,7 +14,7 @@ public class ObjectSpawnerManager : MonoBehaviour
     public bool HasSpawnedObjects() { return hasSpawnedObjects; }
     public void SetHasSpawned(bool value) { hasSpawnedObjects = value; } 
 
-    [SerializeField] float objectScale = .75f;
+    [SerializeField] float objectScale = 0.5f;
 
     void Awake()
     {
@@ -108,13 +108,18 @@ public class ObjectSpawnerManager : MonoBehaviour
         //foreach (GameObject points in objectSpawnPoints)
         for(int i = 0; i < objectSpawnPoints.Count; i++)
         {
-            int objIndex = Random.Range(0, objectList.Count);
+            int objIndex = UnityEngine.Random.Range(0, objectList.Count);
 
             GameObject obj = Instantiate(objectList[objIndex], objectSpawnPoints[i].transform);
 
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             obj.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
+            Debug.Log($"{obj.name}");
+            Debug.Log($"Static? {obj.isStatic}");
+            Debug.Log($"Mesh? {obj.GetComponent<Renderer>().enabled}");
+            Debug.Log($"Visible? {obj.GetComponent<Renderer>().isVisible}");
+            Debug.Log($"Pos? {obj.transform.localPosition} |");
             //obj.isStatic = true;
 
             //int layerNum = LayerMask.NameToLayer("Obstacles");

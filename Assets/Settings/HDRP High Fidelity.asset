@@ -53,7 +53,7 @@ MonoBehaviour:
     colorBufferFormat: 48
     depthBufferFormat: 0
     supportCustomPass: 1
-    supportVariableRateShading: 0
+    supportVariableRateShading: 1
     customBufferFormat: 12
     supportedLitShaderMode: 2
     planarReflectionResolution:

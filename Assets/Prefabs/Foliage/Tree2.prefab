@@ -11,13 +11,12 @@ GameObject:
   - component: {fileID: 937686472958495492}
   - component: {fileID: 2071080372676475932}
   - component: {fileID: 3285872858779190312}
-  - component: {fileID: 1470172659738877297}
   m_Layer: 0
   m_Name: Birch 002 Foliage 006_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &937686472958495492
 Transform:
@@ -59,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,27 +90,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550034255504433729}
   m_Mesh: {fileID: 4300000, guid: b0cd6a0687a14f54f909970ad33bcfc1, type: 2}
---- !u!135 &1470172659738877297
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550034255504433729}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.644912
-  m_Center: {x: -0.0012921095, y: 0.08722919, z: 0.053704858}
 --- !u!1 &690488278126870303
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +104,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6596329185681674693
 Transform:
@@ -158,7 +136,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5332929447717315488
 Transform:
@@ -170,8 +148,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6607683667228719548}
   - {fileID: 3706101193149316663}
@@ -192,7 +170,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8874472337238149266
 Transform:
@@ -224,7 +202,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7097659196096626164
 Transform:
@@ -253,13 +231,12 @@ GameObject:
   - component: {fileID: 4814661209971590348}
   - component: {fileID: 1350584347833763628}
   - component: {fileID: 5307576233153376875}
-  - component: {fileID: 6968810574882357460}
   m_Layer: 0
   m_Name: Birch 002 Foliage 005_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4814661209971590348
 Transform:
@@ -301,7 +278,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -333,27 +310,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400603079399535350}
   m_Mesh: {fileID: 4300000, guid: 7d3e69929a8c08f47981542c9026b533, type: 2}
---- !u!135 &6968810574882357460
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400603079399535350}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2.1900172
-  m_Center: {x: -0.14876115, y: 0.032191277, z: -0.0063459873}
 --- !u!1 &1745718025485621503
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +325,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6607683667228719548
 Transform:
@@ -440,7 +396,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4616298192359505475
 Transform:
@@ -490,7 +446,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb947cb9e6da9444ca24a62f21d53722, type: 2}
+  - {fileID: 2100000, guid: 44f8259798cec9d4388e1ed01df8715d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -525,13 +481,12 @@ GameObject:
   - component: {fileID: 8708892234036549504}
   - component: {fileID: 8055514278457479366}
   - component: {fileID: 8346340249460041169}
-  - component: {fileID: 3996447568733235689}
   m_Layer: 0
   m_Name: Birch 002 Foliage 008_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8708892234036549504
 Transform:
@@ -573,7 +528,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -605,27 +560,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2324537393474965127}
   m_Mesh: {fileID: 4300000, guid: 44266d2929cf94941a2ad1f0fba0f1fc, type: 2}
---- !u!135 &3996447568733235689
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2324537393474965127}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.7574091
-  m_Center: {x: 0.07918436, y: -0.07416874, z: 0.05819542}
 --- !u!1 &3011865982398576525
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,13 +571,12 @@ GameObject:
   - component: {fileID: 7966475431946376129}
   - component: {fileID: 3669454804213404476}
   - component: {fileID: 8516538389222065110}
-  - component: {fileID: 7519704006440694457}
   m_Layer: 0
   m_Name: Birch 002 Foliage 004_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7966475431946376129
 Transform:
@@ -685,7 +618,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -717,27 +650,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3011865982398576525}
   m_Mesh: {fileID: 4300000, guid: 4da244805a57e204cb9acc9aa5d7f5de, type: 2}
---- !u!135 &7519704006440694457
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3011865982398576525}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.7257137
-  m_Center: {x: -0.10013574, y: -0.028742611, z: -0.03675866}
 --- !u!1 &3456008051087297957
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,13 +661,12 @@ GameObject:
   - component: {fileID: 902684373903955403}
   - component: {fileID: 6095410711375077229}
   - component: {fileID: 8716653835533073827}
-  - component: {fileID: 1924650388375898906}
   m_Layer: 0
   m_Name: Birch 002 Foliage 002_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &902684373903955403
 Transform:
@@ -797,7 +708,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -829,27 +740,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3456008051087297957}
   m_Mesh: {fileID: 4300000, guid: 9bad91c194d191e40a60f266e56fd567, type: 2}
---- !u!135 &1924650388375898906
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3456008051087297957}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.5830028
-  m_Center: {x: -0.018103123, y: 0.084959984, z: 0.02263993}
 --- !u!1 &3491200593048267302
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +754,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1393796252535310133
 Transform:
@@ -893,13 +783,12 @@ GameObject:
   - component: {fileID: 1901304807444687920}
   - component: {fileID: 8828431358322133011}
   - component: {fileID: 1156887279114920644}
-  - component: {fileID: 2977792575874400239}
   m_Layer: 0
   m_Name: Birch 002 Foliage 001_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1901304807444687920
 Transform:
@@ -941,7 +830,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -973,27 +862,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3502235648281689003}
   m_Mesh: {fileID: 4300000, guid: 839140c1bfd7d064992bad3d1a9bd600, type: 2}
---- !u!135 &2977792575874400239
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3502235648281689003}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.7939343
-  m_Center: {x: -0.11528206, y: 0.060222447, z: 0.012918353}
 --- !u!1 &3556338193063873980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +878,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5062424245363981840
 Transform:
@@ -1060,7 +928,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb947cb9e6da9444ca24a62f21d53722, type: 2}
+  - {fileID: 2100000, guid: 44f8259798cec9d4388e1ed01df8715d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1100,7 +968,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7724718060299241129
 Transform:
@@ -1142,7 +1010,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1185,13 +1053,12 @@ GameObject:
   - component: {fileID: 1931968868775206530}
   - component: {fileID: 7330346795507764652}
   - component: {fileID: 9032788918684870926}
-  - component: {fileID: 820100816089331036}
   m_Layer: 0
   m_Name: Birch 002 Foliage 003_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1931968868775206530
 Transform:
@@ -1233,7 +1100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1265,27 +1132,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5337434674421136043}
   m_Mesh: {fileID: 4300000, guid: 5d56ba8021dc03e40bfe36b29e33ccb7, type: 2}
---- !u!135 &820100816089331036
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5337434674421136043}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.8777592
-  m_Center: {x: -0.0866915, y: 0.002293706, z: 0.012537902}
 --- !u!1 &5507623463628906228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,7 +1148,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5015690089502595477
 Transform:
@@ -1352,7 +1198,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb947cb9e6da9444ca24a62f21d53722, type: 2}
+  - {fileID: 2100000, guid: 44f8259798cec9d4388e1ed01df8715d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1390,7 +1236,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3706101193149316663
 Transform:
@@ -1422,7 +1268,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2490904770787735156
 Transform:
@@ -1454,7 +1300,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6272955572105928150
 Transform:
@@ -1486,7 +1332,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1884351552786283138
 Transform:
@@ -1518,7 +1364,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4699388314238315368
 Transform:
@@ -1550,7 +1396,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6655644758447329967
 Transform:
@@ -1584,7 +1430,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1346346463452908509
 Transform:
@@ -1626,7 +1472,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1669,13 +1515,12 @@ GameObject:
   - component: {fileID: 4014545925005620210}
   - component: {fileID: 8316466402466249162}
   - component: {fileID: 7677568271160176938}
-  - component: {fileID: 8637716709218477146}
   m_Layer: 0
   m_Name: Birch 002 Foliage 007_LEAF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4014545925005620210
 Transform:
@@ -1717,7 +1562,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2578ce6fac81f084eb0710ad8b5b4a31, type: 2}
+  - {fileID: 2100000, guid: a9c813cc017b12c4f9e7c1e47faf422d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1749,24 +1594,3 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8901166640004153663}
   m_Mesh: {fileID: 4300000, guid: 54569752a517ead46bcc5a40553e568b, type: 2}
---- !u!135 &8637716709218477146
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8901166640004153663}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.7338321
-  m_Center: {x: 0.12429148, y: -0.007901192, z: 0.062302053}

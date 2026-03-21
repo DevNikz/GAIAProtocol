@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: 8b4953a5c8033f0498ea8e44a6135e27
+AssetOrigin:
+  serializedVersion: 1
+  productId: 261728
+  packageName: Stylized Trees - Pack
+  packageVersion: 2.0.0
+  assetPath: Assets/Stylized Trees Pack/Shared/Models/Trunks/Birch Trunk 003.fbx
+  uploadId: 840908
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -13,7 +20,7 @@ ModelImporter:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -64,6 +71,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -113,10 +123,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 261728
-  packageName: Stylized Trees - Pack
-  packageVersion: 2.0.0
-  assetPath: Assets/Stylized Trees Pack/Shared/Models/Trunks/Birch Trunk 003.fbx
-  uploadId: 840908
