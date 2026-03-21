@@ -44,7 +44,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         //bool hasFalse = myList.Any(item => item.IsComplete == false);
         areObjectivesDone = objectivesList.All(item => item.isDone);
-
+        if(areObjectivesDone) ExtractionManager.Instance.SetExtraction();
 
         // for(int i = 0; i < objectivesList.Count; i++)
         // {

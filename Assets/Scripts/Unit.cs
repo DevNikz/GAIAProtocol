@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
     [SerializeField] int customAP;
     bool hasRegenHP;
     bool hasCorruptionResist;
-    bool hasCorruptionImmune;
+    [SerializeField] bool hasCorruptionImmune;
     bool hasMeleeAction;
     public bool HasCorruptionImmune() { return hasCorruptionImmune; }
     public void SetCorruptionImmune(bool value) { hasCorruptionImmune = value; }
@@ -203,7 +203,18 @@ public class Unit : MonoBehaviour
     {
         Debug.Log($"{name} is Dead");
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
-        Destroy(gameObject);
+
+        //Destroy Friendly Units
+        if(GetComponent<KaijuUnit>() == null) {
+            Destroy(gameObject);
+        }
+        else
+        {
+            //Do nothing or something here for the Kaiju
+            GetComponent<KaijuUnit>().TurnUIFalse();
+            GetComponent<KaijuUnit>().TurnMeshToDef();
+            GetComponent<KaijuUnit>().InitAnimateHide();
+        }
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 

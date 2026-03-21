@@ -23,6 +23,7 @@ public class MoveAction : BaseAction
 
     [SerializeField, Range(0.1f, 10f)] public float moveSpeed = 5f;
     [SerializeField] private int patrolRadius = 3;
+    [SerializeField] bool hasPathLineVisual = true;
 
     protected List<Vector3> positionList;
     protected int currentPositionIndex;
@@ -34,10 +35,12 @@ public class MoveAction : BaseAction
     {
         if (!isActive)
         {
-            Path.transform.gameObject.SetActive(false);
+            if(hasPathLineVisual) Path.transform.gameObject.SetActive(false);
             return;
         }
-        else Path.transform.gameObject.SetActive(true);
+        else {
+            if(hasPathLineVisual) Path.transform.gameObject.SetActive(true);
+        }
 
         Vector3 targetPosition = positionList[currentPositionIndex];
 
@@ -102,10 +105,13 @@ public class MoveAction : BaseAction
             }
         }
 
-        Path.positionCount = pathL.Count;
-        for(int i = 0; i < pathL.Count; i++)
+        if(hasPathLineVisual)
         {
-            Path.SetPosition(i, pathL[i] + Vector3.up * heightOffset);
+            Path.positionCount = pathL.Count;
+            for(int i = 0; i < pathL.Count; i++)
+            {
+                Path.SetPosition(i, pathL[i] + Vector3.up * heightOffset);
+            }
         }
     }
 
@@ -134,9 +140,12 @@ public class MoveAction : BaseAction
         }
 
         //Debug.Log($"{positionList.Count}");
-        pathL = new List<Vector3>();
-        pathL.Clear();
-        pathL = positionList;
+        if(hasPathLineVisual) 
+        {
+            pathL = new List<Vector3>();
+            pathL.Clear();
+            pathL = positionList;
+        }
 
         OnStartMoving?.Invoke(this, EventArgs.Empty);
 

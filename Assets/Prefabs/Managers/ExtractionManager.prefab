@@ -427,9 +427,9 @@ RectTransform:
   - {fileID: 4782913337979358026}
   m_Father: {fileID: 7808703206438857473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -150, y: -114.96}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -150, y: 130}
   m_SizeDelta: {x: 200, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &21670324138882010
@@ -648,4 +648,3 @@ MonoBehaviour:
   currentSceneIndex: 0
   currentLevelIndex: 0
   extractButton: {fileID: 6918039809671178553}
-  soundController: {fileID: 0}

@@ -617,6 +617,7 @@ MonoBehaviour:
   isEnemy: 1
   actionPoints: 4
   customAP: 4
+  hasCorruptionImmune: 1
 --- !u!65 &3883194414219738599
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -751,6 +752,26 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
+  returnToGround:
+    startFromCurrent: 0
+    startValue: -0.15
+    endValue: -4
+    settings:
+      duration: 4
+      ease: 0
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
   detectionRange: 10
   losCheckInterval: 0.2
   obstacleLayerMask:
@@ -775,13 +796,12 @@ MonoBehaviour:
   maxMoveDistance: 5
   moveSpeed: 5
   patrolRadius: 5
+  hasPathLineVisual: 0
   toxicPuddlePrefab: {fileID: 6199360648805203728, guid: 987b1a4f0130f7141aa7767aef51511a, type: 3}
   trailVFX: {fileID: 198000014159833656, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c, type: 3}
   puddleDamagePerTurn: 10
   puddleTurnsUntilExpiry: 4
   particleHeightOffset: 0.05
-  wanderRadius: 10
-  maxWanderAttempts: 20
 --- !u!114 &5275743999073712116
 MonoBehaviour:
   m_ObjectHideFlags: 0

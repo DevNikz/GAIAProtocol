@@ -31,6 +31,7 @@ public class KaijuUnit : MonoBehaviour
     [SerializeField] ParticleSystem ground;
     [SerializeField] Transform mesh;
     [SerializeField] TweenSettings<float> yPos;
+    [SerializeField] TweenSettings<float> returnToGround;
     GameObject ui;
     GameObject meshXray;
 
@@ -76,6 +77,11 @@ public class KaijuUnit : MonoBehaviour
         StartCoroutine(AnimateAwake());
     }
 
+    public void InitAnimateHide()
+    {
+        StartCoroutine(AnimateHide());
+    }
+
     IEnumerator AnimateAwake()
     {
         yield return new WaitForSeconds(0.5f);
@@ -89,6 +95,21 @@ public class KaijuUnit : MonoBehaviour
         meshXray.layer = LayerMask.NameToLayer("Xray");
         ui.SetActive(true);
     }
+
+    IEnumerator AnimateHide()
+    {
+        
+        yield return new WaitForSeconds(0.5f);
+        ground.Play();
+        Tween.LocalPositionY(mesh, returnToGround);
+        yield return new WaitForSeconds(6f);
+
+        //hasAnimatedWake = true;
+        
+    }
+
+    public void TurnUIFalse() { ui.SetActive(false); }
+    public void TurnMeshToDef() { meshXray.layer = LayerMask.NameToLayer("Default"); }
 
     private void CheckDetection()
     {
