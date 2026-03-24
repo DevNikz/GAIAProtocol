@@ -70,6 +70,7 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         LevelManager.Instance.LoadLevelIndex(0);
         yield return new WaitForSeconds(1f);
+        SoundManager.Instance.PlayMusic("HUB");
         FadeScreenManager.Instance.FadeOut();
         StartCoroutine(RewardHUD());
     }
@@ -158,8 +159,6 @@ public class HUBTransitioner : MonoBehaviour
     }
 
     
-
-
     void Intro()
     {
         FadeScreenManager.Instance.FadeOut();
