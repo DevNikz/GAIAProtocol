@@ -168,7 +168,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &8770446824358153601
 TrailRenderer:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -214,6 +214,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
@@ -281,7 +282,6 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.01
-  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
@@ -496,6 +496,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &8258298529231766719
 CapsuleCollider:
@@ -623,6 +624,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -794,6 +796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   actionPoints: 4
+  customAP: 0
+  hasCorruptionImmune: 0
 --- !u!65 &7313912752346062244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -827,7 +831,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e77071bd79f18645abfccc43343856a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathL: []
+  Path: {fileID: 0}
+  heightOffset: 0
   maxMoveDistance: 4
+  moveSpeed: 5
+  patrolRadius: 3
+  hasPathLineVisual: 1
 --- !u!114 &-5639441539148911859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -855,6 +865,9 @@ MonoBehaviour:
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  minDamage: 0
+  maxDamage: 1
+  hasPlasmaRifle: 0
 --- !u!114 &7875432187911017488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,6 +898,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  currentHealth: 0
+  regenHealth: 0
+  hasCorruptionResist: 0
 --- !u!114 &-2044145914545918145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,6 +940,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497b1af98a70f0443a89915e2ec27888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDamage: 0
+  maxDamage: 1
+  actionpointcost: 0
 --- !u!114 &342142659723939178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionpointcost: 0
   objective: {fileID: 0}
+  percentageAdd: 0
 --- !u!114 &5836419479346713240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,6 +1062,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &9100764858476244178
 MonoBehaviour:
