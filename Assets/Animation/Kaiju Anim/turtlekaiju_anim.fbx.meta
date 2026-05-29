@@ -31,18 +31,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: metarig|Attack1
-      takeName: metarig|Attack1
+      name: metarig|Move forward (1)
+      takeName: metarig|Move forward
       internalID: -4926498253854736870
       firstFrame: 0
-      lastFrame: 82
+      lastFrame: 83
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

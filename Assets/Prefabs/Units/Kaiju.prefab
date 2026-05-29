@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf10234d016c204ca1ae503aa6f88a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3908676179239010509}
+  animator: {fileID: -7952840129009468334}
   bulletProjectilePrefab: {fileID: 1857274480836997060, guid: 6ecc27d7f9acb474282829c1da3ccb68, type: 3}
   shootPointTransform: {fileID: 6129404097718293972}
   rifleTransform: {fileID: 416558231865196099}
@@ -8313,11 +8313,6 @@ PrefabInstance:
       addedObject: {fileID: 2484063598910717438}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
---- !u!95 &3908676179239010509 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
-  m_PrefabInstance: {fileID: 3993045370678275733}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3991584284075984543 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4170833147357194, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}

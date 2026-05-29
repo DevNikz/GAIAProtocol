@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf10234d016c204ca1ae503aa6f88a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3859017224927210820}
+  animator: {fileID: 5911830735331028539}
   bulletProjectilePrefab: {fileID: 1857274480836997060, guid: 6ecc27d7f9acb474282829c1da3ccb68, type: 3}
   shootPointTransform: {fileID: 1851712076083264127}
   rifleTransform: {fileID: 3946208733812178113}
@@ -2886,11 +2886,6 @@ Transform:
 --- !u!4 &3807625521439009558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4170833147357194, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
-  m_PrefabInstance: {fileID: 3808275505753293596}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &3859017224927210820 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 3808275505753293596}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3950735676750409645

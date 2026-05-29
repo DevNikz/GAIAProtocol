@@ -3107,6 +3107,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8787558059908448909, guid: 90b83aaf80327bf48957b56b16cf49d3, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 292719207}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4881,6 +4885,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5221048167753182852, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 435901001}
     - target: {fileID: 9103697228277929836, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
       propertyPath: m_Name
       value: Worker (3)
@@ -11479,6 +11487,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8787558059908448909, guid: 90b83aaf80327bf48957b56b16cf49d3, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1047885506}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11893,6 +11905,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8787558059908448909, guid: 90b83aaf80327bf48957b56b16cf49d3, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1094998720}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19614,6 +19630,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5221048167753182852, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1868313353}
     - target: {fileID: 9103697228277929836, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
       propertyPath: m_Name
       value: Worker (1)
@@ -21635,6 +21655,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5221048167753182852, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2047439481}
     - target: {fileID: 9103697228277929836, guid: 78b8e4ec02ec4fa428edc3924ac18504, type: 3}
       propertyPath: m_Name
       value: Worker (2)
@@ -23213,6 +23237,10 @@ PrefabInstance:
       propertyPath: m_InnerSpotPercent
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 6058385777678608437, guid: a2d6968e369e72e43ba5f81986644331, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 6947802752644787849}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

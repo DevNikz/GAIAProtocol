@@ -134,6 +134,8 @@ public class MoveAction : BaseAction
         currentPositionIndex = 0;
         positionList = new List<Vector3>();
 
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
+
         foreach (GridPosition pathGridPosition in pathGridPositionList)
         {
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
@@ -147,7 +149,7 @@ public class MoveAction : BaseAction
             pathL = positionList;
         }
 
-        OnStartMoving?.Invoke(this, EventArgs.Empty);
+        
 
         ActionStart(onActionComplete);
     }
