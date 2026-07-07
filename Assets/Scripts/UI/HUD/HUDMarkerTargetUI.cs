@@ -4,8 +4,9 @@ using UnityEngine.UI.ProceduralImage;
 
 public class HUDMarkerTargetUI : MonoBehaviour
 {
-    [SerializeField] private Image LinkedImage;
-    
+    [SerializeField]
+    private Image LinkedImage;
+
     private HUDMarkerInWorldTarget LinkedTarget;
     private bool isObjective;
     private RectTransform HUDMarkerRect;
@@ -26,11 +27,11 @@ public class HUDMarkerTargetUI : MonoBehaviour
 
     void Start()
     {
-        HUDMarkerRect = (RectTransform) transform.parent;
+        HUDMarkerRect = (RectTransform)transform.parent;
         cam = Camera.main;
         //cam = ObjectTransManager.Instance.GetMainCamera();
 
-        if(!isObjective)
+        if (!isObjective)
         {
             GetComponent<Image>().enabled = false;
             LinkedImage.enabled = false;
@@ -39,9 +40,9 @@ public class HUDMarkerTargetUI : MonoBehaviour
 
     void Update()
     {
-        if(isObjective)
+        if (isObjective)
         {
-            if(LinkedTarget == null || ObjectiveManager.Instance.GetComplete(LinkedIndex))
+            if (LinkedTarget == null || ObjectiveManager.Instance.GetComplete(LinkedIndex))
             {
                 Destroy(gameObject);
                 return;
@@ -56,22 +57,27 @@ public class HUDMarkerTargetUI : MonoBehaviour
             }
 
             //For Extractions
-            if(ObjectiveManager.Instance.CheckCompleteBool())
+            /*
+            if (ObjectiveManager.Instance.CheckCompleteBool())
             {
                 GetComponent<Image>().enabled = true;
                 LinkedImage.enabled = true;
             }
+            */
         }
 
         var viewportPos = cam.WorldToViewportPoint(LinkedTarget.transform.position);
-        
-        if (viewportPos.x >= 0f && viewportPos.x <= 1 &&
-            viewportPos.y >= 0f && viewportPos.y <= 1 &&
-            viewportPos.z > 0)
+
+        if (
+            viewportPos.x >= 0f
+            && viewportPos.x <= 1
+            && viewportPos.y >= 0f
+            && viewportPos.y <= 1
+            && viewportPos.z > 0
+        )
         {
             OnScreenRepositionMarker();
         }
-
         else
         {
             OffScreenRepositionMarker();
@@ -90,20 +96,34 @@ public class HUDMarkerTargetUI : MonoBehaviour
 
     void OffScreenRepositionMarker()
     {
-        Vector3 vecToTarget = (LinkedTarget.transform.position - Camera.main.transform.position).normalized;
+        Vector3 vecToTarget = (
+            LinkedTarget.transform.position - Camera.main.transform.position
+        ).normalized;
 
         // refresh cached data if changed
-        if (Camera.main.aspect != CachedAspectRatio || Camera.main.fieldOfView != CachedFOV_Vertical)
+        if (
+            Camera.main.aspect != CachedAspectRatio
+            || Camera.main.fieldOfView != CachedFOV_Vertical
+        )
         {
             CachedFOV_Vertical = Camera.main.fieldOfView;
             CachedAspectRatio = Camera.main.aspect;
 
-            CachedFOV_Horizontal = Camera.VerticalToHorizontalFieldOfView(CachedFOV_Vertical, CachedAspectRatio);
+            CachedFOV_Horizontal = Camera.VerticalToHorizontalFieldOfView(
+                CachedFOV_Vertical,
+                CachedAspectRatio
+            );
         }
 
         // calculate normalised angles to target
-        float normalisedX = Mathf.Asin(Vector3.Dot(vecToTarget, Camera.main.transform.right)) * Mathf.Rad2Deg / (CachedFOV_Horizontal * 0.5f);
-        float normalisedY = Mathf.Asin(Vector3.Dot(vecToTarget, Camera.main.transform.up)) * Mathf.Rad2Deg / (CachedFOV_Vertical * 0.5f);
+        float normalisedX =
+            Mathf.Asin(Vector3.Dot(vecToTarget, Camera.main.transform.right))
+            * Mathf.Rad2Deg
+            / (CachedFOV_Horizontal * 0.5f);
+        float normalisedY =
+            Mathf.Asin(Vector3.Dot(vecToTarget, Camera.main.transform.up))
+            * Mathf.Rad2Deg
+            / (CachedFOV_Vertical * 0.5f);
 
         // clamp to a 0 to 1 range
         normalisedX = Mathf.Clamp01(0.5f * (normalisedX + 1f));
@@ -127,7 +147,9 @@ public class HUDMarkerTargetUI : MonoBehaviour
             normalisedY = 0f;
 
         // position the marker
-        ((RectTransform)transform).anchoredPosition = new Vector2((normalisedX - 0.5f) * HUDMarkerRect.rect.width, 
-                                                                  (normalisedY - 0.5f) * HUDMarkerRect.rect.height);
+        ((RectTransform)transform).anchoredPosition = new Vector2(
+            (normalisedX - 0.5f) * HUDMarkerRect.rect.width,
+            (normalisedY - 0.5f) * HUDMarkerRect.rect.height
+        );
     }
 }

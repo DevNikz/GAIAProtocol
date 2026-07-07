@@ -4,28 +4,86 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-
     public static InputManager Instance { get; private set; }
 
     private PlayerInputActions playerInputActions;
 
-    [SerializeField] bool disableKeyInputs;
-    [SerializeField] bool disableMechRotate;
-    [SerializeField] bool disableDebug;
-    [SerializeField] bool disableLevelCamera;
-    public bool AreLegacyInputsDisabled() { return disableKeyInputs; }
-    public void EnableLegacyInputs() { disableKeyInputs = false; }
-    public void DisableLegacyInputs() { disableKeyInputs = true; }
-    public void SetLegacyInputs(bool value) { disableKeyInputs = value; }
-    public void EnableLevelCamera() { disableLevelCamera = false; }
-    public void DisableLevelCamera() { disableLevelCamera = true; }
-    public void SetLevelCam(bool value) { disableLevelCamera = value; }
-    public void EnableDebug() { disableDebug = false; }
-    public void DisableDebug() { disableDebug = true; } 
-    public void SetDebug(bool value) { disableDebug = value; }
-    public void EnableMechRotate() { disableMechRotate = false;}
-    public void DisableMechRotate() { disableMechRotate = true; }
-    public void SetMechRotate(bool value) { disableMechRotate = value; }
+    [SerializeField]
+    bool disableKeyInputs;
+
+    [SerializeField]
+    bool disableMechRotate;
+
+    [SerializeField]
+    bool isDebug;
+
+    [SerializeField]
+    bool disableLevelCamera;
+
+    public bool AreLegacyInputsDisabled()
+    {
+        return disableKeyInputs;
+    }
+
+    public void EnableLegacyInputs()
+    {
+        disableKeyInputs = false;
+    }
+
+    public void DisableLegacyInputs()
+    {
+        disableKeyInputs = true;
+    }
+
+    public void SetLegacyInputs(bool value)
+    {
+        disableKeyInputs = value;
+    }
+
+    public void EnableLevelCamera()
+    {
+        disableLevelCamera = false;
+    }
+
+    public void DisableLevelCamera()
+    {
+        disableLevelCamera = true;
+    }
+
+    public void SetLevelCam(bool value)
+    {
+        disableLevelCamera = value;
+    }
+
+    public void EnableDebug()
+    {
+        isDebug = false;
+    }
+
+    public void DisableDebug()
+    {
+        isDebug = true;
+    }
+
+    public void SetDebug(bool value)
+    {
+        isDebug = value;
+    }
+
+    public void EnableMechRotate()
+    {
+        disableMechRotate = false;
+    }
+
+    public void DisableMechRotate()
+    {
+        disableMechRotate = true;
+    }
+
+    public void SetMechRotate(bool value)
+    {
+        disableMechRotate = value;
+    }
 
     private void Awake()
     {
@@ -36,7 +94,8 @@ public class InputManager : MonoBehaviour
             playerInputActions = new PlayerInputActions();
             playerInputActions.Player.Enable();
         }
-        else Destroy(gameObject);        
+        else
+            Destroy(gameObject);
     }
 
     public Vector2 GetMouseScreenPosition()
@@ -66,6 +125,15 @@ public class InputManager : MonoBehaviour
 #endif
     }
 
+    public bool IsRightClickHeldDown()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        return playerInputActions.Player.RightClickHold.WasPerformedThisFrame();
+#else
+        return Input.GetMouseButtonDown(1);
+#endif
+    }
+
     public bool IsMouseHeldDown()
     {
 #if USE_NEW_INPUT_SYSTEM
@@ -77,7 +145,8 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetCameraMoveVector()
     {
-        if(disableLevelCamera) return Vector2.zero;
+        if (disableLevelCamera)
+            return Vector2.zero;
 
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraMovement.ReadValue<Vector2>();
@@ -107,7 +176,8 @@ public class InputManager : MonoBehaviour
 
     public float GetCameraRotateAmount()
     {
-        if(disableLevelCamera) return 0;
+        if (disableLevelCamera)
+            return 0;
 
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraRotate.ReadValue<float>();
@@ -129,7 +199,8 @@ public class InputManager : MonoBehaviour
 
     public float GetRotateY()
     {
-        if(disableMechRotate) return 0;
+        if (disableMechRotate)
+            return 0;
 
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.RotateY.ReadValue<float>();
@@ -151,7 +222,8 @@ public class InputManager : MonoBehaviour
 
     public float GetCameraZoomAmount()
     {
-        if(disableLevelCamera) return 0;
+        if (disableLevelCamera)
+            return 0;
 
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.CameraZoom.ReadValue<float>();
@@ -173,23 +245,36 @@ public class InputManager : MonoBehaviour
 
     public bool GetDebugButton()
     {
-        if(disableDebug) return false;
+        if (isDebug)
+            return false;
 
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.ToggleDebug.WasPressedThisFrame();
 #else
         return Input.GetKey(KeyCode.BackQuote);
 #endif
-     }
+    }
 
     public bool GetReturnButton()
     {
-        if(disableDebug) return false;
+        if (isDebug)
+            return false;
 
 #if USE_NEW_INPUT_SYSTEM
         return playerInputActions.Player.Return.WasPressedThisFrame();
 #else
         return Input.GetKey(KeyCode.return);
 #endif
-     }
+    }
+
+    public bool GetSpaceButton()
+    {
+#if USE_NEW_INPUT_SYSTEM
+        //Debug.Log("Space Pressed");
+        return playerInputActions.Player.Space.WasPressedThisFrame();
+#else
+        //Debug.Log("Space Pressed");
+        return Input.GetKey(KeyCode.Space);
+#endif
+    }
 }

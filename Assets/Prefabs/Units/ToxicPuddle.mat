@@ -164,7 +164,7 @@ Material:
     - _AlphaRemapMin: 0
     - _AlphaSrcBlend: 1
     - _Anisotropy: 0
-    - _Base_Noise_Scale: 8
+    - _Base_Noise_Scale: 15
     - _Base_Noise_Tiling: 5
     - _BlendMode: 0
     - _CoatMask: 0
@@ -192,7 +192,7 @@ Material:
     - _Edge_Max_Strength: 0.55
     - _Edge_Min_Strength: 0.15
     - _Emission_Intensity: 2.5
-    - _Emission_Weight: 0.5
+    - _Emission_Weight: 0.7
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -223,7 +223,7 @@ Material:
     - _MetallicRemapMin: 0
     - _NormalMapSpace: 0
     - _NormalScale: 1
-    - _Normal_Scale: 2
+    - _Normal_Scale: 5
     - _Normal_Strength: 2
     - _Normal_Tiling: 3
     - _ObjectSpaceUVMapping: 0
@@ -286,8 +286,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Base_Noise_Speed: {r: 0.05, g: 0.03, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.02352941, g: 0.003921569, b: 0.03921569, a: 1}
-    - _Color2: {r: 0.3294118, g: 0, b: 1, a: 1}
+    - _Color1: {r: 0.15152188, g: 0.04004984, b: 0.18867922, a: 1}
+    - _Color2: {r: 0.041176476, g: 0, b: 0.125, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

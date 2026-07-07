@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class KaijuUnit : MonoBehaviour
 {
-
     public event EventHandler<OnPlayerDetectedEventArgs> OnPlayerDetected;
     public event EventHandler<OnPlayerLostEventArgs> OnPlayerLost;
 
@@ -19,27 +18,59 @@ public class KaijuUnit : MonoBehaviour
     {
         public GridPosition lastSeenGridPosition;
     }
-    
-    [SerializeField] bool isAwake;
-    public bool IsAwake() { return isAwake; }
-    public void SetAwake(bool value) { isAwake = value;}
 
-    [SerializeField] bool hasAnimatedWake;
-    public bool HasAnimatedWake() { return hasAnimatedWake; }
-    public void SetAnimatedWake(bool value) { hasAnimatedWake = value; }
+    [SerializeField]
+    bool isAwake;
 
-    [SerializeField] ParticleSystem ground;
-    [SerializeField] Transform mesh;
-    [SerializeField] TweenSettings<float> yPos;
-    [SerializeField] TweenSettings<float> returnToGround;
+    public bool IsAwake()
+    {
+        return isAwake;
+    }
+
+    public void SetAwake(bool value)
+    {
+        isAwake = value;
+    }
+
+    [SerializeField]
+    bool hasAnimatedWake;
+
+    public bool HasAnimatedWake()
+    {
+        return hasAnimatedWake;
+    }
+
+    public void SetAnimatedWake(bool value)
+    {
+        hasAnimatedWake = value;
+    }
+
+    [SerializeField]
+    ParticleSystem ground;
+
+    [SerializeField]
+    Transform mesh;
+
+    [SerializeField]
+    TweenSettings<float> yPos;
+
+    [SerializeField]
+    TweenSettings<float> returnToGround;
     GameObject ui;
     GameObject meshXray;
 
     [Header("Detection Settings")]
-    [SerializeField] private float detectionRange = 10f;
-    [SerializeField] private float losCheckInterval = 0.2f;   // seconds between raycasts
-    [SerializeField] private LayerMask obstacleLayerMask;
-    [SerializeField] private bool requireLineOfSight = true;
+    [SerializeField]
+    private float detectionRange = 10f;
+
+    [SerializeField]
+    private float losCheckInterval = 0.2f; // seconds between raycasts
+
+    [SerializeField]
+    private LayerMask obstacleLayerMask;
+
+    [SerializeField]
+    private bool requireLineOfSight = true;
 
     private Unit ownerUnit;
     private bool isPlayerDetected = false;
@@ -55,7 +86,7 @@ public class KaijuUnit : MonoBehaviour
         ground = transform.Find("Ground").GetComponent<ParticleSystem>();
         mesh = transform.Find("turtlekaiju");
         ui = transform.Find("UnitWorldUI").gameObject;
-        meshXray = transform.Find("turtlekaiju/default").gameObject;
+        meshXray = transform.Find("turtlekaiju/turtlekaiju_anim/turtle").gameObject;
 
         ui.SetActive(false);
         mesh.localPosition = groundPosMesh;
@@ -66,7 +97,8 @@ public class KaijuUnit : MonoBehaviour
         // Only run detection checks on the enemy's turn (or always, depending on your preference).
         // Running every frame is fine for small unit counts; use losCheckInterval to throttle raycasts.
         losTimer -= Time.deltaTime;
-        if (losTimer > 0f) return;
+        if (losTimer > 0f)
+            return;
         losTimer = losCheckInterval;
 
         CheckDetection();
@@ -92,24 +124,29 @@ public class KaijuUnit : MonoBehaviour
         yield return new WaitForSeconds(6f);
 
         hasAnimatedWake = true;
-        meshXray.layer = LayerMask.NameToLayer("Xray");
+        //meshXray.layer = LayerMask.NameToLayer("Xray");
         ui.SetActive(true);
     }
 
     IEnumerator AnimateHide()
     {
-        
         yield return new WaitForSeconds(0.5f);
         ground.Play();
         Tween.LocalPositionY(mesh, returnToGround);
         yield return new WaitForSeconds(6f);
 
         //hasAnimatedWake = true;
-        
     }
 
-    public void TurnUIFalse() { ui.SetActive(false); }
-    public void TurnMeshToDef() { meshXray.layer = LayerMask.NameToLayer("Default"); }
+    public void TurnUIFalse()
+    {
+        ui.SetActive(false);
+    }
+
+    public void TurnMeshToDef()
+    {
+        meshXray.layer = LayerMask.NameToLayer("Default");
+    }
 
     private void CheckDetection()
     {
@@ -121,11 +158,15 @@ public class KaijuUnit : MonoBehaviour
             {
                 // Just spotted a player unit
                 isPlayerDetected = true;
-                if(isAwake == false) {
+                if (isAwake == false)
+                {
                     isAwake = true;
                 }
                 currentTarget = closestVisibleEnemy;
-                OnPlayerDetected?.Invoke(this, new OnPlayerDetectedEventArgs { detectedUnit = currentTarget });
+                OnPlayerDetected?.Invoke(
+                    this,
+                    new OnPlayerDetectedEventArgs { detectedUnit = currentTarget }
+                );
             }
             else
             {
@@ -138,12 +179,16 @@ public class KaijuUnit : MonoBehaviour
             if (isPlayerDetected)
             {
                 // Lost the player
-                GridPosition lastSeen = currentTarget != null
-                    ? currentTarget.GetGridPosition()
-                    : ownerUnit.GetGridPosition();
+                GridPosition lastSeen =
+                    currentTarget != null
+                        ? currentTarget.GetGridPosition()
+                        : ownerUnit.GetGridPosition();
 
                 isPlayerDetected = false;
-                OnPlayerLost?.Invoke(this, new OnPlayerLostEventArgs { lastSeenGridPosition = lastSeen });
+                OnPlayerLost?.Invoke(
+                    this,
+                    new OnPlayerLostEventArgs { lastSeenGridPosition = lastSeen }
+                );
                 currentTarget = null;
             }
         }
@@ -158,9 +203,11 @@ public class KaijuUnit : MonoBehaviour
         foreach (Unit playerUnit in playerUnits)
         {
             float dist = Vector3.Distance(transform.position, playerUnit.transform.position);
-            if (dist > detectionRange) continue;
+            if (dist > detectionRange)
+                continue;
 
-            if (requireLineOfSight && !HasLineOfSight(playerUnit)) continue;
+            if (requireLineOfSight && !HasLineOfSight(playerUnit))
+                continue;
 
             if (dist < closestDist)
             {
@@ -174,7 +221,7 @@ public class KaijuUnit : MonoBehaviour
 
     private bool HasLineOfSight(Unit target)
     {
-        Vector3 origin = transform.position + Vector3.up * 1.5f;   // eye-level
+        Vector3 origin = transform.position + Vector3.up * 1.5f; // eye-level
         Vector3 targetPos = target.transform.position + Vector3.up * 1.5f;
         Vector3 direction = (targetPos - origin).normalized;
         float distance = Vector3.Distance(origin, targetPos);

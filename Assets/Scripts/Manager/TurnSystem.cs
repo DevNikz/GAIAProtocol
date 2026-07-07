@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class TurnSystem : MonoBehaviour
 {
-
     public static TurnSystem Instance { get; private set; }
-
 
     public event EventHandler OnTurnChanged;
 
-
     private int turnNumber = 1;
-    [SerializeField] private bool isPlayerTurn = true;
+
+    [SerializeField]
+    private bool isPlayerTurn = true;
 
     private void Awake()
     {
@@ -22,9 +21,9 @@ public class TurnSystem : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
-
 
     public void NextTurn()
     {
@@ -35,10 +34,7 @@ public class TurnSystem : MonoBehaviour
         OnTurnChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void NextEnemyTurn()
-    {
-        
-    }
+    public void NextEnemyTurn() { }
 
     public int GetTurnNumber()
     {
@@ -49,7 +45,7 @@ public class TurnSystem : MonoBehaviour
     {
         return isPlayerTurn;
     }
-    
+
     public void ResetSys()
     {
         turnNumber = 1;

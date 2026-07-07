@@ -7,56 +7,129 @@ public enum WorkerTier
 {
     TIER1,
     TIER2,
-    TIER3
+    TIER3,
 }
 
 public enum RangerTier
 {
     TIER1,
     TIER2,
-    TIER3
+    TIER3,
 }
-
 
 public class MechManager : MonoBehaviour
 {
     public static MechManager Instance { get; private set; }
 
     [Header("Properties")]
-    [SerializeField] int unitsToBeDeployed;
-    [SerializeField] int workerUnits;
-    [SerializeField] int rangerUnits;
-    [SerializeField] List<FriendlyUnitType> friendlyUnits = new List<FriendlyUnitType>();
+    [SerializeField]
+    int unitsToBeDeployed;
+
+    [SerializeField]
+    int workerUnits;
+
+    [SerializeField]
+    int rangerUnits;
+
+    [SerializeField]
+    List<FriendlyUnitType> friendlyUnits = new List<FriendlyUnitType>();
 
     [Header("Worker")]
-    [SerializeField] List<WorkerScriptableObject> tierWorkers; //0 = tier1 | 1 = tier2 | 2 = tier3
-    [SerializeField] WorkerScriptableObject currentTierWorkerObject;
+    [SerializeField]
+    List<WorkerScriptableObject> tierWorkers; //0 = tier1 | 1 = tier2 | 2 = tier3
 
-    public WorkerScriptableObject GetCurrentTierWorkerObject() { return currentTierWorkerObject; }
-    public void SetCurrentTierWorkerObject(int index) { currentTierWorkerObject = tierWorkers[index]; }
+    [SerializeField]
+    WorkerScriptableObject currentTierWorkerObject;
+
+    public WorkerScriptableObject GetCurrentTierWorkerObject()
+    {
+        return currentTierWorkerObject;
+    }
+
+    public void SetCurrentTierWorkerObject(int index)
+    {
+        currentTierWorkerObject = tierWorkers[index];
+    }
 
     [Header("Ranger")]
-    [SerializeField] List<RangerScriptableObject> tierRangers; //0 = tier1 | 1 = tier2 | 2 = tier3
-    [SerializeField] RangerScriptableObject currentTierRangerObject;
+    [SerializeField]
+    List<RangerScriptableObject> tierRangers; //0 = tier1 | 1 = tier2 | 2 = tier3
 
-    public RangerScriptableObject GetCurrentTierRangerObject() { return currentTierRangerObject; }
-    public void SetCurrentTierRangerObject(int index) { currentTierRangerObject = tierRangers[index]; }
+    [SerializeField]
+    RangerScriptableObject currentTierRangerObject;
 
-    public int GetUnitsToBeDeployed() { return unitsToBeDeployed; }
-    public int GetWorkerUnits() { return workerUnits; }
-    public int GetRangerUnits() { return rangerUnits; }
-    public void SetUnitsToBeDeployed(int value) { unitsToBeDeployed = value; }
-    public void SetWorkerUnits(int value) { workerUnits = value; }
-    public void SetRangerUnits(int value) { rangerUnits = value; } 
-    public List<FriendlyUnitType> GetFriendlyUnits() { return friendlyUnits; }
-    public void AddFriendlyUnit(FriendlyUnitType value) { friendlyUnits.Add(value); }
-    public void RemoveFriendlyUnitAtIndex(int i) { friendlyUnits.RemoveAt(i); }
+    public RangerScriptableObject GetCurrentTierRangerObject()
+    {
+        return currentTierRangerObject;
+    }
 
-    public void ClearUnitsDeployed() { unitsToBeDeployed = 1; }
-    public void ClearWorkerUnits() { workerUnits = 1; }
-    public void ClearRangerUnits() { rangerUnits = 0; }
-    public void ClearFriendlyUnits() 
-    { 
+    public void SetCurrentTierRangerObject(int index)
+    {
+        currentTierRangerObject = tierRangers[index];
+    }
+
+    public int GetUnitsToBeDeployed()
+    {
+        return unitsToBeDeployed;
+    }
+
+    public int GetWorkerUnits()
+    {
+        return workerUnits;
+    }
+
+    public int GetRangerUnits()
+    {
+        return rangerUnits;
+    }
+
+    public void SetUnitsToBeDeployed(int value)
+    {
+        unitsToBeDeployed = value;
+    }
+
+    public void SetWorkerUnits(int value)
+    {
+        workerUnits = value;
+    }
+
+    public void SetRangerUnits(int value)
+    {
+        rangerUnits = value;
+    }
+
+    public List<FriendlyUnitType> GetFriendlyUnits()
+    {
+        return friendlyUnits;
+    }
+
+    public void AddFriendlyUnit(FriendlyUnitType value)
+    {
+        friendlyUnits.Add(value);
+    }
+
+    public void RemoveFriendlyUnitAtIndex(int i)
+    {
+        friendlyUnits.RemoveAt(i);
+    }
+
+    public void ClearUnitsDeployed()
+    {
+        unitsToBeDeployed = 1;
+    }
+
+    public void ClearWorkerUnits()
+    {
+        workerUnits = 1;
+    }
+
+    public void ClearRangerUnits()
+    {
+        rangerUnits = 0;
+    }
+
+    public void ClearFriendlyUnits()
+    {
         friendlyUnits.Clear();
         friendlyUnits.Add(FriendlyUnitType.WORKER);
     }
@@ -69,15 +142,15 @@ public class MechManager : MonoBehaviour
         ClearUnitsDeployed();
     }
 
-
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         InitWorkerTiers();
         InitRangerTiers();
@@ -108,7 +181,7 @@ public class MechManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 0:
                 ClearAll();
@@ -118,7 +191,7 @@ public class MechManager : MonoBehaviour
 
     public void UpgradeWorker(WorkerTier tier)
     {
-        switch(tier)
+        switch (tier)
         {
             case WorkerTier.TIER2:
                 SetCurrentTierWorkerObject(1);
@@ -132,7 +205,7 @@ public class MechManager : MonoBehaviour
 
     public void UpgradeRanger(RangerTier tier)
     {
-        switch(tier)
+        switch (tier)
         {
             case RangerTier.TIER2:
                 SetCurrentTierRangerObject(1);

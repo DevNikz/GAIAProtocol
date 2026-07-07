@@ -15,27 +15,75 @@ Corruption
 
     */
 
-
     [Header("Stats")]
-    [SerializeField] private List<float> corruptionList = new List<float> {0.33f, 0.33f}; //Planet Corruption
-    [SerializeField] private int promptedCorruptionIndex;
-    public int GetPromptedCorruptionIndex() { return promptedCorruptionIndex; }
-    public void SetPromptedCorruptionIndex(int value) { promptedCorruptionIndex = value; }
-    [SerializeField] private float promptedCorruption;
-    public float GetPromptedCorruption() { return promptedCorruption; }
-    public void SetPromptedCorruption(float value) { promptedCorruption = value; }
+    [SerializeField]
+    private List<float> corruptionList = new List<float> { 0.33f, 0.33f }; //Planet Corruption
+
+    [SerializeField]
+    private int promptedCorruptionIndex;
+
+    public int GetPromptedCorruptionIndex()
+    {
+        return promptedCorruptionIndex;
+    }
+
+    public void SetPromptedCorruptionIndex(int value)
+    {
+        promptedCorruptionIndex = value;
+    }
+
+    [SerializeField]
+    private float promptedCorruption;
+
+    public float GetPromptedCorruption()
+    {
+        return promptedCorruption;
+    }
+
+    public void SetPromptedCorruption(float value)
+    {
+        promptedCorruption = value;
+    }
+
     [Header("UI")]
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private Material bar;
+    [SerializeField]
+    private GameObject canvas;
 
-    [SerializeField] private int selectedAreaIndex;
-    public int GetAreaIndex() { return selectedAreaIndex; }
-    public void SetAreaIndex(int value) { selectedAreaIndex = value; }
-    public float GetCorruption() { return corruptionList[selectedAreaIndex]; }
-    public void SetCorruption(float value) { corruptionList[selectedAreaIndex] = value; }
+    [SerializeField]
+    private Material bar;
 
-    public float GetCorruptionByIndex(int index) { return corruptionList[index]; }
-    public void SetCorruptionByIndex(int index, float value) { corruptionList[index] = value; }
+    [SerializeField]
+    private int selectedAreaIndex;
+
+    public int GetAreaIndex()
+    {
+        return selectedAreaIndex;
+    }
+
+    public void SetAreaIndex(int value)
+    {
+        selectedAreaIndex = value;
+    }
+
+    public float GetCorruption()
+    {
+        return corruptionList[selectedAreaIndex];
+    }
+
+    public void SetCorruption(float value)
+    {
+        corruptionList[selectedAreaIndex] = value;
+    }
+
+    public float GetCorruptionByIndex(int index)
+    {
+        return corruptionList[index];
+    }
+
+    public void SetCorruptionByIndex(int index, float value)
+    {
+        corruptionList[index] = value;
+    }
 
     private void Awake()
     {
@@ -44,7 +92,8 @@ Corruption
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     void Start()
@@ -54,7 +103,7 @@ Corruption
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 0:
                 canvas.SetActive(true);
@@ -71,8 +120,14 @@ Corruption
     {
         bar.SetFloat("_Fill", corruptionList[selectedAreaIndex]);
     }
-    
-    public void DisableCanvas() { canvas.SetActive(false); }
-    public void EnableCanvas() { canvas.SetActive(true); }
 
+    public void DisableCanvas()
+    {
+        canvas.SetActive(false);
+    }
+
+    public void EnableCanvas()
+    {
+        canvas.SetActive(true);
+    }
 }

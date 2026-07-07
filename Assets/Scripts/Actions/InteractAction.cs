@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class InteractAction : BaseAction
 {
-    [SerializeField] private int actionpointcost;
+    [SerializeField]
+    private int actionpointcost;
     private int maxInteractDistance = 1;
-    [SerializeReference] private GameObject objective;
-    [SerializeField] float percentageAdd = 0f;
-    public void SetInteractEfficiency(float value) { percentageAdd = value; }
+
+    [SerializeReference]
+    private GameObject objective;
+
+    [SerializeField]
+    float percentageAdd = 0f;
+
+    public void SetInteractEfficiency(float value)
+    {
+        percentageAdd = value;
+    }
 
     private void Update()
     {
@@ -25,11 +34,7 @@ public class InteractAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = 0
-        };
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -50,7 +55,9 @@ public class InteractAction : BaseAction
                     continue;
                 }
 
-                IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(testGridPosition);
+                IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(
+                    testGridPosition
+                );
 
                 if (interactable == null)
                 {
@@ -68,7 +75,7 @@ public class InteractAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(gridPosition);
-        
+
         interactable.Interact(OnInteractComplete, percentageAdd);
 
         ActionStart(onActionComplete);
@@ -79,7 +86,8 @@ public class InteractAction : BaseAction
         ActionComplete();
     }
 
-    public override int GetActionPointsCost() {
+    public override int GetActionPointsCost()
+    {
         return GetComponent<Unit>().actionPoints;
     }
 }

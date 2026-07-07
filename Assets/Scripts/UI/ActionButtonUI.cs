@@ -1,17 +1,24 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 public class ActionButtonUI : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI actionName;
 
-    [SerializeField] private TextMeshProUGUI actionName;
-    [SerializeField] private TextMeshProUGUI actionCounter;
-    [SerializeField] private Image actionIcon;
-    [SerializeField] private Button button;
-    [SerializeField] private GameObject selectedGameObject;
+    [SerializeField]
+    private TextMeshProUGUI actionCounter;
 
+    [SerializeField]
+    private Image actionIcon;
+
+    [SerializeField]
+    private Button button;
+
+    [SerializeField]
+    private GameObject selectedGameObject;
 
     private BaseAction baseAction;
 
@@ -19,9 +26,9 @@ public class ActionButtonUI : MonoBehaviour
     {
         this.baseAction = baseAction;
         actionName.text = baseAction.GetActionName().ToUpper();
-        actionCounter.text =  baseAction.GetActionPointsCost().ToString();
+        actionCounter.text = baseAction.GetActionPointsCost().ToString();
 
-        switch(baseAction.GetActionName())
+        switch (baseAction.GetActionName())
         {
             case "Move":
                 actionIcon.sprite = UnitActionSystem.Instance.actionIconList[0];
@@ -42,11 +49,18 @@ public class ActionButtonUI : MonoBehaviour
                 actionIcon.sprite = UnitActionSystem.Instance.actionIconList[5];
                 break;
         }
-        
-        button.onClick.AddListener(() => {
+
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() =>
+        {
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
             SoundManager.Instance.PlaySFX("Select");
         });
+    }
+
+    public void ButtonClick()
+    {
+        button.onClick.Invoke();
     }
 
     public void UpdateSelectedVisual()
@@ -59,11 +73,11 @@ public class ActionButtonUI : MonoBehaviour
     public void ChangeActionPointText()
     {
         //BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-        actionCounter.text =  UnitActionSystem.Instance.GetSelectedUnit().actionPoints.ToString();
+        actionCounter.text = UnitActionSystem.Instance.GetSelectedUnit().actionPoints.ToString();
     }
 
     public string GetActionName()
     {
         return baseAction.GetActionName();
-    } 
+    }
 }

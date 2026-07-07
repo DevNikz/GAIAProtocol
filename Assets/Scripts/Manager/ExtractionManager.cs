@@ -5,21 +5,29 @@ using UnityEngine.UI;
 public class ExtractionManager : MonoBehaviour
 {
     public static ExtractionManager Instance { get; private set; }
-    [SerializeField] private GameObject extractionArea;
-    [SerializeField] private int currentSceneIndex;
-    [SerializeField] private int currentLevelIndex;
+
+    [SerializeField]
+    private GameObject extractionArea;
+
+    [SerializeField]
+    private int currentSceneIndex;
+
+    [SerializeField]
+    private int currentLevelIndex;
 
     [Header("UI")]
-    [SerializeField] private GameObject extractButton;
+    [SerializeField]
+    private GameObject extractButton;
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     void Start()
@@ -30,7 +38,7 @@ public class ExtractionManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         currentSceneIndex = scene.buildIndex;
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 0:
                 ClearArea();
@@ -58,7 +66,8 @@ public class ExtractionManager : MonoBehaviour
 
     void AddExtractionArea()
     {
-        if(extractionArea != null) ClearArea();
+        if (extractionArea != null)
+            ClearArea();
         extractionArea = GameObject.FindGameObjectWithTag("Extract");
 
         extractionArea.GetComponent<BoxCollider>().enabled = false;
@@ -79,22 +88,24 @@ public class ExtractionManager : MonoBehaviour
     //Win Condition
     public void InitButton(int index)
     {
-        extractButton.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            SoundManager.Instance.PlaySFX("Extract");
-            SetButtonVisible(false);
-            switch(index)
+        extractButton
+            .GetComponent<Button>()
+            .onClick.AddListener(() =>
             {
-                case 1: //Forest 1
-                    HUBTransitioner.Instance.ExtractForest1();
-                    break;
-                case 2: //Forest 1
-                    HUBTransitioner.Instance.ExtractForest2();
-                    break;
-                case 3: //Forest 1
-                    HUBTransitioner.Instance.ExtractForest3();
-                    break;
-            }
-        });
+                SoundManager.Instance.PlaySFX("Extract");
+                SetButtonVisible(false);
+                switch (index)
+                {
+                    case 1: //Forest 1
+                        HUBTransitioner.Instance.ExtractForest1();
+                        break;
+                    case 2: //Forest 1
+                        HUBTransitioner.Instance.ExtractForest2();
+                        break;
+                    case 3: //Forest 1
+                        HUBTransitioner.Instance.ExtractForest3();
+                        break;
+                }
+            });
     }
 }

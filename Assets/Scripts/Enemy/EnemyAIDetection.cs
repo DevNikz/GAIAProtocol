@@ -22,10 +22,17 @@ public class EnemyAIDetection : MonoBehaviour
     }
 
     [Header("Detection Settings")]
-    [SerializeField] private float detectionRange = 10f;
-    [SerializeField] private float losCheckInterval = 0.2f;   // seconds between raycasts
-    [SerializeField] private LayerMask obstacleLayerMask;
-    [SerializeField] private bool requireLineOfSight = true;
+    [SerializeField]
+    private float detectionRange = 10f;
+
+    [SerializeField]
+    private float losCheckInterval = 0.2f; // seconds between raycasts
+
+    [SerializeField]
+    private LayerMask obstacleLayerMask;
+
+    [SerializeField]
+    private bool requireLineOfSight = true;
 
     private Unit ownerUnit;
     private bool isPlayerDetected = false;
@@ -42,7 +49,8 @@ public class EnemyAIDetection : MonoBehaviour
         // Only run detection checks on the enemy's turn (or always, depending on your preference).
         // Running every frame is fine for small unit counts; use losCheckInterval to throttle raycasts.
         losTimer -= Time.deltaTime;
-        if (losTimer > 0f) return;
+        if (losTimer > 0f)
+            return;
         losTimer = losCheckInterval;
 
         CheckDetection();
@@ -59,7 +67,10 @@ public class EnemyAIDetection : MonoBehaviour
                 // Just spotted a player unit
                 isPlayerDetected = true;
                 currentTarget = closestVisibleEnemy;
-                OnPlayerDetected?.Invoke(this, new OnPlayerDetectedEventArgs { detectedUnit = currentTarget });
+                OnPlayerDetected?.Invoke(
+                    this,
+                    new OnPlayerDetectedEventArgs { detectedUnit = currentTarget }
+                );
             }
             else
             {
@@ -72,12 +83,16 @@ public class EnemyAIDetection : MonoBehaviour
             if (isPlayerDetected)
             {
                 // Lost the player
-                GridPosition lastSeen = currentTarget != null
-                    ? currentTarget.GetGridPosition()
-                    : ownerUnit.GetGridPosition();
+                GridPosition lastSeen =
+                    currentTarget != null
+                        ? currentTarget.GetGridPosition()
+                        : ownerUnit.GetGridPosition();
 
                 isPlayerDetected = false;
-                OnPlayerLost?.Invoke(this, new OnPlayerLostEventArgs { lastSeenGridPosition = lastSeen });
+                OnPlayerLost?.Invoke(
+                    this,
+                    new OnPlayerLostEventArgs { lastSeenGridPosition = lastSeen }
+                );
                 currentTarget = null;
             }
         }
@@ -92,9 +107,11 @@ public class EnemyAIDetection : MonoBehaviour
         foreach (Unit playerUnit in playerUnits)
         {
             float dist = Vector3.Distance(transform.position, playerUnit.transform.position);
-            if (dist > detectionRange) continue;
+            if (dist > detectionRange)
+                continue;
 
-            if (requireLineOfSight && !HasLineOfSight(playerUnit)) continue;
+            if (requireLineOfSight && !HasLineOfSight(playerUnit))
+                continue;
 
             if (dist < closestDist)
             {
@@ -108,7 +125,7 @@ public class EnemyAIDetection : MonoBehaviour
 
     private bool HasLineOfSight(Unit target)
     {
-        Vector3 origin = transform.position + Vector3.up * 1.5f;   // eye-level
+        Vector3 origin = transform.position + Vector3.up * 1.5f; // eye-level
         Vector3 targetPos = target.transform.position + Vector3.up * 1.5f;
         Vector3 direction = (targetPos - origin).normalized;
         float distance = Vector3.Distance(origin, targetPos);

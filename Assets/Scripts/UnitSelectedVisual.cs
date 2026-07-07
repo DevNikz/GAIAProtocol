@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class UnitSelectedVisual : MonoBehaviour
 {
-
-    [SerializeField] private Unit unit;
+    [SerializeField]
+    private Unit unit;
 
     private MeshRenderer meshRenderer;
 

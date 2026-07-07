@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class TurnSystemUI : MonoBehaviour
 {
+    [SerializeField]
+    private Button endTurnBtn;
 
-    [SerializeField] private Button endTurnBtn;
-    [SerializeField] private TextMeshProUGUI turnNumberText;
-    [SerializeField] private GameObject enemyTurnVisualGameObject;
+    [SerializeField]
+    private TextMeshProUGUI turnNumberText;
+
+    [SerializeField]
+    private GameObject enemyTurnVisualGameObject;
 
     private void Start()
     {
@@ -61,6 +65,4 @@ public class TurnSystemUI : MonoBehaviour
     {
         endTurnBtn.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
     }
-
-
 }

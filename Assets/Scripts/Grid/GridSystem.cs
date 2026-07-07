@@ -12,7 +12,14 @@ public class GridSystem<TGridObject>
     private float floorHeight;
     private TGridObject[,] gridObjectArray;
 
-    public GridSystem(int width, int height, float cellSize, int floor, float floorHeight, Func<GridSystem<TGridObject>, GridPosition, TGridObject> createGridObject)
+    public GridSystem(
+        int width,
+        int height,
+        float cellSize,
+        int floor,
+        float floorHeight,
+        Func<GridSystem<TGridObject>, GridPosition, TGridObject> createGridObject
+    )
     {
         this.width = width;
         this.height = height;
@@ -34,9 +41,8 @@ public class GridSystem<TGridObject>
 
     public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
-        return 
-            new Vector3(gridPosition.x, 0, gridPosition.z) * cellSize +
-            new Vector3(0, gridPosition.floor, 0) * floorHeight;
+        return new Vector3(gridPosition.x, 0, gridPosition.z) * cellSize
+            + new Vector3(0, gridPosition.floor, 0) * floorHeight;
     }
 
     public GridPosition GetGridPosition(Vector3 worldPosition)
@@ -56,7 +62,11 @@ public class GridSystem<TGridObject>
             {
                 GridPosition gridPosition = new GridPosition(x, z, floor);
 
-                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
+                Transform debugTransform = GameObject.Instantiate(
+                    debugPrefab,
+                    GetWorldPosition(gridPosition),
+                    Quaternion.identity
+                );
                 GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
                 gridDebugObject.SetGridObject(GetGridObject(gridPosition));
             }
@@ -70,11 +80,11 @@ public class GridSystem<TGridObject>
 
     public bool IsValidGridPosition(GridPosition gridPosition)
     {
-        return  gridPosition.x >= 0 && 
-                gridPosition.z >= 0 && 
-                gridPosition.x < width && 
-                gridPosition.z < height &&
-                gridPosition.floor == floor;
+        return gridPosition.x >= 0
+            && gridPosition.z >= 0
+            && gridPosition.x < width
+            && gridPosition.z < height
+            && gridPosition.floor == floor;
     }
 
     public int GetWidth()
@@ -86,7 +96,4 @@ public class GridSystem<TGridObject>
     {
         return height;
     }
-
-
-
 }

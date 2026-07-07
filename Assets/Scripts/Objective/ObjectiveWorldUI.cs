@@ -1,0 +1,120 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ObjectiveWorldUI : MonoBehaviour
+{
+    [SerializeField]
+    private Image progressBarImage;
+
+    [SerializeField]
+    private GameObject UI;
+
+    [SerializeField, Range(0.5f, 10f)]
+    private float fillSpeed = 1f;
+    private ObjectiveBase objective;
+
+    void Awake()
+    {
+        objective = GetComponent<ObjectiveBase>();
+
+        if (objective == null)
+        {
+            var counterTarget = GetComponent<ObjectiveCounterTarget>();
+            if (counterTarget != null)
+                objective = counterTarget.GetSharedObjective();
+        }
+    }
+
+    void Update()
+    {
+        UpdateProgressBar();
+    }
+
+    void UpdateProgressBar()
+    {
+        progressBarImage.fillAmount = Mathf.Lerp(
+            progressBarImage.fillAmount,
+            objective.GetProgress(),
+            Time.deltaTime * fillSpeed
+        );
+
+        if (progressBarImage.fillAmount >= 0.9f)
+        {
+            StartCoroutine(delayDisableUI());
+        }
+        else
+        {
+            UI.SetActive(true);
+        }
+    }
+
+    private IEnumerator delayDisableUI()
+    {
+        yield return new WaitForSeconds(1f);
+        UI.SetActive(false);
+    }
+
+    public int GetObjectiveIndex()
+    {
+        return objective.GetObjectiveIndex();
+    }
+}
+
+
+// public class ObjectiveWorldUI : MonoBehaviour
+// {
+//     [SerializeField]
+//     private Image progressBarImage;
+
+//     [SerializeField]
+//     private GameObject UI;
+
+//     [SerializeField, Range(0.5f, 10f)]
+//     private float fillSpeed = 1f;
+
+//     [SerializeField]
+//     private int objectiveIndex;
+
+//     private void Update()
+//     {
+//         // if(!ObjectiveManager.Instance.GetComplete(objectiveIndex)) {
+//         //     if(ObjectiveManager.Instance.IsInCutscene()) UI.SetActive(false);
+//         //     else UI.SetActive(true);
+//         // }
+
+//         UpdateProgressBar();
+//     }
+
+//     private void UpdateProgressBar()
+//     {
+//         //progressBarImage.fillAmount = GetComponent<ObjectiveInteract>().percentage;
+//         progressBarImage.fillAmount = Mathf.Lerp(
+//             progressBarImage.fillAmount,
+//             GetComponent<ObjectiveInteract>().percentage,
+//             Time.deltaTime * fillSpeed
+//         );
+
+//         if (progressBarImage.fillAmount >= 0.9)
+//         {
+//             //UI.SetActive(false);
+//             if (ObjectiveManager.Instance.CheckIndex(objectiveIndex))
+//                 ObjectiveManager.Instance.SetComplete(objectiveIndex);
+//             StartCoroutine(delayDisableUI());
+//         }
+//         else
+//             UI.SetActive(true);
+//     }
+
+//     private IEnumerator delayDisableUI()
+//     {
+//         yield return new WaitForSeconds(1f);
+//         UI.SetActive(false);
+//     }
+
+//     public int GetObjectiveIndex()
+//     {
+//         return objectiveIndex;
+//     }
+// }

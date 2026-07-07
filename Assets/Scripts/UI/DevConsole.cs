@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class DevConsole : MonoBehaviour
 {
     public static DevConsole Instance { get; private set; }
-    
+
     bool showConsole;
     string input;
 
@@ -17,7 +17,8 @@ public class DevConsole : MonoBehaviour
 
     public List<object> commandList;
 
-    [SerializeField] int fontSize = 32;
+    [SerializeField]
+    int fontSize = 32;
 
     private void Awake()
     {
@@ -26,50 +27,67 @@ public class DevConsole : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
-        RESTART = new DevCommand("restart", "Restart Current Level.", "restart", () =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            GridSystemVisual.Instance.SetVisuals(false);
-            TurnSystem.Instance.ResetSys();
-            ObjectiveManager.Instance.ResetSys();
-            ObjectSpawnerManager.Instance.SetHasSpawned(false);
-        });
+        RESTART = new DevCommand(
+            "restart",
+            "Restart Current Level.",
+            "restart",
+            () =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                GridSystemVisual.Instance.SetVisuals(false);
+                TurnSystem.Instance.ResetSys();
+                //ObjectiveManager.Instance.ResetSys();
+                ObjectSpawnerManager.Instance.SetHasSpawned(false);
+            }
+        );
 
-        RESTART_HUB = new DevCommand("restartHUB", "Restart HUB", "restartHUB", () =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        });
+        RESTART_HUB = new DevCommand(
+            "restartHUB",
+            "Restart HUB",
+            "restartHUB",
+            () =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        );
 
-        WIN_1 = new DevCommand("win1", "win1", "win1", () =>
-        {
-            LevelManager.Instance.SetCurrentLevel(1);
-            CurrencyManager.Instance.SetPromptedPoints(10);
-            RewardsManager.Instance.SetPoints(10);
-            CorruptionManager.Instance.SetPromptedCorruption(0.52f);
-            CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
-            HUBTransitioner.Instance.ExtractForest1();
-        });
+        WIN_1 = new DevCommand(
+            "win1",
+            "win1",
+            "win1",
+            () =>
+            {
+                LevelManager.Instance.SetCurrentLevel(1);
+                CurrencyManager.Instance.SetPromptedPoints(10);
+                RewardsManager.Instance.SetPoints(10);
+                CorruptionManager.Instance.SetPromptedCorruption(0.52f);
+                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                HUBTransitioner.Instance.ExtractForest1();
+            }
+        );
 
-        LOSE = new DevCommand("lose", "lose", "lose", () =>
-        {
-            HUBTransitioner.Instance.Dead();
-        });
+        LOSE = new DevCommand(
+            "lose",
+            "lose",
+            "lose",
+            () =>
+            {
+                HUBTransitioner.Instance.Dead();
+            }
+        );
 
-        commandList = new List<object>
-        {
-            RESTART,
-            RESTART_HUB,
-            WIN_1,
-            LOSE
-        };
+        commandList = new List<object> { RESTART, RESTART_HUB, WIN_1, LOSE };
     }
 
     void Update()
     {
-        if(InputManager.Instance.GetDebugButton()) OnToggleDebug();
-        if(InputManager.Instance.GetReturnButton()) OnReturn();
+        if (InputManager.Instance.GetDebugButton())
+            OnToggleDebug();
+        if (InputManager.Instance.GetReturnButton())
+            OnReturn();
     }
 
     void OnToggleDebug()
@@ -83,7 +101,7 @@ public class DevConsole : MonoBehaviour
 
     void OnReturn()
     {
-        if(showConsole)
+        if (showConsole)
         {
             HandleInput();
             input = "";
@@ -92,12 +110,12 @@ public class DevConsole : MonoBehaviour
 
     void HandleInput()
     {
-        for(int i = 0; i < commandList.Count; i++)
+        for (int i = 0; i < commandList.Count; i++)
         {
             DevCommandBase commandBase = commandList[i] as DevCommandBase;
-            if(input.Contains(commandBase.commandId))
+            if (input.Contains(commandBase.commandId))
             {
-                if(commandList[i] as DevCommand != null)
+                if (commandList[i] as DevCommand != null)
                 {
                     (commandList[i] as DevCommand).Invoke();
                 }
@@ -107,7 +125,8 @@ public class DevConsole : MonoBehaviour
 
     private void OnGUI()
     {
-        if(!showConsole) return;
+        if (!showConsole)
+            return;
 
         float y = 0f;
 

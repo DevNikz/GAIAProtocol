@@ -7,40 +7,78 @@ public enum RewardsType
 {
     NONE,
     WIN,
-    LOSE
+    LOSE,
 }
 
 public class RewardsManager : MonoBehaviour
 {
     public static RewardsManager Instance;
-    
-    [SerializeField] GameObject canvas;
-    [SerializeField] CanvasGroup canvasGroup;
-    public void ShowCanvas() { canvas.SetActive(true); }
-    public void HideCanvas() { canvas.SetActive(false); }
-    [SerializeField] TweenSettings<float> show;
-    [SerializeField] TweenSettings<float> hide;
+
+    [SerializeField]
+    GameObject canvas;
+
+    [SerializeField]
+    CanvasGroup canvasGroup;
+
+    public void ShowCanvas()
+    {
+        canvas.SetActive(true);
+    }
+
+    public void HideCanvas()
+    {
+        canvas.SetActive(false);
+    }
+
+    [SerializeField]
+    TweenSettings<float> show;
+
+    [SerializeField]
+    TweenSettings<float> hide;
 
     //Get if win or lose
-    [SerializeField] TextMeshProUGUI status, shadow;
-    [SerializeField] List<GameObject> NoStars, Stars;
-    [SerializeField] RewardsType rewards;
-    public RewardsType GetRewards() { return rewards; }
-    public void SetRewardType(RewardsType type) { rewards = type; }
+    [SerializeField]
+    TextMeshProUGUI status,
+        shadow;
+
+    [SerializeField]
+    List<GameObject> NoStars,
+        Stars;
+
+    [SerializeField]
+    RewardsType rewards;
+
+    public RewardsType GetRewards()
+    {
+        return rewards;
+    }
+
+    public void SetRewardType(RewardsType type)
+    {
+        rewards = type;
+    }
 
     //Get number of points won
-    [SerializeField] TextMeshProUGUI pointsText;
-    [SerializeField] int points;
-    public void SetPoints(int value) { points = value; } 
+    [SerializeField]
+    TextMeshProUGUI pointsText;
+
+    [SerializeField]
+    int points;
+
+    public void SetPoints(int value)
+    {
+        points = value;
+    }
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     public void AnimateShow()
@@ -50,7 +88,7 @@ public class RewardsManager : MonoBehaviour
         InputManager.Instance.DisableLevelCamera();
         InputManager.Instance.DisableLegacyInputs();
 
-        switch(rewards)
+        switch (rewards)
         {
             case RewardsType.WIN:
                 Win();
@@ -83,7 +121,7 @@ public class RewardsManager : MonoBehaviour
     public void Win()
     {
         ClearStars();
-        for(int i = 0; i < Stars.Count; i++)
+        for (int i = 0; i < Stars.Count; i++)
         {
             Stars[i].SetActive(true);
         }
@@ -110,12 +148,12 @@ public class RewardsManager : MonoBehaviour
 
     void ClearStars()
     {
-        for(int i = 0; i < NoStars.Count; i++)
+        for (int i = 0; i < NoStars.Count; i++)
         {
             NoStars[i].SetActive(false);
         }
 
-        for(int i = 0; i < Stars.Count; i++)
+        for (int i = 0; i < Stars.Count; i++)
         {
             Stars[i].SetActive(false);
         }

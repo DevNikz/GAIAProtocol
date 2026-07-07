@@ -7,51 +7,77 @@ public class HUBTransitioner : MonoBehaviour
 {
     public static HUBTransitioner Instance;
 
-    [SerializeField] CinemachineVirtualCameraBase virtualCam;
+    [SerializeField]
+    CinemachineVirtualCameraBase virtualCam;
     CinemachineOrbitalFollow pos;
     CinemachineRotationComposer rot;
-    [SerializeField] GameObject missionSelect;
-    [SerializeField] GameObject armory;
-    [SerializeField] GameObject mechSelect;
-    [SerializeField] GameObject toArmory;
-    [SerializeField] GameObject planetLight;
-    [SerializeField] bool firstTimeArmory = true;
-    public void SetFirstTimeArmory(bool value) { firstTimeArmory = value; }
-    [SerializeField] bool firstTimeDeployment = true;
-    public void SetFirstTimeDeployment(bool value) { firstTimeDeployment = value; } 
+
+    [SerializeField]
+    GameObject missionSelect;
+
+    [SerializeField]
+    GameObject armory;
+
+    [SerializeField]
+    GameObject mechSelect;
+
+    [SerializeField]
+    GameObject toArmory;
+
+    [SerializeField]
+    GameObject planetLight;
+
+    [SerializeField]
+    bool firstTimeArmory = true;
+
+    public void SetFirstTimeArmory(bool value)
+    {
+        firstTimeArmory = value;
+    }
+
+    [SerializeField]
+    bool firstTimeDeployment = true;
+
+    public void SetFirstTimeDeployment(bool value)
+    {
+        firstTimeDeployment = value;
+    }
 
     Camera cam;
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         cam = Camera.main;
         planetLight = GameObject.FindGameObjectWithTag("PlanetLight");
         missionSelect = GameObject.FindGameObjectWithTag("MissionSelecter");
 
-        if(GameObject.FindGameObjectWithTag("Armory") != null) {
+        if (GameObject.FindGameObjectWithTag("Armory") != null)
+        {
             armory = GameObject.FindGameObjectWithTag("Armory");
             armory.transform.Find("Content").gameObject.SetActive(false);
         }
 
-        if(GameObject.FindGameObjectWithTag("MechSelect") != null)
+        if (GameObject.FindGameObjectWithTag("MechSelect") != null)
         {
             mechSelect = GameObject.FindGameObjectWithTag("MechSelect");
             mechSelect.transform.Find("MainUI").gameObject.SetActive(false);
         }
 
-        if(GameObject.FindGameObjectWithTag("ToArmory") != null)
+        if (GameObject.FindGameObjectWithTag("ToArmory") != null)
         {
             toArmory = GameObject.FindGameObjectWithTag("ToArmory");
         }
 
-        if(GameObject.FindGameObjectWithTag("VirtualCam") != null) {
+        if (GameObject.FindGameObjectWithTag("VirtualCam") != null)
+        {
             virtualCam = FindAnyObjectByType<CinemachineVirtualCameraBase>();
             pos = virtualCam.GetComponent<CinemachineOrbitalFollow>();
             rot = virtualCam.GetComponent<CinemachineRotationComposer>();
@@ -61,7 +87,6 @@ public class HUBTransitioner : MonoBehaviour
     void Start()
     {
         Intro();
-        
     }
 
     IEnumerator BackToMissionSelect()
@@ -89,7 +114,6 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.AnimateHide();
     }
 
-
     public void Dead()
     {
         RewardsManager.Instance.SetRewardType(RewardsType.LOSE);
@@ -112,11 +136,13 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel() + 1, true);
+        WorldManager.Instance.SetUnlockStateIndex(
+            LevelManager.Instance.GetCurrentLevel() + 1,
+            true
+        );
         CorruptionManager.Instance.SetCorruptionByIndex(0, 0.52f);
         yield return new WaitForSeconds(0.5f);
 
-        
         StartCoroutine(BackToMissionSelect());
     }
 
@@ -133,7 +159,10 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel() + 1, true);
+        WorldManager.Instance.SetUnlockStateIndex(
+            LevelManager.Instance.GetCurrentLevel() + 1,
+            true
+        );
         CorruptionManager.Instance.SetCorruptionByIndex(0, 0.7f);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
@@ -152,13 +181,15 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel() + 1, true);
+        WorldManager.Instance.SetUnlockStateIndex(
+            LevelManager.Instance.GetCurrentLevel() + 1,
+            true
+        );
         CorruptionManager.Instance.SetCorruptionByIndex(0, 1f);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
     }
 
-    
     void Intro()
     {
         FadeScreenManager.Instance.FadeOut();
@@ -170,7 +201,7 @@ public class HUBTransitioner : MonoBehaviour
         DialogueManager.Instance.ShowCanvas();
         //Disable PlayerInput if kaya
         yield return new WaitForSeconds(1.25f);
-        
+
         DialogueManager.Instance.StartDialogue(DialogueType.TUTORIAL_HUB);
         //play music
         SoundManager.Instance.PlayMusic("HUB");
@@ -183,7 +214,8 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(MechSelect());
         FadeScreenManager.Instance.FadeOut();
-        if(firstTimeDeployment) StartCoroutine(MechSelectText());
+        if (firstTimeDeployment)
+            StartCoroutine(MechSelectText());
     }
 
     IEnumerator MechSelect()
@@ -226,7 +258,8 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(Armory());
         FadeScreenManager.Instance.FadeOut();
-        if(firstTimeArmory) StartCoroutine(ArmoryText());
+        if (firstTimeArmory)
+            StartCoroutine(ArmoryText());
     }
 
     IEnumerator ArmoryText()
@@ -262,7 +295,9 @@ public class HUBTransitioner : MonoBehaviour
         rot.TargetOffset.y = 7;
 
         //cam.
-        cam.GetComponent<HDAdditionalCameraData>().clearColorMode = HDAdditionalCameraData.ClearColorMode.Color;
+        cam.GetComponent<HDAdditionalCameraData>().clearColorMode = HDAdditionalCameraData
+            .ClearColorMode
+            .Color;
 
         yield return new WaitForSeconds(0.5f);
     }
@@ -291,7 +326,9 @@ public class HUBTransitioner : MonoBehaviour
         rot.TargetOffset.y = 0;
 
         // cam.clearFlags = CameraClearFlags.Skybox;
-        cam.GetComponent<HDAdditionalCameraData>().clearColorMode = HDAdditionalCameraData.ClearColorMode.Sky;
+        cam.GetComponent<HDAdditionalCameraData>().clearColorMode = HDAdditionalCameraData
+            .ClearColorMode
+            .Sky;
 
         yield return new WaitForSeconds(0.5f);
     }
@@ -301,7 +338,6 @@ public class HUBTransitioner : MonoBehaviour
         FadeScreenManager.Instance.FadeIn();
         StartCoroutine(MissionSelect());
         FadeScreenManager.Instance.FadeOut();
-
     }
 
     public void ToLevel()
@@ -318,16 +354,16 @@ public class HUBTransitioner : MonoBehaviour
 
         SoundManager.Instance.StopMusic();
         LevelManager.Instance.LoadLevelIndex(LevelManager.Instance.GetCurrentLevel());
-        
-        switch(LevelManager.Instance.GetCurrentLevel())
+
+        switch (LevelManager.Instance.GetCurrentLevel())
         {
             case 1:
             case 2:
             case 3:
-            SoundManager.Instance.PlayMusic("Forest");
-            break;
+                SoundManager.Instance.PlayMusic("Forest");
+                break;
         }
-    
+
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -335,7 +371,7 @@ public class HUBTransitioner : MonoBehaviour
     {
         DialogueManager.Instance.ShowCanvas();
         yield return new WaitForSeconds(1.25f);
-        switch(LevelManager.Instance.GetCurrentLevel())
+        switch (LevelManager.Instance.GetCurrentLevel())
         {
             case 1:
                 DialogueManager.Instance.StartDialogue(DialogueType.FOREST1);

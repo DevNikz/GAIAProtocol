@@ -172,6 +172,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa98a674-208e-4b6d-96bc-c99030a95c49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightClickHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""c098a9f4-555f-4aed-afdf-8324934d9e79"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -361,6 +379,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc957bc9-97be-473b-ab0c-5d0408663968"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77e78e0a-6231-461c-a13d-1e7f1a1ffa00"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightClickHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -378,6 +418,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_MouseRotate = m_Player.FindAction("MouseRotate", throwIfNotFound: true);
         m_Player_RotateY = m_Player.FindAction("RotateY", throwIfNotFound: true);
         m_Player_Hold = m_Player.FindAction("Hold", throwIfNotFound: true);
+        m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
+        m_Player_RightClickHold = m_Player.FindAction("RightClickHold", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -467,6 +509,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseRotate;
     private readonly InputAction m_Player_RotateY;
     private readonly InputAction m_Player_Hold;
+    private readonly InputAction m_Player_Space;
+    private readonly InputAction m_Player_RightClickHold;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -514,6 +558,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Hold".
         /// </summary>
         public InputAction @Hold => m_Wrapper.m_Player_Hold;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Space".
+        /// </summary>
+        public InputAction @Space => m_Wrapper.m_Player_Space;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/RightClickHold".
+        /// </summary>
+        public InputAction @RightClickHold => m_Wrapper.m_Player_RightClickHold;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -567,6 +619,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Hold.started += instance.OnHold;
             @Hold.performed += instance.OnHold;
             @Hold.canceled += instance.OnHold;
+            @Space.started += instance.OnSpace;
+            @Space.performed += instance.OnSpace;
+            @Space.canceled += instance.OnSpace;
+            @RightClickHold.started += instance.OnRightClickHold;
+            @RightClickHold.performed += instance.OnRightClickHold;
+            @RightClickHold.canceled += instance.OnRightClickHold;
         }
 
         /// <summary>
@@ -605,6 +663,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Hold.started -= instance.OnHold;
             @Hold.performed -= instance.OnHold;
             @Hold.canceled -= instance.OnHold;
+            @Space.started -= instance.OnSpace;
+            @Space.performed -= instance.OnSpace;
+            @Space.canceled -= instance.OnSpace;
+            @RightClickHold.started -= instance.OnRightClickHold;
+            @RightClickHold.performed -= instance.OnRightClickHold;
+            @RightClickHold.canceled -= instance.OnRightClickHold;
         }
 
         /// <summary>
@@ -708,5 +772,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHold(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Space" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpace(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RightClickHold" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightClickHold(InputAction.CallbackContext context);
     }
 }

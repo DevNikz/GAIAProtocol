@@ -1,17 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class UnitWorldUI : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI actionPointsText;
 
-    [SerializeField] private TextMeshProUGUI actionPointsText;
-    [SerializeField] private Unit unit;
-    [SerializeField] private Image healthBarImage;
-    [SerializeField] private HealthSystem healthSystem;
+    [SerializeField]
+    private Unit unit;
+
+    [SerializeField]
+    private Image healthBarImage;
+
+    [SerializeField]
+    private HealthSystem healthSystem;
 
     private void Start()
     {
@@ -56,5 +62,4 @@ public class UnitWorldUI : MonoBehaviour
     {
         UpdateHealthBar();
     }
-
 }

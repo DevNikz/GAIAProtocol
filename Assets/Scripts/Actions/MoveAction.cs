@@ -4,26 +4,40 @@ using UnityEngine;
 
 public class MoveAction : BaseAction
 {
-
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
     public event EventHandler<OnChangeFloorsStartedEventArgs> OnChangedFloorsStarted;
+
     public class OnChangeFloorsStartedEventArgs : EventArgs
     {
         public GridPosition unitGridPosition;
         public GridPosition targetGridPosition;
     }
+
     public List<Vector3> pathL;
-    [SerializeField] public LineRenderer Path;
-    [SerializeField] public float heightOffset;
 
+    [SerializeField]
+    public LineRenderer Path;
 
-    [SerializeField] public int maxMoveDistance = 4;
-    public void SetMoveDist(int value) { maxMoveDistance = value; }
+    [SerializeField]
+    public float heightOffset;
 
-    [SerializeField, Range(0.1f, 10f)] public float moveSpeed = 5f;
-    [SerializeField] private int patrolRadius = 3;
-    [SerializeField] bool hasPathLineVisual = true;
+    [SerializeField]
+    public int maxMoveDistance = 4;
+
+    public void SetMoveDist(int value)
+    {
+        maxMoveDistance = value;
+    }
+
+    [SerializeField, Range(0.1f, 10f)]
+    public float moveSpeed = 5f;
+
+    [SerializeField]
+    private int patrolRadius = 3;
+
+    [SerializeField]
+    bool hasPathLineVisual = true;
 
     protected List<Vector3> positionList;
     protected int currentPositionIndex;
@@ -35,11 +49,14 @@ public class MoveAction : BaseAction
     {
         if (!isActive)
         {
-            if(hasPathLineVisual) Path.transform.gameObject.SetActive(false);
+            if (hasPathLineVisual)
+                Path.transform.gameObject.SetActive(false);
             return;
         }
-        else {
-            if(hasPathLineVisual) Path.transform.gameObject.SetActive(true);
+        else
+        {
+            if (hasPathLineVisual)
+                Path.transform.gameObject.SetActive(true);
         }
 
         Vector3 targetPosition = positionList[currentPositionIndex];
@@ -53,7 +70,11 @@ public class MoveAction : BaseAction
             Vector3 rotateDirection = (targetSameFloorPosition - transform.position).normalized;
 
             float rotateSpeed = 10f;
-            transform.forward = Vector3.Slerp(transform.forward, rotateDirection, Time.deltaTime * rotateSpeed);
+            transform.forward = Vector3.Slerp(
+                transform.forward,
+                rotateDirection,
+                Time.deltaTime * rotateSpeed
+            );
 
             differentFloorsTeleportTimer -= Time.deltaTime;
             if (differentFloorsTeleportTimer < 0f)
@@ -62,7 +83,6 @@ public class MoveAction : BaseAction
                 transform.position = targetPosition;
             }
         }
-
         else
         {
             //Debug.Log($"{name} is moving");
@@ -70,7 +90,11 @@ public class MoveAction : BaseAction
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
             float rotateSpeed = 10f;
-            transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+            transform.forward = Vector3.Slerp(
+                transform.forward,
+                moveDirection,
+                Time.deltaTime * rotateSpeed
+            );
 
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
             //Debug.Log($"{pathL}");
@@ -85,11 +109,16 @@ public class MoveAction : BaseAction
                 OnStopMoving?.Invoke(this, EventArgs.Empty);
 
                 ActionComplete();
-            } else
+            }
+            else
             {
                 targetPosition = positionList[currentPositionIndex];
-                GridPosition targetGridPosition = LevelGrid.Instance.GetGridPosition(targetPosition);
-                GridPosition unitGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+                GridPosition targetGridPosition = LevelGrid.Instance.GetGridPosition(
+                    targetPosition
+                );
+                GridPosition unitGridPosition = LevelGrid.Instance.GetGridPosition(
+                    transform.position
+                );
 
                 if (targetGridPosition.floor != unitGridPosition.floor)
                 {
@@ -97,39 +126,45 @@ public class MoveAction : BaseAction
                     isChangingFloors = true;
                     differentFloorsTeleportTimer = differentFloorsTeleportTimerMax;
 
-                    OnChangedFloorsStarted?.Invoke(this, new OnChangeFloorsStartedEventArgs{
-                         unitGridPosition = unitGridPosition,
-                         targetGridPosition = targetGridPosition,
-                    });
+                    OnChangedFloorsStarted?.Invoke(
+                        this,
+                        new OnChangeFloorsStartedEventArgs
+                        {
+                            unitGridPosition = unitGridPosition,
+                            targetGridPosition = targetGridPosition,
+                        }
+                    );
                 }
             }
         }
 
-        if(hasPathLineVisual)
+        if (hasPathLineVisual)
         {
             Path.positionCount = pathL.Count;
-            for(int i = 0; i < pathL.Count; i++)
+            for (int i = 0; i < pathL.Count; i++)
             {
                 Path.SetPosition(i, pathL[i] + Vector3.up * heightOffset);
             }
         }
     }
 
-
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        List<GridPosition> pathGridPositionList = Pathfinding.Instance.FindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
+        List<GridPosition> pathGridPositionList = Pathfinding.Instance.FindPath(
+            unit.GetGridPosition(),
+            gridPosition,
+            out int pathLength
+        );
 
         // Guard: no valid path found
-        if(unit.IsEnemy() == true)
+        if (unit.IsEnemy() == true)
         {
-            if(CheckNullPos(pathGridPositionList))
+            if (CheckNullPos(pathGridPositionList))
             {
                 Debug.Log("Null Position. Action Ended.");
                 ActionComplete();
             }
         }
-
 
         currentPositionIndex = 0;
         positionList = new List<Vector3>();
@@ -142,14 +177,12 @@ public class MoveAction : BaseAction
         }
 
         //Debug.Log($"{positionList.Count}");
-        if(hasPathLineVisual) 
+        if (hasPathLineVisual)
         {
             pathL = new List<Vector3>();
             pathL.Clear();
             pathL = positionList;
         }
-
-        
 
         ActionStart(onActionComplete);
     }
@@ -160,7 +193,8 @@ public class MoveAction : BaseAction
         {
             return true;
         }
-        else return false;
+        else
+            return false;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -206,7 +240,10 @@ public class MoveAction : BaseAction
                     }
 
                     int pathfindingDistanceMultiplier = 10;
-                    if (Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier)
+                    if (
+                        Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition)
+                        > maxMoveDistance * pathfindingDistanceMultiplier
+                    )
                     {
                         // Path length is too long
                         continue;
@@ -221,7 +258,6 @@ public class MoveAction : BaseAction
         return validGridPositionList;
     }
 
-
     public override string GetActionName()
     {
         return "Move";
@@ -233,11 +269,11 @@ public class MoveAction : BaseAction
         int targetCountAtGridPosition;
         GridPosition chosenPosition;
 
-        if(GetComponent<KaijuUnit>() != null)
+        if (GetComponent<KaijuUnit>() != null)
         {
-            if(!GetComponent<KaijuUnit>().IsPlayerDetected())
+            if (!GetComponent<KaijuUnit>().IsPlayerDetected())
             {
-                Debug.Log("Enemy is Patrolling");
+                //Debug.Log("Enemy is Patrolling");
                 GridPosition unitGridPosition = unit.GetGridPosition();
                 List<GridPosition> positionsInRadius = new List<GridPosition>();
 
@@ -255,11 +291,15 @@ public class MoveAction : BaseAction
                 // GridPosition chosenPosition;
                 if (positionsInRadius.Count > 0)
                 {
-                    chosenPosition = positionsInRadius[UnityEngine.Random.Range(0, positionsInRadius.Count)];
+                    chosenPosition = positionsInRadius[
+                        UnityEngine.Random.Range(0, positionsInRadius.Count)
+                    ];
                 }
                 else if (validPositions.Count > 0)
                 {
-                    chosenPosition = validPositions[UnityEngine.Random.Range(0, validPositions.Count)];
+                    chosenPosition = validPositions[
+                        UnityEngine.Random.Range(0, validPositions.Count)
+                    ];
                 }
                 else
                 {
@@ -276,7 +316,7 @@ public class MoveAction : BaseAction
             {
                 // Prefer SwordAction if present, then ShootAction, then fall back to a
                 // neutral value so the AI can still move even without a combat action.
-                Debug.Log("Not Patrolling");
+                // Debug.Log("Not Patrolling");
                 SwordAction swordAction = unit.GetAction<SwordAction>();
                 if (swordAction != null)
                 {
@@ -287,7 +327,9 @@ public class MoveAction : BaseAction
                     ShootAction shootAction = unit.GetAction<ShootAction>();
                     if (shootAction != null)
                     {
-                        targetCountAtGridPosition = shootAction.GetTargetCountAtPosition(gridPosition);
+                        targetCountAtGridPosition = shootAction.GetTargetCountAtPosition(
+                            gridPosition
+                        );
                     }
                     else
                     {
@@ -296,7 +338,7 @@ public class MoveAction : BaseAction
                         targetCountAtGridPosition = 1;
                     }
                 }
-                
+
                 return new EnemyAIAction
                 {
                     gridPosition = gridPosition,
@@ -311,7 +353,6 @@ public class MoveAction : BaseAction
             actionValue = 10, // flat value so AI treats all patrol moves equally
         };
     }
-
 
     /*
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -347,7 +388,6 @@ public class MoveAction : BaseAction
         };
     }
     */
-    
 
     public int GetTargetCountAtPosition(GridPosition gridPosition)
     {

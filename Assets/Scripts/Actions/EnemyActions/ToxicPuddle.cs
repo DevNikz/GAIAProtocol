@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class ToxicPuddle : MonoBehaviour
 {
-    [SerializeField] private int damagePerTurn = 10;
-    [SerializeField] private int turnsRemaining = 3;
-    [SerializeField] private GameObject vfxExpire; // optional pop effect
+    [SerializeField]
+    private int damagePerTurn = 10;
+
+    [SerializeField]
+    private int turnsRemaining = 3;
+
+    [SerializeField]
+    private GameObject vfxExpire; // optional pop effect
 
     private GridPosition gridPosition;
+
     //private int turnsRemaining;
 
     public void Initialize(GridPosition gridPosition, int turnsUntilExpiry, int damagePerTurn)
@@ -32,15 +38,20 @@ public class ToxicPuddle : MonoBehaviour
 
     private void ApplyEffectsToUnitsOnTile()
     {
-        if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(gridPosition)) return;
+        if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(gridPosition))
+            return;
 
         Unit unit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        if (unit == null) return;
-        if (unit.GetComponent<Unit>().HasCorruptionImmune()) return;
+        if (unit == null)
+            return;
+        if (unit.GetComponent<Unit>().HasCorruptionImmune())
+            return;
 
         // Damage
-        if(unit.GetComponent<HealthSystem>().HasCorruptionResist()) unit.GetComponent<HealthSystem>().Damage(damagePerTurn / 2);
-        else unit.GetComponent<HealthSystem>().Damage(damagePerTurn);
+        if (unit.GetComponent<HealthSystem>().HasCorruptionResist())
+            unit.GetComponent<HealthSystem>().Damage(damagePerTurn / 2);
+        else
+            unit.GetComponent<HealthSystem>().Damage(damagePerTurn);
 
         // Status effect
         ToxicStatusEffect status = unit.GetComponent<ToxicStatusEffect>();

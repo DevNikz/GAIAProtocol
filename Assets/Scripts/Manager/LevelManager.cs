@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
-    [SerializeField] private GameObject _loaderCanvas; //UI Loading
-    [SerializeField] private Image _progressBar;
+
+    [SerializeField]
+    private GameObject _loaderCanvas; //UI Loading
+
+    [SerializeField]
+    private Image _progressBar;
     private float _target;
 
-    [SerializeField] private int currentLevel;
+    [SerializeField]
+    private int currentLevel;
 
     void Awake()
     {
@@ -19,8 +24,10 @@ public class LevelManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
+
     public void LoadLevelIndex(int sceneIndex)
     {
         //SoundManager.StopAllSounds();
@@ -41,15 +48,18 @@ public class LevelManager : MonoBehaviour
 
         //FadeScreenManager.Instance.ShowCanvas();
         //_loaderCanvas.SetActive(false);
-        
-    }
-    
-    void LateUpdate()
-    {
-        _progressBar.fillAmount = Mathf.MoveTowards(_progressBar.fillAmount, _target, 10 * Time.deltaTime);
     }
 
-    public void SetCurrentLevel(int value) 
+    void LateUpdate()
+    {
+        _progressBar.fillAmount = Mathf.MoveTowards(
+            _progressBar.fillAmount,
+            _target,
+            10 * Time.deltaTime
+        );
+    }
+
+    public void SetCurrentLevel(int value)
     {
         currentLevel = value;
     }
@@ -59,4 +69,3 @@ public class LevelManager : MonoBehaviour
         return currentLevel;
     }
 }
- 

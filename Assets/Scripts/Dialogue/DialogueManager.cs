@@ -12,8 +12,7 @@ public enum DialogueType
     FOREST2,
     FOREST3,
     ARMORY,
-    MECH_DEPLOYMENT
-
+    MECH_DEPLOYMENT,
 }
 
 public class DialogueManager : MonoBehaviour
@@ -21,62 +20,134 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
 
     [Header("Dialgoues")]
-    [SerializeField] Dialogue TutorialMenu;
-    [SerializeField] Dialogue Forest1, Forest2, Forest3;
-    [SerializeField] Dialogue Armory, Deployment;
+    [SerializeField]
+    Dialogue TutorialMenu;
+
+    [SerializeField]
+    Dialogue Forest1,
+        Forest2,
+        Forest3;
+
+    [SerializeField]
+    Dialogue Armory,
+        Deployment;
 
     [Header("References")]
-    [SerializeField] GameObject canvas;
-    public void HideCanvas() { canvas.SetActive(false); }
-    public void ShowCanvas() { canvas.SetActive(true); }
+    [SerializeField]
+    GameObject canvas;
 
-    [SerializeField] RectTransform box;
-    [SerializeField] TextMeshProUGUI charName;
-    [SerializeField] TextMeshProUGUI dialogueArea;
+    public void HideCanvas()
+    {
+        canvas.SetActive(false);
+    }
+
+    public void ShowCanvas()
+    {
+        canvas.SetActive(true);
+    }
+
+    [SerializeField]
+    RectTransform box;
+
+    [SerializeField]
+    TextMeshProUGUI charName;
+
+    [SerializeField]
+    TextMeshProUGUI dialogueArea;
     Queue<DialogueLine> lines;
 
     [Header("Properties")]
-    [SerializeField] bool isDialogueActive = false;
-    [SerializeField] float typingSpeed = 0.2f;
-    [SerializeField] bool isTyping = false;
-    [SerializeField] TweenSettings<float> show;
-    [SerializeField] TweenSettings<float> hide;
-    public void AnimateShow() { Tween.UIAnchoredPositionY(box, show); }
-    public void AnimateHide() { Tween.UIAnchoredPositionY(box, hide).OnComplete(HideCanvas); }
+    [SerializeField]
+    bool isDialogueActive = false;
+
+    [SerializeField]
+    float typingSpeed = 0.2f;
+
+    [SerializeField]
+    bool isTyping = false;
+
+    [SerializeField]
+    TweenSettings<float> show;
+
+    [SerializeField]
+    TweenSettings<float> hide;
+
+    public void AnimateShow()
+    {
+        Tween.UIAnchoredPositionY(box, show);
+    }
+
+    public void AnimateHide()
+    {
+        Tween.UIAnchoredPositionY(box, hide).OnComplete(HideCanvas);
+    }
 
     DialogueLine currentLine;
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         lines = new Queue<DialogueLine>();
 
         canvas = transform.Find("Canvas").gameObject;
         box = transform.Find("Canvas/Panel/DialogueBox").GetComponent<RectTransform>();
-        box.GetComponent<Button>().onClick.AddListener(() =>
+
+        box.GetComponent<Button>()
+            .onClick.AddListener(() =>
+            {
+                //NextLine
+                DisplayNextDialogueLine();
+                SoundManager.Instance.PlaySFX("Select Planet");
+            });
+
+        charName = transform
+            .Find("Canvas/Panel/DialogueBox/Header/Text")
+            .GetComponent<TextMeshProUGUI>();
+        dialogueArea = transform
+            .Find("Canvas/Panel/DialogueBox/Body/Text")
+            .GetComponent<TextMeshProUGUI>();
+    }
+
+    void Update()
+    {
+        if (isDialogueActive)
         {
-           //NextLine
-           DisplayNextDialogueLine();
-           SoundManager.Instance.PlaySFX("Select Planet"); 
-        });
-        charName = transform.Find("Canvas/Panel/DialogueBox/Header/Text").GetComponent<TextMeshProUGUI>();
-        dialogueArea = transform.Find("Canvas/Panel/DialogueBox/Body/Text").GetComponent<TextMeshProUGUI>();
+            if (InputManager.Instance.GetSpaceButton())
+            {
+                ButtonClick();
+            }
+        }
+    }
+
+    public void ButtonClick()
+    {
+        box.GetComponent<Button>().onClick.Invoke();
+    }
+
+    public void TestKeyInput()
+    {
+        if (InputManager.Instance.GetSpaceButton())
+        {
+            DisplayNextDialogueLine();
+            SoundManager.Instance.PlaySFX("Select Planet");
+        }
     }
 
     public void StartDialogue(DialogueType type)
-	{
+    {
         InputManager.Instance.DisableMechRotate();
         InputManager.Instance.DisableDebug();
         InputManager.Instance.DisableLevelCamera();
         InputManager.Instance.DisableLegacyInputs();
         Dialogue dialogue;
-        switch(type)
+        switch (type)
         {
             case DialogueType.TUTORIAL_HUB:
                 dialogue = TutorialMenu;
@@ -100,30 +171,30 @@ public class DialogueManager : MonoBehaviour
                 dialogue = null;
                 break;
         }
- 
-		isDialogueActive = true;
+
+        isDialogueActive = true;
 
         AnimateShow();
 
-		lines.Clear();
+        lines.Clear();
 
-		foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
-		{
-			lines.Enqueue(dialogueLine);
-		}
+        foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
+        {
+            lines.Enqueue(dialogueLine);
+        }
 
-		DisplayNextDialogueLine();
-	}
+        DisplayNextDialogueLine();
+    }
 
-	public void DisplayNextDialogueLine()
-	{
-		if (lines.Count == 0 && !isTyping)
-		{
-			EndDialogue();
-			return;
-		}
+    public void DisplayNextDialogueLine()
+    {
+        if (lines.Count == 0 && !isTyping)
+        {
+            EndDialogue();
+            return;
+        }
 
-        if(isTyping)
+        if (isTyping)
         {
             StopAllCoroutines();
             dialogueArea.text = currentLine.line;
@@ -133,12 +204,12 @@ public class DialogueManager : MonoBehaviour
 
         currentLine = lines.Dequeue();
 
-		//characterIcon.sprite = currentLine.character.icon;
-		charName.text = currentLine.character.name;
+        //characterIcon.sprite = currentLine.character.icon;
+        charName.text = currentLine.character.name;
 
-		StopAllCoroutines();
-		StartCoroutine(TypeSentence(currentLine));
-	}
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(currentLine));
+    }
 
     IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
@@ -171,15 +242,14 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
     }
 
-	void EndDialogue()
-	{
+    void EndDialogue()
+    {
         InputManager.Instance.EnableMechRotate();
         InputManager.Instance.EnableDebug();
         InputManager.Instance.EnableLevelCamera();
         InputManager.Instance.EnableLegacyInputs();
-		isDialogueActive = false;
+        isDialogueActive = false;
         AnimateHide();
         //HideCanvas();
-	}
-
+    }
 }

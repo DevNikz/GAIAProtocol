@@ -1,37 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Cinemachine;
 using System;
+using Unity.Cinemachine;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
     private const float MIN_FOLLOW_Y_OFFSET = 5f;
     private const float MAX_FOLLOW_Y_OFFSET = 15f;
-    [SerializeField, Range(0.1f, 100f)] private float moveSpeed = 10f;
-    [SerializeField, Range(0.1f, 100f)] private float rotationSpeed = 100f;
-    [SerializeField, Range(0.1f, 100f)] private float zoomSpeed = 2f;
+
+    [SerializeField, Range(0.1f, 100f)]
+    private float moveSpeed = 10f;
+
+    [SerializeField, Range(0.1f, 100f)]
+    private float rotationSpeed = 100f;
+
+    [SerializeField, Range(0.1f, 100f)]
+    private float zoomSpeed = 2f;
+
+    [SerializeField, Range(0.01f, 5f)]
+    private float dragPanSensitivity = 1f;
+
+    [SerializeField, Range(1f, 100f)]
+    private float dragDeadZone = 10f;
+
+    [SerializeField, Range(50f, 1000f)]
+    private float dragMaxDistance = 250f;
+
+    [SerializeField]
+    bool isDragging;
 
     public static CameraController Instance { get; private set; }
 
-    [SerializeField] private CinemachineVirtualCameraBase cinemachineVirtualCamera;
-    public CinemachineVirtualCameraBase GetCam() { return cinemachineVirtualCamera; }
+    [SerializeField]
+    private CinemachineVirtualCameraBase cinemachineVirtualCamera;
+
+    [SerializeField]
+    private Camera mainCamera;
+
+    public CinemachineVirtualCameraBase GetCam()
+    {
+        return cinemachineVirtualCamera;
+    }
+
     private CinemachineFollow cinemachineFollow;
     private Vector3 targetFollowOffset;
 
     [Header("Map Bounds (World Space)")]
     public float minX = -2f;
-    public float maxX =  40f;
+    public float maxX = 40f;
     public float minZ = -2f;
-    public float maxZ =  60f;
+    public float maxZ = 60f;
 
     [Header("Boundary Offset")]
     [Tooltip("How far the camera stops before reaching the bound wall")]
     public float stopOffset = 10f;
 
-    private float clampMinX, clampMaxX, clampMinZ, clampMaxZ;
+    private float clampMinX,
+        clampMaxX,
+        clampMinZ,
+        clampMaxZ;
 
+    private Vector3 dragOrigin;
+    Vector3 origin;
+    Vector3 difference;
 
     private void Awake()
     {
@@ -42,6 +72,7 @@ public class CameraController : MonoBehaviour
     {
         cinemachineFollow = cinemachineVirtualCamera.GetComponent<CinemachineFollow>();
         targetFollowOffset = cinemachineFollow.FollowOffset;
+        mainCamera = Camera.main;
 
         RecalculateBounds();
     }
@@ -59,6 +90,7 @@ public class CameraController : MonoBehaviour
         HandleMovement();
         HandleRotation();
         HandleZoom();
+        HandleDrag();
     }
 
     void LateUpdate()
@@ -96,19 +128,103 @@ public class CameraController : MonoBehaviour
         float zoomIncreaseAmount = 1f;
         targetFollowOffset.y += InputManager.Instance.GetCameraZoomAmount() * zoomIncreaseAmount;
 
-        targetFollowOffset.y = Mathf.Clamp(targetFollowOffset.y, MIN_FOLLOW_Y_OFFSET, MAX_FOLLOW_Y_OFFSET);
+        targetFollowOffset.y = Mathf.Clamp(
+            targetFollowOffset.y,
+            MIN_FOLLOW_Y_OFFSET,
+            MAX_FOLLOW_Y_OFFSET
+        );
 
-        cinemachineFollow.FollowOffset =
-            Vector3.Lerp(cinemachineFollow.FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
+        cinemachineFollow.FollowOffset = Vector3.Lerp(
+            cinemachineFollow.FollowOffset,
+            targetFollowOffset,
+            Time.deltaTime * zoomSpeed
+        );
     }
-    
 
     public float GetCameraHeight()
     {
         return targetFollowOffset.y;
     }
 
-    #if UNITY_EDITOR
+    private void HandleDrag()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isDragging = true;
+            dragOrigin = Input.mousePosition;
+            return;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            isDragging = false;
+        }
+
+        if (!isDragging)
+        {
+            return;
+        }
+
+        difference = Input.mousePosition - dragOrigin;
+
+        if (difference.sqrMagnitude < dragDeadZone * dragDeadZone)
+        {
+            return;
+        }
+
+        Vector2 direction = new Vector2(difference.x, difference.y).normalized;
+        float speedScale = Mathf.Clamp01((difference.magnitude - dragDeadZone) / dragMaxDistance);
+
+        Vector3 right = transform.right;
+        right.y = 0f;
+        right.Normalize();
+
+        Vector3 forward = transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        origin = right * direction.x + forward * direction.y;
+        transform.position += origin * moveSpeed * speedScale * dragPanSensitivity * Time.deltaTime;
+
+        /*
+        Vector3 mouseScreenPos = Input.mousePosition;
+        difference = mouseScreenPos - dragOrigin;
+        dragOrigin = mouseScreenPos;
+
+        if (difference == Vector3.zero)
+        {
+            return;
+        }
+
+        Vector3 right = transform.right;
+        right.y = 0f;
+        right.Normalize();
+
+        Vector3 forward = transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        float scale = targetFollowOffset.y * dragPanSensitivity * 0.002f;
+
+        origin = (right * -difference.x + forward * -difference.y) * scale;
+        transform.position += origin;
+        */
+    }
+
+    private Vector3 GetGroundPoint(Vector3 screenPosition)
+    {
+        Plane groundPlane = new Plane(Vector3.up, new Vector3(0f, transform.position.y, 0f));
+        Ray ray = mainCamera.ScreenPointToRay(screenPosition);
+
+        if (groundPlane.Raycast(ray, out float distance))
+        {
+            return ray.GetPoint(distance);
+        }
+
+        return dragOrigin;
+    }
+
+#if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         // Draw the raw map boundary (red)
@@ -134,5 +250,4 @@ public class CameraController : MonoBehaviour
         Gizmos.DrawLine(d, a);
     }
 #endif
-
 }

@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class UnitAnimator : MonoBehaviour
 {
+    [SerializeField]
+    private Animator animator;
 
-    [SerializeField] private Animator animator;
-    [SerializeField] private Transform bulletProjectilePrefab;
-    [SerializeField] private Transform shootPointTransform;
-    [SerializeField] private Transform rifleTransform;
-    [SerializeField] private Transform swordTransform;
+    [SerializeField]
+    private Transform bulletProjectilePrefab;
+
+    [SerializeField]
+    private Transform shootPointTransform;
+
+    [SerializeField]
+    private Transform rifleTransform;
+
+    [SerializeField]
+    private Transform swordTransform;
     MoveAction moveaction;
-
 
     private void Awake()
     {
@@ -35,13 +42,17 @@ public class UnitAnimator : MonoBehaviour
         }
     }
 
-    private void MoveAction_OnChangedFloorsStarted(object sender, MoveAction.OnChangeFloorsStartedEventArgs e)
+    private void MoveAction_OnChangedFloorsStarted(
+        object sender,
+        MoveAction.OnChangeFloorsStartedEventArgs e
+    )
     {
         if (e.targetGridPosition.floor > e.unitGridPosition.floor)
         {
             // Jump
             animator.SetTrigger("JumpUp");
-        } else
+        }
+        else
         {
             // Drop
             animator.SetTrigger("JumpDown");
@@ -61,7 +72,8 @@ public class UnitAnimator : MonoBehaviour
     private void SwordAction_OnSwordActionStarted(object sender, EventArgs e)
     {
         EquipSword();
-        animator.SetTrigger("SwordSlash");
+        animator.SetTrigger("IsAttacking");
+        //animator.SetTrigger("SwordSlash");
     }
 
     private void MoveAction_OnStartMoving(object sender, EventArgs e)
@@ -81,10 +93,14 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetTrigger("Shoot");
 
-        Transform bulletProjectileTransform = 
-            Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+        Transform bulletProjectileTransform = Instantiate(
+            bulletProjectilePrefab,
+            shootPointTransform.position,
+            Quaternion.identity
+        );
 
-        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+        BulletProjectile bulletProjectile =
+            bulletProjectileTransform.GetComponent<BulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
 
@@ -105,5 +121,4 @@ public class UnitAnimator : MonoBehaviour
         swordTransform.gameObject.SetActive(false);
         rifleTransform.gameObject.SetActive(true);
     }
-
 }

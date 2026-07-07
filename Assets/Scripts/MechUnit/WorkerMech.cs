@@ -2,9 +2,19 @@ using UnityEngine;
 
 public class WorkerMech : MonoBehaviour
 {
-    [SerializeField] WorkerScriptableObject workerTier;
+    [SerializeField]
+    WorkerScriptableObject workerTier;
+    GameObject meshXray;
 
-    public void SetCurrentTier(WorkerScriptableObject tier) { workerTier = tier; } 
+    void Awake()
+    {
+        //meshXray = transform.Find("turtlekaiju/turtlekaiju_anim/turtle").gameObject;
+    }
+
+    public void SetCurrentTier(WorkerScriptableObject tier)
+    {
+        workerTier = tier;
+    }
 
     public void SetCustomValues()
     {

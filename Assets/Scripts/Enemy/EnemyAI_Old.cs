@@ -13,8 +13,11 @@ public class EnemyAI_Old : MonoBehaviour
         Busy,
     }
 
-    [SerializeField] private State state;
-    [SerializeField] private float timer;
+    [SerializeField]
+    private State state;
+
+    [SerializeField]
+    private float timer;
 
     private void Awake()
     {
@@ -46,19 +49,19 @@ public class EnemyAI_Old : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0f)
                 {
-                    if(CheckKaijuState() && TryTakeKaijuAction(SetStateTakingTurn))
-                    {   
+                    if (CheckKaijuState() && TryTakeKaijuAction(SetStateTakingTurn))
+                    {
                         Debug.Log("Kaiju Action");
                         state = State.Busy;
                     }
-                    else if(CheckOtherState() && TryTakeOtherEnemyAction(SetStateTakingTurn))
+                    else if (CheckOtherState() && TryTakeOtherEnemyAction(SetStateTakingTurn))
                     {
                         state = State.Busy;
                     }
                     else
                     {
                         // No more enemies have actions they can take, end enemy turn
-                        Debug.Log("Next Turn");
+                        //Debug.Log("Next Turn");
                         TurnSystem.Instance.NextTurn();
                     }
                 }
@@ -102,7 +105,8 @@ public class EnemyAI_Old : MonoBehaviour
     {
         foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
         {
-            if(!enemyUnit.GetComponent<KaijuUnit>().HasAnimatedWake()) {
+            if (!enemyUnit.GetComponent<KaijuUnit>().HasAnimatedWake())
+            {
                 enemyUnit.GetComponent<KaijuUnit>().InitAnimateAwake();
             }
         }
@@ -113,7 +117,8 @@ public class EnemyAI_Old : MonoBehaviour
         //Do actions
         foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
         {
-            if(TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete)) return true;
+            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+                return true;
         }
         return false;
     }
@@ -122,17 +127,19 @@ public class EnemyAI_Old : MonoBehaviour
     {
         foreach (Unit enemyUnit in UnitManager.Instance.GetSmallEnemyList())
         {
-            if(TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete)) return true;
+            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+                return true;
         }
         return false;
     }
 
     bool CheckKaijuState()
     {
-        for(int i = 0; i < UnitManager.Instance.GetKaijuList().Count; i++)
+        for (int i = 0; i < UnitManager.Instance.GetKaijuList().Count; i++)
         {
             //at least one is awake
-            if(UnitManager.Instance.GetKaijuList()[i].GetComponent<KaijuUnit>().IsAwake()) {
+            if (UnitManager.Instance.GetKaijuList()[i].GetComponent<KaijuUnit>().IsAwake())
+            {
                 return true;
             }
         }
@@ -141,7 +148,11 @@ public class EnemyAI_Old : MonoBehaviour
 
     bool CheckOtherState()
     {
-        if(UnitManager.Instance.GetSmallEnemyList() == null || UnitManager.Instance.GetSmallEnemyList().Count == 0) return false;
+        if (
+            UnitManager.Instance.GetSmallEnemyList() == null
+            || UnitManager.Instance.GetSmallEnemyList().Count == 0
+        )
+            return false;
         return true;
     }
 
@@ -166,13 +177,15 @@ public class EnemyAI_Old : MonoBehaviour
             else
             {
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
-                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue)
+                if (
+                    testEnemyAIAction != null
+                    && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue
+                )
                 {
                     bestEnemyAIAction = testEnemyAIAction;
                     bestBaseAction = baseAction;
                 }
             }
-
         }
 
         if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))

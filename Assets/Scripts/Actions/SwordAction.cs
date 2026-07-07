@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class SwordAction : BaseAction
 {
-
     public static event EventHandler OnAnySwordHit;
 
     public event EventHandler OnSwordActionStarted;
     public event EventHandler OnSwordActionCompleted;
-
 
     private enum State
     {
@@ -23,13 +21,24 @@ public class SwordAction : BaseAction
     private float stateTimer;
     private Unit targetUnit;
 
-    [SerializeField, Range(0, 100)] private int minDamage;
-    [SerializeField, Range(1, 100)] private int maxDamage;
-    [SerializeField] int actionpointcost;
+    [SerializeField, Range(0, 100)]
+    private int minDamage;
 
-    public void SetMinDmg(int value) { minDamage = value; }
-    public void SetMaxDmg(int value) { maxDamage = value; }
+    [SerializeField, Range(1, 100)]
+    private int maxDamage;
 
+    [SerializeField]
+    int actionpointcost;
+
+    public void SetMinDmg(int value)
+    {
+        minDamage = value;
+    }
+
+    public void SetMaxDmg(int value)
+    {
+        maxDamage = value;
+    }
 
     private void Update()
     {
@@ -43,10 +52,16 @@ public class SwordAction : BaseAction
         switch (state)
         {
             case State.SwingingSwordBeforeHit:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                Vector3 aimDir = (
+                    targetUnit.GetWorldPosition() - unit.GetWorldPosition()
+                ).normalized;
 
                 float rotateSpeed = 10f;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+                transform.forward = Vector3.Lerp(
+                    transform.forward,
+                    aimDir,
+                    Time.deltaTime * rotateSpeed
+                );
                 break;
             case State.SwingingSwordAfterHit:
                 break;
@@ -132,7 +147,10 @@ public class SwordAction : BaseAction
                     // Both Units on same 'team'
                     continue;
                 }
-                if(targetUnit != null) Debug.Log($"Target: {targetUnit.name}");
+                if (targetUnit != null)
+                {
+                    //Debug.Log($"Target: {targetUnit.name}");
+                }
 
                 validGridPositionList.Add(testGridPosition);
             }
@@ -164,7 +182,8 @@ public class SwordAction : BaseAction
         return GetValidActionGridPositionList(gridPosition).Count;
     }
 
-    public override int GetActionPointsCost() {
+    public override int GetActionPointsCost()
+    {
         return actionpointcost;
     }
 }

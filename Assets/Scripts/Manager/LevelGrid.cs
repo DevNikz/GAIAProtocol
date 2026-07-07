@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelGrid : MonoBehaviour
 {
-
     public static LevelGrid Instance { get; private set; }
 
     public const float FLOOR_HEIGHT = 3f;
 
     public event EventHandler<OnAnyUnitMovedGridPositionEventArgs> OnAnyUnitMovedGridPosition;
+
     public class OnAnyUnitMovedGridPositionEventArgs : EventArgs
     {
         public Unit unit;
@@ -20,13 +20,21 @@ public class LevelGrid : MonoBehaviour
         public GridPosition toGridPosition;
     }
 
+    [SerializeField]
+    private Transform gridDebugObjectPrefab;
 
-    [SerializeField] private Transform gridDebugObjectPrefab;
-    [SerializeField] private int width;
-    [SerializeField] private int height;
-    [SerializeField] private float cellSize;
-    [SerializeField] private int floorAmount;
-    
+    [SerializeField]
+    private int width;
+
+    [SerializeField]
+    private int height;
+
+    [SerializeField]
+    private float cellSize;
+
+    [SerializeField]
+    private int floorAmount;
+
     private List<GridSystem<GridObject>> gridSystemList;
 
     private void Awake()
@@ -36,7 +44,8 @@ public class LevelGrid : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         //Will Change this later
         SetupPathGrid();
@@ -48,8 +57,15 @@ public class LevelGrid : MonoBehaviour
         gridSystemList = new List<GridSystem<GridObject>>();
         for (int floor = 0; floor < floorAmount; floor++)
         {
-            GridSystem<GridObject> gridSystem = new GridSystem<GridObject>(width, height, cellSize, floor, FLOOR_HEIGHT,
-                    (GridSystem<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
+            GridSystem<GridObject> gridSystem = new GridSystem<GridObject>(
+                width,
+                height,
+                cellSize,
+                floor,
+                FLOOR_HEIGHT,
+                (GridSystem<GridObject> g, GridPosition gridPosition) =>
+                    new GridObject(g, gridPosition)
+            );
             //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
 
             gridSystemList.Add(gridSystem);
@@ -67,13 +83,13 @@ public class LevelGrid : MonoBehaviour
         Debug.Log("Pathfinding unloaded.");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 1:
-                Debug.Log("Forest 1 load grid.");
+                //Debug.Log("Forest 1 load grid.");
                 gridSystemList.Clear();
                 SetupPathGrid();
                 Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
@@ -104,17 +120,25 @@ public class LevelGrid : MonoBehaviour
         gridObject.RemoveUnit(unit);
     }
 
-    public void UnitMovedGridPosition(Unit unit, GridPosition fromGridPosition, GridPosition toGridPosition)
+    public void UnitMovedGridPosition(
+        Unit unit,
+        GridPosition fromGridPosition,
+        GridPosition toGridPosition
+    )
     {
         RemoveUnitAtGridPosition(fromGridPosition, unit);
 
         AddUnitAtGridPosition(toGridPosition, unit);
 
-        OnAnyUnitMovedGridPosition?.Invoke(this, new OnAnyUnitMovedGridPositionEventArgs {
-            unit = unit,
-            fromGridPosition = fromGridPosition,
-            toGridPosition = toGridPosition,
-        });
+        OnAnyUnitMovedGridPosition?.Invoke(
+            this,
+            new OnAnyUnitMovedGridPositionEventArgs
+            {
+                unit = unit,
+                fromGridPosition = fromGridPosition,
+                toGridPosition = toGridPosition,
+            }
+        );
     }
 
     public int GetFloor(Vector3 worldPosition)
@@ -128,23 +152,25 @@ public class LevelGrid : MonoBehaviour
         return GetGridSystem(floor).GetGridPosition(worldPosition);
     }
 
-    public Vector3 GetWorldPosition(GridPosition gridPosition) => GetGridSystem(gridPosition.floor).GetWorldPosition(gridPosition);
+    public Vector3 GetWorldPosition(GridPosition gridPosition) =>
+        GetGridSystem(gridPosition.floor).GetWorldPosition(gridPosition);
 
     public bool IsValidGridPosition(GridPosition gridPosition)
     {
         if (gridPosition.floor < 0 || gridPosition.floor >= floorAmount)
         {
             return false;
-        } else
+        }
+        else
         {
             return GetGridSystem(gridPosition.floor).IsValidGridPosition(gridPosition);
         }
     }
 
     public int GetWidth() => GetGridSystem(0).GetWidth();
-    
+
     public int GetHeight() => GetGridSystem(0).GetHeight();
-    
+
     public int GetFloorAmount() => floorAmount;
 
     public bool HasAnyUnitOnGridPosition(GridPosition gridPosition)
@@ -195,7 +221,8 @@ public class LevelGrid : MonoBehaviour
         gridObject.ClearIngameObject();
     }
 
-    private Dictionary<GridPosition, ToxicPuddle> toxicPuddles = new Dictionary<GridPosition, ToxicPuddle>();
+    private Dictionary<GridPosition, ToxicPuddle> toxicPuddles =
+        new Dictionary<GridPosition, ToxicPuddle>();
 
     public void RegisterToxicPuddle(GridPosition gridPosition, ToxicPuddle puddle)
     {

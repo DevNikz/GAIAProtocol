@@ -6,20 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class UnitActionSystem : MonoBehaviour
 {
-
     public static UnitActionSystem Instance { get; private set; }
-
 
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
-    public event EventHandler<bool>  OnBusyChanged;
+    public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
     public event EventHandler OnDeselectedUnitChanged;
 
-    [SerializeField] private Unit selectedUnit;
-    [SerializeField] private LayerMask unitLayerMask;
+    [SerializeField]
+    private Unit selectedUnit;
+
+    [SerializeField]
+    private LayerMask unitLayerMask;
     private Camera cam;
-    [SerializeField] private GridPosition selectedGrid, nullGrid;
+
+    [SerializeField]
+    private GridPosition selectedGrid,
+        nullGrid;
     private GridObject grid;
 
     public BaseAction selectedAction;
@@ -27,8 +31,11 @@ public class UnitActionSystem : MonoBehaviour
 
     //UI Stuffs
     [Header("UI")]
-    [SerializeField] public List<Sprite> actionIconList; // 0 - Move | 1 - Interact
-    [SerializeField] public bool isHovering;
+    [SerializeField]
+    public List<Sprite> actionIconList; // 0 - Move | 1 - Interact
+
+    [SerializeField]
+    public bool isHovering;
 
     private void Awake()
     {
@@ -37,7 +44,8 @@ public class UnitActionSystem : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         cam = Camera.main;
 
@@ -59,7 +67,6 @@ public class UnitActionSystem : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
-    
     private void Update()
     {
         if (isBusy)
@@ -79,7 +86,7 @@ public class UnitActionSystem : MonoBehaviour
         {
             return;
         }
-        
+
         //Debug.DrawRay(cam.transform.position, mousePos - cam.transform.position, Color.blue);
 
         HandleSelectedAction();
@@ -90,12 +97,15 @@ public class UnitActionSystem : MonoBehaviour
         if (selectedUnit != null)
         {
             //Hovering
-            if(TryHovering()) HoverGrid();
+            if (TryHovering())
+                HoverGrid();
 
             //Click
-            if(InputManager.Instance.IsMouseButtonDownThisFrame())
+            if (InputManager.Instance.IsMouseButtonDownThisFrame())
             {
-                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(
+                    MouseWorld.GetPositionOnlyHitVisible()
+                );
 
                 if (!selectedAction.IsValidActionGridPosition(mouseGridPosition))
                 {
@@ -117,7 +127,8 @@ public class UnitActionSystem : MonoBehaviour
                 GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
                 selectedGrid = nullGrid;
 
-                if(selectedUnit.actionPoints == 0) {
+                if (selectedUnit.actionPoints == 0)
+                {
                     DeselectUnit();
                     SetSelectedAction(null);
                     isHovering = false;
@@ -130,9 +141,13 @@ public class UnitActionSystem : MonoBehaviour
 
     bool TryHovering()
     {
-        if(IsPointerOverUIObject() || selectedAction == null || 
-            selectedAction.GetActionName() == "Interact" || selectedAction.GetActionName() == "Shoot" ||
-            selectedAction.GetActionName() == "Sword")
+        if (
+            IsPointerOverUIObject()
+            || selectedAction == null
+            || selectedAction.GetActionName() == "Interact"
+            || selectedAction.GetActionName() == "Shoot"
+            || selectedAction.GetActionName() == "Sword"
+        )
         {
             isHovering = false;
             return false;
@@ -146,23 +161,29 @@ public class UnitActionSystem : MonoBehaviour
 
     void HoverGrid()
     {
-        GridPosition gridPos = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPositionOnlyHitVisible());
+        GridPosition gridPos = LevelGrid.Instance.GetGridPosition(
+            MouseWorld.GetPositionOnlyHitVisible()
+        );
 
         if (!selectedAction.IsValidActionGridPosition(gridPos))
         {
-            if(selectedGrid != nullGrid) {
+            if (selectedGrid != nullGrid)
+            {
                 selectedGrid.isSelect = false;
                 GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
                 selectedGrid = nullGrid;
             }
             return;
         }
-        else {
+        else
+        {
             //Debug.Log($"Hovering over Grid: {gridPos}");
-            if(gridPos.isSelect != true)
+            if (gridPos.isSelect != true)
             {
-                if(selectedGrid != nullGrid) {
-                    if(selectedGrid != gridPos) {
+                if (selectedGrid != nullGrid)
+                {
+                    if (selectedGrid != gridPos)
+                    {
                         //Debug.Log($"Previously Selected Grid: {selectedGrid}");
                         selectedGrid.isSelect = false;
                         GridSystemVisual.Instance.DeselectGridMaterial(selectedGrid);
@@ -183,15 +204,18 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    private bool IsPointerOverUIObject() {
+    private bool IsPointerOverUIObject()
+    {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-    
+        eventDataCurrentPosition.position = new Vector2(
+            Input.mousePosition.x,
+            Input.mousePosition.y
+        );
+
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
     }
-
 
     private void SetBusy()
     {
@@ -309,5 +333,4 @@ public class UnitActionSystem : MonoBehaviour
     {
         return selectedAction;
     }
-
 }

@@ -1,19 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UnitActionSystemUI : MonoBehaviour
 {
+    [SerializeField]
+    private Transform actionButtonPrefab;
 
-    [SerializeField] private Transform actionButtonPrefab;
-    [SerializeField] private Transform actionButtonContainerTransform;
-    [SerializeField] private TextMeshProUGUI actionPointsText;
-    [SerializeField] private int numChild;
+    [SerializeField]
+    private Transform actionButtonContainerTransform;
+
+    [SerializeField]
+    private TextMeshProUGUI actionPointsText;
+
+    [SerializeField]
+    private int numChild;
     private List<ActionButtonUI> actionButtonUIList;
 
     private void Awake()
@@ -29,7 +35,8 @@ public class UnitActionSystemUI : MonoBehaviour
         //actionButtonContainerTransform = transform.GetChild(1);
 
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged +=
+            UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
@@ -38,11 +45,12 @@ public class UnitActionSystemUI : MonoBehaviour
         CreateUnitActionButtons();
         UpdateSelectedVisual();
     }
-    
+
     void OnDisable()
     {
         UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;  
+        UnitActionSystem.Instance.OnSelectedActionChanged -=
+            UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted -= UnitActionSystem_OnActionStarted;
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
         Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;
@@ -62,18 +70,52 @@ public class UnitActionSystemUI : MonoBehaviour
         }
         actionButtonUIList.Clear();
 
-        if(UnitActionSystem.Instance.GetSelectedUnit() != null)
+        if (UnitActionSystem.Instance.GetSelectedUnit() != null)
         {
             Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
             //Debug.Log(selectedUnit.name);
 
             foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
             {
-                Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
-                ActionButtonUI actionButtonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
+                Transform actionButtonTransform = Instantiate(
+                    actionButtonPrefab,
+                    actionButtonContainerTransform
+                );
+                ActionButtonUI actionButtonUI =
+                    actionButtonTransform.GetComponent<ActionButtonUI>();
                 actionButtonUI.SetBaseAction(baseAction);
 
                 actionButtonUIList.Add(actionButtonUI);
+            }
+        }
+    }
+
+    private static readonly KeyCode[] numberKeys = new KeyCode[]
+    {
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+        KeyCode.Alpha5,
+        KeyCode.Alpha6,
+        KeyCode.Alpha7,
+        KeyCode.Alpha8,
+        KeyCode.Alpha9,
+    };
+
+    void Update()
+    {
+        if (UnitActionSystem.Instance.GetSelectedUnit() == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < actionButtonUIList.Count && i < numberKeys.Length; i++)
+        {
+            if (Input.GetKeyDown(numberKeys[i]))
+            {
+                actionButtonUIList[i].ButtonClick();
+                break; // only one key press per frame matters
             }
         }
     }
@@ -94,7 +136,7 @@ public class UnitActionSystemUI : MonoBehaviour
             //UpdateActionPoints();
         }
     }
-    
+
     private void DestroyUnitActionButtons()
     {
         foreach (Transform buttonTransform in actionButtonContainerTransform)
@@ -126,16 +168,17 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         if (UnitActionSystem.Instance.GetSelectedUnit() != null)
         {
-            if (UnitActionSystem.Instance.GetSelectedUnit().actionPoints != 0) {
+            if (UnitActionSystem.Instance.GetSelectedUnit().actionPoints != 0)
+            {
                 foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
                 {
-                    if(actionButtonUI.GetActionName() == "Interact")
+                    //INTERACT
+                    if (actionButtonUI.GetActionName() == "Interact")
                     {
                         actionButtonUI.ChangeActionPointText();
                     }
                 }
             }
-
             else
             {
                 DestroyUnitActionButtons();
@@ -166,5 +209,4 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         //UpdateActionPoints();
     }
-    
 }

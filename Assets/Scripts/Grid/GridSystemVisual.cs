@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GridSystemVisual : MonoBehaviour
 {
-
     public static GridSystemVisual Instance { get; private set; }
-
 
     [Serializable]
     public struct GridVisualTypeMaterial
@@ -26,18 +24,20 @@ public class GridSystemVisual : MonoBehaviour
         Yellow,
     }
 
-    [SerializeField] private Transform gridSystemVisualSinglePrefab;
-    [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
+    [SerializeField]
+    private Transform gridSystemVisualSinglePrefab;
 
+    [SerializeField]
+    private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
 
     private GridSystemVisualSingle[,,] gridSystemVisualSingleArray;
 
     private bool hasCreatedVisuals;
+
     public void SetVisuals(bool value)
     {
         hasCreatedVisuals = value;
     }
-
 
     private void Awake()
     {
@@ -46,7 +46,8 @@ public class GridSystemVisual : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     void OnEnable()
@@ -59,17 +60,19 @@ public class GridSystemVisual : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
         hasCreatedVisuals = false;
 
-        UnitActionSystem.Instance.OnDeselectedUnitChanged -= UnitActionSystem_OnDeselectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OnDeselectedUnitChanged -=
+            UnitActionSystem_OnDeselectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged -=
+            UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnBusyChanged -= UnitActionSystem_OnBusyChanged;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 1:
-                if(!hasCreatedVisuals) 
+                if (!hasCreatedVisuals)
                 {
                     Debug.Log("Setup Grid Visual");
                     DoSomething();
@@ -94,16 +97,22 @@ public class GridSystemVisual : MonoBehaviour
                 {
                     GridPosition gridPosition = new GridPosition(x, z, floor);
 
-                    Transform gridSystemVisualSingleTransform =
-                        Instantiate(gridSystemVisualSinglePrefab, LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
+                    Transform gridSystemVisualSingleTransform = Instantiate(
+                        gridSystemVisualSinglePrefab,
+                        LevelGrid.Instance.GetWorldPosition(gridPosition),
+                        Quaternion.identity
+                    );
 
-                    gridSystemVisualSingleArray[x, z, floor] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
+                    gridSystemVisualSingleArray[x, z, floor] =
+                        gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
                 }
             }
         }
 
-        UnitActionSystem.Instance.OnDeselectedUnitChanged += UnitActionSystem_OnDeselectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OnDeselectedUnitChanged +=
+            UnitActionSystem_OnDeselectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged +=
+            UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
         //LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
 
@@ -111,7 +120,7 @@ public class GridSystemVisual : MonoBehaviour
 
         UpdateGridVisual();
     }
-    
+
     public void HideAllGridPosition()
     {
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
@@ -126,7 +135,11 @@ public class GridSystemVisual : MonoBehaviour
         }
     }
 
-    private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    private void ShowGridPositionRange(
+        GridPosition gridPosition,
+        int range,
+        GridVisualType gridVisualType
+    )
     {
         List<GridPosition> gridPositionList = new List<GridPosition>();
 
@@ -154,7 +167,11 @@ public class GridSystemVisual : MonoBehaviour
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
-    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    private void ShowGridPositionRangeSquare(
+        GridPosition gridPosition,
+        int range,
+        GridVisualType gridVisualType
+    )
     {
         List<GridPosition> gridPositionList = new List<GridPosition>();
 
@@ -176,31 +193,34 @@ public class GridSystemVisual : MonoBehaviour
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
-    public void ShowGridPositionList(List<GridPosition> gridPositionList, GridVisualType gridVisualType)
+    public void ShowGridPositionList(
+        List<GridPosition> gridPositionList,
+        GridVisualType gridVisualType
+    )
     {
         foreach (GridPosition gridPosition in gridPositionList)
         {
-            gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
-                Show(GetGridVisualTypeMaterial(gridVisualType));
+            gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor]
+                .Show(GetGridVisualTypeMaterial(gridVisualType));
         }
     }
 
     public void HoverGridMaterial(GridPosition gridPosition)
     {
-        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
-                Show(GetGridVisualTypeMaterial(GridVisualType.Blue));
+        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor]
+            .Show(GetGridVisualTypeMaterial(GridVisualType.Blue));
     }
 
     public void DeselectGridMaterial(GridPosition gridPosition)
     {
-        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
-                Show(GetGridVisualTypeMaterial(GridVisualType.White));
+        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor]
+            .Show(GetGridVisualTypeMaterial(GridVisualType.White));
     }
 
     public bool CheckGridMaterial(GridPosition gridPosition)
     {
-        return gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor].
-            CheckMaterial(GetGridVisualTypeMaterial(GridVisualType.White));
+        return gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor]
+            .CheckMaterial(GetGridVisualTypeMaterial(GridVisualType.White));
     }
 
     private void UpdateGridVisual()
@@ -218,33 +238,51 @@ public class GridSystemVisual : MonoBehaviour
             {
                 case MoveAction moveAction:
                     gridVisualType = GridVisualType.White;
-                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+                    ShowGridPositionList(
+                        selectedAction.GetValidActionGridPositionList(),
+                        gridVisualType
+                    );
                     break;
                 case SpinAction spinAction:
                     gridVisualType = GridVisualType.Blue;
-                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+                    ShowGridPositionList(
+                        selectedAction.GetValidActionGridPositionList(),
+                        gridVisualType
+                    );
                     break;
                 case ShootAction shootAction:
                     gridVisualType = GridVisualType.Red;
 
-                    ShowGridPositionRange(selectedUnit.GetGridPosition(), shootAction.GetMaxShootDistance(), GridVisualType.RedSoft);
+                    ShowGridPositionRange(
+                        selectedUnit.GetGridPosition(),
+                        shootAction.GetMaxShootDistance(),
+                        GridVisualType.RedSoft
+                    );
                     break;
                 case GrenadeAction grenadeAction:
                     gridVisualType = GridVisualType.Yellow;
-                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+                    ShowGridPositionList(
+                        selectedAction.GetValidActionGridPositionList(),
+                        gridVisualType
+                    );
                     break;
                 case SwordAction swordAction:
                     gridVisualType = GridVisualType.Red;
 
-                    ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), swordAction.GetMaxSwordDistance(), GridVisualType.RedSoft);
+                    ShowGridPositionRangeSquare(
+                        selectedUnit.GetGridPosition(),
+                        swordAction.GetMaxSwordDistance(),
+                        GridVisualType.RedSoft
+                    );
                     break;
                 case InteractAction interactAction:
                     gridVisualType = GridVisualType.Blue;
-                    ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+                    ShowGridPositionList(
+                        selectedAction.GetValidActionGridPositionList(),
+                        gridVisualType
+                    );
                     break;
             }
-
-            
         }
         else
         {
@@ -283,8 +321,9 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-        Debug.LogError("Could not find GridVisualTypeMaterial for GridVisualType " + gridVisualType);
+        Debug.LogError(
+            "Could not find GridVisualTypeMaterial for GridVisualType " + gridVisualType
+        );
         return null;
     }
-
 }

@@ -9,23 +9,45 @@ public enum TierTypeUpgrade
     Tier3_W,
     Tier1_R,
     Tier2_R,
-    Tier3_R
+    Tier3_R,
 }
 
 public class MechSelecter : MonoBehaviour
 {
-    [SerializeField] FriendlyUnitType currentUnit;
-    [SerializeField] Transform target;
-    [SerializeField] GameObject upgradesParentWorker;
-    [SerializeField] GameObject upgradesParentRanger;
-    [SerializeField] GameObject workerModel;
-    [SerializeField] GameObject rangerModel;
-    [SerializeField] ParticleSystem levelUpParticle;
-    Transform cam;
-    [SerializeField] float speed;
+    [SerializeField]
+    FriendlyUnitType currentUnit;
 
-    public FriendlyUnitType GetCurrentUnit() { return currentUnit; }
-    public void SetSelectedUnit(FriendlyUnitType type) { currentUnit = type; }
+    [SerializeField]
+    Transform target;
+
+    [SerializeField]
+    GameObject upgradesParentWorker;
+
+    [SerializeField]
+    GameObject upgradesParentRanger;
+
+    [SerializeField]
+    GameObject workerModel;
+
+    [SerializeField]
+    GameObject rangerModel;
+
+    [SerializeField]
+    ParticleSystem levelUpParticle;
+    Transform cam;
+
+    [SerializeField]
+    float speed;
+
+    public FriendlyUnitType GetCurrentUnit()
+    {
+        return currentUnit;
+    }
+
+    public void SetSelectedUnit(FriendlyUnitType type)
+    {
+        currentUnit = type;
+    }
 
     void Awake()
     {
@@ -40,7 +62,7 @@ public class MechSelecter : MonoBehaviour
         //true = worker
         //false = ranger
 
-        if(CheckSelectedUnit()) 
+        if (CheckSelectedUnit())
         {
             upgradesParentWorker.SetActive(true);
             upgradesParentRanger.SetActive(false);
@@ -54,25 +76,27 @@ public class MechSelecter : MonoBehaviour
 
     bool CheckSelectedUnit()
     {
-        if(GetCurrentUnit() == FriendlyUnitType.WORKER) return true;
-        else return false;
+        if (GetCurrentUnit() == FriendlyUnitType.WORKER)
+            return true;
+        else
+            return false;
     }
-
 
     public void SwitchCurrentUnit()
     {
-        if(CheckSelectedUnit())
+        if (CheckSelectedUnit())
         {
             SetSelectedUnit(FriendlyUnitType.RANGER);
         }
-        else SetSelectedUnit(FriendlyUnitType.WORKER);
+        else
+            SetSelectedUnit(FriendlyUnitType.WORKER);
 
         SetCurrentModel();
     }
 
     void SetCurrentModel()
     {
-        if(GetCurrentUnit() == FriendlyUnitType.WORKER)
+        if (GetCurrentUnit() == FriendlyUnitType.WORKER)
         {
             workerModel.SetActive(true);
             rangerModel.SetActive(false);
@@ -96,12 +120,14 @@ public class MechSelecter : MonoBehaviour
 
     public void BuyUpgradeWorkerT2(int cost)
     {
-        if(CurrencyManager.Instance.GetResearchPoints() >= cost)
+        if (CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
             levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
-            CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
+            CurrencyManager.Instance.SetResearchPoints(
+                CurrencyManager.Instance.GetResearchPoints() - cost
+            );
             MechManager.Instance.UpgradeWorker(WorkerTier.TIER2);
         }
         else
@@ -112,12 +138,14 @@ public class MechSelecter : MonoBehaviour
 
     public void BuyUpgradeWorkerT3(int cost)
     {
-        if(CurrencyManager.Instance.GetResearchPoints() >= cost)
+        if (CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
             levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
-            CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
+            CurrencyManager.Instance.SetResearchPoints(
+                CurrencyManager.Instance.GetResearchPoints() - cost
+            );
             MechManager.Instance.UpgradeWorker(WorkerTier.TIER3);
         }
         else
@@ -128,12 +156,14 @@ public class MechSelecter : MonoBehaviour
 
     public void BuyUpgradeRangerT2(int cost)
     {
-        if(CurrencyManager.Instance.GetResearchPoints() >= cost)
+        if (CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
             levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
-            CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
+            CurrencyManager.Instance.SetResearchPoints(
+                CurrencyManager.Instance.GetResearchPoints() - cost
+            );
             MechManager.Instance.UpgradeRanger(RangerTier.TIER2);
         }
         else
@@ -144,12 +174,14 @@ public class MechSelecter : MonoBehaviour
 
     public void BuyUpgradeRangerT3(int cost)
     {
-        if(CurrencyManager.Instance.GetResearchPoints() >= cost)
+        if (CurrencyManager.Instance.GetResearchPoints() >= cost)
         {
             //buy
             levelUpParticle.Play();
             SoundManager.Instance.PlaySFX("Select3");
-            CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetResearchPoints() - cost);
+            CurrencyManager.Instance.SetResearchPoints(
+                CurrencyManager.Instance.GetResearchPoints() - cost
+            );
             MechManager.Instance.UpgradeRanger(RangerTier.TIER3);
         }
         else
