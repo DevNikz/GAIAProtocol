@@ -1,39 +1,50 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class RepairAction : BaseAction
 {
-
     public static event EventHandler<OnRepairEventArgs> OnAnyRepair;
     public event EventHandler<OnRepairEventArgs> OnRepair;
- 
+
     public class OnRepairEventArgs : EventArgs
     {
         public Unit repairingUnit;
     }
- 
+
     private enum State
     {
         Preparing,
         Repairing,
         Cooloff,
     }
- 
+
     private State state;
     private float stateTimer;
- 
-    [SerializeField, Range(1, 100)] private int minRepairAmount = 15;
-    public void SetMinRepairAmount(int value) { minRepairAmount = value; }
- 
-    [SerializeField, Range(1, 100)] private int maxRepairAmount = 30;
-    public void SetMaxRepairAmount(int value) { maxRepairAmount = value; }
+
+    [SerializeField, Range(1, 100)]
+    private int minRepairAmount = 15;
+
+    public void SetMinRepairAmount(int value)
+    {
+        minRepairAmount = value;
+    }
+
+    [SerializeField, Range(1, 100)]
+    private int maxRepairAmount = 30;
+
+    public void SetMaxRepairAmount(int value)
+    {
+        maxRepairAmount = value;
+    }
 
     private void Update()
     {
-        if (!isActive) return;
+        if (!isActive)
+            return;
 
         stateTimer -= Time.deltaTime;
- 
+
         switch (state)
         {
             case State.Preparing:
@@ -46,7 +57,7 @@ public class RepairAction : BaseAction
             case State.Cooloff:
                 break;
         }
- 
+
         if (stateTimer <= 0f)
         {
             NextState();
@@ -75,8 +86,9 @@ public class RepairAction : BaseAction
     {
         OnAnyRepair?.Invoke(this, new OnRepairEventArgs { repairingUnit = unit });
         OnRepair?.Invoke(this, new OnRepairEventArgs { repairingUnit = unit });
- 
-        unit.GetComponent<HealthSystem>().Heal(UnityEngine.Random.Range(minRepairAmount, maxRepairAmount));
+
+        unit.GetComponent<HealthSystem>()
+            .Heal(UnityEngine.Random.Range(minRepairAmount, maxRepairAmount));
     }
 
     public override string GetActionName()
@@ -86,11 +98,7 @@ public class RepairAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = 0
-        };
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -106,7 +114,16 @@ public class RepairAction : BaseAction
         ActionStart(onActionComplete);
     }
 
-    public override int GetActionPointsCost() {
+    public override int GetActionPointsCost()
+    {
         return GetComponent<Unit>().actionPoints;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(
+        GridPosition gridPosition,
+        List<GridPosition> validPositions
+    )
+    {
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
 }

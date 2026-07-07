@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class GrenadeAction : BaseAction
 {
-
-
-    [SerializeField] private Transform grenadeProjectilePrefab;
-
+    [SerializeField]
+    private Transform grenadeProjectilePrefab;
 
     private int maxThrowDistance = 7;
 
@@ -20,7 +18,6 @@ public class GrenadeAction : BaseAction
         }
     }
 
-
     public override string GetActionName()
     {
         return "Grenade";
@@ -28,11 +25,7 @@ public class GrenadeAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = 0,
-        };
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -64,12 +57,17 @@ public class GrenadeAction : BaseAction
         }
 
         return validGridPositionList;
-    } 
+    }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        Transform grenadeProjectileTransform = Instantiate(grenadeProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
-        GrenadeProjectile grenadeProjectile = grenadeProjectileTransform.GetComponent<GrenadeProjectile>();
+        Transform grenadeProjectileTransform = Instantiate(
+            grenadeProjectilePrefab,
+            unit.GetWorldPosition(),
+            Quaternion.identity
+        );
+        GrenadeProjectile grenadeProjectile =
+            grenadeProjectileTransform.GetComponent<GrenadeProjectile>();
         grenadeProjectile.Setup(gridPosition, OnGrenadeBehaviourComplete);
 
         ActionStart(onActionComplete);
@@ -80,4 +78,11 @@ public class GrenadeAction : BaseAction
         ActionComplete();
     }
 
+    public override EnemyAIAction GetEnemyAIAction(
+        GridPosition gridPosition,
+        List<GridPosition> validPositions
+    )
+    {
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
+    }
 }

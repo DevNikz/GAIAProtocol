@@ -163,6 +163,7 @@ public class MoveAction : BaseAction
             {
                 Debug.Log("Null Position. Action Ended.");
                 ActionComplete();
+                return;
             }
         }
 
@@ -209,6 +210,9 @@ public class MoveAction : BaseAction
             {
                 for (int floor = -maxMoveDistance; floor <= maxMoveDistance; floor++)
                 {
+                    if (Mathf.Abs(x) + Mathf.Abs(z) + Mathf.Abs(floor) > maxMoveDistance)
+                        continue;
+
                     GridPosition offsetGridPosition = new GridPosition(x, z, floor);
                     GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
@@ -234,16 +238,19 @@ public class MoveAction : BaseAction
                         continue;
                     }
 
-                    if (!Pathfinding.Instance.HasPath(unitGridPosition, testGridPosition))
+                    if (
+                        !Pathfinding.Instance.TryGetPathLength(
+                            unitGridPosition,
+                            testGridPosition,
+                            out int pathLength
+                        )
+                    )
                     {
                         continue;
                     }
 
                     int pathfindingDistanceMultiplier = 10;
-                    if (
-                        Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition)
-                        > maxMoveDistance * pathfindingDistanceMultiplier
-                    )
+                    if (pathLength > maxMoveDistance * pathfindingDistanceMultiplier)
                     {
                         // Path length is too long
                         continue;
@@ -263,11 +270,14 @@ public class MoveAction : BaseAction
         return "Move";
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    public override EnemyAIAction GetEnemyAIAction(
+        GridPosition gridPosition,
+        List<GridPosition> validPositions
+    )
     {
-        List<GridPosition> validPositions = GetValidActionGridPositionList();
+        //List<GridPosition> validPositions = GetValidActionGridPositionList();
         int targetCountAtGridPosition;
-        GridPosition chosenPosition;
+        // GridPosition chosenPosition;
 
         if (GetComponent<KaijuUnit>() != null)
         {
@@ -275,8 +285,9 @@ public class MoveAction : BaseAction
             {
                 //Debug.Log("Enemy is Patrolling");
                 GridPosition unitGridPosition = unit.GetGridPosition();
-                List<GridPosition> positionsInRadius = new List<GridPosition>();
+                //List<GridPosition> positionsInRadius = new List<GridPosition>();
 
+                /*
                 foreach (GridPosition pos in validPositions)
                 {
                     int dx = Mathf.Abs(pos.x - unitGridPosition.x);
@@ -286,29 +297,32 @@ public class MoveAction : BaseAction
                         positionsInRadius.Add(pos);
                     }
                 }
+                */
 
                 // Pick a random position from the radius, fall back to any valid pos
                 // GridPosition chosenPosition;
-                if (positionsInRadius.Count > 0)
-                {
-                    chosenPosition = positionsInRadius[
-                        UnityEngine.Random.Range(0, positionsInRadius.Count)
-                    ];
-                }
+                // if (positionsInRadius.Count > 0)
+                // {
+                //     chosenPosition = positionsInRadius[
+                //         UnityEngine.Random.Range(0, positionsInRadius.Count)
+                //     ];
+                // }
+                /*
                 else if (validPositions.Count > 0)
                 {
                     chosenPosition = validPositions[
                         UnityEngine.Random.Range(0, validPositions.Count)
                     ];
                 }
-                else
-                {
-                    return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
-                }
+                */
+                // else
+                // {
+                //     return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
+                // }
 
                 return new EnemyAIAction
                 {
-                    gridPosition = chosenPosition,
+                    gridPosition = unitGridPosition,
                     actionValue = 10, // flat value so AI treats all patrol moves equally
                 };
             }
@@ -393,5 +407,10 @@ public class MoveAction : BaseAction
     {
         // This lets other actions (and the AI) query MoveAction symmetrically.
         return GetValidActionGridPositionList().Count;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        throw new NotImplementedException();
     }
 }

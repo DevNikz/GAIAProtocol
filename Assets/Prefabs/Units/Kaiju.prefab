@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 3979288121251425726}
   - component: {fileID: 5275743999073712116}
   - component: {fileID: -7952840129009468334}
+  - component: {fileID: 108641114244495592}
   m_Layer: 0
   m_Name: Kaiju
   m_TagString: Kaiju
@@ -775,7 +776,7 @@ MonoBehaviour:
       _useFixedUpdate: 0
       _updateType: 0
   detectionRange: 12
-  losCheckInterval: 0.25
+  losCheckInterval: 0.5
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -804,9 +805,7 @@ MonoBehaviour:
   puddleDamagePerTurn: 10
   puddleTurnsUntilExpiry: 4
   particleHeightOffset: 0.05
-  grassDetailLayerIndex: 1
-  grassDensityValue: 8
-  brushRadiusInDetailCells: 1
+  toxicPuddlePool: {fileID: 108641114244495592}
 --- !u!114 &5275743999073712116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +846,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &108641114244495592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3979208581097700652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d18c6eaf3098243a85c8eccdd41812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ToxicPuddlePool
+  toxicPuddlePrefab: {fileID: -9041801318058635661, guid: 987b1a4f0130f7141aa7767aef51511a, type: 3}
+  prewarmCount: 15
 --- !u!1 &4090958322527113083
 GameObject:
   m_ObjectHideFlags: 0

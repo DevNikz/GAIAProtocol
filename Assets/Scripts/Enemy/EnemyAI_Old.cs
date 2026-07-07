@@ -18,6 +18,7 @@ public class EnemyAI_Old : MonoBehaviour
 
     [SerializeField]
     private float timer;
+    private Coroutine wakeCoroutine;
 
     private void Awake()
     {
@@ -29,9 +30,15 @@ public class EnemyAI_Old : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
-    void OnDisable()
+    void OnEnable()
     {
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+    }
+
+    void OnDisable()
+    {
+        if (TurnSystem.Instance != null)
+            TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
     private void Update()
@@ -81,10 +88,9 @@ public class EnemyAI_Old : MonoBehaviour
     {
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
-            StartCoroutine(InitWake());
-            // DoKaijuWake();
-            // state = State.TakingTurn;
-            // timer = 2f;
+            if (wakeCoroutine != null)
+                StopCoroutine(wakeCoroutine);
+            wakeCoroutine = StartCoroutine(InitWake());
         }
     }
 

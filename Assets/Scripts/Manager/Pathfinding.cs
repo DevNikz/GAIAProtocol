@@ -385,4 +385,13 @@ public class Pathfinding : MonoBehaviour
         FindPath(startGridPosition, endGridPosition, out int pathLength);
         return pathLength;
     }
+
+    public bool TryGetPathLength(
+        GridPosition startGridPosition,
+        GridPosition endGridPosition,
+        out int pathLength
+    )
+    {
+        return FindPath(startGridPosition, endGridPosition, out pathLength) != null;
+    }
 }

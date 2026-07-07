@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class PathNode
 {
-
     private GridPosition gridPosition;
     private int gCost;
     private int hCost;
     private int fCost;
     private PathNode cameFromPathNode;
     private bool isWalkable = true;
+    private int lastSearchId = -1;
+
+    public void PrepareForSearch(int searchId)
+    {
+        if (lastSearchId == searchId)
+            return; // already fresh for this search
+
+        lastSearchId = searchId;
+        gCost = int.MaxValue;
+        hCost = 0;
+        fCost = int.MaxValue;
+        cameFromPathNode = null;
+    }
 
     public PathNode(GridPosition gridPosition)
     {
@@ -81,5 +93,4 @@ public class PathNode
     {
         this.isWalkable = isWalkable;
     }
-
 }

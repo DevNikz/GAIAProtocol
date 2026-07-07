@@ -21,17 +21,8 @@ public class KaijuMoveAction : MoveAction
     private float particleHeightOffset = 0.05f; // sits just above the floor
     private List<GridPosition> tilesVisited = new List<GridPosition>();
 
-    //Terrain
-    private Terrain terrain;
-
     [SerializeField]
-    private int grassDetailLayerIndex = 1;
-
-    [SerializeField]
-    private int grassDensityValue = 8; // how "thick" the grass is per cell, terrain-dependent
-
-    [SerializeField]
-    private int brushRadiusInDetailCells = 1; // how many detail cells around the center to paint
+    private ToxicPuddlePool toxicPuddlePool;
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
@@ -78,12 +69,18 @@ public class KaijuMoveAction : MoveAction
 
             Vector3 worldPos = LevelGrid.Instance.GetWorldPosition(gridPos);
             worldPos.y += particleHeightOffset;
-            GameObject puddleGO = Instantiate(
-                toxicPuddlePrefab,
+
+            // GameObject puddleGO = Instantiate(
+            //     toxicPuddlePrefab,
+            //     worldPos,
+            //     Quaternion.Euler(0, UnityEngine.Random.Range(0f, 360f), 0f)
+            // );
+            // ToxicPuddle puddle = puddleGO.GetComponent<ToxicPuddle>();
+
+            ToxicPuddle puddle = toxicPuddlePool.Spawn(
                 worldPos,
                 Quaternion.Euler(0, UnityEngine.Random.Range(0f, 360f), 0f)
             );
-            ToxicPuddle puddle = puddleGO.GetComponent<ToxicPuddle>();
             puddle.Initialize(gridPos, puddleTurnsUntilExpiry, puddleDamagePerTurn);
 
             LevelGrid.Instance.RegisterToxicPuddle(gridPos, puddle); // see note below

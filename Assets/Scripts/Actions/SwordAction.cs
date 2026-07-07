@@ -186,4 +186,19 @@ public class SwordAction : BaseAction
     {
         return actionpointcost;
     }
+
+    public override EnemyAIAction GetEnemyAIAction(
+        GridPosition gridPosition,
+        List<GridPosition> validPositions
+    )
+    {
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            //actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f),
+            actionValue = 200,
+        };
+    }
 }

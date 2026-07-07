@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class SpinAction : BaseAction
 {
-
     private float totalSpinAmount;
-
 
     private void Update()
     {
@@ -15,7 +13,7 @@ public class SpinAction : BaseAction
         {
             return;
         }
-        
+
         float spinAddAmount = 360f * Time.deltaTime;
         transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
 
@@ -33,7 +31,6 @@ public class SpinAction : BaseAction
         ActionStart(onActionComplete);
     }
 
-
     public override string GetActionName()
     {
         return "Spin";
@@ -43,10 +40,7 @@ public class SpinAction : BaseAction
     {
         GridPosition unitGridPosition = unit.GetGridPosition();
 
-        return new List<GridPosition>
-        {
-            unitGridPosition
-        };
+        return new List<GridPosition> { unitGridPosition };
     }
 
     public override int GetActionPointsCost()
@@ -56,11 +50,14 @@ public class SpinAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = 0,
-        };
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
 
+    public override EnemyAIAction GetEnemyAIAction(
+        GridPosition gridPosition,
+        List<GridPosition> validPositions
+    )
+    {
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
+    }
 }

@@ -30,23 +30,23 @@ Material:
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _DISABLE_DECALS
-  - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
+  - _ENABLE_FOG_ON_TRANSPARENT
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
-    RenderType: TransparentCutout
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
   - TransparentDepthPostpass
   - TransparentBackface
   - RayTracingPrepass
-  - TransparentDepthPrepass
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -159,7 +159,7 @@ Material:
     - _AlphaCutoffPostpass: 0.5
     - _AlphaCutoffPrepass: 0.5
     - _AlphaCutoffShadow: 0.5
-    - _AlphaDstBlend: 0
+    - _AlphaDstBlend: 10
     - _AlphaRemapMax: 1
     - _AlphaRemapMin: 0
     - _AlphaSrcBlend: 1
@@ -184,20 +184,20 @@ Material:
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 1
     - _DoubleSidedNormalMode: 1
-    - _DstBlend: 0
-    - _DstBlend2: 0
+    - _DstBlend: 10
+    - _DstBlend2: 10
     - _Edge_Fade_Alpha: 4.5
     - _Edge_Fade_Scale: 25
     - _Edge_Fade_Strength: 2.5
     - _Edge_Max_Strength: 0.55
     - _Edge_Min_Strength: 0.15
     - _Emission_Intensity: 2.5
-    - _Emission_Weight: 0.7
+    - _Emission_Weight: 0.75
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
     - _EmissiveIntensityUnit: 0
-    - _EnableBlendModePreserveSpecularLighting: 0
+    - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
@@ -237,9 +237,9 @@ Material:
     - _PerPixelSorting: 0
     - _RayTracing: 0
     - _ReceivesSSR: 1
-    - _ReceivesSSRTransparent: 0
+    - _ReceivesSSRTransparent: 1
     - _RefractionModel: 0
-    - _RenderQueueType: 1
+    - _RenderQueueType: 4
     - _RequireSplitLighting: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
@@ -260,7 +260,7 @@ Material:
     - _StencilWriteMaskMV: 41
     - _SubsurfaceMask: 1
     - _SupportDecals: 0
-    - _SurfaceType: 0
+    - _SurfaceType: 1
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
@@ -278,10 +278,10 @@ Material:
     - _UVEmissive: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
-    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Base_Noise_Speed: {r: 0.05, g: 0.03, b: 0, a: 0}

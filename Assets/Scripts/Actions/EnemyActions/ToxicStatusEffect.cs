@@ -22,7 +22,8 @@ public class ToxicStatusEffect : MonoBehaviour
 
     private void OnTurnChanged(object sender, System.EventArgs e)
     {
-        if (!isActive) return;
+        if (!isActive)
+            return;
 
         turnsRemaining--;
         if (turnsRemaining <= 0)

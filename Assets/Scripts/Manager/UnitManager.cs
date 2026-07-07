@@ -6,23 +6,30 @@ using UnityEngine.SceneManagement;
 
 public class UnitManager : MonoBehaviour
 {
-
     public static UnitManager Instance { get; private set; }
-
 
     public List<Unit> unitList = new List<Unit>();
     public List<Unit> friendlyUnitList;
     public List<Unit> kaijuEnemyList;
     public List<Unit> smallEnemyUnitList;
 
-    public List<Unit> GetKaijuList() { return kaijuEnemyList; }
-    public List<Unit> GetSmallEnemyList() { return smallEnemyUnitList; }
+    public List<Unit> GetKaijuList()
+    {
+        return kaijuEnemyList;
+    }
+
+    public List<Unit> GetSmallEnemyList()
+    {
+        return smallEnemyUnitList;
+    }
 
     public List<Transform> ReferenceUnitList; // workers = 0-3 | ranger = 4-6
     public List<Transform> ReferenceEnemyUnitList;
 
-    public void SetReferenceList(List<Transform> units) { ReferenceUnitList = units; }
-
+    public void SetReferenceList(List<Transform> units)
+    {
+        ReferenceUnitList = units;
+    }
 
     private void Awake()
     {
@@ -31,7 +38,8 @@ public class UnitManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
@@ -52,7 +60,7 @@ public class UnitManager : MonoBehaviour
         Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
     }
-    
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         unitList.Clear();
@@ -60,11 +68,11 @@ public class UnitManager : MonoBehaviour
         kaijuEnemyList.Clear();
         smallEnemyUnitList.Clear();
 
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 1:
                 SpawnFriendlyUnits();
-            break;
+                break;
         }
     }
 
@@ -73,19 +81,23 @@ public class UnitManager : MonoBehaviour
         //SpawnFriendlyUnits
         int count = MechManager.Instance.GetUnitsToBeDeployed();
         List<FriendlyUnitType> types = MechManager.Instance.GetFriendlyUnits();
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
-            if(types[i] == FriendlyUnitType.WORKER)
+            if (types[i] == FriendlyUnitType.WORKER)
             {
-                ReferenceUnitList[i].GetComponent<WorkerMech>().SetCurrentTier(MechManager.Instance.GetCurrentTierWorkerObject());
+                ReferenceUnitList[i]
+                    .GetComponent<WorkerMech>()
+                    .SetCurrentTier(MechManager.Instance.GetCurrentTierWorkerObject());
                 ReferenceUnitList[i].GetComponent<WorkerMech>().SetCustomValues();
                 ReferenceUnitList[i].gameObject.SetActive(true);
             }
             else
             {
-                ReferenceUnitList[i+3].GetComponent<RangerMech>().SetCurrentTier(MechManager.Instance.GetCurrentTierRangerObject());
-                ReferenceUnitList[i+3].GetComponent<RangerMech>().SetCustomValues();
-                ReferenceUnitList[i+3].gameObject.SetActive(true);
+                ReferenceUnitList[i + 3]
+                    .GetComponent<RangerMech>()
+                    .SetCurrentTier(MechManager.Instance.GetCurrentTierRangerObject());
+                ReferenceUnitList[i + 3].GetComponent<RangerMech>().SetCustomValues();
+                ReferenceUnitList[i + 3].gameObject.SetActive(true);
             }
         }
     }
@@ -101,7 +113,7 @@ public class UnitManager : MonoBehaviour
         {
             kaijuEnemyList.Add(unit);
         }
-        else if(unit.IsEnemy() && !unit.CompareTag("Kaiju"))
+        else if (unit.IsEnemy() && !unit.CompareTag("Kaiju"))
         {
             smallEnemyUnitList.Add(unit);
         }
@@ -121,7 +133,7 @@ public class UnitManager : MonoBehaviour
         {
             kaijuEnemyList.Remove(unit);
         }
-        else if(unit.IsEnemy() && !unit.CompareTag("Kaiju"))
+        else if (unit.IsEnemy() && !unit.CompareTag("Kaiju"))
         {
             smallEnemyUnitList.Remove(unit);
         }
@@ -129,7 +141,7 @@ public class UnitManager : MonoBehaviour
         {
             friendlyUnitList.Remove(unit);
             //ObjectTransManager.Instance.RemoveUnit(unit.transform);
-            if(friendlyUnitList.Count == 0)
+            if (friendlyUnitList.Count == 0)
             {
                 Debug.Log("No more units left");
                 InitLose();
@@ -159,5 +171,8 @@ public class UnitManager : MonoBehaviour
         return friendlyUnitList;
     }
 
-    public void ClearRefList() { ReferenceUnitList.Clear(); }
+    public void ClearRefList()
+    {
+        ReferenceUnitList.Clear();
+    }
 }

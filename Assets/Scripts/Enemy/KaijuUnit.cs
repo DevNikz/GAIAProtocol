@@ -90,6 +90,8 @@ public class KaijuUnit : MonoBehaviour
 
         ui.SetActive(false);
         mesh.localPosition = groundPosMesh;
+
+        losTimer = UnityEngine.Random.Range(0f, losCheckInterval);
     }
 
     private void Update()

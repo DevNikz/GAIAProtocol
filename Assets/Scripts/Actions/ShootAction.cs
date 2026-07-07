@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShootAction : BaseAction
 {
-
     public static event EventHandler<OnShootEventArgs> OnAnyShoot;
 
     public event EventHandler<OnShootEventArgs> OnShoot;
@@ -15,8 +14,6 @@ public class ShootAction : BaseAction
         public Unit shootingUnit;
     }
 
-
-
     private enum State
     {
         Aiming,
@@ -24,21 +21,44 @@ public class ShootAction : BaseAction
         Cooloff,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
+    [SerializeField]
+    private LayerMask obstaclesLayerMask;
 
     private State state;
     private int maxShootDistance = 7;
-    public void SetAttackRange(int value) { maxShootDistance = value; }
+
+    public void SetAttackRange(int value)
+    {
+        maxShootDistance = value;
+    }
+
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
-    [SerializeField, Range(0, 100)] private int minDamage;
-    public void SetMinDmg(int value) { minDamage = value; }
-    [SerializeField, Range(1, 100)] private int maxDamage;
-    public void SetMaxDmg(int value) { maxDamage = value; }
-    [SerializeField] bool hasPlasmaRifle; //SetCustomElementLater
-    public void HasPlasmaRifle(bool value) { hasPlasmaRifle = value; }
 
+    [SerializeField, Range(0, 100)]
+    private int minDamage;
+
+    public void SetMinDmg(int value)
+    {
+        minDamage = value;
+    }
+
+    [SerializeField, Range(1, 100)]
+    private int maxDamage;
+
+    public void SetMaxDmg(int value)
+    {
+        maxDamage = value;
+    }
+
+    [SerializeField]
+    bool hasPlasmaRifle; //SetCustomElementLater
+
+    public void HasPlasmaRifle(bool value)
+    {
+        hasPlasmaRifle = value;
+    }
 
     private void Update()
     {
@@ -52,11 +72,17 @@ public class ShootAction : BaseAction
         switch (state)
         {
             case State.Aiming:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                Vector3 aimDir = (
+                    targetUnit.GetWorldPosition() - unit.GetWorldPosition()
+                ).normalized;
                 aimDir.y = 0f;
 
                 float rotateSpeed = 10f;
-                transform.forward = Vector3.Slerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+                transform.forward = Vector3.Slerp(
+                    transform.forward,
+                    aimDir,
+                    Time.deltaTime * rotateSpeed
+                );
                 break;
             case State.Shooting:
                 if (canShootBullet)
@@ -97,21 +123,18 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
-        OnAnyShoot?.Invoke(this, new OnShootEventArgs
-        {
-            targetUnit = targetUnit,
-            shootingUnit = unit
-        });
-        
-        OnShoot?.Invoke(this, new OnShootEventArgs {
-            targetUnit = targetUnit,
-            shootingUnit = unit
-        });
-        
+        OnAnyShoot?.Invoke(
+            this,
+            new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit }
+        );
+
+        OnShoot?.Invoke(
+            this,
+            new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit }
+        );
+
         targetUnit.Damage(UnityEngine.Random.Range(minDamage, maxDamage));
     }
-
-
 
     public override string GetActionName()
     {
@@ -162,15 +185,22 @@ public class ShootAction : BaseAction
                         continue;
                     }
 
-                    Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                    Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+                    Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(
+                        unitGridPosition
+                    );
+                    Vector3 shootDir = (
+                        targetUnit.GetWorldPosition() - unitWorldPosition
+                    ).normalized;
 
                     float unitShoulderHeight = 1.7f;
-                    if (Physics.Raycast(
+                    if (
+                        Physics.Raycast(
                             unitWorldPosition + Vector3.up * unitShoulderHeight,
                             shootDir,
                             Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                            obstaclesLayerMask))
+                            obstaclesLayerMask
+                        )
+                    )
                     {
                         // Blocked by an Obstacle
                         continue;
@@ -210,7 +240,7 @@ public class ShootAction : BaseAction
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        
+
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
@@ -223,4 +253,11 @@ public class ShootAction : BaseAction
         return GetValidActionGridPositionList(gridPosition).Count;
     }
 
+    public override EnemyAIAction GetEnemyAIAction(
+        GridPosition gridPosition,
+        List<GridPosition> validPositions
+    )
+    {
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
+    }
 }
