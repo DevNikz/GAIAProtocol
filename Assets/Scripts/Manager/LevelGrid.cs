@@ -89,10 +89,13 @@ public class LevelGrid : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 1:
+            case 2:
                 //Debug.Log("Forest 1 load grid.");
                 gridSystemList.Clear();
                 SetupPathGrid();
                 Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
+                break;
+            default:
                 break;
         }
     }

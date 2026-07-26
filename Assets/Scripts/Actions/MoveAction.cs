@@ -285,40 +285,6 @@ public class MoveAction : BaseAction
             {
                 //Debug.Log("Enemy is Patrolling");
                 GridPosition unitGridPosition = unit.GetGridPosition();
-                //List<GridPosition> positionsInRadius = new List<GridPosition>();
-
-                /*
-                foreach (GridPosition pos in validPositions)
-                {
-                    int dx = Mathf.Abs(pos.x - unitGridPosition.x);
-                    int dz = Mathf.Abs(pos.z - unitGridPosition.z);
-                    if (dx <= patrolRadius && dz <= patrolRadius)
-                    {
-                        positionsInRadius.Add(pos);
-                    }
-                }
-                */
-
-                // Pick a random position from the radius, fall back to any valid pos
-                // GridPosition chosenPosition;
-                // if (positionsInRadius.Count > 0)
-                // {
-                //     chosenPosition = positionsInRadius[
-                //         UnityEngine.Random.Range(0, positionsInRadius.Count)
-                //     ];
-                // }
-                /*
-                else if (validPositions.Count > 0)
-                {
-                    chosenPosition = validPositions[
-                        UnityEngine.Random.Range(0, validPositions.Count)
-                    ];
-                }
-                */
-                // else
-                // {
-                //     return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
-                // }
 
                 return new EnemyAIAction
                 {
@@ -367,41 +333,6 @@ public class MoveAction : BaseAction
             actionValue = 10, // flat value so AI treats all patrol moves equally
         };
     }
-
-    /*
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
-        // Prefer SwordAction if present, then ShootAction, then fall back to a
-        // neutral value so the AI can still move even without a combat action.
-        int targetCountAtGridPosition;
-
-        SwordAction swordAction = unit.GetAction<SwordAction>();
-        if (swordAction != null)
-        {
-            targetCountAtGridPosition = swordAction.GetTargetCountAtPosition(gridPosition);
-        }
-        else
-        {
-            ShootAction shootAction = unit.GetAction<ShootAction>();
-            if (shootAction != null)
-            {
-                targetCountAtGridPosition = shootAction.GetTargetCountAtPosition(gridPosition);
-            }
-            else
-            {
-                // No attack action — assign a small constant so the enemy will
-                // still move (toward the player via patrol) rather than score 0.
-                targetCountAtGridPosition = 1;
-            }
-        }
-
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = targetCountAtGridPosition * 10,
-        };
-    }
-    */
 
     public int GetTargetCountAtPosition(GridPosition gridPosition)
     {

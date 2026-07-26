@@ -15,6 +15,10 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
     [SerializeField]
     private SoundController soundController;
+    RadarScanEffect radarScan;
+
+    [SerializeField]
+    bool HasRadarScan = false;
 
     void Start()
     {
@@ -22,6 +26,9 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
         LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
         Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
+
+        if (HasRadarScan)
+            radarScan = GetComponent<RadarScanEffect>();
 
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
@@ -127,6 +134,9 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         isBeingInteracted = true;
         percentage += percentageAdd;
         timer = 0.5f;
+
+        if (HasRadarScan)
+            radarScan.TriggerScan(transform.position);
     }
 
     public void SetInteracting(bool value)
