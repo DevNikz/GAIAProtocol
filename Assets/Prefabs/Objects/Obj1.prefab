@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerInWorldTarget
   HUDSprite: {fileID: 1146266368, guid: b84ea27da2c3eb14faa8ef5bf15492ab, type: 3}
-  worldUI: {fileID: 5123060013782041739}
+  obj: {fileID: 4699757229795514230}
   isObjective: 1
 --- !u!1 &4516348219208944269
 GameObject:

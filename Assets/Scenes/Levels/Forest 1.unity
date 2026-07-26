@@ -610,7 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerInWorldTarget
   HUDSprite: {fileID: 21300000, guid: 8a6e75dd14c914c4eb4213f056d088f5, type: 3}
-  worldUI: {fileID: 0}
+  obj: {fileID: 0}
   isObjective: 0
 --- !u!1 &105802946
 GameObject:
@@ -6059,6 +6059,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicFloorPosition: 0
   ignoreRendererList: []
+--- !u!1 &540897131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540897133}
+  - component: {fileID: 540897132}
+  m_Layer: 0
+  m_Name: ObjectiveCounter_Plants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &540897132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540897131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85bdf1ec9e80304b89cdbc9fe70f8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveCounter
+  objectiveIndex: 1
+  objectiveDesc: Harvest Corrupted Plants
+  objectiveType: 1
+  targetCount: 10
+--- !u!4 &540897133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540897131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &573576594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17643,6 +17691,63 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: -0.32, y: 1.7109718, z: 0.39}
   m_Center: {x: 0.0048480034, y: 0.8554859, z: 0}
+--- !u!1001 &1660141612
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1841458697084488952, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_Name
+      value: Obj Plant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.90558
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.1199403
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942010138140662791, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61570cbae55dc6c479da525eeb32f98a, type: 3}
 --- !u!1 &1686488550
 GameObject:
   m_ObjectHideFlags: 0
@@ -24169,6 +24274,7 @@ SceneRoots:
   - {fileID: 1133176300}
   - {fileID: 1198495441}
   - {fileID: 9083635299609199353}
+  - {fileID: 1660141612}
   - {fileID: 1643983449}
   - {fileID: 105802947}
   - {fileID: 1330040455}
@@ -24177,3 +24283,4 @@ SceneRoots:
   - {fileID: 2071633158}
   - {fileID: 1159716477}
   - {fileID: 94253096}
+  - {fileID: 540897133}

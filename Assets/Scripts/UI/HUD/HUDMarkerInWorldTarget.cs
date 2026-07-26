@@ -6,7 +6,7 @@ public class HUDMarkerInWorldTarget : MonoBehaviour
     private Sprite HUDSprite;
 
     [SerializeField]
-    private ObjectiveWorldUI worldUI;
+    private ObjectiveBase obj;
 
     [SerializeField]
     private bool isObjective;
@@ -19,7 +19,7 @@ public class HUDMarkerInWorldTarget : MonoBehaviour
                 this,
                 HUDSprite,
                 isObjective,
-                worldUI.GetObjectiveIndex()
+                obj.GetObjectiveIndex()
             );
         }
         else

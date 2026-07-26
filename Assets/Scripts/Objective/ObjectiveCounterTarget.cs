@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,10 +7,12 @@ using UnityEngine;
 /// the shared ObjectiveCounter by index. On interact, reports one increment,
 /// then disables itself so it can't be triggered twice.
 /// </summary>
-public class ObjectiveCounterTarget : MonoBehaviour
+public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
 {
+    // [SerializeField]
+    // private int objectiveIndex;
     [SerializeField]
-    private int objectiveIndex;
+    CrystalHarvestManager crystalHarvestManager;
 
     [SerializeField, Min(1)]
     private int incrementAmount = 1;
@@ -20,7 +23,41 @@ public class ObjectiveCounterTarget : MonoBehaviour
     public ObjectiveBase GetSharedObjective() =>
         ObjectiveManager.Instance.GetObjective(objectiveIndex);
 
-    public void Interact()
+    void Start()
+    {
+        gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+        LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
+        Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
+
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+    }
+
+    protected override void OnEnable()
+    {
+        ObjectiveManager.Instance.Register(this);
+    }
+
+    protected override void OnDisable()
+    {
+        if (ObjectiveManager.Instance != null)
+        {
+            ObjectiveManager.Instance.Unregister(this);
+        }
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if (!TurnSystem.Instance.IsPlayerTurn())
+        {
+            isBeingInteracted = false;
+            if (!isComplete)
+                LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+        }
+    }
+
+    public void Interact(Action onInteractionComplete)
     {
         if (hasBeenCollected)
             return;
@@ -40,6 +77,19 @@ public class ObjectiveCounterTarget : MonoBehaviour
 
         // Swap for Destroy(gameObject) if you want the instance to disappear
         // entirely rather than just go inactive.
-        gameObject.SetActive(false);
+
+        if (crystalHarvestManager != null)
+        {
+            crystalHarvestManager.HarvestAll();
+        }
+
+        //gameObject.SetActive(false);
+    }
+
+    public void Interact(Action onInteractionComplete, float percentageAdd) { }
+
+    public override float GetProgress()
+    {
+        throw new NotImplementedException();
     }
 }
