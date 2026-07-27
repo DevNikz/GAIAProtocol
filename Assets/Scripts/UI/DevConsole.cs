@@ -63,8 +63,7 @@ public class DevConsole : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(1);
                 CurrencyManager.Instance.SetPromptedPoints(10);
                 RewardsManager.Instance.SetPoints(10);
-                CorruptionManager.Instance.SetPromptedCorruption(0.52f);
-                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
+                //CorruptionManager.Instance.SetPromptedCorruption(0.52f);
                 HUBTransitioner.Instance.ExtractForest1();
             }
         );

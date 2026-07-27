@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -92,8 +93,22 @@ public class ExtractionManager : MonoBehaviour
             .GetComponent<Button>()
             .onClick.AddListener(() =>
             {
+                RewardsManager.Instance.SetMainCompleted(
+                    ObjectiveManager.Instance.AreMainObjectivesComplete()
+                );
+                RewardsManager.Instance.SetSideCompleted(
+                    ObjectiveManager.Instance.AreSideObjectivesComplete()
+                );
+
+                var allObjectives = ObjectiveManager
+                    .Instance.GetAllObjectives()
+                    .Where(o => !(o is ObjectiveCounterTarget))
+                    .OrderBy(o => o.GetObjectiveType()) // Main (0) before Side (1)
+                    .ToList();
+
+                RewardsManager.Instance.SetObjectiveList(allObjectives);
+
                 SoundManager.Instance.PlaySFX("Extract");
-                SetButtonVisible(false);
                 switch (index)
                 {
                     case 1: //Forest 1
@@ -105,7 +120,12 @@ public class ExtractionManager : MonoBehaviour
                     case 3: //Forest 1
                         HUBTransitioner.Instance.ExtractForest3();
                         break;
+                    case 4: //Forest 1
+                        HUBTransitioner.Instance.ExtractForest4();
+                        break;
                 }
+
+                SetButtonVisible(false);
             });
     }
 }

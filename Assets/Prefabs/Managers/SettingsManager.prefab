@@ -1942,6 +1942,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
   master: {fileID: 24100000, guid: 223c2f2bc58f5d34f9db8ef262e48c1c, type: 2}
+  masterSlider: {fileID: 509131822923725722}
+  musicSlider: {fileID: 7324666771654370682}
+  sfxSlider: {fileID: 503627024144919272}
+  uiSlider: {fileID: 8938514424423645638}
 --- !u!1 &5751987809728628903
 GameObject:
   m_ObjectHideFlags: 0

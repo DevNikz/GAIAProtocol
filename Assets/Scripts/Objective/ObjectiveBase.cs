@@ -9,6 +9,12 @@ public enum ObjectiveType
 
 public abstract class ObjectiveBase : MonoBehaviour
 {
+    // ObjectiveBase.cs (addition)
+    [SerializeField]
+    private string displayName = "Objective";
+
+    public virtual string GetDisplayName() => displayName;
+
     [SerializeField]
     protected int objectiveIndex;
 
@@ -17,6 +23,8 @@ public abstract class ObjectiveBase : MonoBehaviour
 
     [SerializeField]
     protected ObjectiveType objectiveType;
+
+    [SerializeField]
     protected bool isComplete;
     protected GridPosition gridPosition;
     protected bool isBeingInteracted;

@@ -276,11 +276,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191762b3a3da3fb48b4b4d4d91cd0899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveCounterTarget
+  displayName: Harvest Corrupted Plants
   objectiveIndex: 1
   objectiveDesc: Harvest Corrupted Plants
   objectiveType: 1
+  isComplete: 0
   crystalHarvestManager: {fileID: 1453954339503295878}
   incrementAmount: 1
+  soundController: {fileID: 431159693912540400}
 --- !u!114 &1453954339503295878
 MonoBehaviour:
   m_ObjectHideFlags: 0

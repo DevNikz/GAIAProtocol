@@ -5,42 +5,44 @@ using UnityEngine;
 public class ExtractionArea : MonoBehaviour
 {
     //[SerializeField] private List<Unit> unitList;
-    [SerializeField] private int unitCount;
+    [SerializeField]
+    private int unitCount;
+
     void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Unit>() != null)
-        {
-            Unit tempUnit = other.GetComponent<Unit>();
-            Debug.Log($"{tempUnit.name} has entered extraction");
-            if(!tempUnit.IsEnemy())
-            {
-                unitCount++;
-            }
-        }
+        // if (other.GetComponent<Unit>() != null)
+        // {
+        //     Unit tempUnit = other.GetComponent<Unit>();
+        //     Debug.Log($"{tempUnit.name} has entered extraction");
+        //     if (!tempUnit.IsEnemy())
+        //     {
+        //         unitCount++;
+        //     }
+        // }
     }
 
     void OnTriggerStay()
     {
-        if(unitCount == UnitManager.Instance.friendlyUnitList.Count)
-        {
-            ExtractionManager.Instance.SetButtonVisible(true);
-        }
-        else
-        {
-            ExtractionManager.Instance.SetButtonVisible(false);
-        }
+        // if(unitCount == UnitManager.Instance.friendlyUnitList.Count)
+        // {
+        //     ExtractionManager.Instance.SetButtonVisible(true);
+        // }
+        // else
+        // {
+        //     ExtractionManager.Instance.SetButtonVisible(false);
+        // }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.GetComponent<Unit>() != null)
-        {
-            Unit tempUnit = other.GetComponent<Unit>();
-            Debug.Log($"{tempUnit.name} has left extraction");
-            if(!tempUnit.IsEnemy())
-            {
-                unitCount--;
-            }
-        }
+        // if (other.GetComponent<Unit>() != null)
+        // {
+        //     Unit tempUnit = other.GetComponent<Unit>();
+        //     Debug.Log($"{tempUnit.name} has left extraction");
+        //     if (!tempUnit.IsEnemy())
+        //     {
+        //         unitCount--;
+        //     }
+        // }
     }
 }

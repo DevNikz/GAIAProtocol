@@ -383,6 +383,11 @@ MonoBehaviour:
     volume: 0.35
     pitch: 0
     loop: 0
+  - name: Harvest
+    clip: {fileID: 8300000, guid: b88aceb3b635f23458e58639bab06528, type: 3}
+    volume: 0.35
+    pitch: 0
+    loop: 0
 --- !u!1 &7976336273388742977
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,6 +70,8 @@ public class PlanetSelecter : MonoBehaviour
     private GameObject nullReward;
     private bool hasAddedChildren;
 
+    private Quaternion[] cachedAreaRotations;
+
     void Awake()
     {
         cam = Camera.main.transform;
@@ -90,6 +92,15 @@ public class PlanetSelecter : MonoBehaviour
             SetupCorruptedArea(2);
         else
             SetupLockedArea(2);
+
+        cachedAreaRotations = new Quaternion[areas.Count];
+        for (int i = 0; i < areas.Count; i++)
+        {
+            Vector3 dir = (areas[i].position - transform.position).normalized;
+            Vector3 targetForward = (cam.position - transform.position).normalized;
+            cachedAreaRotations[i] =
+                Quaternion.FromToRotation(dir, targetForward) * transform.rotation;
+        }
     }
 
     void ClearAreas()
@@ -131,12 +142,10 @@ public class PlanetSelecter : MonoBehaviour
         if (currentPlanetIndex == 0)
         {
             currentPlanetIndex = 1;
-            CorruptionManager.Instance.SetAreaIndex(1);
         }
         else
         {
             currentPlanetIndex = 0;
-            CorruptionManager.Instance.SetAreaIndex(0);
         }
     }
 
@@ -178,12 +187,9 @@ public class PlanetSelecter : MonoBehaviour
         ClearColor();
         SetColor(target);
 
-        Vector3 dir = (target.position - transform.position).normalized;
-        Vector3 targetForward = (cam.position - transform.position).normalized;
-        Quaternion lookRot = Quaternion.FromToRotation(dir, targetForward) * transform.rotation;
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
-            lookRot,
+            cachedAreaRotations[currentIndex],
             Time.deltaTime * rotateSpeed
         );
     }
@@ -233,8 +239,6 @@ public class PlanetSelecter : MonoBehaviour
                 //Set Max Prompted Points on Completion
                 CurrencyManager.Instance.SetPromptedPoints(10);
                 RewardsManager.Instance.SetPoints(10);
-                CorruptionManager.Instance.SetPromptedCorruption(0.52f);
-                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
                 break;
             /*
             case 1:
@@ -330,8 +334,6 @@ public class PlanetSelecter : MonoBehaviour
                 nullReward.SetActive(true);
                 CurrencyManager.Instance.SetPromptedPoints(0);
                 RewardsManager.Instance.SetPoints(0);
-                CorruptionManager.Instance.SetPromptedCorruption(0f);
-                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
                 /*
                 if(WorldManager.Instance.GetUnlockStateIndex(2) == false)
                 {

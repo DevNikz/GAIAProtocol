@@ -108,10 +108,10 @@ public class HUBTransitioner : MonoBehaviour
 
         Debug.Log("RewardHUD: Animate Show");
         RewardsManager.Instance.AnimateShow();
-        yield return new WaitForSeconds(5f);
+        // yield return new WaitForSeconds(5f);
 
-        Debug.Log("RewardHUD: Animate Hide");
-        RewardsManager.Instance.AnimateHide();
+        // Debug.Log("RewardHUD: Animate Hide");
+        // RewardsManager.Instance.AnimateHide();
     }
 
     public void Dead()
@@ -134,13 +134,13 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
-        CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+        RewardsManager.Instance.SetCurrentLevel(1);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
         WorldManager.Instance.SetUnlockStateIndex(
             LevelManager.Instance.GetCurrentLevel() + 1,
             true
         );
-        CorruptionManager.Instance.SetCorruptionByIndex(0, 0.52f);
+        //CorruptionManager.Instance.SetCorruptionByIndex(0, 0.33f);
         yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(BackToMissionSelect());
@@ -157,13 +157,13 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
-        CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+        RewardsManager.Instance.SetCurrentLevel(1);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
         WorldManager.Instance.SetUnlockStateIndex(
             LevelManager.Instance.GetCurrentLevel() + 1,
             true
         );
-        CorruptionManager.Instance.SetCorruptionByIndex(0, 0.7f);
+        RewardsManager.Instance.SetCurrentLevel(2);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
     }
@@ -179,13 +179,33 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
-        CurrencyManager.Instance.SetResearchPoints(CurrencyManager.Instance.GetPromptedPoints());
+        RewardsManager.Instance.SetCurrentLevel(3);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
         WorldManager.Instance.SetUnlockStateIndex(
             LevelManager.Instance.GetCurrentLevel() + 1,
             true
         );
-        CorruptionManager.Instance.SetCorruptionByIndex(0, 1f);
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BackToMissionSelect());
+    }
+
+    public void ExtractForest4()
+    {
+        FadeScreenManager.Instance.FadeIn();
+        StartCoroutine(SetupRewards_Forest4());
+    }
+
+    IEnumerator SetupRewards_Forest4()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        RewardsManager.Instance.SetRewardType(RewardsType.WIN);
+        RewardsManager.Instance.SetCurrentLevel(4);
+        WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
+        WorldManager.Instance.SetUnlockStateIndex(
+            LevelManager.Instance.GetCurrentLevel() + 1,
+            true
+        );
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
     }

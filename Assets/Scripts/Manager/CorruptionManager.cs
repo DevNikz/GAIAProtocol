@@ -17,33 +17,7 @@ Corruption
 
     [Header("Stats")]
     [SerializeField]
-    private List<float> corruptionList = new List<float> { 0.33f, 0.33f }; //Planet Corruption
-
-    [SerializeField]
-    private int promptedCorruptionIndex;
-
-    public int GetPromptedCorruptionIndex()
-    {
-        return promptedCorruptionIndex;
-    }
-
-    public void SetPromptedCorruptionIndex(int value)
-    {
-        promptedCorruptionIndex = value;
-    }
-
-    [SerializeField]
-    private float promptedCorruption;
-
-    public float GetPromptedCorruption()
-    {
-        return promptedCorruption;
-    }
-
-    public void SetPromptedCorruption(float value)
-    {
-        promptedCorruption = value;
-    }
+    private float corruptionFloat = 0.0f;
 
     [Header("UI")]
     [SerializeField]
@@ -52,37 +26,9 @@ Corruption
     [SerializeField]
     private Material bar;
 
-    [SerializeField]
-    private int selectedAreaIndex;
-
-    public int GetAreaIndex()
-    {
-        return selectedAreaIndex;
-    }
-
-    public void SetAreaIndex(int value)
-    {
-        selectedAreaIndex = value;
-    }
-
-    public float GetCorruption()
-    {
-        return corruptionList[selectedAreaIndex];
-    }
-
     public void SetCorruption(float value)
     {
-        corruptionList[selectedAreaIndex] = value;
-    }
-
-    public float GetCorruptionByIndex(int index)
-    {
-        return corruptionList[index];
-    }
-
-    public void SetCorruptionByIndex(int index, float value)
-    {
-        corruptionList[index] = value;
+        corruptionFloat = value;
     }
 
     private void Awake()
@@ -118,7 +64,8 @@ Corruption
 
     void LateUpdate()
     {
-        bar.SetFloat("_Fill", corruptionList[selectedAreaIndex]);
+        //bar.SetFloat("_Fill", corruptionList[selectedAreaIndex]);
+        bar.SetFloat("_Fill", corruptionFloat);
     }
 
     public void DisableCanvas()

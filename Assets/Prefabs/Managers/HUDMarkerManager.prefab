@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 2289967550113141046}
   - component: {fileID: 7451794500015005373}
   - component: {fileID: 8301471933328133132}
+  - component: {fileID: 6805594323234105130}
   m_Layer: 5
   m_Name: HUDMarkerManager
   m_TagString: Untagged
@@ -93,7 +94,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 7
+  m_AdditionalShaderChannelsFlag: 31
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -152,3 +153,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerManager
   MarkerPrefab: {fileID: 9134523022594713976, guid: 5e14dbe7e7fa6db449d48273d1af2b52, type: 3}
   MarkerRoot: {fileID: 7244099244712055568}
+--- !u!225 &6805594323234105130
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178634017332473308}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

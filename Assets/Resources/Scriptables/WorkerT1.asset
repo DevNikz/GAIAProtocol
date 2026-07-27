@@ -15,6 +15,6 @@ MonoBehaviour:
   hp: 100
   actionPoints: 4
   moveRange: 4
-  interactEfficiency: 0.25
+  interactEfficiency: 1
   hasMeleeAttack: 0
   hasRegenHealth: 0

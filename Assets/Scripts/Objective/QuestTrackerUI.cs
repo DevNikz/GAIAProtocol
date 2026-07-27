@@ -52,6 +52,7 @@ public class QuestTrackerUI : MonoBehaviour
         if (entries.TryGetValue(index, out var entry))
         {
             entry.MarkComplete();
+            entry.RefreshProgress();
             entries.Remove(index);
         }
     }

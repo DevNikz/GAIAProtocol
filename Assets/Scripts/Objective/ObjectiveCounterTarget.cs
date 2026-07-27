@@ -17,6 +17,9 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
     [SerializeField, Min(1)]
     private int incrementAmount = 1;
 
+    [SerializeField]
+    private SoundController soundController;
+
     private bool hasBeenCollected;
 
     /// <summary>Used by ObjectiveWorldUI to find what progress to display for this instance.</summary>
@@ -72,6 +75,9 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
             return;
         }
 
+        if (soundController != null)
+            SoundManager.Instance.PlaySFX("Harvest");
+
         hasBeenCollected = true;
         counter.Increment(incrementAmount);
 
@@ -80,16 +86,19 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
 
         if (crystalHarvestManager != null)
         {
+            Debug.Log("Harvested Crystal/Plant!");
             crystalHarvestManager.HarvestAll();
         }
+        else
+            gameObject.SetActive(false);
 
-        //gameObject.SetActive(false);
+        LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
+        LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+        Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, true);
+        onInteractionComplete?.Invoke();
     }
 
     public void Interact(Action onInteractionComplete, float percentageAdd) { }
 
-    public override float GetProgress()
-    {
-        throw new NotImplementedException();
-    }
+    public override float GetProgress() => GetSharedObjective()?.GetProgress() ?? 0f;
 }

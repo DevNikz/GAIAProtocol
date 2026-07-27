@@ -84,12 +84,14 @@ public class InteractAction : BaseAction
     {
         IInteractable interactable = LevelGrid.Instance.GetInteractableAtGridPosition(gridPosition);
 
+        ActionStart(onActionComplete);
+
         if (interactable is ObjectiveInteractFill objectiveInteractFill)
             objectiveInteractFill.Interact(OnInteractComplete, percentageAdd);
         else if (interactable is ObjectiveCounterTarget objectiveCounterTarget)
             objectiveCounterTarget.Interact(OnInteractComplete);
-
-        ActionStart(onActionComplete);
+        else
+            OnInteractComplete();
     }
 
     private void OnInteractComplete()

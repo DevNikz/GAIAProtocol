@@ -20,25 +20,26 @@ public class EnemyAI_Old : MonoBehaviour
     private float timer;
     private Coroutine wakeCoroutine;
 
+    [SerializeField]
+    bool playedWakeAnim;
+
     private void Awake()
     {
         state = State.WaitingForEnemyTurn;
     }
 
-    private void Start()
-    {
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
-    }
-
     void OnEnable()
     {
-        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
     void OnDisable()
     {
         if (TurnSystem.Instance != null)
+        {
             TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+            playedWakeAnim = false;
+        }
     }
 
     private void Update()
@@ -88,34 +89,76 @@ public class EnemyAI_Old : MonoBehaviour
     {
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
-            if (wakeCoroutine != null)
-                StopCoroutine(wakeCoroutine);
-            wakeCoroutine = StartCoroutine(InitWake());
+            if (CheckKaijuActive())
+            {
+                Debug.Log("Wake up Kaiju.");
+                if (wakeCoroutine != null)
+                    StopCoroutine(wakeCoroutine);
+                wakeCoroutine = StartCoroutine(InitWake());
+            }
+            else
+            {
+                Debug.Log("Kaiju Disabled?");
+                TurnSystem.Instance.NextTurn();
+            }
         }
     }
 
     IEnumerator InitWake()
     {
-        Debug.Log($"animate kaiju");
-        DoKaijuWake();
+        playedWakeAnim = DoKaijuWake();
 
-        yield return new WaitForSeconds(6f);
+        if (playedWakeAnim)
+        {
+            Debug.Log("animate kaiju");
+            yield return new WaitForSeconds(6f);
+        }
+
+        // Debug.Log($"animate kaiju");
+        // DoKaijuWake();
 
         Debug.Log($"Set Turn");
         state = State.TakingTurn;
         timer = 2f;
-        yield return null;
     }
 
-    void DoKaijuWake()
+    // void DoKaijuWake()
+    // {
+    //     foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
+    //     {
+    //         if (!enemyUnit.GetComponent<KaijuUnit>().HasAnimatedWake())
+    //         {
+    //             enemyUnit.GetComponent<KaijuUnit>().InitAnimateAwake();
+    //         }
+    //     }
+    // }
+
+    bool DoKaijuWake()
+    {
+        bool anyWoke = false;
+        foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
+        {
+            var kaiju = enemyUnit.GetComponent<KaijuUnit>();
+            if (!kaiju.HasAnimatedWake())
+            {
+                kaiju.InitAnimateAwake();
+                anyWoke = true;
+            }
+        }
+        return anyWoke;
+    }
+
+    bool CheckKaijuActive()
     {
         foreach (Unit enemyUnit in UnitManager.Instance.GetKaijuList())
         {
-            if (!enemyUnit.GetComponent<KaijuUnit>().HasAnimatedWake())
+            var kaiju = enemyUnit.gameObject;
+            if (kaiju.activeInHierarchy)
             {
-                enemyUnit.GetComponent<KaijuUnit>().InitAnimateAwake();
+                return true;
             }
         }
+        return false;
     }
 
     bool TryTakeKaijuAction(Action onEnemyAIActionComplete)

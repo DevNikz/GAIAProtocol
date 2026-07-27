@@ -5,6 +5,8 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 {
     [SerializeField, Range(0.1f, 5f)]
     private float fillRatePerInteract = 1f;
+
+    [SerializeField]
     private float percentage;
     private float timer;
 
@@ -70,17 +72,23 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         if (percentage >= 1f)
             CompleteObjective();
         */
-        if (!isComplete)
+        if (!isComplete) //isComplete false
             UpdateObjective();
         else
         {
             if (!disableInteract)
             {
-                SoundManager.Instance.PlaySFX("ObjectiveInteract");
-                //soundController.PlaySound(5);
-                LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
-                LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
-                disableInteract = true;
+                timer -= Time.deltaTime;
+                if (timer <= 0f)
+                {
+                    if (HasRadarScan)
+                        radarScan.TriggerScan(transform.position);
+
+                    LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
+                    LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+                    disableInteract = true;
+                    onInteractionComplete?.Invoke();
+                }
             }
         }
     }
@@ -102,7 +110,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                     //Do terminal thingy here
                     //TerminalPuzzleUI.Instance.ShowPuzzleUI();
                     LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
-                    onInteractionComplete();
+                    onInteractionComplete?.Invoke();
                 }
             }
         }
@@ -115,7 +123,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                 LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                 LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
                 isComplete = true;
-                onInteractionComplete();
+                onInteractionComplete?.Invoke();
             }
         }
     }
@@ -124,19 +132,23 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
     public void Interact(Action onInteractionComplete, float percentageAdd)
     {
+        if (isComplete)
+            return;
+
         if (soundController != null)
-        {
-            SoundManager.Instance.PlaySFX("ObjectiveComplete");
-            //soundController.PlaySound(4);
-        }
+            SoundManager.Instance.PlaySFX("ObjectiveInteract");
 
         this.onInteractionComplete = onInteractionComplete;
         isBeingInteracted = true;
         percentage += percentageAdd;
         timer = 0.5f;
 
-        if (HasRadarScan)
-            radarScan.TriggerScan(transform.position);
+        if (percentage == 1.0f)
+        {
+            if (soundController != null)
+                SoundManager.Instance.PlaySFX("ObjectiveComplete");
+            CompleteObjective();
+        }
     }
 
     public void SetInteracting(bool value)

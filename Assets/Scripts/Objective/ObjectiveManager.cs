@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -14,6 +15,16 @@ public class ObjectiveManager : MonoBehaviour
 
     public static event Action<int> OnObjectiveCompleted;
 
+    [SerializeField]
+    bool mainCompleted;
+
+    public bool IsMainComplete() => mainCompleted;
+
+    [SerializeField]
+    bool sideCompleted;
+
+    public bool IsSideCompleted() => sideCompleted;
+
     private void Awake()
     {
         if (Instance == null)
@@ -23,6 +34,34 @@ public class ObjectiveManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.buildIndex)
+        {
+            case 0:
+                // mainCompleted = false;
+                // sideCompleted = false;
+                // objectives.Clear();
+                // completedIndices.Clear();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ResetValues()
+    {
+        mainCompleted = false;
+        sideCompleted = false;
+        objectives.Clear();
+        completedIndices.Clear();
     }
 
     public void Register(ObjectiveBase objective)
@@ -51,7 +90,10 @@ public class ObjectiveManager : MonoBehaviour
     public void SetComplete(int index)
     {
         if (completedIndices.Add(index))
+        {
             OnObjectiveCompleted?.Invoke(index);
+            CheckAndTriggerExtraction();
+        }
     }
 
     public bool GetComplete(int index) => completedIndices.Contains(index);
@@ -69,6 +111,45 @@ public class ObjectiveManager : MonoBehaviour
         objectives.Values.Where(o => !o.IsComplete());
 
     public IEnumerable<ObjectiveBase> GetAllObjectives() => objectives.Values;
+
+    public bool AreMainObjectivesComplete()
+    {
+        return objectives
+            .Values.Where(o => o.GetObjectiveType() == ObjectiveType.Main)
+            .All(o => o.IsComplete());
+    }
+
+    public bool AreSideObjectivesComplete()
+    {
+        return objectives
+            .Values.Where(o => o.GetObjectiveType() == ObjectiveType.Side)
+            .All(o => o.IsComplete());
+    }
+
+    public bool HasSideObjectives()
+    {
+        return objectives.Values.Any(o => o.GetObjectiveType() == ObjectiveType.Side);
+    }
+
+    public void CheckAndTriggerExtraction()
+    {
+        if (AreMainObjectivesComplete())
+            mainCompleted = true;
+        else
+            return;
+
+        if (AreSideObjectivesComplete())
+            sideCompleted = true;
+
+        if (ExtractionManager.Instance != null)
+        {
+            ExtractionManager.Instance.SetButtonVisible(true);
+        }
+        else
+            Debug.LogWarning(
+                "ObjectiveManager: ExtractionManager.Instance is null — cannot trigger extraction."
+            );
+    }
 }
 
 /*

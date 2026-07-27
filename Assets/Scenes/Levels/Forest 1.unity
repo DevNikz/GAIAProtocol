@@ -6088,10 +6088,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85bdf1ec9e80304b89cdbc9fe70f8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveCounter
+  displayName: Harvest Corrupted Plants
   objectiveIndex: 1
   objectiveDesc: Harvest Corrupted Plants
   objectiveType: 1
-  targetCount: 10
+  isComplete: 0
+  targetCount: 1
 --- !u!4 &540897133
 Transform:
   m_ObjectHideFlags: 0
@@ -18606,6 +18608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI_Old
   state: 0
   timer: 0
+  playedWakeAnim: 0
 --- !u!1001 &1792971546
 PrefabInstance:
   m_ObjectHideFlags: 0

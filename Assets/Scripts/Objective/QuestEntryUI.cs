@@ -62,6 +62,6 @@ public class QuestEntryUI : MonoBehaviour
     public void MarkComplete()
     {
         label.text += " (Complete)";
-        Destroy(gameObject, 1.5f);
+        //Destroy(gameObject, 1.5f);
     }
 }
