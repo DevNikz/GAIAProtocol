@@ -31,6 +31,9 @@ public class Unit : MonoBehaviour
     bool hasCorruptionImmune;
     bool hasMeleeAction;
 
+    [SerializeField]
+    UnitWorldUI unitWorldUI;
+
     public bool HasCorruptionImmune()
     {
         return hasCorruptionImmune;
@@ -80,6 +83,7 @@ public class Unit : MonoBehaviour
 
     public void InitAP(int ap)
     {
+        Debug.Log($"AP: {ap}");
         actionPoints = ap;
     }
 
@@ -106,17 +110,21 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
+        unitWorldUI = transform.Find("UnitWorldUI").GetComponent<UnitWorldUI>();
+    }
 
-        //hp
+    public void SetValues()
+    {
+        // hp
         if (customHP != 0)
             InitHP(customHP);
 
         //Ap
-        if (customAP == 0)
-            actionPoints = ACTION_POINTS_MAX;
-        else
+        if (customAP != 0)
             InitAP(customAP);
 
+        unitWorldUI.UpdateHealthBar();
+        unitWorldUI.UpdateActionPointsText();
         //bools
         SetRegenHealthToSys(hasRegenHP);
         SetCorruptionResistToSys(hasCorruptionResist);
@@ -133,17 +141,13 @@ public class Unit : MonoBehaviour
             GetComponent<SwordAction>().SetMinDmg(5);
             GetComponent<SwordAction>().SetMaxDmg(8);
         }
-
-        // if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
-        // else actionPoints = setCustomAP;
-
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-
-        baseActionArray = GetComponents<BaseAction>();
     }
 
     private void Start()
     {
+        //Debug.Log($"Start called on: {gameObject.name} with ID: {GetInstanceID()}", this);
+        baseActionArray = GetComponents<BaseAction>();
+
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
@@ -151,6 +155,8 @@ public class Unit : MonoBehaviour
         healthSystem.OnDead += HealthSystem_OnDead;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+
+        SetValues();
     }
 
     void OnDisable()
@@ -244,10 +250,13 @@ public class Unit : MonoBehaviour
             || (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
         )
         {
-            if (customAP == 0)
-                actionPoints = ACTION_POINTS_MAX;
-            else
+            if (customAP != 0)
                 InitAP(customAP);
+
+            // if (customAP == 0)
+            //     actionPoints = ACTION_POINTS_MAX;
+            // else
+            //     InitAP(customAP);
             // if(setCustomAP == 0) actionPoints = ACTION_POINTS_MAX;
             // else actionPoints = setCustomAP;
 

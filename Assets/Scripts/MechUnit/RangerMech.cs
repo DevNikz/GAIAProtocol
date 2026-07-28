@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class RangerMech : MonoBehaviour
 {
-    [SerializeField] RangerScriptableObject rangerTier;
+    [SerializeField]
+    RangerScriptableObject rangerTier;
 
-    public void SetCurrentTier(RangerScriptableObject tier) { rangerTier = tier; } 
+    public void SetCurrentTier(RangerScriptableObject tier)
+    {
+        rangerTier = tier;
+    }
 
     public void SetCustomValues()
     {
@@ -16,5 +20,6 @@ public class RangerMech : MonoBehaviour
         GetComponent<ShootAction>().SetMaxDmg(rangerTier.maxAttackDamage);
         GetComponent<ShootAction>().HasPlasmaRifle(rangerTier.hasPlasmaRifle);
         GetComponent<Unit>().SetCorruptionResist(rangerTier.hasCorruptionResist);
+        //GetComponent<Unit>().SetValues();
     }
 }

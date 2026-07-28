@@ -47,15 +47,12 @@ public class ExtractionManager : MonoBehaviour
                 break;
             case 1:
                 InitButton(1);
-                AddExtractionArea();
                 break;
             case 2:
                 InitButton(2);
-                AddExtractionArea();
                 break;
             case 3:
                 InitButton(3);
-                AddExtractionArea();
                 break;
         }
     }

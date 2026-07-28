@@ -109,7 +109,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
                     //Do terminal thingy here
                     //TerminalPuzzleUI.Instance.ShowPuzzleUI();
-                    LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
+                    // LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                     onInteractionComplete?.Invoke();
                 }
             }

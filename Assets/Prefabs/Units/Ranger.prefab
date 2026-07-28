@@ -796,8 +796,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.046724807, g: 0.6603774, b: 0.58337003, a: 1}
-      key1: {r: 0.046724807, g: 0.6603774, b: 0.58337003, a: 1}
+      key0: {r: 0.046724807, g: 0.6603774, b: 0.58337003, a: 0.5019608}
+      key1: {r: 0.046724807, g: 0.6603774, b: 0.58337003, a: 0.5019608}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1152,15 +1152,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8753230261080146677, guid: 4f969ac164d87114492bfbf478854c15, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 8753230261080146677, guid: 4f969ac164d87114492bfbf478854c15, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 8753230261080146677, guid: 4f969ac164d87114492bfbf478854c15, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 8753230261080146677, guid: 4f969ac164d87114492bfbf478854c15, type: 3}
       propertyPath: m_LocalPosition.x

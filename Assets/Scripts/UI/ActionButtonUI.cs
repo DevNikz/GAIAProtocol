@@ -35,6 +35,7 @@ public class ActionButtonUI : MonoBehaviour
                 break;
             case "Interact":
                 actionIcon.sprite = UnitActionSystem.Instance.actionIconList[1];
+
                 break;
             case "Sword":
                 actionIcon.sprite = UnitActionSystem.Instance.actionIconList[2];

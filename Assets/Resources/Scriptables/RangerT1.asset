@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RangerT1
   m_EditorClassIdentifier: Assembly-CSharp::RangerScriptableObject
   hp: 100
-  actionPoints: 4
+  actionPoints: 5
   moveRange: 4
   attackRange: 7
   minAttackDamage: 5

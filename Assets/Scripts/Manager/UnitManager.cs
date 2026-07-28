@@ -71,6 +71,9 @@ public class UnitManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 1:
+            case 2:
+            case 3:
+            case 4:
                 SpawnFriendlyUnits();
                 break;
         }
@@ -80,11 +83,14 @@ public class UnitManager : MonoBehaviour
     {
         //SpawnFriendlyUnits
         int count = MechManager.Instance.GetUnitsToBeDeployed();
+        //Debug.Log($"Count: {count}");
         List<FriendlyUnitType> types = MechManager.Instance.GetFriendlyUnits();
         for (int i = 0; i < count; i++)
         {
             if (types[i] == FriendlyUnitType.WORKER)
             {
+                //Debug.Log($"WORKER SPAWNED");
+
                 ReferenceUnitList[i]
                     .GetComponent<WorkerMech>()
                     .SetCurrentTier(MechManager.Instance.GetCurrentTierWorkerObject());
@@ -93,6 +99,7 @@ public class UnitManager : MonoBehaviour
             }
             else
             {
+                //Debug.Log($"RANGER SPAWNED");
                 ReferenceUnitList[i + 3]
                     .GetComponent<RangerMech>()
                     .SetCurrentTier(MechManager.Instance.GetCurrentTierRangerObject());

@@ -101,6 +101,6 @@ public class InteractAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        return GetComponent<Unit>().actionPoints;
+        return 2;
     }
 }

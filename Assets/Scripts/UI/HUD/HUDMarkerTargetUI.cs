@@ -38,7 +38,7 @@ public class HUDMarkerTargetUI : MonoBehaviour
         }
     }
 
-    void Update()
+    public void UpdatePosition()
     {
         if (isObjective)
         {
@@ -55,15 +55,6 @@ public class HUDMarkerTargetUI : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-
-            //For Extractions
-            /*
-            if (ObjectiveManager.Instance.CheckCompleteBool())
-            {
-                GetComponent<Image>().enabled = true;
-                LinkedImage.enabled = true;
-            }
-            */
         }
 
         var viewportPos = cam.WorldToViewportPoint(LinkedTarget.transform.position);
@@ -82,6 +73,11 @@ public class HUDMarkerTargetUI : MonoBehaviour
         {
             OffScreenRepositionMarker();
         }
+    }
+
+    void Update()
+    {
+        UpdatePosition();
     }
 
     void OnScreenRepositionMarker()

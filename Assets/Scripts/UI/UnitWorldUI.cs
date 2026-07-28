@@ -21,9 +21,6 @@ public class UnitWorldUI : MonoBehaviour
 
     private void Start()
     {
-        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
-        healthSystem.OnDamaged += HealthSystem_OnDamaged;
-
         UpdateActionPointsText();
         UpdateHealthBar();
     }
@@ -32,9 +29,6 @@ public class UnitWorldUI : MonoBehaviour
     {
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
         healthSystem.OnDamaged += HealthSystem_OnDamaged;
-
-        UpdateActionPointsText();
-        UpdateHealthBar();
     }
 
     void OnDisable()
@@ -43,7 +37,7 @@ public class UnitWorldUI : MonoBehaviour
         healthSystem.OnDamaged -= HealthSystem_OnDamaged;
     }
 
-    private void UpdateActionPointsText()
+    public void UpdateActionPointsText()
     {
         actionPointsText.text = unit.GetActionPoints().ToString();
     }
@@ -53,7 +47,7 @@ public class UnitWorldUI : MonoBehaviour
         UpdateActionPointsText();
     }
 
-    private void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         healthBarImage.fillAmount = healthSystem.GetHealthNormalized();
     }

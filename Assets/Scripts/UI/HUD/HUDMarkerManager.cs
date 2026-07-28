@@ -5,24 +5,28 @@ public class HUDMarkerManager : MonoBehaviour
 {
     public static HUDMarkerManager Instance { get; private set; }
 
-    [SerializeField] private GameObject MarkerPrefab;
-    [SerializeField] private Transform MarkerRoot;
+    [SerializeField]
+    private GameObject MarkerPrefab;
+
+    [SerializeField]
+    private Transform MarkerRoot;
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 0:
                 ClearMarkers();
@@ -34,14 +38,19 @@ public class HUDMarkerManager : MonoBehaviour
     {
         for (int i = MarkerRoot.childCount - 1; i >= 0; i--)
         {
-            if(MarkerRoot.name != MarkerRoot.GetChild(i).name) Destroy(MarkerRoot.GetChild(i).gameObject);
+            if (MarkerRoot.name != MarkerRoot.GetChild(i).name)
+                Destroy(MarkerRoot.GetChild(i).gameObject);
         }
     }
 
-    public void AddMarker(HUDMarkerInWorldTarget target, Sprite image, bool isObjective, int index = 0)
+    public void AddMarker(
+        HUDMarkerInWorldTarget target,
+        Sprite image,
+        bool isObjective,
+        int index = 0
+    )
     {
         var newMarker = Instantiate(MarkerPrefab, Vector3.zero, Quaternion.identity, MarkerRoot);
-
         newMarker.GetComponent<HUDMarkerTargetUI>().Bind(target, image, isObjective, index);
     }
 }

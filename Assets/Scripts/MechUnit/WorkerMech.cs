@@ -25,5 +25,7 @@ public class WorkerMech : MonoBehaviour
         GetComponent<Unit>().SetMeleeAction(workerTier.hasMeleeAttack);
         //GetComponent<SwordAction>().enabled = workerTier.hasMeleeAttack;
         GetComponent<Unit>().SetRegenHealth(workerTier.hasRegenHealth);
+
+        // GetComponent<Unit>().SetValues();
     }
 }

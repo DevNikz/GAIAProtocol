@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WorkerT1
   m_EditorClassIdentifier: Assembly-CSharp::WorkerScriptableObject
   hp: 100
-  actionPoints: 4
+  actionPoints: 5
   moveRange: 4
-  interactEfficiency: 1
+  interactEfficiency: 0.25
   hasMeleeAttack: 0
   hasRegenHealth: 0
