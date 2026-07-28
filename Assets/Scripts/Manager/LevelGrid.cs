@@ -35,6 +35,7 @@ public class LevelGrid : MonoBehaviour
     [SerializeField]
     private int floorAmount;
 
+    [SerializeField]
     private List<GridSystem<GridObject>> gridSystemList;
 
     private void Awake()
@@ -90,7 +91,8 @@ public class LevelGrid : MonoBehaviour
         {
             case 1:
             case 2:
-                //Debug.Log("Forest 1 load grid.");
+            case 3:
+            case 4:
                 gridSystemList.Clear();
                 SetupPathGrid();
                 Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);

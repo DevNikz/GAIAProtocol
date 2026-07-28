@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5232706550597620438}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -56,3 +56,4 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 676403002645de141824ed7a33cf298c, type: 2}
   - gridVisualType: 3
     material: {fileID: 2100000, guid: 33d0f3425c63f0d4182ec071ab56fd38, type: 2}
+  toggleVisuals: 1

@@ -54,6 +54,9 @@ public class ExtractionManager : MonoBehaviour
             case 3:
                 InitButton(3);
                 break;
+            case 4:
+                InitButton(4);
+                break;
         }
     }
 

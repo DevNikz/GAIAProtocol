@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,6 +34,9 @@ public class GridSystemVisual : MonoBehaviour
     private GridSystemVisualSingle[,,] gridSystemVisualSingleArray;
 
     private bool hasCreatedVisuals;
+
+    [SerializeField]
+    bool toggleVisuals;
 
     public void SetVisuals(bool value)
     {
@@ -71,7 +75,13 @@ public class GridSystemVisual : MonoBehaviour
     {
         switch (scene.buildIndex)
         {
+            case 0:
+                hasCreatedVisuals = false;
+                break;
             case 1:
+            case 2:
+            case 3:
+            case 4:
                 if (!hasCreatedVisuals)
                 {
                     Debug.Log("Setup Grid Visual");

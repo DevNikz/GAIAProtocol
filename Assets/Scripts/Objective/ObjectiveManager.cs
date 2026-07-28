@@ -36,26 +36,6 @@ public class ObjectiveManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Start()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        switch (scene.buildIndex)
-        {
-            case 0:
-                // mainCompleted = false;
-                // sideCompleted = false;
-                // objectives.Clear();
-                // completedIndices.Clear();
-                break;
-            default:
-                break;
-        }
-    }
-
     public void ResetValues()
     {
         mainCompleted = false;

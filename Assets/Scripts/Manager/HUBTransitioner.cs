@@ -380,6 +380,7 @@ public class HUBTransitioner : MonoBehaviour
             case 1:
             case 2:
             case 3:
+            case 4:
                 SoundManager.Instance.PlayMusic("Forest");
                 break;
         }
@@ -401,6 +402,9 @@ public class HUBTransitioner : MonoBehaviour
                 break;
             case 3:
                 DialogueManager.Instance.StartDialogue(DialogueType.FOREST3);
+                break;
+            case 4:
+                DialogueManager.Instance.StartDialogue(DialogueType.FOREST4);
                 break;
         }
         yield return new WaitForSeconds(0.5f);

@@ -46,6 +46,7 @@ public class Pathfinding : MonoBehaviour
         this.cellSize = cellSize;
         this.floorAmount = floorAmount;
 
+        //Debug.Log($"Check Current Grid Count: {gridSystemList.Count}");
         gridSystemList = new List<GridSystem<PathNode>>();
 
         for (int floor = 0; floor < floorAmount; floor++)

@@ -8,12 +8,18 @@ public class CurrencyManager : MonoBehaviour
     public static CurrencyManager Instance { get; private set; }
 
     [Header("Stats")]
-    [SerializeField, Min(0)] private int researchPoints;
-    [SerializeField, Min(0)] private int promptedPoints;
+    [SerializeField, Min(0)]
+    private int researchPoints;
+
+    [SerializeField, Min(0)]
+    private int promptedPoints;
 
     [Header("UI")]
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private TextMeshProUGUI pointsUI;
+    [SerializeField]
+    private GameObject canvas;
+
+    [SerializeField]
+    private TextMeshProUGUI pointsUI;
 
     private void Awake()
     {
@@ -22,7 +28,8 @@ public class CurrencyManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
         researchPoints = 50;
     }
@@ -39,12 +46,15 @@ public class CurrencyManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.buildIndex)
+        switch (scene.buildIndex)
         {
             case 0:
                 canvas.SetActive(true);
                 break;
             case 1:
+            case 2:
+            case 3:
+            case 4:
                 canvas.SetActive(false);
                 break;
         }
@@ -75,6 +85,13 @@ public class CurrencyManager : MonoBehaviour
         promptedPoints = value;
     }
 
-    public void DisableCanvas() { canvas.SetActive(false); }
-    public void EnableCanvas() { canvas.SetActive(true); }
+    public void DisableCanvas()
+    {
+        canvas.SetActive(false);
+    }
+
+    public void EnableCanvas()
+    {
+        canvas.SetActive(true);
+    }
 }

@@ -11,6 +11,7 @@ public enum DialogueType
     FOREST1,
     FOREST2,
     FOREST3,
+    FOREST4,
     ARMORY,
     MECH_DEPLOYMENT,
 }
@@ -26,7 +27,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     Dialogue Forest1,
         Forest2,
-        Forest3;
+        Forest3,
+        Forest4;
 
     [SerializeField]
     Dialogue Armory,
@@ -160,6 +162,9 @@ public class DialogueManager : MonoBehaviour
                 break;
             case DialogueType.FOREST3:
                 dialogue = Forest3;
+                break;
+            case DialogueType.FOREST4:
+                dialogue = Forest4;
                 break;
             case DialogueType.ARMORY:
                 dialogue = Armory;

@@ -106,7 +106,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                 {
                     isBeingInteracted = false;
                     //hasBeenInteracted = true;
-
                     //Do terminal thingy here
                     //TerminalPuzzleUI.Instance.ShowPuzzleUI();
                     // LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
