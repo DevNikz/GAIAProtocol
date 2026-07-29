@@ -17,10 +17,14 @@ public class ToxicPuddle : MonoBehaviour
     [SerializeField]
     private float fadeDuration = 1f;
 
+    [SerializeField]
+    bool hasExpiry = true;
+
     private GridPosition gridPosition;
     private Renderer puddleRenderer;
     private Material puddleMaterialInstance;
     private MaterialPropertyBlock propBlock;
+    private readonly HashSet<Unit> unitsInPuddle = new HashSet<Unit>();
     private static readonly int customFadeId = Shader.PropertyToID("_Edge_Fade_Alpha");
     private static readonly int customColorId2 = Shader.PropertyToID("_Color2");
     private System.Action<ToxicPuddle> releaseToPool;
@@ -76,7 +80,7 @@ public class ToxicPuddle : MonoBehaviour
         ApplyEffectsToUnitsOnTile();
 
         turnsRemaining--;
-        if (turnsRemaining <= 0)
+        if (turnsRemaining <= 0 && hasExpiry == true)
             Expire();
     }
 
@@ -105,7 +109,49 @@ public class ToxicPuddle : MonoBehaviour
         status.Apply(turnsRemaining: 2, slowAmount: 0.5f);
     }
 
-    private void Expire()
+    private void OnTriggerEnter(Collider other)
+    {
+        Unit unit = other.GetComponentInParent<Unit>();
+        if (unit == null)
+            return;
+
+        if (unitsInPuddle.Contains(unit))
+            return; // already applied for this stay in the puddle
+
+        unitsInPuddle.Add(unit);
+        ApplyEffectsToUnit(unit);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Unit unit = other.GetComponentInParent<Unit>();
+        if (unit == null)
+            return;
+
+        unitsInPuddle.Remove(unit);
+    }
+
+    private void ApplyEffectsToUnit(Unit unit)
+    {
+        if (unit.HasCorruptionImmune())
+            return;
+
+        // Damage
+        HealthSystem healthSystem = unit.GetComponent<HealthSystem>();
+        if (healthSystem.HasCorruptionResist())
+            healthSystem.Damage(damagePerTurn / 2);
+        else
+            healthSystem.Damage(damagePerTurn);
+
+        // Status effect
+        ToxicStatusEffect status = unit.GetComponent<ToxicStatusEffect>();
+        if (status == null)
+            status = unit.gameObject.AddComponent<ToxicStatusEffect>();
+
+        status.Apply(turnsRemaining: 2, slowAmount: 0.5f);
+    }
+
+    public void Expire()
     {
         TurnSystem.Instance.OnTurnChanged -= OnTurnChanged;
         LevelGrid.Instance.UnregisterToxicPuddle(gridPosition); // see note below

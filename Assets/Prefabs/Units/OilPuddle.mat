@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ToxicPuddle
+  m_Name: OilPuddle
   m_Shader: {fileID: -6465566751694194690, guid: 98a0dea63a9afc54599adab44dc30f7c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -186,8 +186,8 @@ Material:
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 10
     - _DstBlend2: 10
-    - _Edge_Fade_Alpha: 4.5
-    - _Edge_Fade_Scale: 25
+    - _Edge_Fade_Alpha: 10
+    - _Edge_Fade_Scale: 150
     - _Edge_Fade_Strength: 2.5
     - _Edge_Max_Strength: 0.55
     - _Edge_Min_Strength: 0.15
@@ -223,7 +223,7 @@ Material:
     - _MetallicRemapMin: 0
     - _NormalMapSpace: 0
     - _NormalScale: 1
-    - _Normal_Scale: 5
+    - _Normal_Scale: 10
     - _Normal_Strength: 2
     - _Normal_Tiling: 3
     - _ObjectSpaceUVMapping: 0
@@ -284,10 +284,10 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Noise_Speed: {r: 0.05, g: 0.03, b: 0, a: 0}
+    - _Base_Noise_Speed: {r: 0.02, g: 0.02, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color1: {r: 0, g: 0, b: 0, a: 1}
-    - _Color2: {r: 0.35110122, g: 0.023139905, b: 0.9811321, a: 1}
+    - _Color2: {r: 0.003921569, g: 1, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -295,7 +295,7 @@ Material:
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _Normal_Speed: {r: 0.02, g: 0.04, b: 0, a: 0}
+    - _Normal_Speed: {r: 0.01, g: 0.01, b: 0, a: 0}
     - _Normal_Tiling: {r: 2, g: 2, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}

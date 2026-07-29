@@ -1,8 +1,16 @@
 using System;
+using System.Collections.Generic;
+using ForestBiome;
 using UnityEngine;
 
 public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 {
+    [SerializeField]
+    OilFlowManager oilManager;
+
+    [SerializeField]
+    string pipeID;
+
     [SerializeField, Range(0.1f, 5f)]
     private float fillRatePerInteract = 1f;
 
@@ -22,8 +30,17 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
     [SerializeField]
     bool HasRadarScan = false;
 
+    [SerializeField]
+    bool IsPump = false;
+
     [SerializeField, Range(1f, 10f)]
     float modifier = 1.0f;
+
+    [SerializeField]
+    PumpjackAnimator pump;
+
+    [SerializeField]
+    List<ToxicPuddle> toxicPuddle;
 
     void Start()
     {
@@ -36,6 +53,12 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
         if (HasRadarScan)
             radarScan = GetComponent<RadarScanEffect>();
+        if (IsPump)
+        {
+            pump = GetComponent<PumpjackAnimator>();
+            if (pipeID != "")
+                oilManager.BeginOverflow(pipeID);
+        }
 
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
@@ -89,12 +112,28 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                     if (HasRadarScan)
                         radarScan.TriggerScan(transform.position);
 
+                    if (IsPump)
+                    {
+                        pump.SetEnabled(false);
+                        CleanPipeline();
+                    }
+
                     UnregisterFromGrid();
+
                     disableInteract = true;
                     onInteractionComplete?.Invoke();
                 }
             }
         }
+    }
+
+    void CleanPipeline()
+    {
+        for (int i = 0; i < toxicPuddle.Count; i++)
+            toxicPuddle[i].GetComponent<ToxicPuddle>().Expire();
+
+        if (pipeID != "")
+            oilManager.StopOverflow(pipeID);
     }
 
     void UpdateObjective()
