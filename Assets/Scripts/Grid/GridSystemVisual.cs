@@ -227,10 +227,15 @@ public class GridSystemVisual : MonoBehaviour
             .Show(GetGridVisualTypeMaterial(GridVisualType.White));
     }
 
-    public bool CheckGridMaterial(GridPosition gridPosition)
+    public void HideGridPositionVisual(GridPosition gridPosition)
     {
-        return gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, gridPosition.floor]
-            .CheckMaterial(GetGridVisualTypeMaterial(GridVisualType.White));
+        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, 0].Hide();
+    }
+
+    public void ShowGridPositionVisual(GridPosition gridPosition)
+    {
+        gridSystemVisualSingleArray[gridPosition.x, gridPosition.z, 0]
+            .Show(GetGridVisualTypeMaterial(GridVisualType.White));
     }
 
     private void UpdateGridVisual()

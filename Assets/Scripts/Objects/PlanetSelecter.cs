@@ -232,16 +232,12 @@ public class PlanetSelecter : MonoBehaviour
                 //Add objective details later on
                 nullState.SetActive(false);
                 DestroyChildren(stateContainer);
-                AddChildren(stateIcons[currentIndex], stateContainer);
+                AddChildren(stateIcons[0], stateContainer); //index 0 main
+                AddChildren(stateIcons[1], stateContainer); //index 1 side (plants/crystal)
 
+                rewardContainer.SetActive(true);
                 nullReward.SetActive(false);
-                DestroyChildren(rewardContainer);
-                AddChildren(rewardList[currentIndex], rewardContainer);
                 hasAddedChildren = true;
-
-                //Set objectives first
-                //ObjectiveManager.Instance.ClearObjectives();
-                //ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
 
                 //Set Level
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
@@ -274,11 +270,10 @@ public class PlanetSelecter : MonoBehaviour
                 //Add objective details later on
                 nullState.SetActive(false);
                 DestroyChildren(stateContainer);
-                AddChildren(stateIcons[currentIndex], stateContainer);
+                AddChildren(stateIcons[2], stateContainer); //Oil Pump
 
+                rewardContainer.SetActive(true);
                 nullReward.SetActive(false);
-                DestroyChildren(rewardContainer);
-                AddChildren(rewardList[currentIndex], rewardContainer);
                 hasAddedChildren = true;
 
                 //Set Level
@@ -304,106 +299,14 @@ public class PlanetSelecter : MonoBehaviour
                 nullState.SetActive(true);
 
                 //Reward
-                DestroyChildren(rewardContainer);
+                rewardContainer.SetActive(false);
                 nullReward.SetActive(true);
                 CurrencyManager.Instance.SetPromptedPoints(0);
                 RewardsManager.Instance.SetPoints(0);
-                /*
-                if(WorldManager.Instance.GetUnlockStateIndex(2) == false)
-                {
-                    canvas.SetActive(true);
-                    missionImage.sprite = levelIcons[currentIndex];
-                    missionHeader.text = "Locked Operation";
-                    missionDesc.text = "Classified Data.";
-
-                    levelComplete.SetActive(false);
-                    button.SetActive(false);
-                    nullButton.SetActive(true);
-
-                    //State
-                    DestroyChildren(stateContainer);
-                    nullState.SetActive(true);
-
-                    //Reward
-                    DestroyChildren(rewardContainer);
-                    nullReward.SetActive(true);
-                    CurrencyManager.Instance.SetPromptedPoints(0);
-                    CorruptionManager.Instance.SetPromptedCorruption(1f);
-                    CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
-                }
-                else
-                {
-                    canvas.SetActive(true);
-                    missionImage.sprite = levelIcons[currentIndex];
-                    missionHeader.text = "Operation\nChelonia";
-                    missionDesc.text = "Subdue The Chelonia.";
-
-                    //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                    nullButton.SetActive(false);
-                    if(WorldManager.Instance.GetWorldComplete(currentIndex))
-                    {
-                        levelComplete.SetActive(true);
-                        button.SetActive(false);
-                        SetupClearedArea(1);
-                    }
-                    else {
-                        levelComplete.SetActive(false);
-                        button.SetActive(true);
-                        button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex+1;
-                    }
-
-                    //Add objective details later on
-                    nullState.SetActive(false);
-                    DestroyChildren(stateContainer);
-                    AddChildren(stateIcons[currentIndex], stateContainer);
-
-                    nullReward.SetActive(false);
-                    DestroyChildren(rewardContainer);
-                    AddChildren(rewardList[currentIndex], rewardContainer);
-                    hasAddedChildren = true;
-
-                    //Set objectives first
-                    ObjectiveManager.Instance.ClearObjectives();
-                    ObjectiveManager.Instance.AddObjective(new ObjectiveObject(missionDesc.text));
-
-                    //Set Level
-                    LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
-
-                    //Set Max Prompted Points on Completion
-                    CurrencyManager.Instance.SetPromptedPoints(20);
-                    CorruptionManager.Instance.SetPromptedCorruption(1f);
-                    CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
-                }
-                */
                 break;
             default:
                 canvas.SetActive(false);
                 break;
-
-            /*
-            //Locked
-            case 2:
-                canvas.SetActive(true);
-                missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Locked Operation";
-                missionDesc.text = "Classified Data.";
-
-                levelComplete.SetActive(false);
-                button.SetActive(false);
-                nullButton.SetActive(true);
-
-                //State
-                DestroyChildren(stateContainer);
-                nullState.SetActive(true);
-
-                //Reward
-                DestroyChildren(rewardContainer);
-                nullReward.SetActive(true);
-                CurrencyManager.Instance.SetPromptedPoints(20);
-                CorruptionManager.Instance.SetPromptedCorruption(1f);
-                CorruptionManager.Instance.SetPromptedCorruptionIndex(0);
-                break;
-            */
         }
     }
 

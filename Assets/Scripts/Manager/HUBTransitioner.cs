@@ -136,10 +136,7 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         RewardsManager.Instance.SetCurrentLevel(1);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(
-            LevelManager.Instance.GetCurrentLevel() + 1,
-            true
-        );
+        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel(), true);
         //CorruptionManager.Instance.SetCorruptionByIndex(0, 0.33f);
         yield return new WaitForSeconds(0.5f);
 
@@ -159,10 +156,7 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         RewardsManager.Instance.SetCurrentLevel(1);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(
-            LevelManager.Instance.GetCurrentLevel() + 1,
-            true
-        );
+        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel(), true); //index start at 0
         RewardsManager.Instance.SetCurrentLevel(2);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
@@ -181,10 +175,7 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         RewardsManager.Instance.SetCurrentLevel(3);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(
-            LevelManager.Instance.GetCurrentLevel() + 1,
-            true
-        );
+        WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel(), true);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
     }
@@ -202,10 +193,7 @@ public class HUBTransitioner : MonoBehaviour
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
         RewardsManager.Instance.SetCurrentLevel(4);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
-        WorldManager.Instance.SetUnlockStateIndex(
-            LevelManager.Instance.GetCurrentLevel() + 1,
-            true
-        );
+        //WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel(), true);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
     }

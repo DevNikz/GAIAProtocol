@@ -22,12 +22,17 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
     [SerializeField]
     bool HasRadarScan = false;
 
+    [SerializeField, Range(1f, 10f)]
+    float modifier = 1.0f;
+
     void Start()
     {
-        gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-        LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
-        Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
+        RegisterOnGrid();
+        //SetupMergedGridVisual();
+        // gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        // LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+        // LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
+        // Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
 
         if (HasRadarScan)
             radarScan = GetComponent<RadarScanEffect>();
@@ -54,8 +59,8 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
             isBeingInteracted = false;
-            if (!isComplete)
-                LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+            // if (!isComplete)
+            //     LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
         }
     }
 
@@ -84,8 +89,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                     if (HasRadarScan)
                         radarScan.TriggerScan(transform.position);
 
-                    LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
-                    LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+                    UnregisterFromGrid();
                     disableInteract = true;
                     onInteractionComplete?.Invoke();
                 }
@@ -105,10 +109,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                 if (timer <= 0f)
                 {
                     isBeingInteracted = false;
-                    //hasBeenInteracted = true;
-                    //Do terminal thingy here
-                    //TerminalPuzzleUI.Instance.ShowPuzzleUI();
-                    // LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
                     onInteractionComplete?.Invoke();
                 }
             }
@@ -119,8 +119,8 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
             if (timer <= 0f)
             {
                 isBeingInteracted = false;
-                LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
-                LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+                UnregisterFromGrid();
+                //TeardownMergedGridVisual();
                 isComplete = true;
                 onInteractionComplete?.Invoke();
             }
@@ -139,7 +139,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
         this.onInteractionComplete = onInteractionComplete;
         isBeingInteracted = true;
-        percentage += percentageAdd;
+        percentage += percentageAdd * modifier;
         timer = 0.5f;
 
         if (percentage == 1.0f)
@@ -156,4 +156,44 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
     }
 
     public override float GetProgress() => percentage;
+
+    protected override void RegisterOnGrid()
+    {
+        Bounds bounds = GetObjectiveBounds();
+
+        GridPosition minGridPosition = LevelGrid.Instance.GetGridPosition(bounds.min);
+        GridPosition maxGridPosition = LevelGrid.Instance.GetGridPosition(bounds.max);
+
+        int minX = Mathf.Min(minGridPosition.x, maxGridPosition.x);
+        int maxX = Mathf.Max(minGridPosition.x, maxGridPosition.x);
+        int minZ = Mathf.Min(minGridPosition.z, maxGridPosition.z);
+        int maxZ = Mathf.Max(minGridPosition.z, maxGridPosition.z);
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int z = minZ; z <= maxZ; z++)
+            {
+                GridPosition gridPosition = new GridPosition(x, z, 0);
+
+                LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+                LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
+                Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
+
+                occupiedGridPositions.Add(gridPosition);
+            }
+        }
+    }
+
+    protected override void UnregisterFromGrid()
+    {
+        foreach (GridPosition gridPosition in occupiedGridPositions)
+        {
+            LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
+            LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
+            // Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, true);
+        }
+        occupiedGridPositions.Clear();
+    }
+
+    //void DisableInteract();
 }

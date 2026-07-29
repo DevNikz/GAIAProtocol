@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca291b39d7af91f4ca1f5e8463f968fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerInWorldTarget
-  HUDSprite: {fileID: 1146266368, guid: b84ea27da2c3eb14faa8ef5bf15492ab, type: 3}
+  HUDSprite: {fileID: -1677096064, guid: f8bd59490e791214db5819a592f19d8f, type: 3}
   obj: {fileID: 4699757229795514230}
   isObjective: 1
 --- !u!1 &4516348219208944269
@@ -177,7 +177,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 3, z: 2}
+  m_Size: {x: 1.5, y: 3, z: 1.5}
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &6818392201192464210
 MonoBehaviour:
@@ -303,16 +303,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5912768476477f84ab78ac95fbc99e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveInteractFill
+  mergedGridVisualPrefab: {fileID: 4317425081643120330, guid: cd6d2f1b81e1b71489bcb51f25af8659, type: 3}
   displayName: Activate The Array
   objectiveIndex: 0
   objectiveDesc: Activate the array to establish communications to HQ.
   objectiveType: 0
   isComplete: 0
-  fillRatePerInteract: 1
+  fillRatePerInteract: 1.5
   percentage: 0
   disableInteract: 0
   soundController: {fileID: 6818392201192464210}
   HasRadarScan: 1
+  modifier: 1
 --- !u!114 &5123060013782041739
 MonoBehaviour:
   m_ObjectHideFlags: 0

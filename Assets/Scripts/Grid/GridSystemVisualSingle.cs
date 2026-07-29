@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class GridSystemVisualSingle : MonoBehaviour
 {
-
-    [SerializeField] private MeshRenderer meshRenderer;
-
+    [SerializeField]
+    private MeshRenderer meshRenderer;
 
     public void Show(Material material)
     {
         meshRenderer.enabled = true;
         meshRenderer.material = material;
+    }
+
+    public void Show()
+    {
+        meshRenderer.enabled = true;
     }
 
     public void Hide()
@@ -21,6 +25,6 @@ public class GridSystemVisualSingle : MonoBehaviour
 
     public bool CheckMaterial(Material refMat)
     {
-       return meshRenderer.material = refMat; 
-    }  
+        return meshRenderer.material = refMat;
+    }
 }

@@ -6,22 +6,31 @@ public class WorldManager : MonoBehaviour
     public static WorldManager Instance { get; private set; }
 
     public List<bool> worldAreaCompletion;
-    [SerializeField] List<bool> planetUnlockState = new List<bool> {true, false, false};
-    public bool GetUnlockStateIndex(int index) { return planetUnlockState[index]; }
-    public void SetUnlockStateIndex(int index, bool value) { planetUnlockState[index] = value; }
-    
-    
+
+    [SerializeField]
+    List<bool> planetUnlockState = new List<bool> { true, false, false };
+
+    public bool GetUnlockStateIndex(int index)
+    {
+        return planetUnlockState[index];
+    }
+
+    public void SetUnlockStateIndex(int index, bool value)
+    {
+        planetUnlockState[index] = value;
+    }
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
 
-        worldAreaCompletion = new List<bool> ( new bool[9] );
+        worldAreaCompletion = new List<bool>(new bool[4]);
     }
 
     public bool GetWorldComplete(int index)

@@ -28,12 +28,35 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
 
     void Start()
     {
-        gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-        LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
-        Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
-
+        RegisterOnGrid();
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+    }
+
+    protected override void RegisterOnGrid()
+    {
+        Bounds bounds = GetObjectiveBounds();
+
+        GridPosition minGridPosition = LevelGrid.Instance.GetGridPosition(bounds.min);
+        GridPosition maxGridPosition = LevelGrid.Instance.GetGridPosition(bounds.max);
+
+        int minX = Mathf.Min(minGridPosition.x, maxGridPosition.x);
+        int maxX = Mathf.Max(minGridPosition.x, maxGridPosition.x);
+        int minZ = Mathf.Min(minGridPosition.z, maxGridPosition.z);
+        int maxZ = Mathf.Max(minGridPosition.z, maxGridPosition.z);
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int z = minZ; z <= maxZ; z++)
+            {
+                GridPosition gridPosition = new GridPosition(x, z, 0);
+
+                LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+                LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
+                Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
+
+                occupiedGridPositions.Add(gridPosition);
+            }
+        }
     }
 
     protected override void OnEnable()
@@ -92,9 +115,7 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
         else
             gameObject.SetActive(false);
 
-        LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
-        LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
-        Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, true);
+        UnregisterFromGrid();
         onInteractionComplete?.Invoke();
     }
 
