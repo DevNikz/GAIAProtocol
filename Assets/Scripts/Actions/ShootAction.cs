@@ -260,4 +260,9 @@ public class ShootAction : BaseAction
     {
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
+
+    public override int GetActionPointsCost()
+    {
+        return 2;
+    }
 }

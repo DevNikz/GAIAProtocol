@@ -82,25 +82,26 @@ public class PlanetSelecter : MonoBehaviour
     {
         ClearAreas();
         SetupCorruptedArea(0);
-        SetupCorruptedArea(1);
-        SetupCorruptedArea(2);
-        SetupLockedArea(3);
+        // SetupCorruptedArea(1);
+        // SetupCorruptedArea(2);
+        // SetupCorruptedArea(3);
+        //SetupLockedArea(3);
 
         //Turn this on later
-        // if (WorldManager.Instance.GetUnlockStateIndex(1))
-        //     SetupCorruptedArea(1);
-        // else
-        //     SetupLockedArea(1);
+        if (WorldManager.Instance.GetUnlockStateIndex(1))
+            SetupCorruptedArea(1);
+        else
+            SetupLockedArea(1);
 
-        // if (WorldManager.Instance.GetUnlockStateIndex(1))
-        //     SetupCorruptedArea(2);
-        // else
-        //     SetupLockedArea(2);
+        if (WorldManager.Instance.GetUnlockStateIndex(2))
+            SetupCorruptedArea(2);
+        else
+            SetupLockedArea(2);
 
-        // if (WorldManager.Instance.GetUnlockStateIndex(1))
-        //     SetupCorruptedArea(2);
-        // else
-        //     SetupLockedArea(2);
+        if (WorldManager.Instance.GetUnlockStateIndex(3))
+            SetupCorruptedArea(3);
+        else
+            SetupLockedArea(3);
 
         cachedAreaRotations = new Quaternion[areas.Count];
         for (int i = 0; i < areas.Count; i++)
@@ -310,6 +311,44 @@ public class PlanetSelecter : MonoBehaviour
                 DestroyChildren(stateContainer);
                 AddChildren(stateIcons[3], stateContainer); //Waste Piles (Chemical)
                 AddChildren(stateIcons[4], stateContainer); //Waste Dump (Chemical)
+
+                rewardContainer.SetActive(true);
+                nullReward.SetActive(false);
+                hasAddedChildren = true;
+
+                //Set Level
+                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                //Set Max Prompted Points on Completion
+                CurrencyManager.Instance.SetPromptedPoints(15);
+                RewardsManager.Instance.SetPoints(15);
+                break;
+            case 3:
+                canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Operation\nChelonia Subjugation";
+                missionDesc.text =
+                    "Subjugate the Chelonia, then gather its corrupted samples before extraction.";
+
+                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                nullButton.SetActive(false);
+                if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                {
+                    levelComplete.SetActive(true);
+                    button.SetActive(false);
+                    SetupClearedArea(3);
+                }
+                else
+                {
+                    levelComplete.SetActive(false);
+                    button.SetActive(true);
+                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                }
+
+                //Add objective details later on
+                nullState.SetActive(false);
+                DestroyChildren(stateContainer);
+                AddChildren(stateIcons[5], stateContainer); //Waste Piles (Chemical)
 
                 rewardContainer.SetActive(true);
                 nullReward.SetActive(false);

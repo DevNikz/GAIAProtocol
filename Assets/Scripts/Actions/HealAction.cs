@@ -227,9 +227,10 @@ public class HealAction : BaseAction
         return GetValidActionGridPositionList(gridPosition).Count;
     }
 
+    //Costs 2 points
     public override int GetActionPointsCost()
     {
-        return 1;
+        return 2;
     }
 
     public override EnemyAIAction GetEnemyAIAction(

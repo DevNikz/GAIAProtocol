@@ -26650,6 +26650,7 @@ MonoBehaviour:
   - {fileID: 7855964873649935005, guid: 0b40f6a6e66cb9041806e9743fc6bd36, type: 3}
   - {fileID: 7855964873649935005, guid: 6471afe107ccef64bb867991c9c6332f, type: 3}
   - {fileID: 7855964873649935005, guid: a7773d3c1a6060143b516b1a0c88dc90, type: 3}
+  - {fileID: 7855964873649935005, guid: a3820081305f4b643b0e6eac2c357cdd, type: 3}
   stateContainer: {fileID: 1706496520}
   nullState: {fileID: 244642404}
   rewardList:

@@ -35,6 +35,16 @@ public class KaijuUnit : MonoBehaviour
     [SerializeField]
     bool hasAnimatedWake;
 
+    [SerializeField]
+    bool hasAnimatedDead;
+
+    public bool HasAnimatedDead()
+    {
+        return hasAnimatedDead;
+    }
+
+    public void SetAnimatedDead(bool value) => hasAnimatedDead = value;
+
     public bool HasAnimatedWake()
     {
         return hasAnimatedWake;
@@ -52,10 +62,15 @@ public class KaijuUnit : MonoBehaviour
     Transform mesh;
 
     [SerializeField]
+    GameObject mesh_dead;
+
+    [SerializeField]
     TweenSettings<float> yPos;
 
     [SerializeField]
     TweenSettings<float> returnToGround;
+
+    [SerializeField]
     GameObject ui;
     GameObject meshXray;
 
@@ -85,6 +100,7 @@ public class KaijuUnit : MonoBehaviour
         ownerUnit = GetComponent<Unit>();
         ground = transform.Find("Ground").GetComponent<ParticleSystem>();
         mesh = transform.Find("turtlekaiju");
+        mesh_dead = transform.Find("tutleKaiju_Dead").gameObject;
         ui = transform.Find("UnitWorldUI").gameObject;
         meshXray = transform.Find("turtlekaiju/turtlekaiju_anim/turtle").gameObject;
 
@@ -123,7 +139,7 @@ public class KaijuUnit : MonoBehaviour
         ground.Play();
         Tween.LocalPositionY(mesh, yPos);
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
 
         hasAnimatedWake = true;
         //meshXray.layer = LayerMask.NameToLayer("Xray");
@@ -135,9 +151,10 @@ public class KaijuUnit : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         ground.Play();
         Tween.LocalPositionY(mesh, returnToGround);
-        yield return new WaitForSeconds(6f);
-
-        //hasAnimatedWake = true;
+        yield return new WaitForSeconds(4f);
+        hasAnimatedDead = true;
+        mesh.gameObject.SetActive(false);
+        mesh_dead.SetActive(true);
     }
 
     public void TurnUIFalse()

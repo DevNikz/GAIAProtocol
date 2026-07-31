@@ -114,9 +114,10 @@ public class RepairAction : BaseAction
         ActionStart(onActionComplete);
     }
 
+    //Costs four points
     public override int GetActionPointsCost()
     {
-        return GetComponent<Unit>().actionPoints;
+        return 4;
     }
 
     public override EnemyAIAction GetEnemyAIAction(

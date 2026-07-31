@@ -74,7 +74,11 @@ public class ActionButtonUI : MonoBehaviour
     public void ChangeActionPointText()
     {
         //BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-        actionCounter.text = UnitActionSystem.Instance.GetSelectedUnit().actionPoints.ToString();
+        //actionCounter.text = UnitActionSystem.Instance.GetSelectedUnit().actionPoints.ToString();
+        actionCounter.text = UnitActionSystem
+            .Instance.GetSelectedAction()
+            .GetActionPointsCost()
+            .ToString();
     }
 
     public string GetActionName()

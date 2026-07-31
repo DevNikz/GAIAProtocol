@@ -94,6 +94,8 @@ public class InteractAction : BaseAction
             wastePileCollectible.Interact(OnInteractComplete, GetUnit());
         else if (interactable is WasteDumpObjective wasteDumpObjective)
             wasteDumpObjective.Interact(OnInteractComplete, GetUnit());
+        else if (interactable is KaijuObjective kaijuObjective)
+            kaijuObjective.Interact(OnInteractComplete);
         else
             OnInteractComplete();
     }

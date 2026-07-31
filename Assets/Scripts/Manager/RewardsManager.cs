@@ -221,12 +221,24 @@ public class RewardsManager : MonoBehaviour
 
         PopulateObjectiveSummary();
 
-        if (mainCompleted == true && sideCompleted == false)
-            TwoStarsWin();
-        else if (mainCompleted == true && sideCompleted == true)
-            ThreeStarsWin();
+        //With SideObjectives
+        if (ObjectiveManager.Instance.GetSideObjectivesCount(objectiveList) > 0)
+        {
+            if (mainCompleted == true && sideCompleted == false)
+                TwoStarsWin();
+            else if (mainCompleted == true && sideCompleted == true)
+                ThreeStarsWin();
+            else
+                return;
+        }
+        //No Side Objectives
         else
-            return;
+        {
+            if (mainCompleted == true)
+                ThreeStarsWin();
+            else
+                return;
+        }
     }
 
     void SetVisiblity(bool value)

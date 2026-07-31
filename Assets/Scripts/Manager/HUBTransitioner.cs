@@ -180,10 +180,9 @@ public class HUBTransitioner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         RewardsManager.Instance.SetRewardType(RewardsType.WIN);
-        RewardsManager.Instance.SetCurrentLevel(1);
+        RewardsManager.Instance.SetCurrentLevel(2);
         WorldManager.Instance.SetWorldComplete(true, LevelManager.Instance.GetCurrentLevel() - 1);
         WorldManager.Instance.SetUnlockStateIndex(LevelManager.Instance.GetCurrentLevel(), true); //index start at 0
-        RewardsManager.Instance.SetCurrentLevel(2);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(BackToMissionSelect());
     }
