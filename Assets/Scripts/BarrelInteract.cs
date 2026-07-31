@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class BarrelInteract : MonoBehaviour, IInteractable
 {
+    [SerializeField]
+    private Transform barrelDestroyedPrefab;
 
-    [SerializeField] private Transform barrelDestroyedPrefab;
-    [SerializeField] private GameObject visualGameObject;
-
+    [SerializeField]
+    private GameObject visualGameObject;
 
     private GridPosition gridPosition;
     private Action onInteractionComplete;
@@ -51,11 +52,20 @@ public class BarrelInteract : MonoBehaviour, IInteractable
 
         visualGameObject.SetActive(false);
 
-        Transform barrelDestroyedTransform = Instantiate(barrelDestroyedPrefab, transform.position, transform.rotation);
+        Transform barrelDestroyedTransform = Instantiate(
+            barrelDestroyedPrefab,
+            transform.position,
+            transform.rotation
+        );
         ApplyExplosionToChildren(barrelDestroyedTransform, 250f, transform.position, 10f);
     }
 
-    private void ApplyExplosionToChildren(Transform root, float explosionForce, Vector3 explosionPosition, float explosionRange)
+    private void ApplyExplosionToChildren(
+        Transform root,
+        float explosionForce,
+        Vector3 explosionPosition,
+        float explosionRange
+    )
     {
         foreach (Transform child in root)
         {
@@ -68,6 +78,7 @@ public class BarrelInteract : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(Action onInteractionComplete, float percentageAdd) {}
+    public void Interact(Action onInteractionComplete, float percentageAdd) { }
 
+    public void Interact(Action onInteractionComplete, Unit unit) { }
 }

@@ -102,7 +102,7 @@ public class ExtractionManager : MonoBehaviour
 
                 var allObjectives = ObjectiveManager
                     .Instance.GetAllObjectives()
-                    .Where(o => !(o is ObjectiveCounterTarget))
+                    .Where(o => !(o is ObjectiveCounterTarget) || !(o is WastePileCollectible))
                     .OrderBy(o => o.GetObjectiveType()) // Main (0) before Side (1)
                     .ToList();
 

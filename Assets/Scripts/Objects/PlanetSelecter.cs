@@ -83,8 +83,7 @@ public class PlanetSelecter : MonoBehaviour
         ClearAreas();
         SetupCorruptedArea(0);
         SetupCorruptedArea(1);
-
-        SetupLockedArea(2);
+        SetupCorruptedArea(2);
         SetupLockedArea(3);
 
         //Turn this on later
@@ -284,6 +283,45 @@ public class PlanetSelecter : MonoBehaviour
                 RewardsManager.Instance.SetPoints(10);
                 break;
             case 2:
+                canvas.SetActive(true);
+                missionImage.sprite = levelIcons[currentIndex];
+                missionHeader.text = "Operation\nRestore Point Charlie";
+                missionDesc.text =
+                    "Recover all the waste piles and dump them into the target site.";
+
+                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                nullButton.SetActive(false);
+                if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                {
+                    levelComplete.SetActive(true);
+                    button.SetActive(false);
+                    SetupClearedArea(2);
+                }
+                else
+                {
+                    levelComplete.SetActive(false);
+                    button.SetActive(true);
+                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                }
+
+                //Add objective details later on
+                nullState.SetActive(false);
+                DestroyChildren(stateContainer);
+                AddChildren(stateIcons[3], stateContainer); //Waste Piles (Chemical)
+                AddChildren(stateIcons[4], stateContainer); //Waste Dump (Chemical)
+
+                rewardContainer.SetActive(true);
+                nullReward.SetActive(false);
+                hasAddedChildren = true;
+
+                //Set Level
+                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                //Set Max Prompted Points on Completion
+                CurrencyManager.Instance.SetPromptedPoints(10);
+                RewardsManager.Instance.SetPoints(10);
+                break;
+            case 4:
                 //Lock this first
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];

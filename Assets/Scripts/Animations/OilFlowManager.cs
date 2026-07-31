@@ -60,11 +60,25 @@ namespace ForestBiome
         private MaterialPropertyBlock _propertyBlock;
         private Transform _cameraTransform;
 
+        [SerializeField]
+        bool isObjective = true;
+
         private void Awake()
         {
             _propertyBlock = new MaterialPropertyBlock();
             if (Camera.main != null)
                 _cameraTransform = Camera.main.transform;
+        }
+
+        void Start()
+        {
+            if (!isObjective)
+            {
+                for (int i = 0; i < pipes.Count; i++)
+                {
+                    BeginOverflow(pipes[i].id);
+                }
+            }
         }
 
         private void Update()

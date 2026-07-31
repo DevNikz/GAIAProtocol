@@ -1610,9 +1610,9 @@ GameObject:
   - component: {fileID: 1169284908609407718}
   - component: {fileID: 3365361747482107323}
   - component: {fileID: 735115845444417773}
+  - component: {fileID: 2042057905568966976}
   - component: {fileID: 8905610485331962177}
   - component: {fileID: 8732399893087835767}
-  - component: {fileID: 274869672558810904}
   - component: {fileID: 5545362380271712563}
   m_Layer: 5
   m_Name: Next Level
@@ -1726,9 +1726,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HUBTransitioner, Assembly-CSharp
-        m_MethodName: ToMechSelect
+      - m_Target: {fileID: 2042057905568966976}
+        m_TargetAssemblyTypeName: HUBLevelController, Assembly-CSharp
+        m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1738,18 +1738,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: PlaySFX
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Select1
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &2042057905568966976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5546200723570031005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ac4b75224360744b13366dd77fc6a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUBLevelController
 --- !u!114 &8905610485331962177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,20 +1778,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0.6853863, g: 0.91827416, b: 0.9622642, a: 0.015686275}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
---- !u!114 &274869672558810904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5546200723570031005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6ae08ffa249e5d468d3f68bf04a5ae9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChangeLevelButton
-  soundController: {fileID: 0}
-  sceneIndex: 0
 --- !u!114 &5545362380271712563
 MonoBehaviour:
   m_ObjectHideFlags: 0

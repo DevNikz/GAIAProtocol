@@ -5,19 +5,17 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-
     public static event EventHandler OnAnyDoorOpened;
     public event EventHandler OnDoorOpened;
 
-
-    [SerializeField] private bool isOpen;
+    [SerializeField]
+    private bool isOpen;
 
     private GridPosition gridPosition;
     private Animator animator;
     private Action onInteractionComplete;
     private bool isActive;
     private float timer;
-
 
     private void Awake()
     {
@@ -32,7 +30,8 @@ public class Door : MonoBehaviour, IInteractable
         if (isOpen)
         {
             OpenDoor();
-        } else
+        }
+        else
         {
             CloseDoor();
         }
@@ -54,8 +53,6 @@ public class Door : MonoBehaviour, IInteractable
         }
     }
 
-
-
     public void Interact(Action onInteractionComplete)
     {
         this.onInteractionComplete = onInteractionComplete;
@@ -72,7 +69,7 @@ public class Door : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(Action onInteractionComplete, float percentageAdd) {}
+    public void Interact(Action onInteractionComplete, float percentageAdd) { }
 
     private void OpenDoor()
     {
@@ -91,4 +88,5 @@ public class Door : MonoBehaviour, IInteractable
         Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
     }
 
+    public void Interact(Action onInteractionComplete, Unit unit) { }
 }

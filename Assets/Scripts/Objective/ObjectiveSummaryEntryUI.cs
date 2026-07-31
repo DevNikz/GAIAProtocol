@@ -21,7 +21,7 @@ public class ObjectiveSummaryEntryUI : MonoBehaviour
 
     public void Setup(string displayName, bool isComplete, ObjectiveType type)
     {
-        Debug.Log($"Name: {displayName} | Complete: {isComplete} | Type: {type}");
+        //Debug.Log($"Name: {displayName} | Complete: {isComplete} | Type: {type}");
         label.text = displayName;
         checkIcon.sprite = isComplete ? completeSprite : incompleteSprite;
         if (sideTag != null)

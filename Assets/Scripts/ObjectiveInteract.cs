@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObjectiveInteract : MonoBehaviour, IInteractable
 {
-    [SerializeField, Range(0.1f, 1f)] private float interactPercentageAdd;
+    [SerializeField, Range(0.1f, 1f)]
+    private float interactPercentageAdd;
 
     private GridPosition gridPosition;
     private Action onInteractionComplete;
@@ -12,10 +13,15 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
     public float percentage = 0.0f;
     private float timer;
     private bool objectiveComplete;
-    [SerializeField] private bool disableInteract;
 
-    [SerializeReference] private bool hasBeenInteracted;
-    [SerializeField] private SoundController soundController;
+    [SerializeField]
+    private bool disableInteract;
+
+    [SerializeReference]
+    private bool hasBeenInteracted;
+
+    [SerializeField]
+    private SoundController soundController;
 
     private void Start()
     {
@@ -34,21 +40,24 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) 
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        if(!TurnSystem.Instance.IsPlayerTurn())
+        if (!TurnSystem.Instance.IsPlayerTurn())
         {
             hasBeenInteracted = false;
-            if(!objectiveComplete) LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+            if (!objectiveComplete)
+                LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
         }
     }
 
     private void Update()
     {
-        if(!objectiveComplete) UpdateObjective();
+        if (!objectiveComplete)
+            UpdateObjective();
         else
         {
-            if(!disableInteract) {
+            if (!disableInteract)
+            {
                 SoundManager.Instance.PlaySFX("ObjectiveInteract");
                 //soundController.PlaySound(5);
                 LevelGrid.Instance.ClearInteractableAtGridPosition(gridPosition);
@@ -62,7 +71,8 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
     {
         if (percentage < 1.0f)
         {
-            if (!hasInteracted) return;
+            if (!hasInteracted)
+                return;
             else
             {
                 timer -= Time.deltaTime;
@@ -94,11 +104,11 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
 
     public void Interact(Action onInteractionComplete, float percentageAdd)
     {
-        if(soundController != null)
+        if (soundController != null)
         {
             SoundManager.Instance.PlaySFX("ObjectiveComplete");
             //soundController.PlaySound(4);
-        }   
+        }
 
         this.onInteractionComplete = onInteractionComplete;
         hasInteracted = true;
@@ -106,8 +116,7 @@ public class ObjectiveInteract : MonoBehaviour, IInteractable
         timer = 0.5f;
     }
 
-    public void Interact(Action onInteractionComplete)
-    {
-        // throw new NotImplementedException();
-    }
+    public void Interact(Action onInteractionComplete) { }
+
+    public void Interact(Action onInteractionComplete, Unit unit) { }
 }

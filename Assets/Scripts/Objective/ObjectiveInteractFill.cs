@@ -23,8 +23,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
     private Action onInteractionComplete;
 
-    [SerializeField]
-    private SoundController soundController;
     RadarScanEffect radarScan;
 
     [SerializeField]
@@ -45,12 +43,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
     void Start()
     {
         RegisterOnGrid();
-        //SetupMergedGridVisual();
-        // gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        // LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-        // LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);
-        // Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, false);
-
         if (HasRadarScan)
             radarScan = GetComponent<RadarScanEffect>();
         if (IsPump)
@@ -89,17 +81,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
     private void Update()
     {
-        /*
-        if (isComplete)
-            return;
-
-        // percentage = isBeingInteracted
-        //     ? Mathf.Clamp01(percentage + fillRatePerInteract * Time.deltaTime)
-        //     : Mathf.Clamp01(percentage - 0f * Time.deltaTime);
-
-        if (percentage >= 1f)
-            CompleteObjective();
-        */
         if (!isComplete) //isComplete false
             UpdateObjective();
         else
@@ -173,8 +154,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         if (isComplete)
             return;
 
-        if (soundController != null)
-            SoundManager.Instance.PlaySFX("ObjectiveInteract");
+        SoundManager.Instance.PlaySFX("ObjectiveInteract");
 
         this.onInteractionComplete = onInteractionComplete;
         isBeingInteracted = true;
@@ -183,8 +163,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
 
         if (percentage == 1.0f)
         {
-            if (soundController != null)
-                SoundManager.Instance.PlaySFX("ObjectiveComplete");
+            SoundManager.Instance.PlaySFX("ObjectiveComplete");
             CompleteObjective();
         }
     }
@@ -231,7 +210,13 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
             LevelGrid.Instance.ClearIngameObjectAtGridPosition(gridPosition);
             // Pathfinding.Instance.SetIsWalkableGridPosition(gridPosition, true);
         }
-        occupiedGridPositions.Clear();
+        if (occupiedGridPositions != null)
+            occupiedGridPositions.Clear();
+    }
+
+    public void Interact(Action onInteractionComplete, Unit unit)
+    {
+        throw new NotImplementedException();
     }
 
     //void DisableInteract();

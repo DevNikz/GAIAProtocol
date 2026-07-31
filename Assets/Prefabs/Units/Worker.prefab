@@ -1162,6 +1162,7 @@ GameObject:
   - component: {fileID: 4982119554876346808}
   - component: {fileID: 609699890514716713}
   - component: {fileID: 250381807641681236}
+  - component: {fileID: 2573680361864095292}
   m_Layer: 8
   m_Name: Worker
   m_TagString: Untagged
@@ -1206,6 +1207,7 @@ MonoBehaviour:
   actionPoints: 4
   customAP: 0
   hasCorruptionImmune: 0
+  unitWorldUI: {fileID: 0}
 --- !u!65 &4374348987130178666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1372,6 +1374,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2573680361864095292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103697228277929836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a46351d78eb280448d6b43b71ee6c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitWasteCarrier
 --- !u!1001 &1774969483520013529
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -147,6 +147,8 @@ public class UnitActionSystem : MonoBehaviour
             || selectedAction.GetActionName() == "Interact"
             || selectedAction.GetActionName() == "Shoot"
             || selectedAction.GetActionName() == "Sword"
+            || selectedAction.GetActionName() == "Repair"
+            || selectedAction.GetActionName() == "Heal"
         )
         {
             isHovering = false;

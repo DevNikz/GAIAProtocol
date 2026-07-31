@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class InteractSphere : MonoBehaviour, IInteractable
 {
+    [SerializeField]
+    private Material greenMaterial;
 
-    [SerializeField] private Material greenMaterial;
-    [SerializeField] private Material redMaterial;
-    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField]
+    private Material redMaterial;
+
+    [SerializeField]
+    private MeshRenderer meshRenderer;
 
     private GridPosition gridPosition;
     private bool isGreen;
@@ -61,12 +65,14 @@ public class InteractSphere : MonoBehaviour, IInteractable
         if (isGreen)
         {
             SetColorRed();
-        } else
+        }
+        else
         {
             SetColorGreen();
         }
     }
 
-    public void Interact(Action onInteractionComplete, float percentageAdd) {}
+    public void Interact(Action onInteractionComplete, float percentageAdd) { }
 
+    public void Interact(Action onInteractionComplete, Unit unit) { }
 }

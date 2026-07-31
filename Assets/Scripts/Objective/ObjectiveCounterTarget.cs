@@ -17,9 +17,6 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
     [SerializeField, Min(1)]
     private int incrementAmount = 1;
 
-    [SerializeField]
-    private SoundController soundController;
-
     private bool hasBeenCollected;
 
     /// <summary>Used by ObjectiveWorldUI to find what progress to display for this instance.</summary>
@@ -98,8 +95,7 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
             return;
         }
 
-        if (soundController != null)
-            SoundManager.Instance.PlaySFX("Harvest");
+        SoundManager.Instance.PlaySFX("Harvest");
 
         hasBeenCollected = true;
         counter.Increment(incrementAmount);
@@ -122,4 +118,9 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
     public void Interact(Action onInteractionComplete, float percentageAdd) { }
 
     public override float GetProgress() => GetSharedObjective()?.GetProgress() ?? 0f;
+
+    public void Interact(Action onInteractionComplete, Unit unit)
+    {
+        throw new NotImplementedException();
+    }
 }

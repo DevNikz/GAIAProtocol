@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
 
 public class HUBTransitioner : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class HUBTransitioner : MonoBehaviour
     [SerializeField]
     bool firstTimeArmory = true;
 
+    [SerializeField]
+    bool hasInit = false;
+
     public void SetFirstTimeArmory(bool value)
     {
         firstTimeArmory = value;
@@ -55,6 +59,12 @@ public class HUBTransitioner : MonoBehaviour
         else
             Destroy(gameObject);
 
+        if (!hasInit)
+            InitComponents();
+    }
+
+    void InitComponents()
+    {
         cam = Camera.main;
         planetLight = GameObject.FindGameObjectWithTag("PlanetLight");
         missionSelect = GameObject.FindGameObjectWithTag("MissionSelecter");
@@ -82,11 +92,27 @@ public class HUBTransitioner : MonoBehaviour
             pos = virtualCam.GetComponent<CinemachineOrbitalFollow>();
             rot = virtualCam.GetComponent<CinemachineRotationComposer>();
         }
+        hasInit = true;
     }
 
     void Start()
     {
         Intro();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.buildIndex)
+        {
+            case 0:
+                if (!hasInit)
+                    InitComponents();
+                break;
+            default:
+                hasInit = false;
+                break;
+        }
     }
 
     IEnumerator BackToMissionSelect()

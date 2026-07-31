@@ -24,6 +24,10 @@ public class ObjectiveWorldUI : MonoBehaviour
             var counterTarget = GetComponent<ObjectiveCounterTarget>();
             if (counterTarget != null)
                 objective = counterTarget.GetSharedObjective();
+
+            // var wastePile = GetComponent<WastePileCollectible>();
+            // if (wastePile != null)
+            //     objective = wastePile.GetSharedObjective();
         }
     }
 

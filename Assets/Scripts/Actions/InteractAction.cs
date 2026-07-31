@@ -90,6 +90,10 @@ public class InteractAction : BaseAction
             objectiveInteractFill.Interact(OnInteractComplete, percentageAdd);
         else if (interactable is ObjectiveCounterTarget objectiveCounterTarget)
             objectiveCounterTarget.Interact(OnInteractComplete);
+        else if (interactable is WastePileCollectible wastePileCollectible)
+            wastePileCollectible.Interact(OnInteractComplete, GetUnit());
+        else if (interactable is WasteDumpObjective wasteDumpObjective)
+            wasteDumpObjective.Interact(OnInteractComplete, GetUnit());
         else
             OnInteractComplete();
     }

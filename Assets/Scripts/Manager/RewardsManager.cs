@@ -194,6 +194,11 @@ public class RewardsManager : MonoBehaviour
 
     public void AnimateHide()
     {
+        InputManager.Instance.EnableMechRotate();
+        InputManager.Instance.EnableDebug();
+        InputManager.Instance.EnableLevelCamera();
+        InputManager.Instance.EnableLegacyInputs();
+
         Tween.Alpha(canvasGroup, hide).OnComplete(ResetValues);
         ObjectiveManager.Instance.ResetValues();
     }
