@@ -26,7 +26,7 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
     void Start()
     {
         RegisterOnGrid();
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+        //TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
     protected override void RegisterOnGrid()
@@ -56,29 +56,26 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
         }
     }
 
-    protected override void OnEnable()
-    {
-        ObjectiveManager.Instance.Register(this);
-    }
+    protected override void OnEnable() { }
 
     protected override void OnDisable()
     {
-        if (ObjectiveManager.Instance != null)
-        {
-            ObjectiveManager.Instance.Unregister(this);
-        }
-        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
+        // if (ObjectiveManager.Instance != null)
+        // {
+        //     ObjectiveManager.Instance.Unregister(this);
+        // }
+        //TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
-    {
-        if (!TurnSystem.Instance.IsPlayerTurn())
-        {
-            isBeingInteracted = false;
-            if (!isComplete)
-                LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-        }
-    }
+    // private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    // {
+    //     if (!TurnSystem.Instance.IsPlayerTurn())
+    //     {
+    //         isBeingInteracted = false;
+    //         // if (!isComplete)
+    //         //     LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
+    //     }
+    // }
 
     public void Interact(Action onInteractionComplete)
     {
@@ -107,6 +104,7 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
         {
             Debug.Log("Harvested Crystal/Plant!");
             crystalHarvestManager.HarvestAll();
+            //CompleteObjective();
         }
         else
             gameObject.SetActive(false);

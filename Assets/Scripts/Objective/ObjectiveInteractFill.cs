@@ -64,6 +64,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
     {
         if (ObjectiveManager.Instance != null)
         {
+            Debug.Log($"Unregistering this objective: {GetDisplayName()} | {objectiveIndex}");
             ObjectiveManager.Instance.Unregister(this);
         }
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
@@ -161,7 +162,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         percentage += percentageAdd * modifier;
         timer = 0.5f;
 
-        if (percentage == 1.0f)
+        if (percentage >= 1.0f)
         {
             SoundManager.Instance.PlaySFX("ObjectiveComplete");
             CompleteObjective();

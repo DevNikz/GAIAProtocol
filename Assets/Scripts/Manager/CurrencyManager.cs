@@ -31,7 +31,7 @@ public class CurrencyManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        researchPoints = 50;
+        researchPoints = 15;
     }
 
     void Start()

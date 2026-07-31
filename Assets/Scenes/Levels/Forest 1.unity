@@ -5242,7 +5242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveCounter
   mergedGridVisualPrefab: {fileID: 0}
   displayName: Harvest Corrupted Plants
-  objectiveIndex: 1
+  objectiveIndex: 10
   objectiveDesc: Harvest Corrupted Plants
   objectiveType: 1
   isComplete: 0

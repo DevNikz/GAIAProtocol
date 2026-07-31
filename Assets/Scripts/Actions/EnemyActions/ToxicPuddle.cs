@@ -111,7 +111,7 @@ public class ToxicPuddle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Unit unit = other.GetComponentInParent<Unit>();
+        Unit unit = other.GetComponent<Unit>();
         if (unit == null)
             return;
 

@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveCounterTarget
   mergedGridVisualPrefab: {fileID: 4317425081643120330, guid: cd6d2f1b81e1b71489bcb51f25af8659, type: 3}
   displayName: Harvest Corrupted Plants
-  objectiveIndex: 1
+  objectiveIndex: 10
   objectiveDesc: Harvest Corrupted Plants
   objectiveType: 1
   isComplete: 0
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 523529819154997069}
   m_Layer: 0
-  m_Name: Obj Plant 2
+  m_Name: Objective_Plants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

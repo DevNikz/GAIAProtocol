@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8644954201872626472}
   - component: {fileID: 1291581621541091384}
   m_Layer: 9
-  m_Name: WasteDump
+  m_Name: Objective_WasteDump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

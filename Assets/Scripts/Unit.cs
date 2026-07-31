@@ -83,7 +83,6 @@ public class Unit : MonoBehaviour
 
     public void InitAP(int ap)
     {
-        Debug.Log($"AP: {ap}");
         actionPoints = ap;
     }
 

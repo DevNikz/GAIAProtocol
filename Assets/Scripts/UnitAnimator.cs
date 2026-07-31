@@ -80,7 +80,6 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetBool("IsWalking", true);
         animator.SetBool("IsIdle", false);
-        Debug.Log("Walking");
     }
 
     private void MoveAction_OnStopMoving(object sender, EventArgs e)

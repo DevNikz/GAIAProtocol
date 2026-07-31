@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3055609407370943278}
   m_Layer: 0
-  m_Name: Obj1
+  m_Name: Objective_Sattelite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,9 +190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveInteractFill
   mergedGridVisualPrefab: {fileID: 4317425081643120330, guid: cd6d2f1b81e1b71489bcb51f25af8659, type: 3}
-  displayName: Activate The Array
+  displayName: Activate The Satellite Array
   objectiveIndex: 0
-  objectiveDesc: Activate the array to establish communications to HQ.
+  objectiveDesc: Activate the satellite array to establish communications to HQ.
   objectiveType: 0
   isComplete: 0
   oilManager: {fileID: 0}

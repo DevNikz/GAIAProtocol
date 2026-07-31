@@ -61,7 +61,10 @@ public abstract class ObjectiveBase : MonoBehaviour
     protected virtual void CompleteObjective()
     {
         if (isComplete)
+        {
+            Debug.Log($"{displayName} {objectiveIndex} is already Complete");
             return;
+        }
 
         isComplete = true;
         if (ObjectiveManager.Instance.CheckIndex(objectiveIndex))

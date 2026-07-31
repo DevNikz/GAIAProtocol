@@ -42,7 +42,6 @@ public class ExtractionManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 0:
-                ClearArea();
                 SetButtonVisible(false);
                 break;
             case 1:
@@ -58,27 +57,6 @@ public class ExtractionManager : MonoBehaviour
                 InitButton(4);
                 break;
         }
-    }
-
-    void ClearArea()
-    {
-        extractionArea = null;
-    }
-
-    void AddExtractionArea()
-    {
-        if (extractionArea != null)
-            ClearArea();
-        extractionArea = GameObject.FindGameObjectWithTag("Extract");
-
-        extractionArea.GetComponent<BoxCollider>().enabled = false;
-        extractionArea.transform.Find("Mesh").GetComponent<MeshRenderer>().enabled = false;
-    }
-
-    public void SetExtraction()
-    {
-        extractionArea.GetComponent<BoxCollider>().enabled = true;
-        extractionArea.transform.Find("Mesh").GetComponent<MeshRenderer>().enabled = true;
     }
 
     public void SetButtonVisible(bool value)

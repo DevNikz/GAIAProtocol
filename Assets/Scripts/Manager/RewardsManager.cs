@@ -194,11 +194,6 @@ public class RewardsManager : MonoBehaviour
 
     public void AnimateHide()
     {
-        InputManager.Instance.EnableMechRotate();
-        InputManager.Instance.EnableDebug();
-        InputManager.Instance.EnableLevelCamera();
-        InputManager.Instance.EnableLegacyInputs();
-
         Tween.Alpha(canvasGroup, hide).OnComplete(ResetValues);
         ObjectiveManager.Instance.ResetValues();
     }
@@ -219,7 +214,7 @@ public class RewardsManager : MonoBehaviour
     {
         ClearStars();
 
-        if (AreSideObjectivesComplete(objectiveList))
+        if (ObjectiveManager.Instance.AreSideObjectivesComplete(objectiveList))
             SetVisiblity(true);
         else
             SetVisiblity(false);
@@ -241,11 +236,6 @@ public class RewardsManager : MonoBehaviour
         sideObjectiveList.gameObject.SetActive(value);
     }
 
-    public bool AreSideObjectivesComplete(List<ObjectiveBase> value)
-    {
-        return value.Any(o => o.GetObjectiveType() == ObjectiveType.Side);
-    }
-
     void TwoStarsWin()
     {
         for (int i = 0; i < 2; i++)
@@ -259,12 +249,11 @@ public class RewardsManager : MonoBehaviour
 
         status.text = "MISSION COMPLETED";
         shadow.text = "MISSION COMPLETED";
-        pointsText.text = $"{points - 2}";
+        pointsText.text = $"{points / 2}";
 
         CurrencyManager.Instance.SetResearchPoints(
             CurrencyManager.Instance.GetResearchPoints()
-                + CurrencyManager.Instance.GetPromptedPoints()
-                - 2
+                + CurrencyManager.Instance.GetPromptedPoints() / 2
         );
     }
 

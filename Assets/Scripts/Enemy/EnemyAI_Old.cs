@@ -98,7 +98,6 @@ public class EnemyAI_Old : MonoBehaviour
             }
             else
             {
-                Debug.Log("Kaiju Disabled?");
                 TurnSystem.Instance.NextTurn();
             }
         }
@@ -110,7 +109,6 @@ public class EnemyAI_Old : MonoBehaviour
 
         if (playedWakeAnim)
         {
-            Debug.Log("animate kaiju");
             yield return new WaitForSeconds(6f);
         }
 
@@ -119,7 +117,7 @@ public class EnemyAI_Old : MonoBehaviour
 
         Debug.Log($"Set Turn");
         state = State.TakingTurn;
-        timer = 2f;
+        timer = 1f;
     }
 
     // void DoKaijuWake()

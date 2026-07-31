@@ -20,7 +20,10 @@ public class HUDMarkerManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+    }
 
+    void Start()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -29,7 +32,8 @@ public class HUDMarkerManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 0:
-                ClearMarkers();
+                if (MarkerRoot.childCount > 0)
+                    ClearMarkers();
                 break;
         }
     }

@@ -36,11 +36,34 @@ public class ObjectiveManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.buildIndex)
+        {
+            default:
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                Debug.Log($"Objectives Count: {objectives.Count}");
+                Debug.Log($"Main Objectives: {GetMainObjectivesCount()}");
+                Debug.Log($"Side Objectives: {GetSideObjectivesCount()}");
+                break;
+        }
+    }
+
     public void ResetValues()
     {
         mainCompleted = false;
         sideCompleted = false;
         objectives.Clear();
+        Debug.Log($"Objectives | Count: {objectives.Count}");
         completedIndices.Clear();
     }
 
@@ -101,9 +124,24 @@ public class ObjectiveManager : MonoBehaviour
 
     public bool AreSideObjectivesComplete()
     {
-        return objectives
-            .Values.Where(o => o.GetObjectiveType() == ObjectiveType.Side)
-            .All(o => o.IsComplete());
+        if (GetSideObjectivesCount() > 0)
+        {
+            return objectives
+                .Values.Where(o => o.GetObjectiveType() == ObjectiveType.Side)
+                .All(o => o.IsComplete());
+        }
+        else
+            return false;
+    }
+
+    public bool AreSideObjectivesComplete(List<ObjectiveBase> value)
+    {
+        if (GetSideObjectivesCount(value) > 0)
+        {
+            return value.Any(o => o.GetObjectiveType() == ObjectiveType.Side);
+        }
+        else
+            return false;
     }
 
     public bool HasSideObjectives()
@@ -111,15 +149,30 @@ public class ObjectiveManager : MonoBehaviour
         return objectives.Values.Any(o => o.GetObjectiveType() == ObjectiveType.Side);
     }
 
+    public int GetSideObjectivesCount()
+    {
+        return objectives.Values.Count(o => o.GetObjectiveType() == ObjectiveType.Side);
+    }
+
+    public int GetSideObjectivesCount(List<ObjectiveBase> objList)
+    {
+        return objList.Count(o => o.GetObjectiveType() == ObjectiveType.Side);
+    }
+
+    public int GetMainObjectivesCount()
+    {
+        return objectives.Values.Count(o => o.GetObjectiveType() == ObjectiveType.Main);
+    }
+
     public void CheckAndTriggerExtraction()
     {
+        if (AreSideObjectivesComplete())
+            sideCompleted = true;
+
         if (AreMainObjectivesComplete())
             mainCompleted = true;
         else
             return;
-
-        if (AreSideObjectivesComplete())
-            sideCompleted = true;
 
         if (ExtractionManager.Instance != null)
         {

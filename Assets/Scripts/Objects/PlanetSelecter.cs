@@ -211,7 +211,8 @@ public class PlanetSelecter : MonoBehaviour
                 canvas.SetActive(true);
                 missionImage.sprite = levelIcons[currentIndex];
                 missionHeader.text = "Operation\nActivate The Satellite Array";
-                missionDesc.text = "Activate the array to establish communications to HQ.";
+                missionDesc.text =
+                    "Activate the satellite array to establish communications to HQ.";
 
                 //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
                 nullButton.SetActive(false);
@@ -242,8 +243,8 @@ public class PlanetSelecter : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
 
                 //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(10);
-                RewardsManager.Instance.SetPoints(10);
+                CurrencyManager.Instance.SetPromptedPoints(15);
+                RewardsManager.Instance.SetPoints(15);
                 break;
             case 1:
                 canvas.SetActive(true);
@@ -279,8 +280,8 @@ public class PlanetSelecter : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
 
                 //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(10);
-                RewardsManager.Instance.SetPoints(10);
+                CurrencyManager.Instance.SetPromptedPoints(15);
+                RewardsManager.Instance.SetPoints(15);
                 break;
             case 2:
                 canvas.SetActive(true);
@@ -318,8 +319,8 @@ public class PlanetSelecter : MonoBehaviour
                 LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
 
                 //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(10);
-                RewardsManager.Instance.SetPoints(10);
+                CurrencyManager.Instance.SetPromptedPoints(15);
+                RewardsManager.Instance.SetPoints(15);
                 break;
             case 4:
                 //Lock this first

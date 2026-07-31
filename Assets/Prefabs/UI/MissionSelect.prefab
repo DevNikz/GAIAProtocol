@@ -1614,6 +1614,7 @@ GameObject:
   - component: {fileID: 8905610485331962177}
   - component: {fileID: 8732399893087835767}
   - component: {fileID: 5545362380271712563}
+  - component: {fileID: 2717700307387412413}
   m_Layer: 5
   m_Name: Next Level
   m_TagString: Untagged
@@ -1804,6 +1805,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2717700307387412413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5546200723570031005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6ae08ffa249e5d468d3f68bf04a5ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeLevelButton
+  soundController: {fileID: 0}
+  sceneIndex: 0
 --- !u!1 &5619362536022650692
 GameObject:
   m_ObjectHideFlags: 0

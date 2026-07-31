@@ -59,6 +59,31 @@ public class QuestEntryUI : MonoBehaviour
         }
     }
 
+    public void RefreshProgressComplete()
+    {
+        if (objective == null)
+            return;
+
+        //progressFill.fillAmount = objective.GetProgress();
+        progressFill.fillAmount = Mathf.Clamp01(objective.GetProgress() + 1f * Time.deltaTime);
+
+        // Counters read nicer as "3/5" than a bare progress bar.
+        if (objective is ObjectiveCounter counter)
+        {
+            switch (objective.GetObjectiveType())
+            {
+                case ObjectiveType.Main:
+                    label.text =
+                        $"Main: {objective.GetObjectiveDesc()} ({counter.GetCurrentCount()}/{counter.GetTargetCount()}) (Complete)";
+                    break;
+                case ObjectiveType.Side:
+                    label.text =
+                        $"Side: {objective.GetObjectiveDesc()} ({counter.GetCurrentCount()}/{counter.GetTargetCount()}) (Complete)";
+                    break;
+            }
+        }
+    }
+
     public void MarkComplete()
     {
         label.text += " (Complete)";
