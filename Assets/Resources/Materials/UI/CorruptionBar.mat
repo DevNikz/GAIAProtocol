@@ -176,7 +176,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Fill: 0.7
+    - _Fill: 0
     - _Fill_Edge_Width: 0.02
     - _Fill_Highlight_Distance: 0.487
     - _Fill_Highlight_Power: 5
