@@ -73,15 +73,20 @@ public class LevelGrid : MonoBehaviour
         }
     }
 
-    void Start()
+    // void Start()
+    // {
+    //     //Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
+    //     SceneManager.sceneLoaded += OnSceneLoaded;
+    // }
+    void OnEnable()
     {
-        //Pathfinding.Instance.Setup(width, height, cellSize, floorAmount);
+        Debug.Log($"Pathfinding OnEnable - instance ID: {GetInstanceID()}");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
     {
-        Debug.Log("Pathfinding unloaded.");
+        Debug.Log($"Pathfinding OnDisable - instance ID: {GetInstanceID()}");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 

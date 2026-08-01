@@ -397,6 +397,7 @@ MonoBehaviour:
   sideDivider: {fileID: 2500321301219394210}
   sideHeader: {fileID: 8213675002380683138}
   objectiveList: []
+  currentLevel: 0
 --- !u!1 &2500321301219394210
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PrimeTween;
@@ -9,6 +10,21 @@ public enum RewardsType
     NONE,
     WIN,
     LOSE,
+}
+
+[Serializable]
+public struct ObjectiveReference
+{
+    public string name;
+    public bool isComplete;
+    public ObjectiveType objectiveType;
+
+    public ObjectiveReference(string _n, bool _c, ObjectiveType _t)
+    {
+        name = _n;
+        isComplete = _c;
+        objectiveType = _t;
+    }
 }
 
 public class RewardsManager : MonoBehaviour
@@ -94,36 +110,43 @@ public class RewardsManager : MonoBehaviour
     private GameObject sideHeader;
 
     [SerializeField]
-    List<ObjectiveBase> objectiveList;
+    List<ObjectiveReference> objRef = new List<ObjectiveReference>();
+
+    public void ClearObjRefs()
+    {
+        objRef.Clear();
+    }
+
+    public void AddObjRef(string _name, bool value, ObjectiveType type)
+    {
+        // int index = objRef.FindIndex(r => r.name == _name); // adjust property name as needed
+        // if (index >= 0)
+        // {
+        //     objRef[index] = new ObjectiveReference(_name, value, type);
+        // }
+        // else
+        // {
+        //     objRef.Add(new ObjectiveReference(_name, value, type));
+        // }
+        objRef.Add(new ObjectiveReference(_name, value, type));
+    }
 
     [SerializeField]
     int currentLevel = 0;
 
     public void SetCurrentLevel(int value) => currentLevel = value;
 
-    public void SetObjectiveList(List<ObjectiveBase> value) => objectiveList = value;
-
     void PopulateObjectiveSummary()
     {
         ClearObjectiveSummary();
-
-        Debug.Log($"PopulateObjectiveSummary: found {objectiveList.Count} objectives");
-
-        foreach (var objective in objectiveList)
+        foreach (var objective in objRef)
         {
-            Debug.Log(
-                $"  - {objective.GetDisplayName()} ({objective.GetObjectiveType()}), complete={objective.IsComplete()}"
-            );
-            if (objective.GetObjectiveType() == ObjectiveType.Main)
+            if (objective.objectiveType == ObjectiveType.Main)
             {
                 GameObject entry = Instantiate(objectiveEntryPrefab, mainObjectiveList);
                 entry
                     .GetComponent<ObjectiveSummaryEntryUI>()
-                    .Setup(
-                        objective.GetDisplayName(),
-                        objective.IsComplete(),
-                        objective.GetObjectiveType()
-                    );
+                    .Setup(objective.name, objective.isComplete, objective.objectiveType);
                 spawnedEntries.Add(entry);
             }
             else
@@ -131,21 +154,51 @@ public class RewardsManager : MonoBehaviour
                 GameObject entry = Instantiate(objectiveEntryPrefab, sideObjectiveList);
                 entry
                     .GetComponent<ObjectiveSummaryEntryUI>()
-                    .Setup(
-                        objective.GetDisplayName(),
-                        objective.IsComplete(),
-                        objective.GetObjectiveType()
-                    );
+                    .Setup(objective.name, objective.isComplete, objective.objectiveType);
                 spawnedEntries.Add(entry);
             }
         }
+        // foreach (var objective in objectiveList)
+        // {
+        //     // Debug.Log(
+        //     //     $"Rewards Manager: {objective.GetDisplayName()} ({objective.GetObjectiveType()}), complete={objective.IsComplete()}"
+        //     // );
+        //     if (objective.GetObjectiveType() == ObjectiveType.Main)
+        //     {
+        //         GameObject entry = Instantiate(objectiveEntryPrefab, mainObjectiveList);
+        //         entry
+        //             .GetComponent<ObjectiveSummaryEntryUI>()
+        //             .Setup(
+        //                 objective.GetDisplayName(),
+        //                 objective.IsComplete(),
+        //                 objective.GetObjectiveType()
+        //             );
+        //         spawnedEntries.Add(entry);
+        //     }
+        //     else
+        //     {
+        //         sideObjectives.Add(objective);
+        //         GameObject entry = Instantiate(objectiveEntryPrefab, sideObjectiveList);
+        //         entry
+        //             .GetComponent<ObjectiveSummaryEntryUI>()
+        //             .Setup(
+        //                 objective.GetDisplayName(),
+        //                 objective.IsComplete(),
+        //                 objective.GetObjectiveType()
+        //             );
+        //         spawnedEntries.Add(entry);
+        //     }
+        // }
     }
 
     void ClearObjectiveSummary()
     {
-        foreach (var entry in spawnedEntries)
-            Destroy(entry);
-        spawnedEntries.Clear();
+        if (spawnedEntries != null)
+        {
+            foreach (var entry in spawnedEntries)
+                Destroy(entry);
+            spawnedEntries.Clear();
+        }
     }
 
     public void SetPoints(int value)
@@ -194,7 +247,8 @@ public class RewardsManager : MonoBehaviour
 
     public void AnimateHide()
     {
-        Tween.Alpha(canvasGroup, hide).OnComplete(ResetValues);
+        Tween.Alpha(canvasGroup, hide);
+        ResetValues();
         ObjectiveManager.Instance.ResetValues();
     }
 
@@ -210,20 +264,22 @@ public class RewardsManager : MonoBehaviour
         pointsText.text = "0";
     }
 
+    public int GetSideObjectivesCount(List<ObjectiveReference> objectiveReferences)
+    {
+        return objectiveReferences.Count(o => o.objectiveType != ObjectiveType.Main);
+    }
+
     public void InitWin()
     {
         ClearStars();
-
-        if (ObjectiveManager.Instance.AreSideObjectivesComplete(objectiveList))
-            SetVisiblity(true);
-        else
-            SetVisiblity(false);
-
         PopulateObjectiveSummary();
-
+        // Debug.Log($"Objectives Count: found {objectiveList.Count} objectives");
+        // Debug.Log($"Side Obj Count: {sideObjectives.Count}");
         //With SideObjectives
-        if (ObjectiveManager.Instance.GetSideObjectivesCount(objectiveList) > 0)
+        // if (sideObjectives.Count > 0)
+        if (GetSideObjectivesCount(objRef) > 0)
         {
+            SetVisiblity(true);
             if (mainCompleted == true && sideCompleted == false)
                 TwoStarsWin();
             else if (mainCompleted == true && sideCompleted == true)
@@ -234,6 +290,7 @@ public class RewardsManager : MonoBehaviour
         //No Side Objectives
         else
         {
+            SetVisiblity(false);
             if (mainCompleted == true)
                 ThreeStarsWin();
             else
@@ -287,6 +344,7 @@ public class RewardsManager : MonoBehaviour
 
     public void ResetValues()
     {
+        Debug.Log("Rewards: Reset");
         HideCanvas();
         InputManager.Instance.EnableMechRotate();
         InputManager.Instance.EnableDebug();
@@ -296,7 +354,8 @@ public class RewardsManager : MonoBehaviour
 
         mainCompleted = false;
         sideCompleted = false;
-        objectiveList.Clear();
+        objRef.Clear();
+        objRef = new List<ObjectiveReference>();
 
         status.text = "";
         shadow.text = "";

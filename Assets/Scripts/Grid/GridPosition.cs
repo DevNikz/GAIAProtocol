@@ -17,11 +17,10 @@ public struct GridPosition : IEquatable<GridPosition>
 
     public override bool Equals(object obj)
     {
-        return obj is GridPosition position &&
-               x == position.x &&
-               z == position.z &&
-               floor == position.floor &&
-               isSelect == position.isSelect;
+        return obj is GridPosition position
+            && x == position.x
+            && z == position.z
+            && floor == position.floor;
     }
 
     public bool Equals(GridPosition other)
@@ -58,5 +57,4 @@ public struct GridPosition : IEquatable<GridPosition>
     {
         return new GridPosition(a.x - b.x, a.z - b.z, a.floor - b.floor);
     }
-
 }

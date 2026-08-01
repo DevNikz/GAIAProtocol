@@ -3687,9 +3687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3257018402312346064, guid: b385d5b93761f594ba3c8fc6df9196b1, type: 3}
       propertyPath: m_text
-      value: '8
-
-'
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4288943696593439286, guid: b385d5b93761f594ba3c8fc6df9196b1, type: 3}
       propertyPath: m_AnchorMax.y

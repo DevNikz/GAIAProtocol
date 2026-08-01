@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5911830735331028539}
-  bulletProjectilePrefab: {fileID: 1857274480836997060, guid: 6ecc27d7f9acb474282829c1da3ccb68, type: 3}
+  bulletProjectilePrefab: {fileID: 1857274480836997060, guid: 47d5321b13d775b4c908f09d7bca6a5c, type: 3}
   shootPointTransform: {fileID: 1851712076083264127}
   rifleTransform: {fileID: 3946208733812178113}
   swordTransform: {fileID: 9203017802875670059}
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9fd46f2bcd6814190c3bfd3e6e21ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invert: 1
+  invert: 0
 --- !u!1 &8937900485149711103
 GameObject:
   m_ObjectHideFlags: 0

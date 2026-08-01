@@ -17,6 +17,12 @@ public enum RangerTier
     TIER3,
 }
 
+public enum MechType
+{
+    WORKER,
+    RANGER,
+}
+
 public class MechManager : MonoBehaviour
 {
     public static MechManager Instance { get; private set; }
@@ -30,6 +36,32 @@ public class MechManager : MonoBehaviour
 
     [SerializeField]
     int rangerUnits;
+
+    [SerializeField]
+    List<bool> tierWorkerUnlockState = new List<bool> { true, false, false };
+
+    public bool GetTierWorkerUnlockState(int index)
+    {
+        return tierWorkerUnlockState[index];
+    }
+
+    public void SetTierWorkerUnlockState(bool value, int index)
+    {
+        tierWorkerUnlockState[index] = value;
+    }
+
+    [SerializeField]
+    List<bool> tierRangerUnlockState = new List<bool> { true, false, false };
+
+    public bool GetTierRangerUnlockState(int index)
+    {
+        return tierRangerUnlockState[index];
+    }
+
+    public void SetTierRangerUnlockState(bool value, int index)
+    {
+        tierRangerUnlockState[index] = value;
+    }
 
     [SerializeField]
     List<FriendlyUnitType> friendlyUnits = new List<FriendlyUnitType>();
@@ -195,10 +227,12 @@ public class MechManager : MonoBehaviour
         {
             case WorkerTier.TIER2:
                 SetCurrentTierWorkerObject(1);
+                SetTierWorkerUnlockState(true, 1);
                 break;
 
             case WorkerTier.TIER3:
                 SetCurrentTierWorkerObject(2);
+                SetTierWorkerUnlockState(true, 2);
                 break;
         }
     }
@@ -209,10 +243,12 @@ public class MechManager : MonoBehaviour
         {
             case RangerTier.TIER2:
                 SetCurrentTierRangerObject(1);
+                SetTierRangerUnlockState(true, 1);
                 break;
 
             case RangerTier.TIER3:
                 SetCurrentTierRangerObject(2);
+                SetTierRangerUnlockState(true, 2);
                 break;
         }
     }

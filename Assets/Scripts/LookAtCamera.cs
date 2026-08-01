@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-
-    [SerializeField] private bool invert;
-
+    [SerializeField]
+    private bool invert;
 
     private Transform cameraTransform;
-
 
     private void Awake()
     {
@@ -20,11 +18,19 @@ public class LookAtCamera : MonoBehaviour
     {
         if (invert)
         {
-            Vector3 dirToCamera = (cameraTransform.position - transform.position).normalized;
-            transform.LookAt(transform.position + dirToCamera * -1);
-        } else
-        {
-            transform.LookAt(cameraTransform);
+            transform.forward = -cameraTransform.forward;
         }
+        else
+        {
+            transform.forward = cameraTransform.forward;
+        }
+        // if (invert)
+        // {
+        //     Vector3 dirToCamera = (cameraTransform.position - transform.position).normalized;
+        //     transform.LookAt(transform.position + dirToCamera * -1);
+        // } else
+        // {
+        //     transform.LookAt(cameraTransform);
+        // }
     }
 }

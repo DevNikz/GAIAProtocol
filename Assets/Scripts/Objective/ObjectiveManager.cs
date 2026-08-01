@@ -69,12 +69,12 @@ public class ObjectiveManager : MonoBehaviour
 
     public void Register(ObjectiveBase objective)
     {
+        Debug.Log($"{objective.GetDisplayName()} | {objective.GetObjectiveIndex()}");
         int index = objective.GetObjectiveIndex();
         if (objectives.ContainsKey(index) && objectives[index] != objective)
             Debug.LogWarning(
                 $"ObjectiveManager: duplicate objective index {index} on '{objective.name}', overwriting previous entry."
             );
-
         objectives[index] = objective;
     }
 
@@ -127,7 +127,7 @@ public class ObjectiveManager : MonoBehaviour
         if (GetSideObjectivesCount() > 0)
         {
             return objectives
-                .Values.Where(o => o.GetObjectiveType() == ObjectiveType.Side)
+                .Values.Where(o => o != null && o.GetObjectiveType() == ObjectiveType.Side)
                 .All(o => o.IsComplete());
         }
         else
@@ -138,25 +138,24 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (GetSideObjectivesCount(value) > 0)
         {
-            return value.Any(o => o.GetObjectiveType() == ObjectiveType.Side);
+            return value
+                .Where(o => o != null && o.GetObjectiveType() == ObjectiveType.Side)
+                .All(o => o.IsComplete());
         }
         else
             return false;
     }
 
-    public bool HasSideObjectives()
-    {
-        return objectives.Values.Any(o => o.GetObjectiveType() == ObjectiveType.Side);
-    }
-
     public int GetSideObjectivesCount()
     {
-        return objectives.Values.Count(o => o.GetObjectiveType() == ObjectiveType.Side);
+        return objectives.Values.Count(o =>
+            o != null && o.GetObjectiveType() == ObjectiveType.Side
+        );
     }
 
     public int GetSideObjectivesCount(List<ObjectiveBase> objList)
     {
-        return objList.Count(o => o.GetObjectiveType() == ObjectiveType.Side);
+        return objList.Count(o => o != null && o.GetObjectiveType() != ObjectiveType.Main);
     }
 
     public int GetMainObjectivesCount()
@@ -184,139 +183,3 @@ public class ObjectiveManager : MonoBehaviour
             );
     }
 }
-
-/*
-public class ObjectiveManager : MonoBehaviour
-{
-    public static ObjectiveManager Instance { get; private set; }
-
-    [SerializeField]
-    public List<ObjectiveObject> objectivesList;
-
-    [SerializeField]
-    public int numObjectives;
-    private ObjectiveScreenUI objectiveScreenUI;
-
-    [SerializeField]
-    private bool areObjectivesDone;
-    bool currentlyInCutscene;
-
-    public bool IsInCutscene()
-    {
-        return currentlyInCutscene;
-    }
-
-    public void SetInCutscene(bool value)
-    {
-        currentlyInCutscene = value;
-    }
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-
-        objectiveScreenUI = GetComponent<ObjectiveScreenUI>();
-
-        //GameObject obj = GameObject.FindGameObjectWithTag("Default");
-    }
-
-    public void ResetSys()
-    {
-        areObjectivesDone = false;
-    }
-
-    public void ClearObjectives()
-    {
-        if (objectivesList != null)
-            objectivesList.Clear();
-        objectivesList = new List<ObjectiveObject>();
-        if (objectivesList != null)
-            objectivesList.Clear();
-    }
-
-    public void CheckComplete()
-    {
-        //bool hasFalse = myList.Any(item => item.IsComplete == false);
-        areObjectivesDone = objectivesList.All(item => item.isDone);
-        if (areObjectivesDone)
-        {
-            //ExtractionManager.Instance.SetExtraction();
-            switch (LevelManager.Instance.GetCurrentLevel())
-            {
-                case 1:
-                    HUBTransitioner.Instance.ExtractForest1();
-                    break;
-                case 2:
-                    HUBTransitioner.Instance.ExtractForest2();
-                    break;
-            }
-        }
-
-        // for(int i = 0; i < objectivesList.Count; i++)
-        // {
-        //     if(objectivesList[i].isDone != true)
-        //     {
-        //         areObjectivesDone = false;
-        //         //return;
-        //     }
-        //     else
-        //     {
-        //         areObjectivesDone = true;
-        //         ExtractionManager.Instance.SetExtraction();
-        //         return;
-        //     }
-        // }
-    }
-
-    public bool CheckCompleteBool()
-    {
-        for (int i = 0; i < objectivesList.Count; i++)
-        {
-            if (objectivesList[i].isDone != true)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void AddObjective(ObjectiveObject obj)
-    {
-        objectivesList.Add(obj);
-        numObjectives = objectivesList.Count;
-    }
-
-    public int GetObjectiveCount()
-    {
-        return numObjectives;
-    }
-
-    public bool CheckIndex(int index)
-    {
-        return objectivesList[index] != null;
-    }
-
-    public void SetComplete(int index)
-    {
-        objectivesList[index].isDone = true;
-        objectiveScreenUI.SetToggleUI(index);
-        CheckComplete();
-    }
-
-    public bool GetComplete(int index)
-    {
-        return objectivesList[index].isDone;
-    }
-
-    public bool GetObjectiveDone()
-    {
-        return areObjectivesDone;
-    }
-}
-*/

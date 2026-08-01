@@ -151,6 +151,12 @@ public class ToxicPuddle : MonoBehaviour
         status.Apply(turnsRemaining: 2, slowAmount: 0.5f);
     }
 
+    private void OnDestroy()
+    {
+        if (TurnSystem.Instance != null)
+            TurnSystem.Instance.OnTurnChanged -= OnTurnChanged;
+    }
+
     public void Expire()
     {
         TurnSystem.Instance.OnTurnChanged -= OnTurnChanged;

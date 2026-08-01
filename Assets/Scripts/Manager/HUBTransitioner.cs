@@ -34,6 +34,9 @@ public class HUBTransitioner : MonoBehaviour
     [SerializeField]
     bool hasInit = false;
 
+    [SerializeField]
+    int currentScene;
+
     public void SetFirstTimeArmory(bool value)
     {
         firstTimeArmory = value;
@@ -74,6 +77,10 @@ public class HUBTransitioner : MonoBehaviour
             armory = GameObject.FindGameObjectWithTag("Armory");
             armory.transform.Find("Content").gameObject.SetActive(false);
         }
+        else
+        {
+            Debug.Log("Couldnt find armory");
+        }
 
         if (GameObject.FindGameObjectWithTag("MechSelect") != null)
         {
@@ -101,8 +108,14 @@ public class HUBTransitioner : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        currentScene = scene.buildIndex;
         switch (scene.buildIndex)
         {
             case 0:

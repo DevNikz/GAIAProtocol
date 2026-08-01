@@ -847,7 +847,7 @@ MonoBehaviour:
   disableInteract: 0
   HasRadarScan: 0
   IsPump: 1
-  modifier: 2
+  modifier: 1
   pump: {fileID: 0}
   toxicPuddle: []
 --- !u!114 &5973390458613021651

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -67,43 +69,68 @@ public class ExtractionManager : MonoBehaviour
     //Win Condition
     public void InitButton(int index)
     {
-        extractButton
-            .GetComponent<Button>()
-            .onClick.AddListener(() =>
-            {
-                RewardsManager.Instance.SetMainCompleted(
-                    ObjectiveManager.Instance.AreMainObjectivesComplete()
-                );
-                RewardsManager.Instance.SetSideCompleted(
-                    ObjectiveManager.Instance.AreSideObjectivesComplete()
-                );
+        Button btn = extractButton.GetComponent<Button>();
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(() =>
+        {
+            StartCoroutine(InitExtraction(index));
+        });
+    }
 
-                var allObjectives = ObjectiveManager
-                    .Instance.GetAllObjectives()
-                    .Where(o => !(o is ObjectiveCounterTarget) || !(o is WastePileCollectible))
-                    .OrderBy(o => o.GetObjectiveType()) // Main (0) before Side (1)
-                    .ToList();
+    IEnumerator InitExtraction(int index)
+    {
+        RewardsManager.Instance.SetMainCompleted(
+            ObjectiveManager.Instance.AreMainObjectivesComplete()
+        );
+        RewardsManager.Instance.SetSideCompleted(
+            ObjectiveManager.Instance.AreSideObjectivesComplete()
+        );
 
-                RewardsManager.Instance.SetObjectiveList(allObjectives);
+        List<ObjectiveBase> allObjectives = new List<ObjectiveBase>();
+        allObjectives = ObjectiveManager
+            .Instance.GetAllObjectives()
+            .Where(o => !(o is ObjectiveCounterTarget || o is WastePileCollectible))
+            .OrderBy(o => o.GetObjectiveType()) // Main (0) before Side (1)
+            .ToList();
 
-                SoundManager.Instance.PlaySFX("Extract");
-                switch (index)
-                {
-                    case 1: //Forest 1
-                        HUBTransitioner.Instance.ExtractForest1();
-                        break;
-                    case 2: //Forest 1
-                        HUBTransitioner.Instance.ExtractForest2();
-                        break;
-                    case 3: //Forest 1
-                        HUBTransitioner.Instance.ExtractForest3();
-                        break;
-                    case 4: //Forest 1
-                        HUBTransitioner.Instance.ExtractForest4();
-                        break;
-                }
+        Debug.Log(
+            $"Extraction Manager: allObjectives count = {allObjectives.Count}, unique names = {allObjectives.Select(o => o.GetDisplayName()).Distinct().Count()}"
+        );
 
-                SetButtonVisible(false);
-            });
+        RewardsManager.Instance.ClearObjRefs();
+
+        foreach (var objective in allObjectives)
+        {
+            // Debug.Log(
+            //     $"Extraction Manager: {objective.GetDisplayName()} ({objective.GetObjectiveType()}), complete={objective.IsComplete()}"
+            // );
+
+            RewardsManager.Instance.AddObjRef(
+                objective.GetDisplayName(),
+                objective.IsComplete(),
+                objective.GetObjectiveType()
+            );
+        }
+
+        SoundManager.Instance.PlaySFX("Extract");
+
+        yield return new WaitForSeconds(0.5f);
+        switch (index)
+        {
+            case 1: //Forest 1
+                HUBTransitioner.Instance.ExtractForest1();
+                break;
+            case 2: //Forest 1
+                HUBTransitioner.Instance.ExtractForest2();
+                break;
+            case 3: //Forest 1
+                HUBTransitioner.Instance.ExtractForest3();
+                break;
+            case 4: //Forest 1
+                HUBTransitioner.Instance.ExtractForest4();
+                break;
+        }
+
+        SetButtonVisible(false);
     }
 }

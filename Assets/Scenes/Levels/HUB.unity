@@ -8024,10 +8024,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "- Same as Tier 1.\n\n- <color=#67f575>Melee Attack Ability</color>\r\n\r\n-
-    <color=#9bd1de>Faster Objective Interaction</color> \r\n\r\n- <color=#9bd1de>Faster
-    Movement Speed</color> \r\n\r\n- <color=#9bd1de>+1 Turns</color> \r\n\r\n- <color=#9bd1de>+20
-    HP</color> \r\n"
+  m_text: "- Same as Tier 1.\r\n\r\n- <color=#9bd1de>35% Interaction Efficiency</color>
+    \r\n\r\n- <color=#9bd1de>5 Movement Range</color> \r\n\r\n- <color=#9bd1de>6
+    Turns</color> \r\n\r\n- <color=#9bd1de>+20 HP (120 HP)</color> \r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
   m_sharedMaterial: {fileID: -1858928407591654208, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
@@ -8551,6 +8550,7 @@ GameObject:
   - component: {fileID: 884896608}
   - component: {fileID: 884896607}
   - component: {fileID: 884896606}
+  - component: {fileID: 884896613}
   m_Layer: 5
   m_Name: Tier 3_Ranger
   m_TagString: Untagged
@@ -8785,6 +8785,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884896604}
   m_CullTransparentMesh: 1
+--- !u!114 &884896613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884896604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56ead9448785c7488ee9471040e1970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeButtonController
+  tier: 2
+  type: 1
+  Cost: {fileID: 1333572162}
+  Unlocked: {fileID: 2122199273}
+  button: {fileID: 884896606}
+  button2: {fileID: 0}
 --- !u!1 &887747451
 GameObject:
   m_ObjectHideFlags: 0
@@ -10251,6 +10269,7 @@ GameObject:
   - component: {fileID: 1053438830}
   - component: {fileID: 1053438829}
   - component: {fileID: 1053438839}
+  - component: {fileID: 1053438840}
   m_Layer: 5
   m_Name: Tier 3_Worker
   m_TagString: Untagged
@@ -10485,6 +10504,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1053438840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053438827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56ead9448785c7488ee9471040e1970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeButtonController
+  tier: 2
+  type: 0
+  Cost: {fileID: 1013599230}
+  Unlocked: {fileID: 1943097275}
+  button: {fileID: 1053438839}
+  button2: {fileID: 0}
 --- !u!1 &1056732969
 GameObject:
   m_ObjectHideFlags: 0
@@ -10653,9 +10690,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "- Same as Tier 1.\n\n- <color=#67f575>Plasma Rifle</color>\r\n\r\n- <color=#9bd1de>Faster
-    Movement Speed</color>\r\n\r\n- <color=#9bd1de>+20 HP</color>  \r\n\r\n- <color=#9bd1de>+1
-    Turns</color> "
+  m_text: "- Same as Tier 1.\n\n- <color=#67f575>Plasma Rifle (+5 min/max dmg)</color>\r\n\r\n-
+    <color=#9bd1de>5 Movement Range</color>\r\n\r\n- <color=#9bd1de>+20 HP (120 HP)</color> 
+    \r\n\r\n- <color=#9bd1de>6 Turns</color> "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
   m_sharedMaterial: {fileID: -1858928407591654208, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
@@ -11514,6 +11551,7 @@ GameObject:
   - component: {fileID: 1181603658}
   - component: {fileID: 1181603657}
   - component: {fileID: 1181603667}
+  - component: {fileID: 1181603668}
   m_Layer: 5
   m_Name: Tier 2_Worker
   m_TagString: Untagged
@@ -11760,6 +11798,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &1181603668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181603655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56ead9448785c7488ee9471040e1970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeButtonController
+  tier: 1
+  type: 0
+  Cost: {fileID: 547633491}
+  Unlocked: {fileID: 996202515}
+  button: {fileID: 1181603667}
+  button2: {fileID: 1053438839}
 --- !u!1 &1195973013
 GameObject:
   m_ObjectHideFlags: 0
@@ -12477,8 +12533,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "- Same as Tier 2.\r\n\r\n- <color=#67f575>Corruption Resist</color>\r\n\r\n-
-    <color=#9bd1de>Increased Attack Range</color> \r\n\r\n- <color=#9bd1de>Increased
-    Attack Damage</color> \r\n\r\n- <color=#9bd1de>+2 Turns</color> \r\n"
+    <color=#9bd1de>9 Attack Range</color> \r\n\r\n- <color=#9bd1de>8 Min / 15 Max
+    Damage (+Plasma)</color> \r\n\r\n- <color=#9bd1de>8 Turns</color> \r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
   m_sharedMaterial: {fileID: -1858928407591654208, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
@@ -12574,6 +12630,7 @@ GameObject:
   - component: {fileID: 1268492219}
   - component: {fileID: 1268492218}
   - component: {fileID: 1268492217}
+  - component: {fileID: 1268492224}
   m_Layer: 5
   m_Name: Tier 2_Ranger
   m_TagString: Untagged
@@ -12820,6 +12877,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268492215}
   m_CullTransparentMesh: 1
+--- !u!114 &1268492224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268492215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56ead9448785c7488ee9471040e1970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeButtonController
+  tier: 1
+  type: 1
+  Cost: {fileID: 1735741235}
+  Unlocked: {fileID: 241361796}
+  button: {fileID: 1268492217}
+  button2: {fileID: 884896606}
 --- !u!1 &1277669679
 GameObject:
   m_ObjectHideFlags: 0
@@ -13502,11 +13577,12 @@ MonoBehaviour:
 
 
 
-    - Standarad Armor
+    - Standarad Armor (100 HP)
 
 
 
-    - Moderate Movement Speed'
+    - 4 Movement
+    Range'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
   m_sharedMaterial: {fileID: -1858928407591654208, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
@@ -13983,7 +14059,7 @@ MonoBehaviour:
 
 
     -
-    Moderate Movement Speed
+    4 Movement Range
 
 '
   m_isRightToLeft: 0
@@ -20262,8 +20338,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "- Same as Tier 2.\r\n\r\n- <color=#67f575>Regen Health Ability</color>\r\n\r\n-
-    <color=#9bd1de>Faster Objective Interaction</color> \r\n\r\n- <color=#9bd1de>Faster
-    Movement Speed</color> \r\n\r\n- <color=#9bd1de>+2 Turns</color> \r\n"
+    <color=#9bd1de>45% Interaction Efficiency</color> \n\n- <color=#9bd1de>6 Movement
+    Range</color> \n\n- <color=#9bd1de>8 Turns</color> \n\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b94443698d30bd3488ce43f75ade518a, type: 2}
   m_sharedMaterial: {fileID: -1858928407591654208, guid: b94443698d30bd3488ce43f75ade518a, type: 2}

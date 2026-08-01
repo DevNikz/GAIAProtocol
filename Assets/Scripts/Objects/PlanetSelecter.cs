@@ -248,118 +248,193 @@ public class PlanetSelecter : MonoBehaviour
                 RewardsManager.Instance.SetPoints(15);
                 break;
             case 1:
-                canvas.SetActive(true);
-                missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nShutdown The Pump";
-                missionDesc.text = "Shutdown the oil pump to stop the pipes from leaking.";
-
-                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                nullButton.SetActive(false);
-                if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                if (WorldManager.Instance.GetUnlockStateIndex(1))
                 {
-                    levelComplete.SetActive(true);
-                    button.SetActive(false);
-                    SetupClearedArea(1);
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Operation\nShutdown The Pump";
+                    missionDesc.text = "Shutdown the oil pump to stop the pipes from leaking.";
+
+                    //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                    nullButton.SetActive(false);
+                    if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                    {
+                        levelComplete.SetActive(true);
+                        button.SetActive(false);
+                        SetupClearedArea(1);
+                    }
+                    else
+                    {
+                        levelComplete.SetActive(false);
+                        button.SetActive(true);
+                        button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                    }
+
+                    //Add objective details later on
+                    nullState.SetActive(false);
+                    DestroyChildren(stateContainer);
+                    AddChildren(stateIcons[2], stateContainer); //Oil Pump
+
+                    rewardContainer.SetActive(true);
+                    nullReward.SetActive(false);
+                    hasAddedChildren = true;
+
+                    //Set Level
+                    LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                    //Set Max Prompted Points on Completion
+                    CurrencyManager.Instance.SetPromptedPoints(15);
+                    RewardsManager.Instance.SetPoints(15);
                 }
                 else
                 {
+                    //Lock this first
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Locked Operation";
+                    missionDesc.text = "Classified Data.";
+
                     levelComplete.SetActive(false);
-                    button.SetActive(true);
-                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                    button.SetActive(false);
+                    nullButton.SetActive(true);
+
+                    //State
+                    DestroyChildren(stateContainer);
+                    nullState.SetActive(true);
+
+                    //Reward
+                    rewardContainer.SetActive(false);
+                    nullReward.SetActive(true);
+                    CurrencyManager.Instance.SetPromptedPoints(0);
+                    RewardsManager.Instance.SetPoints(0);
                 }
-
-                //Add objective details later on
-                nullState.SetActive(false);
-                DestroyChildren(stateContainer);
-                AddChildren(stateIcons[2], stateContainer); //Oil Pump
-
-                rewardContainer.SetActive(true);
-                nullReward.SetActive(false);
-                hasAddedChildren = true;
-
-                //Set Level
-                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
-
-                //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(15);
-                RewardsManager.Instance.SetPoints(15);
                 break;
             case 2:
-                canvas.SetActive(true);
-                missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nRestore Point Charlie";
-                missionDesc.text =
-                    "Recover all the waste piles and dump them into the target site.";
-
-                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                nullButton.SetActive(false);
-                if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                if (WorldManager.Instance.GetUnlockStateIndex(2))
                 {
-                    levelComplete.SetActive(true);
-                    button.SetActive(false);
-                    SetupClearedArea(2);
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Operation\nRestore Point Charlie";
+                    missionDesc.text =
+                        "Recover all the waste piles and dump them into the target site.";
+
+                    //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                    nullButton.SetActive(false);
+                    if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                    {
+                        levelComplete.SetActive(true);
+                        button.SetActive(false);
+                        SetupClearedArea(2);
+                    }
+                    else
+                    {
+                        levelComplete.SetActive(false);
+                        button.SetActive(true);
+                        button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                    }
+
+                    //Add objective details later on
+                    nullState.SetActive(false);
+                    DestroyChildren(stateContainer);
+                    AddChildren(stateIcons[3], stateContainer); //Waste Piles (Chemical)
+                    AddChildren(stateIcons[4], stateContainer); //Waste Dump (Chemical)
+
+                    rewardContainer.SetActive(true);
+                    nullReward.SetActive(false);
+                    hasAddedChildren = true;
+
+                    //Set Level
+                    LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                    //Set Max Prompted Points on Completion
+                    CurrencyManager.Instance.SetPromptedPoints(15);
+                    RewardsManager.Instance.SetPoints(15);
                 }
                 else
                 {
+                    //Lock this first
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Locked Operation";
+                    missionDesc.text = "Classified Data.";
+
                     levelComplete.SetActive(false);
-                    button.SetActive(true);
-                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                    button.SetActive(false);
+                    nullButton.SetActive(true);
+
+                    //State
+                    DestroyChildren(stateContainer);
+                    nullState.SetActive(true);
+
+                    //Reward
+                    rewardContainer.SetActive(false);
+                    nullReward.SetActive(true);
+                    CurrencyManager.Instance.SetPromptedPoints(0);
+                    RewardsManager.Instance.SetPoints(0);
                 }
-
-                //Add objective details later on
-                nullState.SetActive(false);
-                DestroyChildren(stateContainer);
-                AddChildren(stateIcons[3], stateContainer); //Waste Piles (Chemical)
-                AddChildren(stateIcons[4], stateContainer); //Waste Dump (Chemical)
-
-                rewardContainer.SetActive(true);
-                nullReward.SetActive(false);
-                hasAddedChildren = true;
-
-                //Set Level
-                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
-
-                //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(15);
-                RewardsManager.Instance.SetPoints(15);
                 break;
             case 3:
-                canvas.SetActive(true);
-                missionImage.sprite = levelIcons[currentIndex];
-                missionHeader.text = "Operation\nChelonia Subjugation";
-                missionDesc.text =
-                    "Subjugate the Chelonia, then gather its corrupted samples before extraction.";
-
-                //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
-                nullButton.SetActive(false);
-                if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                if (WorldManager.Instance.GetUnlockStateIndex(3))
                 {
-                    levelComplete.SetActive(true);
-                    button.SetActive(false);
-                    SetupClearedArea(3);
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Operation\nChelonia Subjugation";
+                    missionDesc.text =
+                        "Subjugate the Chelonia, then gather its corrupted samples before extraction.";
+
+                    //button.GetComponent<ChangeLevelButton>().sceneName = "Forest 1";
+                    nullButton.SetActive(false);
+                    if (WorldManager.Instance.GetWorldComplete(currentIndex))
+                    {
+                        levelComplete.SetActive(true);
+                        button.SetActive(false);
+                        SetupClearedArea(3);
+                    }
+                    else
+                    {
+                        levelComplete.SetActive(false);
+                        button.SetActive(true);
+                        button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                    }
+
+                    //Add objective details later on
+                    nullState.SetActive(false);
+                    DestroyChildren(stateContainer);
+                    AddChildren(stateIcons[5], stateContainer); //Waste Piles (Chemical)
+
+                    rewardContainer.SetActive(true);
+                    nullReward.SetActive(false);
+                    hasAddedChildren = true;
+
+                    //Set Level
+                    LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
+
+                    //Set Max Prompted Points on Completion
+                    CurrencyManager.Instance.SetPromptedPoints(15);
+                    RewardsManager.Instance.SetPoints(15);
                 }
                 else
                 {
+                    //Lock this first
+                    canvas.SetActive(true);
+                    missionImage.sprite = levelIcons[currentIndex];
+                    missionHeader.text = "Locked Operation";
+                    missionDesc.text = "Classified Data.";
+
                     levelComplete.SetActive(false);
-                    button.SetActive(true);
-                    button.GetComponent<ChangeLevelButton>().sceneIndex = currentIndex + 1;
+                    button.SetActive(false);
+                    nullButton.SetActive(true);
+
+                    //State
+                    DestroyChildren(stateContainer);
+                    nullState.SetActive(true);
+
+                    //Reward
+                    rewardContainer.SetActive(false);
+                    nullReward.SetActive(true);
+                    CurrencyManager.Instance.SetPromptedPoints(0);
+                    RewardsManager.Instance.SetPoints(0);
                 }
-
-                //Add objective details later on
-                nullState.SetActive(false);
-                DestroyChildren(stateContainer);
-                AddChildren(stateIcons[5], stateContainer); //Waste Piles (Chemical)
-
-                rewardContainer.SetActive(true);
-                nullReward.SetActive(false);
-                hasAddedChildren = true;
-
-                //Set Level
-                LevelManager.Instance.SetCurrentLevel(currentIndex + 1);
-
-                //Set Max Prompted Points on Completion
-                CurrencyManager.Instance.SetPromptedPoints(15);
-                RewardsManager.Instance.SetPoints(15);
                 break;
             case 4:
                 //Lock this first

@@ -172,11 +172,11 @@ public class UnitActionSystemUI : MonoBehaviour
             {
                 foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
                 {
-                    //INTERACT
-                    if (actionButtonUI.GetActionName() == "Interact")
-                    {
-                        actionButtonUI.ChangeActionPointText();
-                    }
+                    // //INTERACT
+                    // if (actionButtonUI.GetActionName() == "Interact")
+                    // {
+                    //     actionButtonUI.ChangeActionPointText();
+                    // }
                 }
             }
             else

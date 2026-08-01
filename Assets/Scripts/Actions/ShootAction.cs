@@ -72,6 +72,7 @@ public class ShootAction : BaseAction
         switch (state)
         {
             case State.Aiming:
+
                 Vector3 aimDir = (
                     targetUnit.GetWorldPosition() - unit.GetWorldPosition()
                 ).normalized;
@@ -123,6 +124,7 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
+        SoundManager.Instance.PlaySFX("Shoot");
         OnAnyShoot?.Invoke(
             this,
             new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit }
@@ -133,7 +135,12 @@ public class ShootAction : BaseAction
             new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit }
         );
 
-        targetUnit.Damage(UnityEngine.Random.Range(minDamage, maxDamage));
+        if (hasPlasmaRifle)
+        {
+            targetUnit.Damage(UnityEngine.Random.Range(minDamage + 5, maxDamage + 5));
+        }
+        else
+            targetUnit.Damage(UnityEngine.Random.Range(minDamage, maxDamage));
     }
 
     public override string GetActionName()

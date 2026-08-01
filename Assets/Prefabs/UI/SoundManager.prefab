@@ -320,7 +320,7 @@ MonoBehaviour:
     loop: 1
   - name: Forest
     clip: {fileID: 8300000, guid: 4be58b148fce7aa429baf8a8ade8761c, type: 3}
-    volume: 0.35
+    volume: 0.25
     pitch: 0
     loop: 1
   - name: Select
@@ -386,6 +386,11 @@ MonoBehaviour:
   - name: Harvest
     clip: {fileID: 8300000, guid: b88aceb3b635f23458e58639bab06528, type: 3}
     volume: 0.35
+    pitch: 0
+    loop: 0
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 1b159ffd4eff1ee4da1b2bf61e442481, type: 3}
+    volume: 0.3
     pitch: 0
     loop: 0
 --- !u!1 &7976336273388742977
