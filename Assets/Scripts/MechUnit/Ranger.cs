@@ -22,17 +22,23 @@ public class RangerScriptableObject : ScriptableObject, IUnitStats
             + $"Damage: {minAttackDamage}-{maxAttackDamage}";
 
         if (hasPlasmaRifle)
-            stats += "\nPlasma Rifle";
+            stats += "\n[Plasma Rifle]";
         if (hasCorruptionResist)
-            stats += "\nCorruption Resist";
+            stats += " | [Corruption Resist]";
 
+        stats += "\n";
+        stats += "\nACTIONS";
+        stats += "\n----------------------";
+        stats += "\n- Move Action";
+        stats += "\n- Shoot Action";
+        stats += "\n- Repair Action";
         stats += "\n";
         stats += "\nThe Standard Armed Unit of the GAIA PROTOCOL.";
         stats += "\n";
         stats += "\nCapable of <color=#b3fbff>Dealing Damage</color> against corrupted lifeforms.";
-        stats += "\n";
-        stats +=
-            "\nHowever, this is <color=red>incapable</color> of <color=red>slaying Kaijus</color>, but they can <color=yellow>stagger</color> them when dealt enough damage.";
+        // stats += "\n";
+        // stats +=
+        //     "\nHowever, this is <color=red>incapable</color> of <color=red>slaying Kaijus</color>, but they can <color=yellow>stagger</color> them when dealt enough damage.";
 
         return stats;
     }

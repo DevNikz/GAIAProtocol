@@ -18,19 +18,22 @@ public class WorkerScriptableObject : ScriptableObject, IUnitStats
             + $"Move Range: {moveRange}\n"
             + $"Interact Efficiency: {interactEfficiency:P0}";
 
-        if (hasMeleeAttack)
-            stats += "\nMelee Attack";
+        stats += "\n";
+        stats += "\nACTIONS";
+        stats += "\n----------------------";
+        stats += "\n- Move Action";
+        stats += "\n- Interact Action";
+        stats += "\n- Repair Action";
         if (hasRegenHealth)
-            stats += "\nHealth Regen";
-
+            stats += "\nHealing Salvo Action";
         stats += "\n";
         stats += "\nThe Standard Unarmed Unit of the GAIA PROTOCOL.";
         stats += "\n";
         stats +=
             "\nCapable of <color=#b3fbff>interaction</color> with points of interests and objectives.";
-        stats += "\n";
-        stats +=
-            "\nThis is <color=red>incapable</color> of dealing damage against <color=red>Kaijus</color>. Be warned as they are quite vulnerable.";
+        // stats += "\n";
+        // stats +=
+        //     "\nThis is <color=red>incapable</color> of dealing damage against <color=red>Kaijus</color>. Be warned as they are quite vulnerable.";
 
         return stats;
     }
