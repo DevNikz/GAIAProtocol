@@ -2,14 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.ProceduralImage;
 
+[RequireComponent(typeof(Image))]
 public class HUDMarkerTargetUI : MonoBehaviour
 {
     [SerializeField]
     private Image LinkedImage;
 
+    private Image markerImage;
+
+    [SerializeField]
     private HUDMarkerInWorldTarget LinkedTarget;
-    private bool isObjective;
+    private ObjectiveBase objective;
     private RectTransform HUDMarkerRect;
+
+    [SerializeField]
     private int LinkedIndex; //For objective
     private Camera cam;
 
@@ -17,12 +23,24 @@ public class HUDMarkerTargetUI : MonoBehaviour
     private float CachedFOV_Vertical = -1;
     private float CachedAspectRatio = -1f;
 
-    public void Bind(HUDMarkerInWorldTarget _Target, Sprite _Image, bool _Objective, int _Index = 0)
+    public void Bind(
+        HUDMarkerInWorldTarget _Target,
+        Sprite _Image,
+        ObjectiveBase _Objective,
+        int _Index,
+        Color _Color
+    )
     {
         LinkedTarget = _Target;
         LinkedImage.sprite = _Image;
-        isObjective = _Objective;
+        objective = _Objective;
         LinkedIndex = _Index;
+        LinkedImage.color = _Color;
+    }
+
+    void Awake()
+    {
+        markerImage = GetComponent<Image>();
     }
 
     void Start()
@@ -31,30 +49,19 @@ public class HUDMarkerTargetUI : MonoBehaviour
         cam = Camera.main;
         //cam = ObjectTransManager.Instance.GetMainCamera();
 
-        if (!isObjective)
-        {
-            GetComponent<Image>().enabled = false;
-            LinkedImage.enabled = false;
-        }
+        // if (!isObjective)
+        // {
+        //     markerImage.enabled = false;
+        //     LinkedImage.enabled = false;
+        // }
     }
 
     public void UpdatePosition()
     {
-        if (isObjective)
+        if (ShouldDestroyMarker())
         {
-            if (LinkedTarget == null || ObjectiveManager.Instance.GetComplete(LinkedIndex))
-            {
-                Destroy(gameObject);
-                return;
-            }
-        }
-        else
-        {
-            if (LinkedTarget == null)
-            {
-                Destroy(gameObject);
-                return;
-            }
+            Destroy(gameObject);
+            return;
         }
 
         var viewportPos = cam.WorldToViewportPoint(LinkedTarget.transform.position);
@@ -73,6 +80,26 @@ public class HUDMarkerTargetUI : MonoBehaviour
         {
             OffScreenRepositionMarker();
         }
+    }
+
+    bool ShouldDestroyMarker()
+    {
+        if (LinkedTarget == null || !LinkedTarget.isActiveAndEnabled)
+            return true;
+
+        if (objective == null)
+            return true;
+
+        if (objective.IsComplete())
+            return true;
+
+        if (objective is ObjectiveCounterTarget counterTarget && counterTarget.HasBeenCollected)
+            return true;
+
+        if (objective is ObjectiveInteractFill && ObjectiveManager.Instance != null)
+            return ObjectiveManager.Instance.GetComplete(LinkedIndex);
+
+        return false;
     }
 
     void Update()

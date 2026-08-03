@@ -28,8 +28,11 @@ public class ObjectiveCounter : ObjectiveBase
             return;
 
         currentCount = Mathf.Min(targetCount, currentCount + amount);
+        ObjectiveManager.Instance.NotifyProgress(GetObjectiveIndex());
 
         if (currentCount >= targetCount)
+        {
             CompleteObjective();
+        }
     }
 }

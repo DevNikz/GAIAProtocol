@@ -9,23 +9,13 @@ public class HUDMarkerInWorldTarget : MonoBehaviour
     private ObjectiveBase obj;
 
     [SerializeField]
-    private bool isObjective;
+    private Color color = default;
+
+    [SerializeField]
+    private Vector3 scale = Vector3.one;
 
     void Start()
     {
-        if (isObjective)
-        {
-            HUDMarkerManager.Instance.AddMarker(
-                this,
-                HUDSprite,
-                isObjective,
-                obj.GetObjectiveIndex()
-            );
-        }
-        else
-        {
-            HUDMarkerManager.Instance.AddMarker(this, HUDSprite, isObjective);
-        }
-        //HUDMarkerManager.Instance.AddMarker(this, HUDSprite, isObjective, worldUI.GetObjectiveIndex());
+        HUDMarkerManager.Instance.AddMarker(this, HUDSprite, obj, scale, color);
     }
 }

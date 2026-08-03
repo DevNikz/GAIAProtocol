@@ -28,9 +28,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
     [SerializeField]
     bool HasRadarScan = false;
 
-    [SerializeField]
-    bool IsPump = false;
-
     [SerializeField, Range(1f, 10f)]
     float modifier = 1.0f;
 
@@ -45,12 +42,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         RegisterOnGrid();
         if (HasRadarScan)
             radarScan = GetComponent<RadarScanEffect>();
-        if (IsPump)
-        {
-            pump = GetComponent<PumpjackAnimator>();
-            if (pipeID != "")
-                oilManager.BeginOverflow(pipeID);
-        }
 
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
@@ -93,12 +84,6 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
                 {
                     if (HasRadarScan)
                         radarScan.TriggerScan(transform.position);
-
-                    if (IsPump)
-                    {
-                        pump.SetEnabled(false);
-                        CleanPipeline();
-                    }
 
                     UnregisterFromGrid();
 
@@ -162,6 +147,8 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         percentage += percentageAdd * modifier;
         timer = 0.5f;
 
+        ObjectiveManager.Instance.NotifyProgress(GetObjectiveIndex());
+
         if (percentage >= 1.0f)
         {
             SoundManager.Instance.PlaySFX("ObjectiveComplete");
@@ -192,7 +179,7 @@ public class ObjectiveInteractFill : ObjectiveBase, IInteractable
         {
             for (int z = minZ; z <= maxZ; z++)
             {
-                GridPosition gridPosition = new GridPosition(x, z, 0);
+                GridPosition gridPosition = new(x, z, 0);
 
                 LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
                 LevelGrid.Instance.SetIngameObjectAtGridPosition(gridPosition, this.gameObject);

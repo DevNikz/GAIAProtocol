@@ -82,10 +82,9 @@ public class PlanetSelecter : MonoBehaviour
     {
         ClearAreas();
         SetupCorruptedArea(0);
-        // SetupCorruptedArea(1);
-        // SetupCorruptedArea(2);
-        // SetupCorruptedArea(3);
-        //SetupLockedArea(3);
+        // WorldManager.Instance.SetUnlockStateIndex(1, true);
+        // WorldManager.Instance.SetUnlockStateIndex(2, true);
+        // WorldManager.Instance.SetUnlockStateIndex(3, true);
 
         //Turn this on later
         if (WorldManager.Instance.GetUnlockStateIndex(1))

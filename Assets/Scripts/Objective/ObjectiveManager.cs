@@ -14,6 +14,7 @@ public class ObjectiveManager : MonoBehaviour
     private bool isInCutscene;
 
     public static event Action<int> OnObjectiveCompleted;
+    public static event Action<int, float> OnObjectiveProgressChanged;
 
     [SerializeField]
     bool mainCompleted;
@@ -101,6 +102,13 @@ public class ObjectiveManager : MonoBehaviour
 
     public bool GetComplete(int index) => completedIndices.Contains(index);
 
+    public void NotifyProgress(int index)
+    {
+        var objective = GetObjective(index);
+        if (objective != null)
+            OnObjectiveProgressChanged?.Invoke(index, objective.GetProgress());
+    }
+
     public bool IsInCutscene() => isInCutscene;
 
     public void SetInCutscene(bool value) => isInCutscene = value;
@@ -108,7 +116,11 @@ public class ObjectiveManager : MonoBehaviour
     public ObjectiveBase GetObjective(int index) =>
         objectives.TryGetValue(index, out var objective) ? objective : null;
 
-    public float GetProgress(int index) => GetObjective(index)?.GetProgress() ?? 0f;
+    public float GetProgress(int index)
+    {
+        ObjectiveBase objective = GetObjective(index);
+        return objective != null ? objective.GetProgress() : 0f;
+    }
 
     public IEnumerable<ObjectiveBase> GetActiveObjectives() =>
         objectives.Values.Where(o => !o.IsComplete());

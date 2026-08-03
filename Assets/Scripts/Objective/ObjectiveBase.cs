@@ -10,16 +10,18 @@ public enum ObjectiveType
 
 public abstract class ObjectiveBase : MonoBehaviour
 {
-    [SerializeField]
-    private Transform mergedGridVisualPrefab; // a 1x1 unit quad, same material/style as your normal grid tiles
-    private Transform mergedGridVisualInstance;
-    protected List<GridPosition> occupiedGridPositions = new List<GridPosition>();
+    protected List<GridPosition> occupiedGridPositions = new();
 
     // ObjectiveBase.cs (addition)
     [SerializeField]
     private string displayName = "Objective";
 
     public virtual string GetDisplayName() => displayName;
+
+    [SerializeField]
+    private Sprite icon; // shown in the HUD objective entry
+
+    public virtual Sprite GetIcon() => icon;
 
     [SerializeField]
     protected int objectiveIndex;
@@ -56,6 +58,12 @@ public abstract class ObjectiveBase : MonoBehaviour
         {
             ObjectiveManager.Instance.Unregister(this);
         }
+    }
+
+    protected virtual void NotifyProgressChanged()
+    {
+        if (ObjectiveManager.Instance != null)
+            ObjectiveManager.Instance.NotifyProgress(objectiveIndex);
     }
 
     protected virtual void CompleteObjective()
@@ -122,31 +130,5 @@ public abstract class ObjectiveBase : MonoBehaviour
         }
         if (occupiedGridPositions != null)
             occupiedGridPositions.Clear();
-    }
-
-    protected virtual void SetupMergedGridVisual()
-    {
-        Bounds bounds = GetObjectiveBounds();
-
-        if (mergedGridVisualInstance == null)
-            mergedGridVisualInstance = Instantiate(mergedGridVisualPrefab);
-
-        Vector3 center = bounds.center;
-        mergedGridVisualInstance.position = new Vector3(
-            center.x,
-            mergedGridVisualInstance.position.y,
-            center.z
-        );
-        mergedGridVisualInstance.localScale = new Vector3(bounds.size.x, 1f, bounds.size.z);
-        mergedGridVisualInstance.gameObject.SetActive(false);
-    }
-
-    protected virtual void TeardownMergedGridVisual()
-    {
-        if (mergedGridVisualInstance != null)
-        {
-            Destroy(mergedGridVisualInstance.gameObject);
-            mergedGridVisualInstance = null;
-        }
     }
 }

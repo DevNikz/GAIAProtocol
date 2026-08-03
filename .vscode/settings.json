@@ -1,75 +1,37 @@
 {
     "files.exclude": {
-        "**/.DS_Store": true,
-        "**/.git": true,
-        "**/.vs": true,
-        "**/.gitmodules": true,
-        "**/.vsconfig": true,
-        "**/*.booproj": true,
-        "**/*.pidb": true,
-        "**/*.suo": true,
-        "**/*.user": true,
-        "**/*.userprefs": true,
-        "**/*.unityproj": true,
-        "**/*.dll": true,
-        "**/*.exe": true,
-        "**/*.pdf": true,
-        "**/*.mid": true,
-        "**/*.midi": true,
-        "**/*.wav": true,
-        "**/*.gif": true,
-        "**/*.ico": true,
-        "**/*.jpg": true,
-        "**/*.jpeg": true,
-        "**/*.png": true,
-        "**/*.psd": true,
-        "**/*.tga": true,
-        "**/*.tif": true,
-        "**/*.tiff": true,
-        "**/*.3ds": true,
-        "**/*.3DS": true,
-        "**/*.fbx": true,
-        "**/*.FBX": true,
-        "**/*.lxo": true,
-        "**/*.LXO": true,
-        "**/*.ma": true,
-        "**/*.MA": true,
-        "**/*.obj": true,
-        "**/*.OBJ": true,
-        "**/*.asset": true,
-        "**/*.cubemap": true,
-        "**/*.flare": true,
-        "**/*.mat": true,
         "**/*.meta": true,
-        "**/*.prefab": true,
-        "**/*.unity": true,
-        "build/": true,
-        "Build/": true,
-        "Library/": true,
-        "library/": true,
-        "obj/": true,
-        "Obj/": true,
-        "Logs/": true,
-        "logs/": true,
-        "ProjectSettings/": true,
-        "UserSettings/": true,
-        "temp/": true,
-        "Temp/": true
+        "**/Library": true,
+        "**/Temp": true,
+        "**/obj": true,
+        "**/Logs": true,
+        "**/Build": true,
+        "**/.vs": true
     },
-    "files.associations": {
-        "*.asset": "yaml",
-        "*.meta": "yaml",
-        "*.prefab": "yaml",
-        "*.unity": "yaml"
+    "search.exclude": {
+        "**/*.meta": true,
+        "**/*.csproj": true,
+        "**/*.sln": true,
+        "**/Library": true,
+        "**/Temp": true,
+        "**/obj": true,
+        "**/Logs": true,
+        "**/Build": true,
+        "**/.vs": true
     },
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.sln": "*.csproj"
+    "files.watcherExclude": {
+        "**/Library/**": true,
+        "**/Temp/**": true,
+        "**/obj/**": true,
+        "**/Logs/**": true,
+        "**/Build/**": true
     },
-    "dotnet.defaultSolution": "GAIAProtocol.slnx",
+    "dotnet.defaultSolution": "GAIAProtocol.sln",
+    "dotrush.roslyn.projectOrSolutionFiles": [
+        "d:\\UnityProj\\GAIAProtocol\\GAIAProtocol.sln"
+    ],
+    "editor.formatOnSave": true,
     "[csharp]": {
-        "editor.defaultFormatter": "csharpier.csharpier-vscode",
         "editor.formatOnSave": true
-    }
-
+    },
 }

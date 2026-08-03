@@ -909,8 +909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f3dc271a4ee3b48b73fee299fb22a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KaijuObjective
-  mergedGridVisualPrefab: {fileID: 0}
   displayName: Chelonia Subjugation
+  icon: {fileID: -594264963, guid: 51152db36fce2524a8c8ce3741a03828, type: 3}
   objectiveIndex: 6
   objectiveDesc: Subjugate the Chelonia, then gather its corrupted samples before
     extraction.
@@ -5845,7 +5845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerInWorldTarget
   HUDSprite: {fileID: -594264963, guid: 51152db36fce2524a8c8ce3741a03828, type: 3}
   obj: {fileID: 6552335618023805185}
-  isObjective: 1
+  color: {r: 1, g: 0.78039217, b: 0.2, a: 1}
+  scale: {x: 1, y: 1, z: 1}
 --- !u!1 &6095726551264584274
 GameObject:
   m_ObjectHideFlags: 0

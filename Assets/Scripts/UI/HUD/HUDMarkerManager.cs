@@ -6,7 +6,10 @@ public class HUDMarkerManager : MonoBehaviour
     public static HUDMarkerManager Instance { get; private set; }
 
     [SerializeField]
-    private GameObject MarkerPrefab;
+    private GameObject mainMarkerPrefab;
+
+    [SerializeField]
+    private GameObject sideMarkerPrefab;
 
     [SerializeField]
     private Transform MarkerRoot;
@@ -50,11 +53,39 @@ public class HUDMarkerManager : MonoBehaviour
     public void AddMarker(
         HUDMarkerInWorldTarget target,
         Sprite image,
-        bool isObjective,
-        int index = 0
+        ObjectiveBase objective,
+        Vector3 scale,
+        Color color
     )
     {
-        var newMarker = Instantiate(MarkerPrefab, Vector3.zero, Quaternion.identity, MarkerRoot);
-        newMarker.GetComponent<HUDMarkerTargetUI>().Bind(target, image, isObjective, index);
+        if (objective != null)
+        {
+            if (objective.GetObjectiveType() == ObjectiveType.Main)
+            {
+                var newMarker = Instantiate(
+                    mainMarkerPrefab,
+                    Vector3.zero,
+                    Quaternion.identity,
+                    MarkerRoot
+                );
+                newMarker.GetComponent<RectTransform>().localScale = scale;
+                newMarker
+                    .GetComponent<HUDMarkerTargetUI>()
+                    .Bind(target, image, objective, objective.GetObjectiveIndex(), color);
+            }
+            else
+            {
+                var newMarker = Instantiate(
+                    sideMarkerPrefab,
+                    Vector3.zero,
+                    Quaternion.identity,
+                    MarkerRoot
+                );
+                newMarker.GetComponent<RectTransform>().localScale = scale;
+                newMarker
+                    .GetComponent<HUDMarkerTargetUI>()
+                    .Bind(target, image, objective, objective.GetObjectiveIndex(), color);
+            }
+        }
     }
 }

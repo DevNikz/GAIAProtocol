@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(ObjectiveBase))]
 public class ObjectiveWorldUI : MonoBehaviour
 {
     [SerializeField]
@@ -21,13 +22,10 @@ public class ObjectiveWorldUI : MonoBehaviour
 
         if (objective == null)
         {
-            var counterTarget = GetComponent<ObjectiveCounterTarget>();
-            if (counterTarget != null)
+            if (TryGetComponent<ObjectiveCounterTarget>(out var counterTarget))
                 objective = counterTarget.GetSharedObjective();
-
-            // var wastePile = GetComponent<WastePileCollectible>();
-            // if (wastePile != null)
-            //     objective = wastePile.GetSharedObjective();
+            else if (TryGetComponent<ObjectivePumpFill>(out var pumpFill))
+                objective = pumpFill.GetSharedObjective();
         }
     }
 

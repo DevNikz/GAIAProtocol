@@ -35,7 +35,7 @@ Material:
   - _NORMALMAP
   - _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2475
   stringTagMap:
@@ -75,12 +75,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DiffuseMap:
+        m_Texture: {fileID: 2800000, guid: b1a94e87d983f4c4ab7e5780bc729494, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissiveColorMap:
         m_Texture: {fileID: 2800000, guid: 659b5c317f255db418b896da96111835, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveMap:
-        m_Texture: {fileID: 2800000, guid: 659b5c317f255db418b896da96111835, type: 3}
+        m_Texture: {fileID: 2800000, guid: b1a94e87d983f4c4ab7e5780bc729494, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -108,7 +112,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 0ccd10ccc077a56428324ec1802e9ac2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3198b4122a54fd846b1a66ea7cb393b3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -197,7 +201,7 @@ Material:
     - _DstBlend2: 0
     - _EdgeIntensity: 3
     - _EdgeWidth: 0.03
-    - _EmissionIntensity: 1.75
+    - _EmissionIntensity: 1
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 0.25
     - _EmissiveIntensity: 8
@@ -225,7 +229,7 @@ Material:
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
-    - _MainIntensity: 1
+    - _MainIntensity: 0.25
     - _MaterialID: 1
     - _MaterialTypeMask: 2
     - _Metallic: 0
@@ -234,6 +238,7 @@ Material:
     - _Mode: 0
     - _NormalMapSpace: 0
     - _NormalScale: 1
+    - _NormalStrength: 1
     - _ObjectSpaceUVMapping: 0
     - _ObjectSpaceUVMappingEmissive: 0
     - _OcclusionStrength: 1
@@ -296,11 +301,11 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.31248856, g: 1, b: 0, a: 1}
-    - _Color: {r: 0.31248853, g: 1, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
-    - _EdgeColor: {r: 0.23487401, g: 1, b: 0, a: 1}
+    - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 8, b: 0.029894687, a: 8}
     - _EmissiveColorLDR: {r: 0, g: 1, b: 0.047753334, a: 1}

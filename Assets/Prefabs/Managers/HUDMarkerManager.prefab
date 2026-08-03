@@ -151,7 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029244f1c32a76e4ab707501f8f30cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDMarkerManager
-  MarkerPrefab: {fileID: 7855964873649935005, guid: b518548d9ff4f6947af8010a988a345f, type: 3}
+  mainMarkerPrefab: {fileID: 7855964873649935005, guid: b518548d9ff4f6947af8010a988a345f, type: 3}
+  sideMarkerPrefab: {fileID: 7855964873649935005, guid: b622783d780bcf04dbdafbc83794731b, type: 3}
   MarkerRoot: {fileID: 7244099244712055568}
 --- !u!225 &6805594323234105130
 CanvasGroup:

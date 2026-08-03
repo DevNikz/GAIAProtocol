@@ -23,6 +23,8 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
     public ObjectiveBase GetSharedObjective() =>
         ObjectiveManager.Instance.GetObjective(objectiveIndex);
 
+    public bool HasBeenCollected => hasBeenCollected;
+
     void Start()
     {
         RegisterOnGrid();
@@ -58,24 +60,7 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
 
     protected override void OnEnable() { }
 
-    protected override void OnDisable()
-    {
-        // if (ObjectiveManager.Instance != null)
-        // {
-        //     ObjectiveManager.Instance.Unregister(this);
-        // }
-        //TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
-    }
-
-    // private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
-    // {
-    //     if (!TurnSystem.Instance.IsPlayerTurn())
-    //     {
-    //         isBeingInteracted = false;
-    //         // if (!isComplete)
-    //         //     LevelGrid.Instance.SetInteractableAtGridPosition(gridPosition, this);
-    //     }
-    // }
+    protected override void OnDisable() { }
 
     public void Interact(Action onInteractionComplete)
     {
@@ -115,7 +100,11 @@ public class ObjectiveCounterTarget : ObjectiveBase, IInteractable
 
     public void Interact(Action onInteractionComplete, float percentageAdd) { }
 
-    public override float GetProgress() => GetSharedObjective()?.GetProgress() ?? 0f;
+    public override float GetProgress()
+    {
+        ObjectiveBase objective = GetSharedObjective();
+        return objective != null ? objective.GetProgress() : 0f;
+    }
 
     public void Interact(Action onInteractionComplete, Unit unit)
     {

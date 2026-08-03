@@ -32,6 +32,10 @@ public class WastePileCollectible : ObjectiveBase, IInteractable
         }
     }
 
+    protected override void OnEnable() { }
+
+    protected override void OnDisable() { }
+
     public override float GetProgress() => hasBeenCollected ? 1f : 0f;
 
     public void Interact(Action onInteractionComplete) { }
@@ -46,11 +50,11 @@ public class WastePileCollectible : ObjectiveBase, IInteractable
             return;
         }
 
-        var counter = GetSharedObjective() as ObjectiveCounter;
+        var counter = GetSharedObjective() as WasteDumpObjective;
         if (counter == null)
         {
             Debug.LogWarning(
-                $"ObjectiveCounterTarget on '{name}' couldn't find an ObjectiveCounter registered with index {objectiveIndex}. Make sure one exists in the scene.",
+                $"WastePileCollectible on '{name}' couldn't find an ObjectiveCounter registered with index {objectiveIndex}. Make sure one exists in the scene.",
                 this
             );
             return;
@@ -66,7 +70,6 @@ public class WastePileCollectible : ObjectiveBase, IInteractable
         }
         SoundManager.Instance.PlaySFX("Harvest");
         hasBeenCollected = true;
-        counter.Increment(1);
         UnregisterFromGrid();
         gameObject.SetActive(false);
         onInteractionComplete?.Invoke();
@@ -75,4 +78,6 @@ public class WastePileCollectible : ObjectiveBase, IInteractable
     /// <summary>Used by ObjectiveWorldUI to find what progress to display for this instance.</summary>
     public ObjectiveBase GetSharedObjective() =>
         ObjectiveManager.Instance.GetObjective(objectiveIndex);
+
+    public override Sprite GetIcon() => GetSharedObjective().GetIcon();
 }

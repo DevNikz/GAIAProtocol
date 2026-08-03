@@ -16,13 +16,10 @@ public class MoveAction : BaseAction
 
     public List<Vector3> pathL;
 
-    [SerializeField]
     public LineRenderer Path;
 
-    [SerializeField]
     public float heightOffset;
 
-    [SerializeField]
     public int maxMoveDistance = 4;
 
     public void SetMoveDist(int value)
@@ -30,7 +27,7 @@ public class MoveAction : BaseAction
         maxMoveDistance = value;
     }
 
-    [SerializeField, Range(0.1f, 10f)]
+    [Range(0.1f, 10f)]
     public float moveSpeed = 5f;
 
     [SerializeField]
@@ -96,7 +93,7 @@ public class MoveAction : BaseAction
                 Time.deltaTime * rotateSpeed
             );
 
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            transform.position += moveSpeed * Time.deltaTime * moveDirection;
             //Debug.Log($"{pathL}");
         }
 
@@ -200,7 +197,7 @@ public class MoveAction : BaseAction
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
+        List<GridPosition> validGridPositionList = new();
 
         GridPosition unitGridPosition = unit.GetGridPosition();
 
@@ -213,7 +210,7 @@ public class MoveAction : BaseAction
                     if (Mathf.Abs(x) + Mathf.Abs(z) + Mathf.Abs(floor) > maxMoveDistance)
                         continue;
 
-                    GridPosition offsetGridPosition = new GridPosition(x, z, floor);
+                    GridPosition offsetGridPosition = new(x, z, floor);
                     GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                     if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
