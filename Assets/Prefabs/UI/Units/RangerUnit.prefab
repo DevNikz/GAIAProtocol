@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 8503925569623453525}
   - component: {fileID: 7159804266717941438}
   - component: {fileID: 992888806345476913}
+  - component: {fileID: 6320957350940698816}
   m_Layer: 5
   m_Name: RangerUnit
   m_TagString: UnitUI
@@ -240,6 +241,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a966d77fb2b36c40acb2c9757af8ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechSelectUI
+  type: 1
+  unitData: {fileID: 0}
+  cardUI: {fileID: 6320957350940698816}
+--- !u!114 &6320957350940698816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852860422806903382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bb3fbd34ebd844ba80807e9f69307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitCardUI
+  titleText: {fileID: 2483778720877463421}
+  descriptionText: {fileID: 8985352548491955913}
 --- !u!1 &3420380273946406611
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +500,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 223.9}
+  m_SizeDelta: {x: 225, y: 223.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2419808584206578213
 CanvasRenderer:
@@ -548,11 +566,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17.05
+  m_fontSize: 17.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 8
+  m_fontSizeMin: 7
   m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 1

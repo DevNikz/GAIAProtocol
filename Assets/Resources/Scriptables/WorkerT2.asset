@@ -16,5 +16,5 @@ MonoBehaviour:
   actionPoints: 6
   moveRange: 5
   interactEfficiency: 0.35
-  hasMeleeAttack: 1
+  hasMeleeAttack: 0
   hasRegenHealth: 0

@@ -2,8 +2,36 @@ using UnityEngine;
 
 public class MechSelectUI : MonoBehaviour
 {
-
     public FriendlyUnitType type;
+
+    [Header("Stat Display")]
+    public ScriptableObject unitData; // Assign the Worker or Ranger asset here
+    public UnitCardUI cardUI; // Assign the UnitCardUI on this card
+
+    private void OnEnable()
+    {
+        if (MechManager.Instance != null)
+        {
+            if (type == FriendlyUnitType.WORKER)
+            {
+                unitData = MechManager.Instance.GetCurrentTierWorkerObject();
+            }
+            else
+            {
+                unitData = MechManager.Instance.GetCurrentTierRangerObject();
+            }
+        }
+        RefreshCardDisplay();
+    }
+
+    private void RefreshCardDisplay()
+    {
+        if (unitData is IUnitStats stats && cardUI != null)
+        {
+            cardUI.Display(type.ToString(), stats);
+        }
+    }
+
     public void RemoveWorkerUnit()
     {
         SoundManager.Instance.PlaySFX("Delete");

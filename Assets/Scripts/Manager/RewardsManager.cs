@@ -119,15 +119,6 @@ public class RewardsManager : MonoBehaviour
 
     public void AddObjRef(string _name, bool value, ObjectiveType type)
     {
-        // int index = objRef.FindIndex(r => r.name == _name); // adjust property name as needed
-        // if (index >= 0)
-        // {
-        //     objRef[index] = new ObjectiveReference(_name, value, type);
-        // }
-        // else
-        // {
-        //     objRef.Add(new ObjectiveReference(_name, value, type));
-        // }
         objRef.Add(new ObjectiveReference(_name, value, type));
     }
 
@@ -158,37 +149,6 @@ public class RewardsManager : MonoBehaviour
                 spawnedEntries.Add(entry);
             }
         }
-        // foreach (var objective in objectiveList)
-        // {
-        //     // Debug.Log(
-        //     //     $"Rewards Manager: {objective.GetDisplayName()} ({objective.GetObjectiveType()}), complete={objective.IsComplete()}"
-        //     // );
-        //     if (objective.GetObjectiveType() == ObjectiveType.Main)
-        //     {
-        //         GameObject entry = Instantiate(objectiveEntryPrefab, mainObjectiveList);
-        //         entry
-        //             .GetComponent<ObjectiveSummaryEntryUI>()
-        //             .Setup(
-        //                 objective.GetDisplayName(),
-        //                 objective.IsComplete(),
-        //                 objective.GetObjectiveType()
-        //             );
-        //         spawnedEntries.Add(entry);
-        //     }
-        //     else
-        //     {
-        //         sideObjectives.Add(objective);
-        //         GameObject entry = Instantiate(objectiveEntryPrefab, sideObjectiveList);
-        //         entry
-        //             .GetComponent<ObjectiveSummaryEntryUI>()
-        //             .Setup(
-        //                 objective.GetDisplayName(),
-        //                 objective.IsComplete(),
-        //                 objective.GetObjectiveType()
-        //             );
-        //         spawnedEntries.Add(entry);
-        //     }
-        // }
     }
 
     void ClearObjectiveSummary()
@@ -247,6 +207,7 @@ public class RewardsManager : MonoBehaviour
 
     public void AnimateHide()
     {
+        SoundManager.Instance.PlaySFX("Return");
         Tween.Alpha(canvasGroup, hide);
         ResetValues();
         ObjectiveManager.Instance.ResetValues();
@@ -273,10 +234,7 @@ public class RewardsManager : MonoBehaviour
     {
         ClearStars();
         PopulateObjectiveSummary();
-        // Debug.Log($"Objectives Count: found {objectiveList.Count} objectives");
-        // Debug.Log($"Side Obj Count: {sideObjectives.Count}");
-        //With SideObjectives
-        // if (sideObjectives.Count > 0)
+
         if (GetSideObjectivesCount(objRef) > 0)
         {
             SetVisiblity(true);

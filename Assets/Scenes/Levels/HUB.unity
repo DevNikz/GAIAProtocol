@@ -3871,6 +3871,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechSelectUI
   type: 0
+  unitData: {fileID: 0}
+  cardUI: {fileID: 0}
 --- !u!114 &388101718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32685,6 +32687,8 @@ GameObject:
   - component: {fileID: 75617429069773001}
   - component: {fileID: 5433452919475995179}
   - component: {fileID: 1058292617700708767}
+  - component: {fileID: 7535074607005314140}
+  - component: {fileID: 7535074607005314139}
   m_Layer: 5
   m_Name: DefaultUnit
   m_TagString: UnitUI
@@ -33014,6 +33018,7 @@ GameObject:
   - component: {fileID: 2443691283868145013}
   - component: {fileID: 8770395176451547100}
   - component: {fileID: 8770395176451547099}
+  - component: {fileID: 8770395176451547101}
   m_Layer: 5
   m_Name: SelectWorker
   m_TagString: Untagged
@@ -39540,6 +39545,7 @@ GameObject:
   - component: {fileID: 936742147997735929}
   - component: {fileID: 7368592588727180357}
   - component: {fileID: 7368592588727180356}
+  - component: {fileID: 7368592588727180358}
   m_Layer: 5
   m_Name: SelectRanger
   m_TagString: Untagged
@@ -39835,7 +39841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a966d77fb2b36c40acb2c9757af8ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechSelectUI
-  type: 0
+  type: 1
+  unitData: {fileID: 0}
+  cardUI: {fileID: 7368592588727180358}
 --- !u!114 &7368592588727180357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39848,6 +39856,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ac4b75224360744b13366dd77fc6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUBLevelController
+--- !u!114 &7368592588727180358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7021658922542038713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bb3fbd34ebd844ba80807e9f69307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitCardUI
+  titleText: {fileID: 8027173146259805963}
+  descriptionText: {fileID: 4892511267031879092}
 --- !u!224 &7449975582221659612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39992,6 +40014,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2889494810046203508}
   m_CullTransparentMesh: 1
+--- !u!114 &7535074607005314139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889494810046203508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a966d77fb2b36c40acb2c9757af8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MechSelectUI
+  type: 0
+  unitData: {fileID: 0}
+  cardUI: {fileID: 7535074607005314140}
+--- !u!114 &7535074607005314140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889494810046203508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bb3fbd34ebd844ba80807e9f69307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitCardUI
+  titleText: {fileID: 2427804232131075653}
+  descriptionText: {fileID: 2792694505932869556}
 --- !u!224 &7565800243839091641
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40748,6 +40799,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechSelectUI
   type: 0
+  unitData: {fileID: 0}
+  cardUI: {fileID: 8770395176451547101}
 --- !u!114 &8770395176451547100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40760,6 +40813,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ac4b75224360744b13366dd77fc6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUBLevelController
+--- !u!114 &8770395176451547101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343192419675832302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bb3fbd34ebd844ba80807e9f69307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitCardUI
+  titleText: {fileID: 5261263980717018216}
+  descriptionText: {fileID: 6530651506205298539}
 --- !u!224 &8861869420449245688
 RectTransform:
   m_ObjectHideFlags: 0

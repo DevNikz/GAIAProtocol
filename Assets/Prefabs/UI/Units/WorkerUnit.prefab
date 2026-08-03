@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3546618436944302236}
   - component: {fileID: 7302531755031222416}
   - component: {fileID: 2493297917735265152}
+  - component: {fileID: 7102300944924215774}
   m_Layer: 5
   m_Name: WorkerUnit
   m_TagString: UnitUI
@@ -166,6 +167,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechSelectUI
   type: 0
+  unitData: {fileID: 0}
+  cardUI: {fileID: 7102300944924215774}
+--- !u!114 &7102300944924215774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866258096979642008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bb3fbd34ebd844ba80807e9f69307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitCardUI
+  titleText: {fileID: 6241771562690264172}
+  descriptionText: {fileID: 3525788151701103069}
 --- !u!1 &3130620652877838096
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +462,7 @@ GameObject:
   - component: {fileID: 1636715384340106593}
   - component: {fileID: 3525788151701103069}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Desc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,7 +485,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 223.9}
+  m_SizeDelta: {x: 225, y: 223.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1636715384340106593
 CanvasRenderer:
@@ -538,7 +555,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 8
+  m_fontSizeMin: 7
   m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -741,7 +758,7 @@ GameObject:
   - component: {fileID: 8469879448202539044}
   - component: {fileID: 6241771562690264172}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

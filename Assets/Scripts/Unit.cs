@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class Unit : MonoBehaviour
 {
+    [Header("Grid Footprint")]
+    [SerializeField]
+    private Collider footprintCollider; // leave null for normal 1x1 units; assign on Kaiju for its multi-tile footprint
+
     private const int ACTION_POINTS_MAX = 4;
 
     public static event EventHandler OnAnyActionPointsChanged;
@@ -33,6 +37,67 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     UnitWorldUI unitWorldUI;
+
+    private List<GridPosition> occupiedGridPositions = new();
+    private readonly Dictionary<GridPosition, bool> footprintOriginalWalkable = new();
+
+    private List<GridPosition> GetFootprintGridPositions()
+    {
+        List<GridPosition> positions = new List<GridPosition>();
+
+        if (footprintCollider == null)
+        {
+            positions.Add(LevelGrid.Instance.GetGridPosition(transform.position));
+            return positions;
+        }
+
+        Bounds bounds = footprintCollider.bounds;
+
+        GridPosition minGridPosition = LevelGrid.Instance.GetGridPosition(bounds.min);
+        GridPosition maxGridPosition = LevelGrid.Instance.GetGridPosition(bounds.max);
+
+        int minX = Mathf.Min(minGridPosition.x, maxGridPosition.x);
+        int maxX = Mathf.Max(minGridPosition.x, maxGridPosition.x);
+        int minZ = Mathf.Min(minGridPosition.z, maxGridPosition.z);
+        int maxZ = Mathf.Max(minGridPosition.z, maxGridPosition.z);
+
+        for (int x = minX; x <= maxX; x++)
+        for (int z = minZ; z <= maxZ; z++)
+            positions.Add(new GridPosition(x, z, gridPosition.floor));
+
+        return positions;
+    }
+
+    private void RegisterOnGrid()
+    {
+        List<GridPosition> footprint = GetFootprintGridPositions();
+        footprintOriginalWalkable.Clear();
+
+        foreach (GridPosition gp in footprint)
+        {
+            footprintOriginalWalkable[gp] = Pathfinding.Instance.IsWalkableGridPosition(gp);
+
+            LevelGrid.Instance.AddUnitAtGridPosition(gp, this);
+            Pathfinding.Instance.SetIsWalkableGridPosition(gp, false);
+        }
+
+        occupiedGridPositions = footprint;
+    }
+
+    private void UnregisterFromGrid()
+    {
+        foreach (GridPosition gp in occupiedGridPositions)
+        {
+            LevelGrid.Instance.RemoveUnitAtGridPosition(gp, this);
+
+            bool restoreWalkable =
+                !footprintOriginalWalkable.TryGetValue(gp, out bool wasWalkable) || wasWalkable;
+            Pathfinding.Instance.SetIsWalkableGridPosition(gp, restoreWalkable);
+        }
+
+        occupiedGridPositions.Clear();
+        footprintOriginalWalkable.Clear();
+    }
 
     public bool HasCorruptionImmune()
     {
@@ -148,7 +213,8 @@ public class Unit : MonoBehaviour
         baseActionArray = GetComponents<BaseAction>();
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
+        RegisterOnGrid();
+        //LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         healthSystem.OnDead += HealthSystem_OnDead;
@@ -162,6 +228,7 @@ public class Unit : MonoBehaviour
     {
         TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
         healthSystem.OnDead -= HealthSystem_OnDead;
+        UnregisterFromGrid();
     }
 
     private void Update()
@@ -173,6 +240,9 @@ public class Unit : MonoBehaviour
             GridPosition oldGridPosition = gridPosition;
             gridPosition = newGridPosition;
 
+            UnregisterFromGrid();
+            RegisterOnGrid();
+
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
     }
@@ -182,9 +252,9 @@ public class Unit : MonoBehaviour
     {
         foreach (BaseAction baseAction in baseActionArray)
         {
-            if (baseAction is T)
+            if (baseAction is T t)
             {
-                return (T)baseAction;
+                return t;
             }
         }
         return null;
@@ -276,7 +346,8 @@ public class Unit : MonoBehaviour
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
         Debug.Log($"{name} is Dead");
-        LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        //LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        UnregisterFromGrid();
 
         //Destroy Friendly Units
         if (GetComponent<KaijuUnit>() == null)

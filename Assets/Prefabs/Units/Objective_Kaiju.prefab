@@ -650,9 +650,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51a89a7d61b7aa4dbbbb0c4ace41f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footprintCollider: {fileID: 3883194414219738599}
   isEnemy: 1
-  actionPoints: 4
-  customAP: 4
+  actionPoints: 5
+  customAP: 5
   hasCorruptionImmune: 1
   unitWorldUI: {fileID: 0}
 --- !u!65 &3883194414219738599
@@ -674,7 +675,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.6163541, z: 1.5}
+  m_Size: {x: 5, y: 2.59, z: 5}
   m_Center: {x: -0.031335443, y: 0.863177, z: -0.01836121}
 --- !u!114 &6058385777678608437
 MonoBehaviour:
@@ -6548,15 +6549,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3a40e2b033dd37d49ab284cae36b9207, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a40e2b033dd37d49ab284cae36b9207, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a40e2b033dd37d49ab284cae36b9207, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a40e2b033dd37d49ab284cae36b9207, type: 3}
       propertyPath: m_LocalPosition.x
